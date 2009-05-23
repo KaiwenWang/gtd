@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+.code{
+	color: #033;	
+	padding: 10px;
+}
+</style>
+</head>
+<body>
+<div id="content">
+<h1>GTD Walkthorough<h1>
+
+<h2>Controllers</h2>
+
+<p>Controllers are the pages called by the user.  Controllers:</p>
+
+<ul>
+	<li>get input from the $_GET and $_POST arrays</li>
+	<li>get data from the database using the models</li>
+	<li>pass the data to the views</li>
+	<li>paste the html from the views inside tokens in the templates.</li>
+</ul>
+
+<p>the basic controller pattern is:</p>
+
+<ul>
+	<li>require_once('main_controller_start.php');</li>
+	<li>write some code that gets some data from the models</li>
+	<li>pass that data to some views using the Render object</li>
+	<li>call the Template object and execute it, passing in all the HTML you have created</li>
+	<li>require_once('main_controller_end.php');</li>
+</ul>
+
+<p>require_once('main_controller_start.php') and require_once('main_controller_end.php') wrap your whole controller in the standard main template, as well as handle user authentication and other basic, site-wide stuff.  You controller would have to be a pretty special case not to have these includes (like the login page controller for example).</p>
+
+<p>So, a simple controller for a page that displays an editable table of all the projects belonging to a staff member and a form to add a new project would look like this:</p>
+
+<div class="code">
+  require_once('main_controller_start.php');
+<br>
+  $db = getDbcon();
+<br>
+  $r = getRenderer();
+<br>
+<br>
+  $staff = new Staff( $db, $_GET['staff_id']);
+<br>
+<br>
+  $finder = new Project($db);
+<br>
+  $projects = $finder->find( array('staff_id'=>$staff->id));
+<br>
+  $project_table_html = $r->view( 'editable_project_table', array( 'projects' => $projects, 'id'=> 'projects-by-staff', 'class'=> 'blue-border'));
+<br>
+  $new_project_form_html = $r->view( 'new_project_form', array( 'staff_id'=> $staff->id));
+<br>
+<br>
+  $title_html = 'Projects belonging to ' . $staff->getName();
+<br>
+  $main_html = "
+<br>
+
+&lt;div id='project-by-staff'&gt;<br />
+&lt;div id='project-table-container'&gt;$project_table_html&lt;/div&gt;<br />
+&lt;div id='new-project-container'&gt;'$new_project_form_html&lt;/div&gt;<br />
+&lt;/div&gt;<br />
+&quot;;<br>
+<br>
+  $tpl = new Template("template/standard_content_layout.html");
+<br>
+  $tpl = $tpl->execute( array(
+<br>
+	"title"	 => $title_html,
+<br>
+	"main"	  => $main_html,
+<br>
+	);
+<br>
+<br>
+  require_once('main_controller_end.php');
+<br>
+</div>
+
+<h2>Views</h2>
+
+<p>Views are simple functions that take in an array of arguments and return html.  Views ideally are written in such a way that they are easy to reuse in other situations.</p>
+
+<h2>Templates</h2>
+
+<p>Templates are flat HTML file ( or PHP files that echo their content) with tokens formated in the [[token name]] style.  The tokens are replaced with content passed to the template.  To do this, call a template using the Template class:  </p>
+
+<div class="code">
+  $tpl = new Template("template/my_template.html"); 
+<br>
+<br>
+</div>
+
+<p>Then, send an array of Tags => HTML_Data that </p>
+
+<div class="code">
+  $tpl = $tpl->execute( array(
+<br>
+	''menu" => $menu_html,
+<br>
+	"title"	 =>  'Graph of Current Projects',
+<br>
+	"main"	  => 'template/some_layout.html',
+<br>
+	"left_nav"  => $navigation_html;
+<br>
+	"graph"     => $graph_html;
+<br>
+	"projects_list"  => $current_projects_html;
+<br>
+	);
+<br>
+</div>
+
+<p>In this example, a template file called "my_template.html" would be read, and it's token [[menu]] replaced by the html in $menu_html.  Also, you can replace a token with another template.  So [[main]] is replaced by the content of the "template/some_layout.html" file.  Tokens in these templates that match any passed Tags will be replaced as well, so it's possible to have nested templates.  In this example, if "some_layout.html" has a token [[graph]] in it, [[graph]] will get replaced with $graph_html.  Templates are named 'something_template.html' when they have headers and body tags and 'something_layout.html' when they don't.</p>
+
+<h2>Models</h2>
+<p>Models mostly get data from the database, and have business logic that manipulates that data in some way.</p>
+
+<h2>Utilities</h2>
+<p>Utilities are useful helper functions.  For example, getDbcon() will create and return an ADODB connection with the database, getRenderer() will return a HtmlRenderer object to help write small bits of repetitive HTML, and getStaffer() will return the Staff object of the currently logged in staff member.</p>
+</div>
+</body>
+</html>

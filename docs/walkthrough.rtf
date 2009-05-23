@@ -1,0 +1,142 @@
+{\rtf1\ansi\ansicpg1252\cocoartf949\cocoasubrtf430
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 TimesNewRomanPSMT;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww21480\viewh14540\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\b\fs70 \cf0 \ul \ulc0 GTD Walkthrough
+\b0\fs30 \ulnone \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\b\fs42 \cf0 \ul Controllers\
+
+\b0\fs30 \ulnone \
+Controllers are the pages called by the user.  Controllers:\
+	-get input from the $_GET and $_POST arrays\
+	-get data from the database using the models\
+	-pass the data to the views\
+	-paste the html from the views inside tokens in the templates.\
+\
+the basic controller pattern is:\
+	-require_once('main_controller_start.php');\
+	-$r = getRenderer();\
+	-write some code that gets some data from the models\
+	-pass that data to some views and render them using $r->view( $view_function_name, $options_array)\
+	-combine or wrap some views with glue html if necessary\
+	-pick a template, passing in all the view HTML you have created along with the tags \
+	 for the tokens they will replace using $r->template($path_to_template, $tag_array)\
+	-require_once('main_controller_end.php');\
+\
+require_once('main_controller_start.php') and require_once('main_controller_end.php') wrap your whole controller in the standard main template, as well as handle user authentication and other basic, site-wide stuff.  You controller would have to be a pretty special case not to have these includes (like the login page controller for example).\
+\
+So, a simple controller for a page that displays an editable table of all the projects belonging to a staff member and a form to add a new project would look like this:\
+\
+<?php\
+require_once('main_controller_start.php');\
+$r = getRenderer();\
+\
+$staff = new Staff( $_GET['staff_id']);\
+\
+$finder = new Project( );\
+$projects = $finder->find( array('staff_id'=>$staff->id));\
+\
+$project_table_html = $r->view( 'editable_project_table', \
+                                            array(  'projects' => $projects, \
+                                                        'id'=> 'staff-projects', \
+                                                        'class'=> 'blue-border'));\
+                                                    \
+$new_project_form_html = $r->view( 'new_project_form', \
+                                                    array( 'staff_id'=> $staff->id));\
+\
+$title_html = 'Projects belonging to ' . $staff->getName();\
+\
+$main_html = "\
+    <div id='project-by-staff'>\
+        <div id='project-table-container'>$project_table_html</div>\
+        <div id='new-project-container'>'$new_project_form_html</div>\
+    </div>\
+";\
+\
+$tpl = $r->template("template/standard_content_layout.html",\
+                                 array( "title" => $title_html,\
+                                            "main"  => $main_html));\
+\
+require_once('main_controller_end.php');\
+?>\
+\
+
+\b\fs42 \ul Views\
+
+\b0\fs30 \ulnone \
+Views are simple functions that take in an array of arguments and return html.  Views ideally are written in such a way that they are easy to reuse in other situations.\
+\
+\
+
+\b\fs42 \ul Templates\
+
+\b0\fs30 \ulnone \
+Templates are flat HTML files with [[tokens]] to indicate where the dynamic content will go:\
+\
+<div>\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f1\fs32 \cf0   Welcome back, [[first name]] [[last name]] \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs30 \cf0 </div>
+\f1\fs32 \
+
+\f0\fs30 <div>
+\f1\fs32 \
+  Today's date is [[date]]
+\f0\fs30 \
+</div>\
+\
+To use templates, first create a Template object, passing in the path to a template file:  \
+\
+<?php\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f1\fs32 \cf0   $template = new Template("template/my_template.html"); \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs30 \cf0 ?>\
+\
+To get the final html, execute the template by passing it a list of tokens and their content:\
+\
+<?php\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f1\fs32 \cf0   $html = $template->execute( array(\
+	"menu" => $menu_html,\
+	"title"	 =>  'Graph of Current Projects',\
+	"main"	  => 'template/some_layout.html',\
+	"left_nav"  => $navigation_html;\
+	"graph"     => $graph_html;\
+	"projects_list"  => $current_projects_html;\
+	);\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs30 \cf0 ?>\
+\
+In this example, a template file called "my_template.html" would be read, and it's token [[menu]] replaced by the html in $menu_html.  Also, you can replace a token with another template.  So [[main]] is replaced by the content of the "template/some_layout.html" file.  Tokens in these templates work properly, so it's possible to have nested templates.  In this example, if "some_layout.html" has a token [[graph]] in it, [[graph]] will get replaced with $graph_html.  \
+\
+Templates are named 'something_template.html' when they have headers and body tags and 'something_layout.html' when they don't.\
+\
+\
+
+\b\fs42 \ul Models\
+
+\b0\fs30 \ulnone \
+Models mostly get data from the database, and have business logic that manipulates that data in some way.\
+\
+\
+
+\b\fs42 \ul Utilities\
+
+\b0\fs30 \ulnone \
+Utilities are useful helper functions.  For example, getDbcon() will create and return an ADODB connection with the database, getRenderer() will return a HtmlRenderer object to help write small bits of repetitive HTML, and getStaffer() will return the Staff object of the currently logged in staff member.\
+\
+\
+}
