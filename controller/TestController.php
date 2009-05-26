@@ -15,11 +15,14 @@ class TestController extends PageController {
         foreach($staff as $s){
         	$name = $s->getName();	
         }
-        $finder = new Project();
-        $projects = $finder->find( array( 'staff_id'=>$s->id));
-        #$projects = Project::getArray(array( 'staff_id'=>$s->id));
-        $html = $r->view('testView', $projects, array('id'=>'test'));
         
+		trigger_error('id:'.$s->id);
+   		$projects = getMany( 'Hour', array('staff_id'=>$s->id));
+#   		$projects = getMany( 'Project');
+#       $finder = new Project();
+#       $projects = $finder->find(array('staff_id'=>$s->id)); #status, company_id
+        $html = 'boo'.$r->view('hoursList', $projects, array('id'=>'test'));
+
         return $r->template('template/test_template.html',
         					array(
         					'name'=>$name,

@@ -37,8 +37,7 @@ class Estimate extends Gtd_Data_Item {
 		$hours = $this->getHours();
 		$billable_hours = 0;
 		foreach ($hours as $hour){
-			$billable_hours += $hour->getHours();
-			$billable_hours -= $hour->getDiscount();
+			$billable_hours += $hour->getBillableHours();
 		}
 		return $billable_hours;
 	}

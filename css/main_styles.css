@@ -1,0 +1,16 @@
+h1 {
+background:#669944 none repeat scroll 0 0;
+color:white;
+#sidemargin:0 0 6px;
+padding:9px 0 3px 6px;
+}
+#side{
+float:right;
+margin:0 35px 0 0;
+}
+#application{
+margin: 0 6px;
+}
+.basic_table{
+padding:20px;
+}

@@ -1,6 +1,6 @@
 <?php
 /**
-
+package @controller
 */
 class Bastard extends PageController {
     var $_class_name = 'Bastard';
@@ -14,7 +14,9 @@ class Bastard extends PageController {
     function get( $get = array()){
 		$r = getRenderer();
 		
-        $html = $r->view('testView', $view_data, array('id'=>'test'));
+        $html = $r->view('testView', $view_data, array('class'=>'test'));
     }
+	function post( $post = array()){
+	}
 }
 ?>

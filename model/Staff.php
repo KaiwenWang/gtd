@@ -8,6 +8,7 @@ class Staff extends Gtd_Data_Item {
 	var $name_field = "First_Name";
 	var $_class_name = "Staff";
 	var $_search_criteria_global = array( "modin = 65");
+	var $projects;
 
 	function Staff ( $id = null ) {
     	$this->__construct( $id );
@@ -20,6 +21,13 @@ class Staff extends Gtd_Data_Item {
 	function getName(){
 		$name = $this->getData('first_name').' '.$this->getData('last_name');
 		return $name;
+	}
+	function getProjects(){
+		if(!$this->projects){
+			$finder = new Project();
+			$this->projects = $finder->find( array("staff_id"=>$this->id));
+		}
+		return $this->projects;
 	}
 	function _adjustSetData($data) {
 		$this->legacyFieldName($data,'First_Name', "first_name" );

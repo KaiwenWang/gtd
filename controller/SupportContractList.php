@@ -15,11 +15,7 @@ class SupportContractList extends PageController {
 
         $html = $r->view('supportContractTable', $companies, array('id'=>'support_contract'));
           
-        return $r->template('template/test_template.html',
-                            array(
-                            'name'=>$name,
-                            'body'=>$html
-                            ));
-    }        
+		return $html;    
+	}
 }
 ?>

@@ -21,8 +21,10 @@ function getViewDirectory(){
 		'basicTable' => 'view/basic_table.php',
 		'hoursByEstimate' => 'view/hours_by_estimate.php',
 		'hoursForEstimate' => 'view/hours_for_estimate.php',
-		'paymentTable' => 'view/payment_table.php'
-
+		'paymentTable' => 'view/payment_table.php',
+		'basicListItem' => 'view/basic_list_item.php',
+		'hourListItem' => 'view/hour_list_item.php',
+		'hoursList' => 'view/hours_list.php'
     );
 }
 ?>

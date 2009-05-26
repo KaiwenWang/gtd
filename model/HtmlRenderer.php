@@ -20,16 +20,14 @@ class HtmlRenderer{
 	   $tpl = new Template( $template);
 	   return $tpl->execute( $tokens);
     }
-    function expandable( $small_html, $large_html, $options){
-        $html = "
-            <div class='small-expandable'>
-                $small_html
-            </div>
-            <div class='large-expandable'>
-                $large_html
-            </div>
-        ";
-        return $html;
+    function attr( $a = array()){
+		$html = '';
+    	if( $a['id']) $html .= 'id = "'.$a['id'].'" ';
+    	if( $a['class']) $html .= 'class = "'.$a['class'].'" ';
+    	if( $a['name']) $html .= 'name = "'.$a['name'].'" ';
+    	return $html;
+    }
+    function form(){
     }
 }
 ?>

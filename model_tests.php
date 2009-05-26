@@ -1,13 +1,10 @@
 <?php
 trigger_error("************* MODEL TESTS STARTING ***********");
-require_once( '../gtd_includes.php');
-require_once( 'simpletest/autorun.php');
-//$db = AMP_Registry::getDbcon( );
-#$db = getDbcon( );
+require_once('include/all_includes.php');
+require_once( 'test/simpletest/autorun.php');
 
 class testHour extends UnitTestCase {
 	function testGetters( ) {
-#		global $db;
         $id = 20973;
         $h = new Hour( $id);
         $this->assertEqual( $h->getHours( ), 99.5);
@@ -16,7 +13,6 @@ class testHour extends UnitTestCase {
 }
 class testEstimate extends UnitTestCase {
 	function testGetters( ) {
-#		global $db;
         $id = 20972;
         $e = new Estimate( $id);
 		$hours = $e->getHours();
@@ -33,7 +29,6 @@ class testEstimate extends UnitTestCase {
 }
 class testProject extends UnitTestCase {
 	function testGetters( ) {
-		#global $db;
         $id = 20971;
         $p = new Project(  $id);
 		$estimates= $p->getEstimates();
@@ -54,6 +49,11 @@ class testProject extends UnitTestCase {
 		foreach ($hours as $h){
 			$this->assertIsA($h, 'Hour');
 		}
+		$finder = new Project();
+		$projects = $finder->find( array('company_id'=> '20970'));
+		$this->assertIsA($projects,'array');
+		$this->assertEqual(count($projects),1);
+		
 		$this->assertEqual($p->getTotalHours(), 107); 
 		$this->assertEqual($p->getBillableHours(), 8.5);
 		$this->assertEqual($p->getLowEstimate(), 97.5);
@@ -62,7 +62,6 @@ class testProject extends UnitTestCase {
 }
 class testSupportContract extends UnitTestCase {
 	function testGetters( ) {
-		global $db;
         $id = 20978;
         $p = new SupportContract( $id);
 		$invoices = $p->getInvoices();
@@ -83,7 +82,6 @@ class testSupportContract extends UnitTestCase {
 }
 class testInvoiceItem extends UnitTestCase {
 	function testGetters( ) {
-		global $db;
         $id = 20992;
         $i = new InvoiceItem ( $id);
 		$this->assertEqual($i->getAmount(),33);
@@ -91,7 +89,6 @@ class testInvoiceItem extends UnitTestCase {
 }
 class testInvoice extends UnitTestCase {
 	function testGetters( ) {
-		global $db;
         $id = 20991;
         $i = new Invoice ( $id);
 		$invoice_items = $i->getInvoiceItems();
@@ -105,7 +102,6 @@ class testInvoice extends UnitTestCase {
 }
 class testCompany extends UnitTestCase {
 	function testGetters( ) {
-		global $db;
         $id = 20970;
         $c = new Company( $id);
 		$this->assertEqual($c->getName(),'SimpleTest Company');

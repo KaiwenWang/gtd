@@ -23,17 +23,17 @@ class Hour extends Gtd_Data_Item {
         return $this->getData('description');
     }
 	function getHours(){
-		if (!$this->hours){
-			$hours = $this->getData('hours');
-			if (!$hours) $hours = 0;
-			$this->hours = $hours;
-			return $hours;
-		}
+		$hours = $this->getData('hours');
+    	if (!$hours) $hours = 0;
+    	return $hours;
 	}
 	function getDiscount(){
 		$hours = $this->getData('discount');
 		if (!$hours) $hours = 0;
 		return $hours;
+	} 
+	function getBillableHours(){
+		return $this->getHours() - $this->getDiscount();		
 	}
 	function getStaff(){
 	   if (!$this->staff){
