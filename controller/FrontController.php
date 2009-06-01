@@ -24,9 +24,10 @@ class FrontController {
         $this->authenticate();
         if ($this->isAuthenticated){
 			$r = getRenderer();
-            $page = $this->requestedPageController;
+            $page   = $this->requestedPageController;
             $action = $this->requestedAction;
-            $application_html = $page->$action( $this->requestedParams);
+            $params = $this->requestedParams;
+            $application_html = $page->execute( $action, $params);
             return $r->template( 'template/gtd_main_template.html', array( 'main-application'=>$application_html));
         } else {
 			return $this->login();

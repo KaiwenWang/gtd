@@ -1,8 +1,6 @@
 <?php
 
-require_once( 'Gtd_Data_Item.php');
-
-class Bandwidth extends Gtd_Data_Item {
+class Bandwidth extends ActiveRecord {
 
 	var $datatable = "userdata";
 	var $name_field = "custom2";

@@ -1,16 +1,25 @@
 <?php
 
-require_once( 'Gtd_Data_Item.php');
-
-class Hour extends Gtd_Data_Item {
+class Hour extends ActiveRecord {
 
 	var $datatable = "userdata";
 	var $name_field = "description";
 	var $_class_name = "Hour";
+	var $_search_criteria_global = array( "modin = 62");
+
+	var $db_fields = array(
+						'estimate_id'=>'Estimate',
+						'description'=>'text',
+						'staff_id'=>'Staff',
+						'date'=>'date',
+						'hours'=>'float',
+						'support_contract_id'=>'SupportContract',
+						'discount'=>'float',
+						'basecamp_id'=>'int'
+					);
 	var $hours;
 	var $staff;
-	var $_search_criteria_global = array( "modin = 62");
-	
+
 	function Hour ( $id = null ) {
     	$this->__construct( $id );
     }

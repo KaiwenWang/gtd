@@ -10,15 +10,11 @@ class PageController {
         
     } function execute( $action, $params = array()){
     	if ( $action == 'get'){
-    		$html = $this->get( $params);
-    		return $r->form( 	'get', 
-    							$this->_class_name, 
-    							$html, 
-    							array( 'load_results_to'=>$this->_class_name, 'class'=>'page-controller-form')
-    						);
-    						
+    		return $this->get( $params);				
     	} else if ( $action == 'post'){
-    	
+    		$this->beforePost();
+    		$this->post();
+    		$this->afterPost();
     	} else {
     		trigger_error( 'invalid or blank action requested: '.$action);
     	}
@@ -29,5 +25,7 @@ class PageController {
     function post( $params = array()){
 		// MUST be defined in a subclass        
     }
+    function beforePost( ){}
+    function afterPost( ){}
 }
 ?>

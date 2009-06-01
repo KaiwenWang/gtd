@@ -1,8 +1,6 @@
 <?php
 
-require_once( 'Gtd_Data_Item.php');
-
-class InvoiceItem extends Gtd_Data_Item {
+class InvoiceItem extends ActiveRecord {
 
 	var $datatable = "userdata";
 	var $_class_name = "InvoiceItem";

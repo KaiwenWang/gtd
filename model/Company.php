@@ -1,8 +1,6 @@
 <?php
 
-require_once( 'Gtd_Data_Item.php');
-
-class Company extends Gtd_Data_Item {
+class Company extends ActiveRecord {
 
 	var $datatable = "userdata";
 	var $name_field = "Company";

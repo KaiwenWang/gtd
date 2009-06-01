@@ -1,8 +1,6 @@
 <?php
 
-require_once( 'Gtd_Data_Item.php');
-
-class Staff extends Gtd_Data_Item {
+class Staff extends ActiveRecord {
 
 	var $datatable = "userdata";
 	var $name_field = "First_Name";
