@@ -1,6 +1,4 @@
 <?php
-require_once('model/HtmlRenderer.php');
-require_once('model/Graph.php');
 require_once('model/Gtd_Data_Item.php');
 require_once('model/AddOn.php');
 require_once('model/Contact.php');
@@ -15,5 +13,4 @@ require_once('model/Company.php');
 require_once('model/Hour.php');
 require_once('model/Payment.php');
 require_once('model/Staff.php');
-require_once('model/Template.php');
 ?>

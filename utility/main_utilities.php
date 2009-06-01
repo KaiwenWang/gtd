@@ -6,10 +6,13 @@
     
     @package utility
 */
-#require_once('../gtd_includes.php');
-
+function bail( $msg){
+	echo $msg;
+	trigger_error( $msg);
+	exit();
+}
 function getRenderer(){
-	return new HtmlRenderer();
+	return new Render();
 }
 function getDbcon(){
 	return AMP_Registry::getDbcon();
@@ -21,15 +24,22 @@ function getUserId(){
 	trigger_error('NOT WRITTEN!');
 }
 function getViewPath( $view){
-    require_once( 'view_directory.php');
     $viewDirectory = getViewDirectory();
     return $viewDirectory[$view];
 }
+function getOne( $class, $search_criteria = array()){
+	$finder = new $class();
+	$objects = $finder->find( $search_criteria);
+	return array_shift($objects);
+}
 function getMany( $class, $search_criteria = array()){
 	$finder = new $class();
-trigger_error( 'class: '.$finder->_class_name);
 	$objects = $finder->find( $search_criteria);
-trigger_error( '**rabbit**');
+	return $objects;
+}
+function getAll( $class){
+	$finder = new $class;
+	$objects = $finder->find( array());
 	return $objects;
 }
 ?>
