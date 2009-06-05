@@ -1,4 +1,17 @@
 <?php
+
+/**
+    PaymentList
+    
+    Displays all payments, sorted by Company ID and takes an optional filter Company id filter to limit display to just that company.
+    
+    $get options array:
+    -<b>company_id</b> optional id of the company that we want to see their payments.
+      
+    @return html
+    @package controller
+*/
+
 class PaymentList extends PageController {
     var $_class_name = 'PaymentList';
 
