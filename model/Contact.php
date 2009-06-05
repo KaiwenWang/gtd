@@ -6,7 +6,8 @@ class Contact extends ActiveRecord {
 	var $name_field = "First_Name";
 	var $_class_name = "Contact";
     var $_search_criteria_global = array( "modin = 61");
-
+	var $company;
+	
 	function Contact ( $id = null ) {
     	$this->__construct( $id );
     }
@@ -15,10 +16,16 @@ class Contact extends ActiveRecord {
         parent::__construct( $dbcon, $id);
         $this->mergeData(array("modin"=>"61"));
     }
+    function getCompany(){
+		if(!$this->company){
+			$this->company = new Company( $this->getData('company_id'));
+		}
+		return $this->company;	
+	}
 	function _adjustSetData($data) {
 		$this->legacyFieldName($data,'First_Name', "first_name" );
 		$this->legacyFieldName($data,'Last_Name', "last_name" );
-		$this->legacyFieldName($data,'Company', "compnay_id" );
+		$this->legacyFieldName($data,'Company', "company_id" );
 		$this->legacyFieldName($data,'occupation', "title" );
 		$this->legacyFieldName($data,'Notes', "notes" );
 		$this->legacyFieldName($data,'Email', "email" );
@@ -29,9 +36,9 @@ class Contact extends ActiveRecord {
 		$this->legacyFieldName($data,'City', "city" );
 		$this->legacyFieldName($data,'State', "state" );
 		$this->legacyFieldName($data,'Zip', "zip" );
-		$this->legacyFieldName($data,'custom2', "billable" );
-		$this->legacyFieldName($data,'custom3', "primary" );
-		$this->legacyFieldName($data,'custom4', "technical" );
+		$this->legacyFieldName($data,'custom2', "is_billing_contact" );
+		$this->legacyFieldName($data,'custom3', "is_primary_contact" );
+		$this->legacyFieldName($data,'custom4', "is_technical_contact" );
 		$this->legacyFieldName($data,'custom5', "preamp_id" );
 		$this->legacyFieldName($data,'custom6', "stasi_id" );
 		$this->legacyFieldName($data,'custom7', "stasi_project_id" );
