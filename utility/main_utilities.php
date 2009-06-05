@@ -12,7 +12,12 @@ function bail( $msg){
 	exit();
 }
 function getRenderer(){
-	return new Render();
+	if (  $GLOBALS["render"]) {
+		return $GLOBALS["render"];
+	} else {
+		$GLOBALS["render"] = new Render();
+		return $GLOBALS["render"];
+	}
 }
 function getDbcon(){
 	return AMP_Registry::getDbcon();

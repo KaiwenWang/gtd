@@ -1,9 +1,9 @@
 <?php
 
 class ActiveRecord  extends AMPSystem_Data_Item {
-	var $_class_name = "Gtd_Data_Item";
+	var $_class_name = "ActiveRecord";
 	
-	function Gtd_Data_Item ( $id = null ) {
+	function ActiveRecord ( $id = null ) {
     	$this->__construct( $id );
     }
 	function __construct( &$dbcon, $id = null){

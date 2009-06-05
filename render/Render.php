@@ -4,12 +4,13 @@
 */
 class Render{
 
-	var $_class_name = 'HtmlRenderer';
-
-	function HtmlRenderer(){
+	var $_class_name = 'Render';
+	var $json;
+	function Render(){
 		$this->__construct();
 	}
 	function __construct(){
+		$this->json = new Services_JSON();
 	}
 	function view( $view, $data, $options = array()){
 	   $path = getViewPath( $view);
@@ -27,7 +28,11 @@ class Render{
     	if( $a['name']) $html .= 'name = "'.$a['name'].'" ';
     	return $html;
     }
-    function form( $action, $controller, $o){
+    function msg( $type, $text){}
+    function json( $data){
+    	return $this->json->encode( $data);
+    }
+    function form( $action, $controller, $content, $o){
     	if( !( $action && $controller)) {
     		bail( "r->form called without action:$action or controller:$controller being set");
 		}
@@ -36,9 +41,14 @@ class Render{
     					'action' => $action,
     					'controller' => $controller,
     					'attributes' => $attributes,
+    					'form-content' => $content
     					);
-    	if ( $o['redirect']) $tokens['redirect'] = '<input type="hidden" name="redirect" value="'.$o['redirect'].'">';
-		if ( $o['load']) $tokens['load'] = '<input type="hidden" name="redirect" value="'.$o['load'].'">';		
+    	if ( $o['redirect']) $tokens['redirect'] = $this->input( 'hidden',
+    												array(	'name'=>'redirect',
+    														'value'=>$o['redirect']));
+    	if ( $o['load']) $tokens['load'] = $this->input( 'hidden',
+    												array(	'name'=>'load',
+    														'value'=>$o['load']));		
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
     function field( $obj, $field_name, $search_criteria){
@@ -50,8 +60,7 @@ class Render{
 		$tokens =	array( 
     					'name' 	=> $field_id,
     					'id'	=> $field_id
-    			    	);
-		
+    			    	);	
 		if ( is_array( $field_type)){
 			$data = $field_type;
 			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
@@ -74,14 +83,12 @@ class Render{
     	return $this->input( $field_type, $tokens);
     }
     function input( $field_type, $tokens){
+    	if ( !$tokens['attributes']) $tokens['attributes'] = $this->attr($tokens);
+    	if ( !$tokens['size']) $tokens['size'] = 15;
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
-	    $attributes_html = '';
-	    if( $o['id']) $attributes_html = 'id = "'.$o['id'].'" ';
-	    if( $o['class']) $attributes_html = 'class = "'.$o['class'].'" ';
-	    if( $o['name']) $attributes_html = 'name = "'.$o['name'].'" ';
-	        
+	    $attributes_html = $this->attr( $o);
 	    $options_html = '';
 	    if ( $o['title']) $options_html .= '<option value="">'.$o['title'].'</option>';
 	    foreach( $data as $value => $description){

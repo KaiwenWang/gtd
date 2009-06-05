@@ -22,10 +22,10 @@ class PageController {
     function get( $params = array()){
 		// MUST be defined in a subclass
     }
+    function beforePost( ){}
     function post( $params = array()){
 		// MUST be defined in a subclass        
     }
-    function beforePost( ){}
     function afterPost( ){}
 }
 ?>
