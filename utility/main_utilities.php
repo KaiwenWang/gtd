@@ -19,16 +19,6 @@ function &getRenderer(){
 function getDbcon(){
 	return AMP_Registry::getDbcon();
 }
-function getUser(){
-    return new Staff( getUserId());
-}
-function getUserId(){
-	trigger_error('NOT WRITTEN!');
-}
-function getViewPath( $view){
-    $viewDirectory = getViewDirectory();
-    return $viewDirectory[$view];
-}
 function getOne( $class, $search_criteria = array()){
 	$finder = new $class();
 	$objects = $finder->find( $search_criteria);

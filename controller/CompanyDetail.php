@@ -24,13 +24,22 @@ class CompanyDetail extends PageController {
     }
     function get( $get = array()){
         $r =& getRenderer();
+
 		if( !$get['company_id']) {
-			$r->msg('bad','can has company id? kthx');
-			return;
+			$r->msg('bad','can pick a company? kthx');
+			$form_contents = $r->classSelect( 'Company', array('name'=>'company_id'));
+			$form_contents .= $r->submit();
+			$html = $r->form('get','CompanyDetail',$form_contents);
+			return $html;
 		}
-        $company = new Company($get['company_id']);
-        $html = $r->view('companyDetail', $company);
-          
+
+		$company = new Company($get['company_id']);
+
+		$form_contents = $r->objectSelect( $company, array('name'=>'company_id'));
+    	$form_contents .= $r->submit();
+    	$html = $r->form('get','CompanyDetail',$form_contents);
+        $html .= $r->view('companyDetail', $company);
+
         return $html;
     }        
 }

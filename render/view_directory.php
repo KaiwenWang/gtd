@@ -10,8 +10,8 @@
 
     @return array keys are view function names, values are their file paths
 */
-function getViewDirectory(){
-    return array(
+function &getViewDirectory(){
+    static $view_directory = array(
         'basicModelSelectBox' => 'view/basic_model_select_box.php',
 		'testView' => 'view/test_view.php',
 		'contactDetail' => 'view/contact_detail.php',
@@ -30,5 +30,6 @@ function getViewDirectory(){
 		'hourListItem' => 'view/hour_list_item.php',
 		'hoursList' => 'view/hours_list.php'
     );
+    return $view_directory;
 }
 ?>

@@ -22,10 +22,11 @@ class Render{
 	function __construct(){
 		$this->json = new Services_JSON();
 	}
-	function view( $view, $data, $options = array()){
-	   $path = getViewPath( $view);
+	function view( $view_function_name, $data, $options = array()){
+	   $viewDirectory =& getViewDirectory();
+	   $path = $viewDirectory[$view_function_name];
 	   require_once( $path);
-	   return $view( $data, $options);
+	   return $view_function_name( $data, $options);
 	}
 	function template( $template, $tokens){
 	   $tpl = new Template( $template);
@@ -105,6 +106,7 @@ class Render{
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
+   		if (!$o['name']) bail('A select field must have token["name"] passed to it in order to work');
 	    $attributes_html = $this->attr( $o);
 	    $options_html = '';
 	    if ( $o['title']) $options_html .= '<option value="">'.$o['title'].'</option>';
@@ -125,7 +127,15 @@ class Render{
 	    	$data[$o->id] = $o->getName();
 	    }
 	    if ( $id != 'new') $tokens['selected_value'] = $obj->id;
-	    $tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
+	    return $this->select( $data, $tokens);	
+	}
+	function classSelect( $class, $tokens, $search_criteria){
+		if( !class_exists($class)) bail("Class \"$class\" does not exist.");
+		if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
+	    				else	{	$objects = getAll( $class);}
+	    foreach( $objects as $o){
+	    	$data[$o->id] = $o->getName();
+	    }
 	    return $this->select( $data, $tokens);	
 	}
 	function submit(){
@@ -133,7 +143,7 @@ class Render{
 	}
 	// Don't ever call dumpMessages, it's used by the FrontController.
     function _dumpMessages(){
-    	return $this->system_messages.'boo';
+    	return $this->system_messages;
     }
 }
 ?>
