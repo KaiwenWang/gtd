@@ -7,7 +7,22 @@
     @package utility
 */
 function bail( $msg){
-	echo $msg;
+	echo $msg.'<br><br>';
+	$trace = debug_backtrace();
+//	AMP_dump($trace);
+	$html = '<span style="text-decoration:underline">BACKTRACE</span><br><br>';
+	foreach( $trace as $t){
+		$html .= 'FILE: '.$t['file'].'<br>';
+		$html .= 'LINE: '.$t['line'].'<br>';
+		if(isset($t['class'])) {
+			$function = $t['class'].'->'.$t['function'];
+		} else{
+			$function = $t['function'];
+		}
+		$html .= 'FUNCTION: '.$function.'<br>';
+		$html .= '<br>';
+	}
+	echo $html;
 	trigger_error( $msg);
 	exit();
 }

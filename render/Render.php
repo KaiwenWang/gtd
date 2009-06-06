@@ -117,8 +117,8 @@ class Render{
 	    }
 	    return "<select $attributes_html>$options_html</select>";
 	}
-	function objectSelect( $obj, $tokens, $search_criteria){
-       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
+	function objectSelect( $obj, $tokens, $search_criteria){	
+       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be an ActiveRecord object');
   		$id = $obj->id;
 		if ( !$id) $id = 'new';
 		if ( $search_criteria) 	{	$objects = getMany( $obj->_class_name, $search_criteria);}
