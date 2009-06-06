@@ -9,7 +9,7 @@ class SupportContractList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         $finder = new SupportContract();
         $companies = $finder->find(array("sort"=>"custom8,Company") ); #status, company_id
 

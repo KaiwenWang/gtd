@@ -21,7 +21,7 @@ class HoursByEstimate extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         if (!$get['project_id']) {
 			$r->msg('bad','You need to provide a project_id ');
 			return;

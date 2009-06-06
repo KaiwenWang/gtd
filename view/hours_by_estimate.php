@@ -1,6 +1,6 @@
 <?php
 function hoursByEstimate( $estimates, $o = array()){
-    $r = getRenderer();
+    $r =& getRenderer();
 	$id = 'id="'.$o['id'].'" ';
 	$html = '';
 	foreach($estimates as $e){

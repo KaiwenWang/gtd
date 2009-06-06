@@ -23,15 +23,14 @@ class FrontController {
     	if ( $this->noResponse) return 'no response';
         $this->authenticate();
         if ($this->isAuthenticated){
-			$r = getRenderer();
+			$r =& getRenderer();
             $page   = $this->requestedPageController;
             $action = $this->requestedAction;
             $params = $this->requestedParams;
             $application_html = $page->execute( $action, $params);
-            $msg = getMessage();
             return $r->template( 'template/gtd_main_template.html', 
             						array( 	'main-application'=>$application_html,
-            								'msg'=>$msg));
+            								'msg'=>$r->_dumpMessages()));
         } else {
 			return $this->login();
         }

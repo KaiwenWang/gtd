@@ -9,7 +9,7 @@ class CompanyList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         $finder = new Company();
         $companies = $finder->find(array("sort"=>"custom8,Company") );
 

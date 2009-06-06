@@ -8,7 +8,7 @@ function staffTable( $modelObjects, $o = array()){
       $out['rows'][] = array($m->getName(),$m->getData('team'),$m->getData('email') );
     }
 
-    $r = getRenderer();
+    $r =& getRenderer();
     $html = $r->view('basicTable',$out);
     return $html;
   

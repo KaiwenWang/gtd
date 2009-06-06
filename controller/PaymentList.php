@@ -10,7 +10,7 @@ class PaymentList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
 		if ($get['company_id']){
         	$c = new Company($get['company_id']);
 			$payments = $c->getPayments();

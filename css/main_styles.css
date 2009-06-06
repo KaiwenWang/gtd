@@ -19,11 +19,12 @@ padding: 2px;
 .good-msg{
 border-color:lime;
 color:green;
+background: #F9FFF9;
 }
 .bad-msg{
 border-color:#BF0000;
 color:#BF0000;
-background: #DD9D9D;
+background: #fff9f9;
 }
 
 #side{

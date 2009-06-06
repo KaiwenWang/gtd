@@ -23,7 +23,7 @@ class StaffDetail extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
 		if( !$get['staff_id']) {
 			$r->msg('bad','can has Staff id? kthx');
 			return;

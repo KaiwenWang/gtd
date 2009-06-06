@@ -23,7 +23,7 @@ class ContactDetail extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
 		if( !$get['contact_id']) {
 			$r->msg('bad','you need a contact_id');
 			return;

@@ -9,7 +9,7 @@ class ProjectList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
 
 		$search_criteria = array();
 		$search_criteria['sort'] = 'custom17,custom4';#status,launch_date

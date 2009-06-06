@@ -9,7 +9,7 @@ class StaffList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         $finder = new Staff();
         $staff = $finder->find();
 

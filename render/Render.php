@@ -15,6 +15,7 @@ class Render{
 
 	var $_class_name = 'Render';
 	var $json;
+	var $system_messages;
 	function Render(){
 		$this->__construct();
 	}
@@ -39,14 +40,13 @@ class Render{
     }
     function msg( $type, $text){
     	$msg = $this->template('template/message.html', array( 'type'=>$type, 'message'=>$text));
-    	if( !( isset($GLOBALS['msg']) && $GLOBALS['msg'])) {
-    		$GLOBALS['msg'] = $msg;
-    	} else{
-			$GLOBALS['msg'] .= $msg;
-		}
+		$this->system_messages .= $msg;
     }
     function json( $data){
     	return $this->json->encode( $data);
+    }
+    function css($stylesheet){
+    	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
     }
     function form( $action, $controller, $content, $o = array()){
     	if( !( $action && $controller)) {
@@ -131,5 +131,9 @@ class Render{
 	function submit(){
 		return $this->input( 'submit');
 	}
+	// Don't ever call dumpMessages, it's used by the FrontController.
+    function _dumpMessages(){
+    	return $this->system_messages.'boo';
+    }
 }
 ?>

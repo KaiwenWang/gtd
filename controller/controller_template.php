@@ -16,7 +16,7 @@ class Bastard extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-		$r = getRenderer();
+		$r =& getRenderer();
 		
         $html = $r->view('testView', $view_data, array('class'=>'test'));
     }

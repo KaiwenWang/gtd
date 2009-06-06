@@ -9,7 +9,7 @@
 	
 */
 function hourListItem( $hour, $o){
-	$r = getRenderer();
+	$r =& getRenderer();
 	$data = array( 
 		'Hours'=> $hour->getHours(),
 		'Discount' => $hour->getDiscount(),

@@ -8,7 +8,7 @@ function supportContractTable( $modelObjects, $o = array()){
       $out['rows'][] = array($m->getName(),$m->getData('status'),$m->getData('pro_bono'),$m->getData('monthly_rate'),$m->getData('hourly_rate'),$m->getData('support_hours'),$m->getData('contract_on_file') );
     }
 
-    $r = getRenderer();
+    $r =& getRenderer();
     $html = $r->view('basicTable',$out);
     return $html;
   

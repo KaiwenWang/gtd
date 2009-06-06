@@ -9,7 +9,7 @@ class TestController extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         $staff = new Staff($get['staff_id']);
 
         $name = 'hello ,'.$staff->getName();
@@ -23,7 +23,7 @@ class TestController extends PageController {
         
 		$r->msg('good','I am a good message');
 		$r->msg('bad','I am a bad message');
-		
+
         return $r->template('template/standard_inside.html',
         					array(
         					'title'=>$name,

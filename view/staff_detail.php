@@ -15,7 +15,7 @@ function staffDetail( $staff, $o){
 
 	$html .= '<h3>Projects </h3>';	
 	
-	$r = getRenderer();
+	$r =& getRenderer();
 	$projects = $staff->getProjects();
 	if (!$projects) { 
 		return $html; 

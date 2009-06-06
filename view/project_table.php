@@ -8,7 +8,7 @@ function projectTable( $modelObjects, $o = array()){
       $out['rows'][] = array($m->getName(),$m->getData('status'),$m->getStaffName(),$m->getData('launch_date'),$m->getData('billing_status'),$m->getData('cost'), );
     }
 
-    $r = getRenderer();
+    $r =& getRenderer();
     $html = $r->view('basicTable',$out);
     return $html;
   

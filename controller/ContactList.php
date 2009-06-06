@@ -18,7 +18,7 @@ class ContactList extends PageController {
         parent::__construct();
     }
     function get( $get = array()){
-        $r = getRenderer();
+        $r =& getRenderer();
         $contacts = new Contact();
         $contacts = getAll( 'Contact');
         $html = $r->view('contactTable', $contacts, array('id'=>'Contact'));

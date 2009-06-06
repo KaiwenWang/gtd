@@ -8,7 +8,7 @@ function companyTable( $modelObjects, $o = array()){
       $out['rows'][] = array($m->getName(),$m->getData('status'),$m->getData('balence') );
     }
 
-    $r = getRenderer();
+    $r =& getRenderer();
     $html = $r->view('basicTable',$out);
     return $html;
   

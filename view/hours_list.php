@@ -9,7 +9,7 @@
 	
 */
 function hoursList( $hours, $o){
-	$r = getRenderer();
+	$r =& getRenderer();
 	$html = '';
 	if ( !$o['class']) $o['class'] = 'hours-list';
 	$attributes = $r->attr( $o);

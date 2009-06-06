@@ -14,7 +14,7 @@
 */
 
 function contactTable( $modelObjects, $o = array()){
-    $r = getRenderer();
+    $r =& getRenderer();
     $out = array();
     $out['headers'] = array('Contact','Company','Email');
     $out['rows'] =  array();

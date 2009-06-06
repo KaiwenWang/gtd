@@ -7,7 +7,7 @@ function paymentTable( $modelObjects, $o = array()){
     foreach($modelObjects as $m){
       $out['rows'][] = array($m->getCompanyName(),$m->getData('date'),$m->getAmount() );
     }
-    $r = getRenderer();
+    $r =& getRenderer();
     $html = $r->view('basicTable',$out);
     return $html;
 }

@@ -13,7 +13,7 @@
 	
 */
 function basicListItem( $data, $o){
-	$r = getRenderer();
+	$r =& getRenderer();
 	$attributes = $r->attr( $o);
 	$html = '';
 	foreach ( $data as $label => $field){

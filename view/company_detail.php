@@ -17,7 +17,7 @@ function companyDetail( $company, $o){
 	$html .= '<div>Balance: '.$company->getBalance().'</div>';
 
 	$html .= '<h3>Contacts </h3>';
-    $r = getRenderer();
+    $r =& getRenderer();
 	$contacts = $company->getContacts();
 	$html .= $r->view( 'contactTable', $contacts);
 

@@ -12,9 +12,8 @@ function bail( $msg){
 	exit();
 }
 function &getRenderer(){
-	static $render;
-	if( $render) return $render;
-	$render = new Render();
+	static $render = null;
+	if( $render === null) $render = new Render();
 	return $render;
 }
 function getDbcon(){
@@ -44,8 +43,5 @@ function getAll( $class){
 	$finder = new $class;
 	$objects = $finder->find( array());
 	return $objects;
-}
-function getMessage(){
-	return $GLOBALS['msg'];
 }
 ?>
