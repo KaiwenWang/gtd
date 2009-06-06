@@ -5,7 +5,7 @@ class FrontController {
     var $requestedAction;
     var $requestedParams;
     var $isAuthenticated = true;
-    var $noResponse;
+    var $noRequest;
     
     function FrontController() {
         $this->__construct();
@@ -16,11 +16,11 @@ class FrontController {
 		} else if ( isset( $_GET['controller'])){
 			$this->getRequest();
 		} else {
-			$this->noResponse = true;
+			$this->noRequest = true;
 		}
     }
     function execute(){
-    	if ( $this->noResponse) return 'no response';
+    	if ( $this->noRequest) return 'no controller set in GET or POST array';
         $this->authenticate();
         if ($this->isAuthenticated){
 			$r =& getRenderer();
