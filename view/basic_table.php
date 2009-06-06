@@ -19,7 +19,7 @@ function basicTable( $data, $o = array()){
 	}
     $html .= '</tr>';
     foreach($data['rows'] as $row){
-        $html .= '<tr bgcolor="#d5d5d5" onmouseout="this.bgColor=\'#D5D5D5\';" onmouseover="this.bgColor=\'#CCFFCC\';" bordercolor="#333333">';
+        $html .= '<tr bgcolor="#d5d5d5" onmouseout="this.bgColor=\'#D5D5D5\';" onmouseover="this.bgColor=\'#FFE567\';" bordercolor="#333333">';
 		foreach($row as $cell){
         	$html .= '<td>'.$cell.'</td>';
 		}

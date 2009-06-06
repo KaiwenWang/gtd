@@ -1,8 +1,5 @@
 <?php
 /**
-    @package view
-*/
-/**
     basicModelSelectBox
     
     Takes an array of any standard type of GTD_data_item objects and creates a select box where the value of each option is the id of the object, and the name of each option is the getName method of the object.
@@ -17,6 +14,7 @@
     @param array $data array of GTD_data_item objects
     @param array $o valid kays are id, class, name, title, selected_value 
     @return string html
+    @package view
 */
 
 function basicModelSelectBox( $data, $o){

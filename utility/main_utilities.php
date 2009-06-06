@@ -11,13 +11,11 @@ function bail( $msg){
 	trigger_error( $msg);
 	exit();
 }
-function getRenderer(){
-	if (  $GLOBALS["render"]) {
-		return $GLOBALS["render"];
-	} else {
-		$GLOBALS["render"] = new Render();
-		return $GLOBALS["render"];
-	}
+function &getRenderer(){
+	static $render;
+	if( $render) return $render;
+	$render = new Render();
+	return $render;
 }
 function getDbcon(){
 	return AMP_Registry::getDbcon();
@@ -46,5 +44,8 @@ function getAll( $class){
 	$finder = new $class;
 	$objects = $finder->find( array());
 	return $objects;
+}
+function getMessage(){
+	return $GLOBALS['msg'];
 }
 ?>

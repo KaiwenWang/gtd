@@ -2,6 +2,8 @@
 
 class ActiveRecord  extends AMPSystem_Data_Item {
 	var $_class_name = "ActiveRecord";
+	var $name_field;
+	var $db_fields = array();
 	
 	function ActiveRecord ( $id = null ) {
     	$this->__construct( $id );
@@ -18,7 +20,8 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		return $obj->find( $search_criteria);
 	}
 	function getFieldType( $field){
-		$field_type = $this->$db_fields[ $field];
+		$field_type = $this->db_fields[ $field];
+		if (!$field_type) bail(" No field of type $field available on ".$this->_class_name.' Object');
 		if ( strchr( ',', $field_type)) return str_getcsv( $field_type);
 		return $field_type;
 	} 

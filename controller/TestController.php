@@ -10,24 +10,28 @@ class TestController extends PageController {
     }
     function get( $get = array()){
         $r = getRenderer();
-        $finder = new Staff();
-        $staff = $finder->find(array('first_name'=>$get['first_name']));
-        foreach($staff as $s){
-        	$name = $s->getName();	
-        }
-        
-		trigger_error('id:'.$s->id);
-   		$projects = getMany( 'Hour', array('staff_id'=>$s->id));
-#   		$projects = getMany( 'Project');
-#       $finder = new Project();
-#       $projects = $finder->find(array('staff_id'=>$s->id)); #status, company_id
-        $html = 'boo'.$r->view('hoursList', $projects, array('id'=>'test'));
+        $staff = new Staff($get['staff_id']);
 
-        return $r->template('template/test_template.html',
+        $name = 'hello ,'.$staff->getName();
+
+		$html .= $r->objectSelect( $staff, array('name'=>'staff_id'));
+		$html .= $r->submit();
+		$html = $r->form( 'get', 'TestController', $html);
+#		$html .= $r->field( $hour, 'description');
+		
+        #$html = $r->view('hoursList', $hours, array('id'=>'test', 'class'=>'boo', 'name'=>'hoo'));
+        
+		$r->msg('good','I am a good message');
+		$r->msg('bad','I am a bad message');
+		
+        return $r->template('template/standard_inside.html',
         					array(
-        					'name'=>$name,
+        					'title'=>$name,
         					'body'=>$html
         					));
+    }
+    function post( $post){
+    	
     }
 }
 ?>

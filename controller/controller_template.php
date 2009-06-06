@@ -1,5 +1,9 @@
 <?php
 /**
+Bastard
+
+some description of Bastard, and that thing he do.
+
 package @controller
 */
 class Bastard extends PageController {

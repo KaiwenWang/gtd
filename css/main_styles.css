@@ -1,16 +1,59 @@
-h1 {
-background:#669944 none repeat scroll 0 0;
+h1.page_name {
+background: #669944 none repeat scroll 0 0;
 color:white;
-#sidemargin:0 0 6px;
+margin:0 0 6px;
 padding:9px 0 3px 6px;
 }
+
+h3{
+color: #C61810;
+}
+
+.msg{
+width: 450px;
+border: 2px solid;
+margin: 5px;
+font-weight:bold;
+padding: 2px;
+}
+.good-msg{
+border-color:lime;
+color:green;
+}
+.bad-msg{
+border-color:#BF0000;
+color:#BF0000;
+background: #DD9D9D;
+}
+
 #side{
-float:right;
-margin:0 35px 0 0;
+float: right;
+width: 200px;
 }
+
 #application{
-margin: 0 6px;
+margin-left:10px;
 }
-.basic_table{
-padding:20px;
+
+#footer{
+background:#669944 none repeat scroll 0 0;
+color:white;
+margin-top:10px;
+height:20px;
+clear: both;
+}
+
+#side ul{
+list-style-type: none;
+}
+
+#side a{
+text-decoration: none;
+color: #0063AF;
+}
+
+#side h3{
+font-family: Arial;
+border-bottom:1px dashed;
+margin:15px 0;
 }

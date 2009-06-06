@@ -2,6 +2,15 @@
 /**
     @package model
 */
+/*
+$r = getRenderer();
+$hour = new Hour();
+
+$html = $r->field( $hour, 'estimate_id', array('staff'=>''));
+name='Model[Hour][new][estimate_id]'
+$_POST['Model']['Hour'][123]['estimate_id'];
+
+*/
 class Render{
 
 	var $_class_name = 'Render';
@@ -23,16 +32,23 @@ class Render{
     }
     function attr( $a = array()){
 		$html = '';
-    	if( $a['id']) $html .= 'id = "'.$a['id'].'" ';
-    	if( $a['class']) $html .= 'class = "'.$a['class'].'" ';
-    	if( $a['name']) $html .= 'name = "'.$a['name'].'" ';
+    	if( isset($a['id']) && $a['id']) $html .= 'id = "'.$a['id'].'" ';
+    	if( isset($a['class']) && $a['class']) $html .= 'class = "'.$a['class'].'" ';
+    	if( isset($a['name']) && $a['name']) $html .= 'name = "'.$a['name'].'" ';
     	return $html;
     }
-    function msg( $type, $text){}
+    function msg( $type, $text){
+    	$msg = $this->template('template/message.html', array( 'type'=>$type, 'message'=>$text));
+    	if( !( isset($GLOBALS['msg']) && $GLOBALS['msg'])) {
+    		$GLOBALS['msg'] = $msg;
+    	} else{
+			$GLOBALS['msg'] .= $msg;
+		}
+    }
     function json( $data){
     	return $this->json->encode( $data);
     }
-    function form( $action, $controller, $content, $o){
+    function form( $action, $controller, $content, $o = array()){
     	if( !( $action && $controller)) {
     		bail( "r->form called without action:$action or controller:$controller being set");
 		}
@@ -52,11 +68,11 @@ class Render{
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
     function field( $obj, $field_name, $search_criteria){
-       	if ( !is_a( $obj, 'Gtd_Data_Item)')) bail( 'r->field() requires first parameter to be a subclass of GTD_Data_Item');  	
+       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
   		$id = $obj->id;
 		if ( !$id) $id = 'new';
     	$field_type = $obj->getFieldType( $field_name);
-    	$field_id = $field_name.'-'.$obj->_class_name.'-'.$id;
+    	$field_id = 'ActiveRecord['.$obj->_class_name."][$id][$field_name]";
 		$tokens =	array( 
     					'name' 	=> $field_id,
     					'id'	=> $field_id
@@ -79,10 +95,11 @@ class Render{
 			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
 			return $this->select( $data, $tokens);
 		}
+		if ( $id != 'new') $tokens['value'] = $obj->getData( $field_name);
 		$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field '.$field_type.'-field';
     	return $this->input( $field_type, $tokens);
     }
-    function input( $field_type, $tokens){
+    function input( $field_type, $tokens = array()){
     	if ( !$tokens['attributes']) $tokens['attributes'] = $this->attr($tokens);
     	if ( !$tokens['size']) $tokens['size'] = 15;
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
@@ -97,6 +114,22 @@ class Render{
 	        $options_html .= '<option '.$selected.' value="'.$value.'">'.$description.'</option>';
 	    }
 	    return "<select $attributes_html>$options_html</select>";
-	} 
+	}
+	function objectSelect( $obj, $tokens, $search_criteria){
+       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
+  		$id = $obj->id;
+		if ( !$id) $id = 'new';
+		if ( $search_criteria) 	{	$objects = getMany( $obj->_class_name, $search_criteria);}
+	    				else	{	$objects = getAll( $obj->_class_name);}
+	    foreach( $objects as $o){
+	    	$data[$o->id] = $o->getName();
+	    }
+	    if ( $id != 'new') $tokens['selected_value'] = $obj->id;
+	    $tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
+	    return $this->select( $data, $tokens);	
+	}
+	function submit(){
+		return $this->input( 'submit');
+	}
 }
 ?>

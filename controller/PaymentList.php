@@ -1,17 +1,5 @@
 <?php
 
-/**
-    PaymentList
-    
-    Displays all payments, sorted by Company ID and takes an optional filter Company id filter to limit display to just that company.
-    
-    $get options array:
-    -<b>company_id</b> optional id of the company that we want to see their payments.
-      
-    @return html
-    @package controller
-*/
-
 class PaymentList extends PageController {
     var $_class_name = 'PaymentList';
 
@@ -28,9 +16,7 @@ class PaymentList extends PageController {
 			$payments = $c->getPayments();
         	$html = $r->view('paymentTable', $payments, array('id'=>'payments'));
 		} else {
-			$finder = new Payment();
-	        $payments = $finder->find(array("sort"=>"Company,custom1") );
-			
+			$payments = getMany( 'Payment', array("sort"=>"Company,custom1"));
 			$html = $r->view('paymentTable', $payments, array('id'=>'payments'));
 		}
 
