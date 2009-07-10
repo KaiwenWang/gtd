@@ -36,13 +36,17 @@ class FrontController {
         }
     }
     function getRequest(){
-        require_once('controller/'.$_GET['controller'].'.php');
+    	$path = 'controller/'.$_GET['controller'].'.php';
+		if( !file_exists($path)) bail( 'requested controller "'.$_GET['controller'].'" does not exist.');
+        require_once( $path);
         $this->requestedPageController = new $_GET['controller'];
         $this->requestedAction = 'get';
         $this->requestedParams = $_GET;
         unset($this->requestedParams['controller']);
     }   
     function postRequest(){
+    	$path = 'controller/'.$_POST['controller'].'.php';
+		if( !file_exists($path)) bail( 'requested controller "'.$_POST['controller'].'" does not exist.');
         require_once('controller/'.$_POST['controller'].'.php');
         $this->requestedPageController = new $_POST['controller'];
         $this->requestedAction = 'post';
