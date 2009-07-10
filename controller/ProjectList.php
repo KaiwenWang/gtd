@@ -20,21 +20,22 @@ class ProjectList extends PageController {
         if ( $get['status']){
             $search_criteria['status'] = $get['status'];
         }
-		$finder = new Staff();
-		$staff = $finder->find(array('sort'=>'first_name'));
-		$staff_html = $r->view('basicModelSelectBox', $staff, array('name'=>'staff'));
-		
-		$finder = new Project();
-        $projects = $finder->find( $search_criteria); 
-        $project_html = $r->view('projectTable', $projects, array('id'=>'project'));
+		$staff_form_content = $r->classSelect( 'Staff',
+												array('name'=>'staff', 'selected_value'=>$get['staff']),
+												array('sort'=>'first_name'));
+		$staff_form_content	.= $r->submit();
+		$staff_form = $r->form( 'get', 'ProjectList', $staff_form_content);
 
-        $html = $staff_html.'<br><br>'.$project_html;
+        $projects = getMany( 'Project', $search_criteria); 
+        $project_table = $r->view('projectTable', $projects, array('id'=>'project'));
+
+        $html = $staff_form.'<br><br>'.$project_table;
 
         return $r->template('template/test_template.html',
                             array(
                             'name'=>$name,
                             'body'=>$html
                             ));
-    }        
+    }
 }
 ?>

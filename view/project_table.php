@@ -1,16 +1,26 @@
 <?php
 
-function projectTable( $modelObjects, $o = array()){
-    $out = array();
-    $out['headers'] = array('Project Name','Status','Project Manager','Launch Date','Billing Status','Total Cost Est');
-    $out['rows'] =  array();
-    foreach($modelObjects as $m){
-      $out['rows'][] = array($m->getName(),$m->getData('status'),$m->getStaffName(),$m->getData('launch_date'),$m->getData('billing_status'),$m->getData('cost'), );
-    }
-
+function projectTable( $projects, $o = array()){
     $r =& getRenderer();
-    $html = $r->view('basicTable',$out);
+    $table = array();
+    $table['headers'] = array(	'Project Name',
+    							'Status',
+    							'Project Manager',
+    							'Launch Date',
+    							'Billing Status',
+    							'Total Cost Est'
+    							);
+    $table['rows'] =  array();
+    foreach($projects as $p){
+      $table['rows'][] = array('<a href="controller=ProjectDetail&project_id='.$p->id.'">'.$p->getName().'</a>',
+      							$p->getData('status'),
+      							$p->getStaffName(),
+      							$p->getData('launch_date'),
+      							$p->getData('billing_status'),
+      							$p->getData('cost')
+      							);
+    }
+    $html = $r->view('basicTable',$table);
     return $html;
-  
 }
 ?>
