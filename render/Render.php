@@ -49,6 +49,10 @@ class Render{
     function css($stylesheet){
     	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
     }
+    function link( $controller, $parameters, $text, $o = array()){
+	    $attributes_html = $this->attr( $o);
+    	return '<a href="index.php?controller='.$controller.'&'.http_build_query($parameters).'" '.$attributes_html.'>'.$text.'</a>';
+    }
     function form( $action, $controller, $content, $o = array()){
     	if( !( $action && $controller)) {
     		bail( "r->form called without action:$action or controller:$controller being set");
