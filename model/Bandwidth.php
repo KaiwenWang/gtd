@@ -8,8 +8,7 @@ class Bandwidth extends ActiveRecord {
     var $_search_criteria_global = array( "modin = 70");
 
     function __construct(  $id = null){
-        $dbcon = getDbcon();
-        parent::__construct( $dbcon, $id);
+        parent::__construct( $id);
         $this->mergeData(array("modin"=>"70"));
     }
 	function _adjustSetData($data) {

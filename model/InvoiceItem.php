@@ -9,8 +9,7 @@ class InvoiceItem extends ActiveRecord {
 	var $name_field = "custom2";
 
     function __construct( $id = null){
-        $dbcon = getDbcon();
-        parent::__construct( $dbcon, $id);
+        parent::__construct( $id);
         $this->mergeData(array("modin"=>"73"));
     }
 	function getAmount(){

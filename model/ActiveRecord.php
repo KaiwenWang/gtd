@@ -5,8 +5,8 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 	var $name_field;
 	var $db_fields = array();
 	
-	function __construct( &$dbcon, $id = null){
-        parent::__construct( $dbcon, $id);
+	function __construct( $id = null){
+        parent::__construct( getDbcon(), $id);
     }
 	function getName(){
 		return $this->getData($this->name_field);

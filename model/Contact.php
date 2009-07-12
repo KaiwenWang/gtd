@@ -9,8 +9,7 @@ class Contact extends ActiveRecord {
 	var $company;
 	
     function __construct( $id = null){
-        $dbcon = getDbcon();
-        parent::__construct( $dbcon, $id);
+        parent::__construct( $id);
         $this->mergeData(array("modin"=>"61"));
     }
     function getCompany(){
