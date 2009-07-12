@@ -14,9 +14,6 @@
 class HoursByEstimate extends PageController {
     var $_class_name = 'HoursByEstimate';
     
-    function HoursByEstimate() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

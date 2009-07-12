@@ -2,9 +2,6 @@
 class ProjectList extends PageController {
     var $_class_name = 'ProjectList';
 
-    function ProjectList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

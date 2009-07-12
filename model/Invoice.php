@@ -9,9 +9,6 @@ class Invoice extends ActiveRecord {
 	var $invoice_items;
 	var $company;
 	
-	function Invoice ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

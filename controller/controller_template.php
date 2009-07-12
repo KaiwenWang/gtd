@@ -9,9 +9,6 @@ package @controller
 class Bastard extends PageController {
     var $_class_name = 'Bastard';
     
-    function Bastard() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

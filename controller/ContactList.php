@@ -11,9 +11,6 @@
 class ContactList extends PageController {
     var $_class_name = 'ContactList';
 
-    function ContactList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

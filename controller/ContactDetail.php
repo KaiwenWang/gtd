@@ -16,9 +16,6 @@
 class ContactDetail extends PageController {
     var $_class_name = 'ContactDetail';
 
-    function ContactDetail() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

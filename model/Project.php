@@ -12,9 +12,6 @@ class Project extends ActiveRecord {
 	var $company;
 	var $staff;
 	
-	function Project ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

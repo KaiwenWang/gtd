@@ -2,9 +2,6 @@
 class StaffList extends PageController {
     var $_class_name = 'StaffList';
 
-    function StaffList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

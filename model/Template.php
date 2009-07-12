@@ -3,9 +3,6 @@ class Template{
     var $_class_name = 'Template';
     var $html;
     
-    function Template($path){
-        $this->__construct($path);
-    }
     function __construct($file_path){
          if (file_exists($file_path))
             $this->html = join("", file($file_path));

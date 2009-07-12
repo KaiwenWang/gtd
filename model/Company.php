@@ -14,9 +14,6 @@ class Company extends ActiveRecord {
 	var $billing_contacts;
     var $_search_criteria_global = array( "modin = 60");
     
-	function Company( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

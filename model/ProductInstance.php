@@ -7,9 +7,6 @@ class ProductInstance extends ActiveRecord {
 	var $_class_name = "ProductInstance";
 	var $_search_criteria_global = array( "modin = 68");
 	
-	function ProductInstance ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);
@@ -30,12 +27,9 @@ class ProductInstance extends ActiveRecord {
 		$this->legacyFieldName($data,'custom22', "drupal" );
 		$this->legacyFieldName($data,'custom23', "secure_domain" );
 		$this->legacyFieldName($data,'custom24', "china_ip" );
-		$this->legacyFieldName($data,'custom25', "phplist" );
-			
+		$this->legacyFieldName($data,'custom25', "phplist" );		
 		$this->legacyFieldName($data,'Company', "company_id" );
 		$this->legacyFieldName($data,'Notes', "notes" );
-	
-
 	}
     function makeCriteriaModin( $value ) {
         return $this->_makeCriteriaEquals( 'modin', $value );

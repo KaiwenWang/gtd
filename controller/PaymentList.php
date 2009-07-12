@@ -3,9 +3,6 @@
 class PaymentList extends PageController {
     var $_class_name = 'PaymentList';
 
-    function PaymentList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

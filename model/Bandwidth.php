@@ -7,9 +7,6 @@ class Bandwidth extends ActiveRecord {
 	var $_class_name = "Bandwidth";
     var $_search_criteria_global = array( "modin = 70");
 
-	function Bandwidth ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct(  $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

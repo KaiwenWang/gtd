@@ -3,12 +3,10 @@ class PageController {
     var $authentication_level = array( 'staff');
     var $_class_name = 'PageController';
     
-    function PageController() {
-        $this->__construct();
-    }
     function __construct(){
         
-    } function execute( $action, $params = array()){
+    } 
+    function execute( $action, $params = array()){
     	if ( $action == 'get'){
     		return $this->get( $params);				
     	} else if ( $action == 'post'){
@@ -24,7 +22,7 @@ class PageController {
     }
     function beforePost( ){}
     function post( $params = array()){
-		// MUST be defined in a subclass        
+		// MUST be defined in a subclass
     }
     function afterPost( ){}
 }

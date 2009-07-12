@@ -8,9 +8,6 @@ class Staff extends ActiveRecord {
 	var $_search_criteria_global = array( "modin = 65");
 	var $projects;
 
-	function Staff ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

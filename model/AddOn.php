@@ -7,9 +7,6 @@ class AddOn extends  ActiveRecord {
 	var $_class_name = "AddOn";
     var $_search_criteria_global = array( "modin = 71");
 
-	function AddOn ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

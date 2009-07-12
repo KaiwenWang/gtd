@@ -8,9 +8,6 @@ class Payment extends ActiveRecord {
 	var $company;
 	var $_search_criteria_global = array( "modin = 69");
 
-	function Payment ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

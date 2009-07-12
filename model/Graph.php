@@ -18,9 +18,6 @@ class Graph{
 	var $legend_width;
 	var $colors;
 
-	function Graph($o){
-		$this->__construct($o);
-	}
 	function __construct($o){
 		foreach($o as $property => $value){
 			$this->$property = $value;

@@ -2,9 +2,6 @@
 class CompanyList extends PageController {
     var $_class_name = 'CompanyList';
 
-    function CompanyList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

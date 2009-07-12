@@ -16,9 +16,6 @@
 class CompanyDetail extends PageController {
     var $_class_name = 'CompanyDetail';
 
-    function CompanyDetail() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

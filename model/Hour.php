@@ -21,9 +21,6 @@ class Hour extends ActiveRecord {
 	var $hours;
 	var $staff;
 
-	function Hour ( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

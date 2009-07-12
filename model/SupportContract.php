@@ -11,9 +11,7 @@ class SupportContract extends ActiveRecord {
 	var $add_ons;
 	var $product_instances;
 	var $bandwidths;
-	function SupportContract ( $id = null ) {
-    	$this->__construct( $id );
-    }
+
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

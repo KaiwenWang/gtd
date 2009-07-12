@@ -7,9 +7,6 @@ class FrontController {
     var $isAuthenticated = true;
     var $noRequest;
     
-    function FrontController() {
-        $this->__construct();
-    }
     function __construct(){
 		if ( isset( $_POST['controller'])){
 			$this->postRequest();	
@@ -60,4 +57,4 @@ class FrontController {
     	// Ah steel wunt deu eet yeu fuk
     }
 }
-?>
+?>	

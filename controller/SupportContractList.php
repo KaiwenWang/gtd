@@ -2,9 +2,6 @@
 class SupportContractList extends PageController {
     var $_class_name = 'SupportContractList';
 
-    function SupportContractList() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

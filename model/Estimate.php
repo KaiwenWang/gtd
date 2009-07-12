@@ -8,9 +8,6 @@ class Estimate extends ActiveRecord {
 	var $hours;
     var $_search_criteria_global = array( "modin = 63");
 
-	function Estimate( $id = null ) {
-    	$this->__construct( $id );
-    }
     function __construct( $id = null){
         $dbcon = getDbcon();
         parent::__construct( $dbcon, $id);

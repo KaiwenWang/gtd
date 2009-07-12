@@ -2,9 +2,6 @@
 class TestController extends PageController {
     var $_class_name = 'TestController';
     
-    function PageController() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }

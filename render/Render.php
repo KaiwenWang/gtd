@@ -16,9 +16,7 @@ class Render{
 	var $_class_name = 'Render';
 	var $json;
 	var $system_messages;
-	function Render(){
-		$this->__construct();
-	}
+
 	function __construct(){
 		$this->json = new Services_JSON();
 	}

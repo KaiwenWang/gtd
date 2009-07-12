@@ -16,9 +16,6 @@
 class StaffDetail extends PageController {
     var $_class_name = 'StaffDetail';
 
-    function StaffDetail() {
-        $this->__construct();
-    }
     function __construct(){
         parent::__construct();
     }
