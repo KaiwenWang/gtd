@@ -3,7 +3,8 @@
 function projectTable( $projects, $o = array()){
     $r =& getRenderer();
     $table = array();
-    $table['headers'] = array(	'Project Name',
+    $table['headers'] = array(	'ID',
+    							'Project Name',
     							'Status',
     							'Project Manager',
     							'Launch Date',
@@ -12,7 +13,8 @@ function projectTable( $projects, $o = array()){
     							);
     $table['rows'] =  array();
     foreach($projects as $p){
-      $table['rows'][] = array('<a href="controller=ProjectDetail&project_id='.$p->id.'">'.$p->getName().'</a>',
+      $table['rows'][] = array($p->id,
+      							'<a href="controller=ProjectDetail&project_id='.$p->id.'">'.$p->getName().'</a>',
       							$p->getData('status'),
       							$p->getStaffName(),
       							$p->getData('launch_date'),
