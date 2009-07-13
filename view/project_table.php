@@ -13,8 +13,8 @@ function projectTable( $projects, $o = array()){
     							);
     $table['rows'] =  array();
     foreach($projects as $p){
-      $table['rows'][] = array($p->id,
-      							'<a href="controller=ProjectDetail&project_id='.$p->id.'">'.$p->getName().'</a>',
+      $table['rows'][] = array(	$p->id,
+      							$r->link( 'ProjectDetail', array('project_id'=>$p->id), $p->getName()),
       							$p->getData('status'),
       							$p->getStaffName(),
       							$p->getData('launch_date'),
@@ -22,7 +22,7 @@ function projectTable( $projects, $o = array()){
       							$p->getData('cost')
       							);
     }
-    $html = $r->view('basicTable',$table);
+    $html = $r->view( 'basicTable', $table, array('title'=>'Projects'));
     return $html;
 }
 ?>

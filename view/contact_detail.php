@@ -13,18 +13,18 @@
 
 */
 
-function contactDetail($data, $o){
+function contactDetail($contact, $o){
 	$html = '';
-	$html .= '<h2>Viewing Details for '.$data->getName().'</h2>';
-	$html .= '<div>Name: '. $data->getData('first_name').'</div> ';
-	$html .= '<div>Email: '.$data->getData('email').'</div>';
-	if ($data->getData('is_billing_contact') == 1) {
+	$html .= '<div>Name: '. $contact->getData('first_name').'</div> ';
+	$html .= '<div>Email: <a href="'.$contact->getData('email').'"/>'.$contact->getData('email').'</a></div>';
+
+	if ($contact->getData('is_billing_contact') == 1) {
 		$html .= '&bull; Billing Contact <br />';
 	}
-	if ($data->getData('is_primary_contact') == 1) {
+	if ($contact->getData('is_primary_contact') == 1) {
 		$html .= '&bull; Primary Contact <br />';
 	}
-	if ($data->getData('is_technical_contact') == 1) {
+	if ($contact->getData('is_technical_contact') == 1) {
 		$html .= '&bull;  Technical Contact <br />';
 	}
 	return $html;

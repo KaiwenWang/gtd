@@ -5,32 +5,36 @@ class ProjectList extends PageController {
     function __construct(){
         parent::__construct();
     }
-    function get( $get = array()){
+    function get( $params){
         $r =& getRenderer();
+		
+		$page_title = 'All Projects';
+		
+		$select_by_staff = $r->classSelect( 'Staff',
+												array('name'=>'staff', 'selected_value'=>$params['staff'], 'select_none'=>'All Staff Members'),
+												array('sort'=>'first_name'));
+		$select_by_staff .= $r->submit();
+		$select_by_staff = $r->form( 'get', 'ProjectList', $select_by_staff);
+		$controls = $r->view('basicList', array('Projects by Staff'=>$select_by_staff));
 
 		$search_criteria = array();
 		$search_criteria['sort'] = 'custom17,custom4';#status,launch_date
 
-		if ( $get['staff']){
-			$search_criteria['staff_id'] = $get['staff'];
+		if ( $params['staff']) {
+			$staff = new Staff( $params['staff']);
+			$search_criteria['staff_id'] = $staff->id;
+			$page_title = $staff->getName().'\'s Projects';
 		}
-        if ( $get['status']){
-            $search_criteria['status'] = $get['status'];
-        }
-		$staff_form_content = $r->classSelect( 'Staff',
-												array('name'=>'staff', 'selected_value'=>$get['staff']),
-												array('sort'=>'first_name'));
-		$staff_form_content	.= $r->submit();
-		$staff_form = $r->form( 'get', 'ProjectList', $staff_form_content);
 
         $projects = getMany( 'Project', $search_criteria); 
         $project_table = $r->view('projectTable', $projects, array('id'=>'project'));
 
-        $html = $staff_form.'<br><br>'.$project_table;
+        $html = $project_table;
 
-        return $r->template('template/test_template.html',
+        return $r->template('template/standard_inside.html',
                             array(
-                            'name'=>$name,
+                            'title'=>$page_title,
+                            'controls'=>$controls,
                             'body'=>$html
                             ));
     }

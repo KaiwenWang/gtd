@@ -5,7 +5,7 @@
     
     Displays details about a particular contact
    
-   $get options array:
+   $params options array:
     -<b>contact_id</b> id of the contact that we want to see details for
               
     @return html
@@ -19,16 +19,21 @@ class ContactDetail extends PageController {
     function __construct(){
         parent::__construct();
     }
-    function get( $get = array()){
+    function get( $params = array()){
         $r =& getRenderer();
-		if( !$get['contact_id']) {
+		if( !$params['contact_id']) {
 			$r->msg('bad','you need a contact_id');
 			return;
 		}
-        $contact = new contact($get['contact_id']);
+        $contact = new contact($params['contact_id']);
         $html = $r->view('contactDetail', $contact);
           
-        return $html;
+        return $r->template('template/standard_inside.html',
+                    array(
+                    'title' => 'Viewing Details for '.$contact->getName(),
+                    'controls' => '',
+                    'body' => $html
+                    ));
     }        
 }
 ?>

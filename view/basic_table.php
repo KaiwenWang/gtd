@@ -12,7 +12,9 @@
 */
 function basicTable( $table, $o = array()){
     $id = 'id="'.$o['id'].'" ';
-    $html = '<table  width="80%" cellspacing="1" cellpadding="1">';
+    $html = '';
+	if( $o['title']) $html .= '<h3>'.$o['title'].'</h3>';
+    $html .= '<table  width="80%" cellspacing="1" cellpadding="1">';
     $html .= '<tr>';
 	foreach ($table['headers'] as $header){
 	    $html .= '<th>'.$header.'</th>';
@@ -27,7 +29,7 @@ function basicTable( $table, $o = array()){
     }
     $html .= '</table>';
 
-    return "<div $id>$html</div>";
+    return "<div $id class=\"basic-table\">$html</div>";
    
 }
 ?>
