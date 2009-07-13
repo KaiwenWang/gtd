@@ -13,7 +13,8 @@ class Staff extends ActiveRecord {
         $this->mergeData(array("modin"=>"65"));
     }
 	function getName(){
-		$name = $this->getData('first_name').' '.$this->getData('last_name');
+		$name = $this->getData('first_name');
+		if( $this->getData('last_name')) $name .= ' '.$this->getData('last_name');
 		return $name;
 	}
 	function getProjects(){

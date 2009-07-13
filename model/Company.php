@@ -75,8 +75,7 @@ class Company extends ActiveRecord {
 	}
 	function getContacts(){
 		if(!$this->contacts){
-			$finder = new Contact();
-			$this->contacts= $finder->find(array("company_id"=>$this->id));
+			$this->contacts= getMany('Contact', array("company_id"=>$this->id));
 		}
 		return $this->contacts;	
 	}

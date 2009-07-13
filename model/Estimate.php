@@ -22,6 +22,7 @@ class Estimate extends ActiveRecord {
 	function getTotalHours(){
 		$hours = $this->getHours();
 		$total_hours = 0;
+		if( !$hours) return 0;
 		foreach ($hours as $hour){
 			$total_hours += $hour->getHours();
 		}
@@ -29,6 +30,7 @@ class Estimate extends ActiveRecord {
 	}
 	function getBillableHours(){
 		$hours = $this->getHours();
+		if( !$hours) return 0;
 		$billable_hours = 0;
 		foreach ($hours as $hour){
 			$billable_hours += $hour->getBillableHours();

@@ -84,6 +84,10 @@ class Project extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+	function getContacts(){
+		$company = $this->getCompany();
+		return $company->getContacts();
+	}
 	function getStaff(){
 	   if (!$this->staff){
 	       $this->staff = new Staff( $this->getData('staff_id'));

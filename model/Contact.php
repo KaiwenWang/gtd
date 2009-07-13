@@ -12,6 +12,11 @@ class Contact extends ActiveRecord {
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"61"));
     }
+	function getName(){
+		$name = $this->getData('first_name');
+		if( $this->getData('last_name')) $name .= ' '.$this->getData('last_name');
+		return $name;
+	}
     function getCompany(){
 		if(!$this->company){
 			$this->company = new Company( $this->getData('company_id'));
