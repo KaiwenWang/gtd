@@ -21,10 +21,12 @@ class Render{
 		$this->json = new Services_JSON();
 	}
 	function view( $view_function_name, $data, $options = array()){
-	   $viewDirectory =& getViewDirectory();
-	   $path = $viewDirectory[$view_function_name];
-	   require_once( $path);
-	   return $view_function_name( $data, $options);
+	   	$viewDirectory =& getViewDirectory();
+	   	$path = $viewDirectory[$view_function_name];
+	   	if( !$path) bail("<b>$view_function_name</b> cannot be found. Please add it to the View Directory.");
+	   	if( !file_exists($path)) bail("View file <b>$path</b> does not exist, or has not been added to the View Directory.");
+		require_once( $path);
+	   	return $view_function_name( $data, $options);
 	}
 	function template( $template, $tokens){
 	   $tpl = new Template( $template);
@@ -46,6 +48,10 @@ class Render{
     }
     function css($stylesheet){
     	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
+    }
+   	function link( $controller, $parameters, $text, $o = array()){
+		$attributes_html = $this->attr( $o);
+		return '<a href="index.php?controller='.$controller.'&'.http_build_query($parameters).'" '.$attributes_html.'>'.$text.'</a>';
     }
     function form( $action, $controller, $content, $o = array()){
     	if( !( $action && $controller)) {
@@ -113,9 +119,10 @@ class Render{
 	        							else	{	$selected = '';}
 	        $options_html .= '<option '.$selected.' value="'.$value.'">'.$description.'</option>';
 	    }
+	    if ( $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
 	    return "<select $attributes_html>$options_html</select>";
 	}
-	function objectSelect( $obj, $tokens, $search_criteria){	
+	function objectSelect( $obj, $tokens, $search_criteria = array()){	
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be an ActiveRecord object');
   		$id = $obj->id;
 		if ( !$id) $id = 'new';
