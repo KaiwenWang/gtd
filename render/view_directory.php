@@ -17,7 +17,7 @@ function &getViewDirectory(){
 		'estimateTable' => 'view/estimate_table.php',
 		'contactDetail' => 'view/contact_detail.php',
 		'contactTable' => 'view/contact_table.php',
-		'companyDetail' => 'view/company_detail.php',
+		'companyInfo' => 'view/company_info.php',
 		'companyTable' => 'view/company_table.php',
 		'projectTable' => 'view/project_table.php',
 		'supportContractTable' => 'view/support_contract_table.php',
