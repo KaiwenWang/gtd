@@ -7,7 +7,7 @@
     @package utility
 */
 function bail( $msg){
-	echo $msg.'<br><br>';
+	echo '<br>'.$msg.'<br><br>';
 	$trace = debug_backtrace();
 //	AMP_dump($trace);
 	$html = '<span style="text-decoration:underline">BACKTRACE</span><br><br>';
@@ -23,7 +23,7 @@ function bail( $msg){
 		$html .= '<br>';
 	}
 	echo $html;
-	trigger_error( $msg);
+	trigger_error( strip_tags($msg));
 	exit();
 }
 function &getRenderer(){
