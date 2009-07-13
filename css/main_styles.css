@@ -7,6 +7,7 @@ padding:9px 0 3px 6px;
 
 h3{
 color: #C61810;
+margin:0;
 }
 
 .msg{
@@ -57,4 +58,8 @@ color: #0063AF;
 font-family: Arial;
 border-bottom:1px dashed;
 margin:15px 0;
+}
+.basic-list label{
+font-weight: bold;
+margin-right: 5px;
 }
