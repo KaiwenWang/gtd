@@ -12,8 +12,9 @@
 */
 function &getViewDirectory(){
     static $view_directory = array(
-        'basicModelSelectBox' => 'view/basic_model_select_box.php',
 		'testView' => 'view/test_view.php',
+		'editHour' => 'view/edit_hour.php',
+		'estimateTable' => 'view/estimate_table.php',
 		'contactDetail' => 'view/contact_detail.php',
 		'contactTable' => 'view/contact_table.php',
 		'companyDetail' => 'view/company_detail.php',
@@ -26,7 +27,8 @@ function &getViewDirectory(){
 		'hoursByEstimate' => 'view/hours_by_estimate.php',
 		'hoursForEstimate' => 'view/hours_for_estimate.php',
 		'paymentTable' => 'view/payment_table.php',
-		'basicListItem' => 'view/basic_list_item.php',
+		'projectInfo' => 'view/project_info.php',		
+		'basicList' => 'view/basic_list.php',
 		'hourListItem' => 'view/hour_list_item.php',
 		'hoursList' => 'view/hours_list.php'
     );
