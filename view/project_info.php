@@ -17,7 +17,6 @@ function projectInfo( $project, $o = array()){
     );
     $project_info = $r->view( 'basicList', $list_items);
     
-    $contact_table = $r->view('contactTable',$project->getContacts());
-    return $project_info.$contact_table;
+    return $project_info;
 }
 ?>

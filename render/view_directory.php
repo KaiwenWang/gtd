@@ -30,7 +30,9 @@ function &getViewDirectory(){
 		'projectInfo' => 'view/project_info.php',		
 		'basicList' => 'view/basic_list.php',
 		'hourListItem' => 'view/hour_list_item.php',
-		'hoursList' => 'view/hours_list.php'
+		'hoursList' => 'view/hours_list.php',
+		'hourTable' => 'view/hour_table.php',
+		'estimateInfo' => 'view/estimate_info.php'
     );
     return $view_directory;
 }

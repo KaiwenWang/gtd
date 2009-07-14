@@ -8,8 +8,9 @@ class PageController {
         
     } 
     function execute( $action, $params = array()){
-    	$this->params = $params;
+        $this->params = $params;
     	if ( $action == 'get'){
+            $this->cleanParams(); 
     		return $this->get( $this->params);				
     	} else if ( $action == 'post'){
     		$this->beforePost();
@@ -29,5 +30,11 @@ class PageController {
 		// MUST be defined in a subclass
     }
     protected function afterPost( ){}
+    protected function params( $key ){
+        if( isset( $this->params[$key]) && $this->params[$key]) {
+            return $this->params[$key];
+        }
+        return false;
+    }
 }
 ?>

@@ -1,32 +1,28 @@
 <?php
 
-function estimateTable( $estimates, $o = array()){
+function hourTable( $estimates, $o = array()){
     $r =& getRenderer();
     $table = array();
     $table['headers'] = array(	'ID',
     							'Description',
-								'Due By',
-    							'Low Estimate',
-    							'High Estimate',
-    							'Total Hours',
-    							'Billable Hours',
-    							'Notes',
-    							'Completed'
+                                'Date Completed',
+    							'Staff',
+    							'Hours',
+    							'Discount',
+    							'Billable Hours'
     							);
     $table['rows'] =  array();
     foreach($estimates as $e){
       $table['rows'][] = array(	$e->id,
-      							$r->link( 'EstimateDetail', array('estimate_id'=>$e->id), $e->getName()),
-      							$e->getData('due_date'),
-      							$e->getLowEstimate(),
-      							$e->getHighEstimate(),
-      							$e->getTotalHours(),
-      							$e->getBillableHours(),
-      							$e->getData('notes'),
-      							$e->getData('completed') ? 'Yes' : 'No'
+      							$e->getName(),
+      							$e->getData('date'),
+      							$e->getStaffName(),
+      							$e->getHours(),
+      							$e->getDiscount(),
+      							$e->getBillableHours()
       							);
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Estimates'));
+    $html = $r->view( 'basicTable', $table, array('title'=>'Hours'));
     return $html;
 }
 ?>

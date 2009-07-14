@@ -13,11 +13,20 @@ class Hour extends ActiveRecord {
 						'description'=>'text',
 						'staff_id'=>'Staff',
 						'date'=>'date',
-						'hours'=>'float',
+						'hours'=>'float,required',
 						'support_contract_id'=>'SupportContract',
 						'discount'=>'float',
 						'basecamp_id'=>'int'
 					);
+    var $db_fields_text = <<<SUCKINLIPS
+estimate
+    :text
+    :values = Estimate::find( )
+    :rules
+      :required
+      :scope => 'active only'
+SUCKINLIPS;
+
 	var $hours;
 	var $staff;
 
@@ -88,5 +97,8 @@ class Hour extends ActiveRecord {
 	function makeCriteriaBasecampId( $value ) {
 		return $this->_makeCriteriaEquals( 'custom11', $value );
 	}
+
+    function is_valid( ) {
+    }
 }
 ?>
