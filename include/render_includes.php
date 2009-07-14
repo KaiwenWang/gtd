@@ -1,4 +1,4 @@
-<?
+<?php
 require_once( 'render/view_directory.php');
 require_once( 'render/Render.php');
 require_once( 'render/Template.php');
