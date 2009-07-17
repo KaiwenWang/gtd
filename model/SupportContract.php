@@ -37,6 +37,7 @@ class SupportContract extends ActiveRecord {
     function getTotalHours(){
         $hours = $this->getHours();
         $total_hours = 0;
+        if( !$hours ) return $total_hours;
         foreach ($hours as $hour){
             $total_hours += $hour->getHours();
         }
@@ -45,6 +46,7 @@ class SupportContract extends ActiveRecord {
     function getBillableHours(){
         $hours = $this->getHours();
         $billable_hours = 0;
+        if( !$hours ) return $billable_hours;
         foreach ($hours as $hour){
             $billable_hours += $hour->getHours();
             $billable_hours -= $hour->getDiscount();
