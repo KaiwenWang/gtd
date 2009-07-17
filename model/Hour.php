@@ -18,14 +18,15 @@ class Hour extends ActiveRecord {
 						'discount'=>'float',
 						'basecamp_id'=>'int'
 					);
-    var $db_fields_text = <<<SUCKINLIPS
-estimate
-    :text
-    :values = Estimate::find( )
-    :rules
-      :required
-      :scope => 'active only'
-SUCKINLIPS;
+
+    public $db_fields_text = "
+estimate:
+  :text
+  :values = Estimate::find( )
+  :rules
+  :required
+  :scope => 'active only'
+";
 
 	var $hours;
 	var $staff;

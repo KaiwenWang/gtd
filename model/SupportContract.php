@@ -11,6 +11,7 @@ class SupportContract extends ActiveRecord {
 	var $add_ons;
 	var $product_instances;
 	var $bandwidths;
+    var $company;
 
     function __construct( $id = null){
         parent::__construct( $id);
@@ -58,11 +59,11 @@ class SupportContract extends ActiveRecord {
 		return $this->product_instances;	
 	}
 	function getBandwidth(){
-		if(!$this->bandwiths){
-			$finder = new Bandwidths();
-			$this->bandwiths = $finder->find(array("support_contract_id"=>$this->id));
+		if(!$this->bandwidths){
+			$finder = new Bandwidth();
+			$this->bandwidths = $finder->find(array("support_contract_id"=>$this->id));
 		}
-		return $this->bandwiths;
+		return $this->bandwidths;
 	}
 	function getAddOns(){
 		if(!$this->add_ons){

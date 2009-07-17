@@ -1,6 +1,5 @@
 <?php
 class EstimateDetail extends PageController {
-    var $_class_name = 'EstimateList';
 
     function __construct(){
         parent::__construct();

@@ -57,7 +57,7 @@ class ProductInstance extends ActiveRecord {
 	function makeCriteriaApacheFile( $value ) {
 		return $this->_makeCriteriaEquals( 'custom18', $value );
 	}
-	function makeCriteriaContractId( $value ) {
+	function makeCriteriaSupportContractId( $value ) {
 		return $this->_makeCriteriaEquals( 'custom19', $value );
 	}
 	function makeCriteriaWordpress( $value ) {

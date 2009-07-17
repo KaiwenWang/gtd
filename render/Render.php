@@ -22,7 +22,7 @@ class Render{
 	}
 	function view( $view_function_name, $data, $options = array()){
 	   	$viewDirectory =& getViewDirectory();
-	   	$path = $viewDirectory[$view_function_name];
+	   	$path = $viewDirectory->find( $view_function_name );
 	   	if( !$path) bail("<b>$view_function_name</b> cannot be found. Please add it to the View Directory.");
 	   	if( !file_exists($path)) bail("View file <b>$path</b> does not exist, or has not been added to the View Directory.");
 		require_once( $path);
@@ -64,10 +64,10 @@ class Render{
     					'attributes' => $attributes,
     					'form-content' => $content
     					);
-    	if ( $o['redirect']) $tokens['redirect'] = $this->input( 'hidden',
+    	if ( isset( $o['redirect'] ) && $o['redirect']) $tokens['redirect'] = $this->input( 'hidden',
     												array(	'name'=>'redirect',
     														'value'=>$o['redirect']));
-    	if ( $o['load']) $tokens['load'] = $this->input( 'hidden',
+    	if ( isset( $o['load']) && $o['load']) $tokens['load'] = $this->input( 'hidden',
     												array(	'name'=>'load',
     														'value'=>$o['load']));		
 		return $this->template('template/form_elements/form.html', $tokens);    
@@ -105,21 +105,21 @@ class Render{
     	return $this->input( $field_type, $tokens);
     }
     function input( $field_type, $tokens = array()){
-    	if ( !$tokens['attributes']) $tokens['attributes'] = $this->attr($tokens);
-    	if ( !$tokens['size']) $tokens['size'] = 15;
+    	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
+    	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
    		if (!$o['name']) bail('A select field must have token["name"] passed to it in order to work');
 	    $attributes_html = $this->attr( $o);
 	    $options_html = '';
-	    if ( $o['title']) $options_html .= '<option value="">'.$o['title'].'</option>';
+	    if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.$o['title'].'</option>';
 	    foreach( $data as $value => $description){
-	        if ( $value == $o['selected_value']){	$selected = 'selected="selected"';}
+	        if ( isset( $o['selected_value']) && $value == $o['selected_value']){	$selected = 'selected="selected"';}
 	        							else	{	$selected = '';}
 	        $options_html .= '<option '.$selected.' value="'.$value.'">'.$description.'</option>';
 	    }
-	    if ( $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
+	    if ( isset( $o['select_none']) && $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
 	    return "<select $attributes_html>$options_html</select>";
 	}
 	function objectSelect( $obj, $tokens, $search_criteria = array()){	

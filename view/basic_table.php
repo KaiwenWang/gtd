@@ -11,7 +11,7 @@
 	
 */
 function basicTable( $table, $o = array()){
-    $id = 'id="'.$o['id'].'" ';
+    $id = isset( $o['id']) ? 'id="'.$o['id'].'" ' : "";
     $html = '';
 	if( $o['title']) $html .= '<h3>'.$o['title'].'</h3>';
     $html .= '<table  width="80%" cellspacing="1" cellpadding="1">';

@@ -10,7 +10,6 @@ class PageController {
     function execute( $action, $params = array()){
         $this->params = $params;
     	if ( $action == 'get'){
-            $this->cleanParams(); 
     		return $this->get( $this->params);				
     	} else if ( $action == 'post'){
     		$this->beforePost();
