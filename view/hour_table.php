@@ -1,7 +1,8 @@
 <?php
 
-function hourTable( $estimates, $o = array()){
+function hourTable( $hours, $o = array()){
     $r =& getRenderer();
+    if( !$hours ) return false;
     $table = array();
     $table['headers'] = array(	'ID',
     							'Description',
@@ -12,7 +13,7 @@ function hourTable( $estimates, $o = array()){
     							'Billable Hours'
     							);
     $table['rows'] =  array();
-    foreach($estimates as $e){
+    foreach($hours as $e){
       $table['rows'][] = array(	$e->id,
       							$e->getName(),
       							$e->getData('date'),
