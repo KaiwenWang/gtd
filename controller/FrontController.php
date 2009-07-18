@@ -5,7 +5,6 @@ class FrontController {
     var $requestedAction;
     var $requestedParams;
     var $isAuthenticated = true;
-    var $noRequest;
     
     function __construct(){
 		if ( isset( $_POST['controller'])){
@@ -13,11 +12,11 @@ class FrontController {
 		} else if ( isset( $_GET['controller'])){
 			$this->getRequest();
 		} else {
-			$this->noRequest = true;
+			$_GET['controller'] = 'HomePage';
+			$this->getRequest();
 		}
     }
     function execute(){
-    	if ( $this->noRequest) return 'no controller set in GET or POST array';
         $this->authenticate();
         if ($this->isAuthenticated){
 			$r =& getRenderer();
@@ -49,7 +48,7 @@ class FrontController {
         $this->requestedAction = 'post';
         $this->requestedParams = $_POST;
         unset($this->requestedParams['controller']);
-    }  
+    }
     function authenticate(){
         //  Me aither yeh fuukken bastard yeu!
     }
