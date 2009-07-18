@@ -1,6 +1,7 @@
 <?php
 
 function estimateTable( $estimates, $o = array()){
+	if( !$estimate) return;
     $r =& getRenderer();
     $table = array();
     $table['headers'] = array(	'ID',

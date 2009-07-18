@@ -37,13 +37,17 @@ class Company extends ActiveRecord {
 			$contracts = $this->getSupportContracts();
 			$projects = $this->getProjects();
 			$invoices = array();
-			foreach($contracts as $contract){
-				if($contract->getInvoices()) $invoices = array_merge($invoices, $contract->getInvoices());
+			if($contracts){
+				foreach($contracts as $contract){
+					if($contract->getInvoices()) $invoices = array_merge($invoices, $contract->getInvoices());
+				}
 			}
-			foreach($projects as $project){
-				if($project->getInvoices()) $invoices = array_merge($invoices,$project->getInvoices());
+			if($projects){
+				foreach($projects as $project){
+					if($project->getInvoices()) $invoices = array_merge($invoices,$project->getInvoices());
+				}
 			}
-			$this->invoices = $invoices;
+				$this->invoices = $invoices;
 		}
 		return $this->invoices;
 	}
@@ -56,6 +60,7 @@ class Company extends ActiveRecord {
 	}
 	function getTotalPayments(){
 		$payments = $this->getPayments();
+		if( !$payments) return 0;
 		$total_payments = 0;
 		foreach ($payments as $payment){
 			$total_payments += $payment->getAmount();

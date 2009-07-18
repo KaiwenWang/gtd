@@ -11,17 +11,18 @@
 	
 */
 function basicTable( $table, $o = array()){
-    $id = isset( $o['id']) ? 'id="'.$o['id'].'" ' : "";
+    $r =& getRenderer();
+    $attr = $r->attr($o);
     $html = '';
-	if( $o['title']) $html .= '<h3>'.$o['title'].'</h3>';
-    $html .= '<table  width="80%" cellspacing="1" cellpadding="1">';
+	if( $o['title']) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
+    $html .= '<table class="basic-table" cellspacing="0" cellpadding="0">';
     $html .= '<tr>';
 	foreach ($table['headers'] as $header){
 	    $html .= '<th>'.$header.'</th>';
 	}
     $html .= '</tr>';
     foreach($table['rows'] as $row){
-        $html .= '<tr bgcolor="#d5d5d5" onmouseout="this.bgColor=\'#D5D5D5\';" onmouseover="this.bgColor=\'#FFE567\';" bordercolor="#333333">';
+        $html .= '<tr>';
 		foreach($row as $cell){
         	$html .= '<td>'.$cell.'</td>';
 		}
@@ -29,7 +30,7 @@ function basicTable( $table, $o = array()){
     }
     $html .= '</table>';
 
-    return "<div $id class=\"basic-table\">$html</div>";
+    return "<div $attr >$html</div>";
    
 }
 ?>

@@ -11,8 +11,10 @@ class ProjectList extends PageController {
 		$page_title = 'All Projects';
 		
 		$select_by_staff = $r->classSelect( 'Staff',
-												array('name'=>'staff', 'selected_value'=>$params['staff'], 'select_none'=>'All Staff Members'),
-												array('sort'=>'first_name'));
+											array(	'name'=>'staff_id',
+													'selected_value'=>$params['staff_id'],
+													'select_none'=>'All Staff Members'),
+											array('sort'=>'first_name'));
 		$select_by_staff .= $r->submit();
 		$select_by_staff = $r->form( 'get', 'ProjectList', $select_by_staff);
 		$controls = $r->view('basicList', array('Projects by Staff'=>$select_by_staff));
@@ -20,8 +22,8 @@ class ProjectList extends PageController {
 		$search_criteria = array();
 		$search_criteria['sort'] = 'custom17,custom4';#status,launch_date
 
-		if ( $params['staff']) {
-			$staff = new Staff( $params['staff']);
+		if ( $params['staff_id']) {
+			$staff = new Staff( $params['staff_id']);
 			$search_criteria['staff_id'] = $staff->id;
 			$page_title = $staff->getName().'\'s Projects';
 		}

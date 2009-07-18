@@ -13,9 +13,9 @@
 	
 */
 function basicList( $list_items){
-	$html = '<ul class="basic-list">';
-	foreach( $list_items as $label=>$item) $html .= "<li><label>$label</label>$item</li>";
-	$html .= '</ul>';
+	$html = '<table class="basic-list" cellpadding="0" cellspacing="0">';
+	foreach( $list_items as $label=>$item) $html .= "<tr><td><label class=\"basic-list-label\">$label</label></td><td><span class=\"basic-list-item\">$item</span></td></tr>";
+	$html .= '</table>';
 	return $html;
 }
 ?>

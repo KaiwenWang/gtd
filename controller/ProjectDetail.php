@@ -7,13 +7,10 @@ class ProjectDetail extends PageController {
     }
     function get( $params){
         $r =& getRenderer();
+		if( !$params['id']) Bail('No id given.');
+		$project = new Project( $params['id']);
+		$select_project = $r->view( 'jumpSelect', $project);
 
-		$project = new Project( $params['project_id']);
-		$select_project = $r->objectSelect( $project, array('name'=>'project_id'));
-		$select_project .= $r->submit();
-		$select_project = $r->form( 'get', 'ProjectDetail', $select_project);
-
-        
 		$project_info = $r->view('projectInfo', $project);
         $contact_table = $r->view('contactTable',$project->getContacts());
 		$estimate_table = $r->view('estimateTable', $project->getEstimates());

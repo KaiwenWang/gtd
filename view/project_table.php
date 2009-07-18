@@ -1,6 +1,7 @@
 <?php
 
 function projectTable( $projects, $o = array()){
+	if( !$projects) return;
     $r =& getRenderer();
     $table = array();
     $table['headers'] = array(	'ID',
@@ -14,7 +15,7 @@ function projectTable( $projects, $o = array()){
     $table['rows'] =  array();
     foreach($projects as $p){
       $table['rows'][] = array(	$p->id,
-      							$r->link( 'ProjectDetail', array('project_id'=>$p->id), $p->getName()),
+      							$r->link( 'ProjectDetail', array('id'=>$p->id), $p->getName()),
       							$p->getData('status'),
       							$p->getStaffName(),
       							$p->getData('launch_date'),

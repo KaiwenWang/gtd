@@ -19,11 +19,7 @@ class Staff extends ActiveRecord {
 	}
 	function getProjects(){
 		if(!$this->projects){
-				trigger_error('boohooasdasd');
-			$finder = new Project();
-							trigger_error('hooasdasd');
-			$this->projects = $finder->find( array("staff_id"=>$this->id));
-				trigger_error('booh');
+			$this->projects = getMany( 'Project', array("staff_id"=>$this->id));
 		}
 
 		return $this->projects;

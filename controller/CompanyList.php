@@ -12,9 +12,10 @@ class CompanyList extends PageController {
 
         $html = $r->view('companyTable', $companies, array('id'=>'company'));
           
-        return $r->template('template/test_template.html',
+        return $r->template('template/standard_inside.html',
                             array(
-                            'name'=>$name,
+                            'title'=>'Listing All Companies',
+                            'controls'=>'',
                             'body'=>$html
                             ));
     }        

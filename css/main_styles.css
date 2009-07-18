@@ -1,12 +1,20 @@
-h1.page_name {
-background: #669944 none repeat scroll 0 0;
-color:white;
+body{
+font-family: Verdana;
+}
+a{
+text-decoration: none;
+color:#006699;
+}
+h1 {
 margin:0 0 6px;
 padding:9px 0 3px 6px;
 }
-
+h2{
+color:#333333;
+margin:0;
+}
 h3{
-color: #C61810;
+color:#666666;
 margin:0;
 display: inline;
 border-bottom:1px dashed;
@@ -33,6 +41,7 @@ background: #fff9f9;
 #side{
 float: right;
 width: 200px;
+clear: right;
 }
 
 #application{
@@ -40,8 +49,6 @@ margin-left:10px;
 }
 
 #footer{
-background:#669944 none repeat scroll 0 0;
-color:white;
 margin-top:10px;
 height:20px;
 clear: both;
@@ -52,16 +59,22 @@ list-style-type: none;
 margin: 10px 0;
 padding: 0;
 }
-
-#side a{
-text-decoration: none;
-color: #0063AF;
+.basic-table{
+width:80%;
+border-collapse:collapse;
 }
-
-#side h3{
-font-family: Arial;
+.basic-table td{
+border: 1px solid black;
+padding: 4px;
 }
-.basic-list label{
+.basic-list{
+margin: 10px 0;
+padding: 0;
+}
+.basic-list-label{
+color: #333333;
 font-weight: bold;
-margin-right: 5px;
+margin-right: 10px;
+}
+.basic-list-item{
 }

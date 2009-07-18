@@ -4,7 +4,7 @@
     
     Displays details about a particular staff
    
-   $get options array:
+   $params options array:
     -<b>contact_id</b> id of the staff that we want to see details for
               
     @return html
@@ -19,16 +19,21 @@ class StaffDetail extends PageController {
     function __construct(){
         parent::__construct();
     }
-    function get( $get = array()){
+    function get( $params = array()){
         $r =& getRenderer();
-		if( !$get['staff_id']) {
-			$r->msg('bad','can has Staff id? kthx');
-			return;
+		if( !$params['id']) {
+			bail('can has Staff id? kthx');
 		}
-        $staff = new Staff($get['staff_id']);
-        $html = $r->view('staffDetail', $staff);
-          
-        return $html;
+        $staff = new Staff($params['id']);
+        $staff_detail = $r->view( 'staffDetail', $staff);
+        $project_table = $r->view( 'projectTable', $staff->getProjects());
+   
+        return $r->template('template/standard_inside.html',
+                            array(
+                            'title'=>$staff->getName(),
+                            'controls'=>$r->view( 'jumpSelect', $staff),
+                            'body'=>$staff_detail.$project_table
+                            ));
     }        
 }
 ?>

@@ -43,6 +43,7 @@ class Project extends ActiveRecord {
 	}
 	function getTotalHours(){
 		$estimates = $this->getEstimates();
+		if( !$estimate) return 0;
 		$hours = 0;
 		foreach ($estimates as $estimate){
 			$hours += $estimate->getTotalHours();
@@ -51,6 +52,7 @@ class Project extends ActiveRecord {
 	}
 	function getBillableHours(){
 		$estimates = $this->getEstimates();
+		if( !$estimate) return 0;
 		$hours = 0;
 		foreach ($estimates as $estimate){
 			$hours += $estimate->getBillableHours();
@@ -59,6 +61,7 @@ class Project extends ActiveRecord {
 	}
 	function getLowEstimate(){
 		$estimates = $this->getEstimates();
+		if( !$estimate) return 0;
 		$hours = 0;
 		foreach ($estimates as $estimate){
 			$hours += $estimate->getLowEstimate();
@@ -68,6 +71,7 @@ class Project extends ActiveRecord {
 	}
 	function getHighEstimate(){
 		$estimates = $this->getEstimates();
+		if( !$estimate) return 0;
 		$hours = 0;
 		foreach ($estimates as $estimate){
 			$hours += $estimate->getHighEstimate();

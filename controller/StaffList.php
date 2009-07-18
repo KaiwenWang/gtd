@@ -7,14 +7,12 @@ class StaffList extends PageController {
     }
     function get( $get = array()){
         $r =& getRenderer();
-        $finder = new Staff();
-        $staff = $finder->find();
-
-        $html = $r->view('staffTable', $staff, array('id'=>'staff'));
-          
-        return $r->template('template/test_template.html',
+        $staff = getAll( 'Staff');
+        $html = $r->view( 'staffTable', $staff);
+        return $r->template('template/standard_inside.html',
                             array(
-                            'name'=>$name,
+                            'title'=>'Listing All Staff',
+                            'controls'=>'',
                             'body'=>$html
                             ));
     }        

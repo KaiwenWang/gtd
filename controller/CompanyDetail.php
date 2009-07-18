@@ -22,13 +22,11 @@ class CompanyDetail extends PageController {
     function get( $params){
         $r =& getRenderer();
 
-		if( !$params['company_id']) bail('no company selected');
+		if( !$params['id']) bail('no company selected');
 
-		$company = new Company( $params['company_id']);
+		$company = new Company( $params['id']);
 
-		$company_selector = $r->objectSelect( $company, array('name'=>'company_id'));
-    	$company_selector .= $r->submit();
-    	$company_selector = $r->form('get','CompanyDetail',$company_selector);
+		$company_selector = $r->view( 'jumpSelect', $company );
     	
         $html = $r->view( 'companyInfo', $company);
        	$html .= $r->view( 'contactTable', $company->getContacts());
