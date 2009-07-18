@@ -10,7 +10,7 @@
 */
 
 function staffDetail( $staff, $o){
-	$html = 'staffDetail view needs some work.';
+	$html = 'staffDetail view still needs some work.';
 	
 	return $html;
 	
