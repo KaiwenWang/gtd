@@ -10,13 +10,14 @@ class Template{
             die("Template file $template not found.");
     }
     function replace_tags($tags = array()){
-        if (count($tags) > 0)
+        if (count($tags) > 0) {
             foreach ($tags as $tag => $data) {
                 $data = ( file_exists( $data))  ? $this->runFile($data) : $data;
                 $this->html = eregi_replace( "\[\[" . $tag . "\]\]", $data, $this->html);
             }
-        else
-            die("No tags designated for replacement.");
+		}else{
+            bail("No tags designated for replacement.");
+		}
     }
     function runFile($file) {
         ob_start();
