@@ -13,7 +13,7 @@ class Hour extends ActiveRecord {
 						'description'=>'text',
 						'staff_id'=>'Staff',
 						'date'=>'date',
-						'hours'=>'float,required',
+						'hours'=>'float',
 						'support_contract_id'=>'SupportContract',
 						'discount'=>'float',
 						'basecamp_id'=>'int'

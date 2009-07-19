@@ -3,6 +3,7 @@ class PageController {
     var $authentication_level = array( 'staff');
     var $_class_name = 'PageController';
     var $params = array();
+    var $posted_objects = array();
     
     function __construct(){
         
@@ -23,12 +24,26 @@ class PageController {
 		// MUST be defined in a subclass
     }
     protected function beforePost( ){
-    	
+    	$record_set = $this->params['ActiveRecord'];
+		foreach($record_set as $class_name => $object_set){
+			foreach( $object_set as $id => $updated_fields){
+				if( $id == 'new') bail('Can\'t create new objects yet');
+				$obj = new $class_name( $id);
+				$obj->mergeData( $updated_fields);
+				$this->posted_objects[]=$obj;
+			}
+		}
     }
-    function post( $params){
+    function post(){
 		// MUST be defined in a subclass
     }
-    protected function afterPost( ){}
+    protected function afterPost( ){
+		foreach( $this->posted_objects as $obj) $obj->save();
+		if( $this->params('redirect')) {
+			header('Location: '.$this->params('redirect').'');
+			die();
+		}
+    }
     protected function params( $key ){
         if( isset( $this->params[$key]) && $this->params[$key]) {
             return $this->params[$key];

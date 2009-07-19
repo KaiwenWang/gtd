@@ -8,12 +8,12 @@ class FrontController {
     
     function __construct(){
 		if ( isset( $_POST['controller'])){
-			$this->postRequest();	
+			$this->createRequest( 'post');	
 		} else if ( isset( $_GET['controller'])){
-			$this->getRequest();
+			$this->createRequest( 'get');
 		} else {
-			$_GET['controller'] = 'HomePage';
-			$this->getRequest();
+			$_REQUEST['controller'] = 'HomePage';
+			$this->createRequest( 'get');
 		}
     }
     function execute(){
@@ -30,23 +30,14 @@ class FrontController {
         } else {
 			return $this->login();
         }
-    }
-    function getRequest(){
-    	$path = 'controller/'.$_GET['controller'].'.php';
-		if( !file_exists($path)) bail( 'requested controller "'.$_GET['controller'].'" does not exist.');
-        require_once( $path);
-        $this->requestedPageController = new $_GET['controller'];
-        $this->requestedAction = 'get';
-        $this->requestedParams = $_GET;
-        unset($this->requestedParams['controller']);
-    }   
-    function postRequest(){
-    	$path = 'controller/'.$_POST['controller'].'.php';
-		if( !file_exists($path)) bail( 'requested controller "'.$_POST['controller'].'" does not exist.');
-        require_once('controller/'.$_POST['controller'].'.php');
-        $this->requestedPageController = new $_POST['controller'];
-        $this->requestedAction = 'post';
-        $this->requestedParams = $_POST;
+    }  
+    function createRequest( $action = 'get'){
+    	$path = 'controller/'.$_REQUEST['controller'].'.php';
+		if( !file_exists($path)) bail( 'requested controller "'.$_REQUEST['controller'].'" does not exist.');
+        require_once('controller/'.$_REQUEST['controller'].'.php');
+        $this->requestedPageController = new $_REQUEST['controller'];
+        $this->requestedAction = $action;
+        $this->requestedParams = $_REQUEST;
         unset($this->requestedParams['controller']);
     }
     function authenticate(){
@@ -56,4 +47,4 @@ class FrontController {
     	// Ah steel wunt deu eet yeu fuk
     }
 }
-?>	
+?>

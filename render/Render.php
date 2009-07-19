@@ -49,9 +49,20 @@ class Render{
     function css($stylesheet){
     	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
     }
-    function link( $controller, $parameters, $text, $o = array()){
+    function link( $controller, $parameters, $text = false, $o = array()){
 	    $attributes_html = $this->attr( $o);
-    	return '<a href="index.php?controller='.$controller.'&'.http_build_query($parameters).'" '.$attributes_html.'>'.$text.'</a>';
+	    if( is_a( $parameters, 'ActiveRecord')){
+			$obj = $parameters;
+			if ( !$text) $text = $obj->getName();
+	    }
+    	return '<a href="'.$this->url( $controller, $parameters).'" '.$attributes_html.'>'.$text.'</a>';
+    }
+    function url( $controller, $parameters){
+	    if( is_a( $parameters, 'ActiveRecord')){
+			$obj = $parameters;
+			$parameters = array( 'id' => $obj->id );
+	    }
+    	return 'index.php?controller='.$controller.'&'.http_build_query($parameters);
     }
     function form( $action, $controller, $content, $o = array()){
     	if( !( $action && $controller)) {
@@ -64,15 +75,13 @@ class Render{
     					'attributes' => $attributes,
     					'form-content' => $content
     					);
-    	if ( isset( $o['redirect'] ) && $o['redirect']) $tokens['redirect'] = $this->input( 'hidden',
-    												array(	'name'=>'redirect',
-    														'value'=>$o['redirect']));
-    	if ( isset( $o['load']) && $o['load']) $tokens['load'] = $this->input( 'hidden',
-    												array(	'name'=>'load',
-    														'value'=>$o['load']));		
+    	if ( isset( $o['redirect'])) $tokens['redirect'] = $this->input( 	'hidden',
+    																array(	'name'=>'redirect',
+    																		'value'=>$o['redirect']));
+	    else $tokens['redirect'] = '';
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
-    function field( $obj, $field_name, $search_criteria){
+    function field( $obj, $field_name, $search_criteria = array()){
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
   		$id = $obj->id;
 		if ( !$id) $id = 'new';
@@ -90,7 +99,6 @@ class Render{
 		}
 		if ( class_exists( $field_type)){
 			$class = $field_type;
-			
 			if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
 							else	{	$objects = getAll( $class);}
 			foreach( $objects as $o){
