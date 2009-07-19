@@ -19,14 +19,20 @@ class Hour extends ActiveRecord {
 						'basecamp_id'=>'int'
 					);
 
-    public $db_fields_text = "
-estimate:
-  :text
-  :values = Estimate::find( )
-  :rules
-  :required
-  :scope => 'active only'
-";
+    public $schema = "{	
+			'fields' : {	'estimate_id' :	'Estimate',
+							'support_contract_id' : 'SupportContract',
+							'staff_id' 	  : 'Staff',
+							'description' :	'text',
+							'date' 		  : 'date',
+							'hours' 	  : 'float',
+							'discount' 	  : 'float',
+							'basecamp_id' : 'int'
+					},
+			'required' : [	'staff_id',
+							[ 'estimate_id' , 'support_contract_id' ]
+					]
+			}";
 
 	var $hours;
 	var $staff;
