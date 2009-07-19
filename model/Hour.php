@@ -61,6 +61,14 @@ estimate:
         $staff = $this->getStaff();
         return $staff->getName();
 	}
+	function defaultSearchCriteria( $field_name){
+		if( $field_name == 'estimate_id'){
+		    $e = new Estimate( $this->getData( 'estimate_id'));
+    		if( $e->getData( 'project_id')) return array( 'project_id' => $e->getData( 'project_id'));
+    		if( $e->getData( 'support_contract_id')) return array( 'support_contract_id' => $e->getData( 'support_contract_id'));
+		}
+		parent::defaultSearchCriteria( $field_name);
+	}
 	function _adjustSetData($data) {
 		$this->legacyFieldName($data,'custom2', "estimate_id" );
 		$this->legacyFieldName($data,'custom3', "description" );

@@ -99,7 +99,8 @@ class Render{
 		}
 		if ( class_exists( $field_type)){
 			$class = $field_type;
-			if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
+			if( !$search_criteria) $search_criteria = $obj->defaultSearchCriteria( $field_name);
+			if( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
 							else	{	$objects = getAll( $class);}
 			foreach( $objects as $o){
 				$data[$o->id] = $o->getName();
@@ -115,6 +116,7 @@ class Render{
     function input( $field_type, $tokens = array()){
     	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
     	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
+    	if ( isset( $tokens['value'])) $tokens['value'] = htmlentities($tokens['value']);
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){

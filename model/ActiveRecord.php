@@ -21,6 +21,7 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		if ( strchr( ',', $field_type)) return str_getcsv( $field_type);
 		return $field_type;
 	} 
+	function defaultSearchCriteria( $field_name){}
     function &_getSearchSource( $criteria = null ){
         if ( isset( $this->_search_source ) && $this->_search_source ) {
             if ( !isset( $criteria )) return $this->_search_source;
