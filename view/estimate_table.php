@@ -1,7 +1,7 @@
 <?php
 
 function estimateTable( $estimates, $o = array()){
-	if( !$estimate) return;
+	if( !$estimates) return;
     $r =& getRenderer();
     $table = array();
     $table['headers'] = array(	'ID',
@@ -17,7 +17,7 @@ function estimateTable( $estimates, $o = array()){
     $table['rows'] =  array();
     foreach($estimates as $e){
       $table['rows'][] = array(	$e->id,
-      							$r->link( 'EstimateDetail', array('estimate_id'=>$e->id), $e->getName()),
+      							$r->link( 'EstimateDetail', array('id'=>$e->id), $e->getName()),
       							$e->getData('due_date'),
       							$e->getLowEstimate(),
       							$e->getHighEstimate(),

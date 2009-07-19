@@ -7,27 +7,20 @@ class HourEdit extends PageController {
     }
     function get( $params){
         $r =& getRenderer();
-        $hour_id = $this->params( 'hour_id');
-        $h = new Hour( $hour_id );
-        $e = new Estimate( $h->getData( 'estimate_id'));
-        $form = $r->field( $h, 'estimate_id', array( 'project_id'=>$e->getData( 'project_id')));
-        $form .= $r->field( $h, 'hours');
-        $form .= $r->submit( );
-        $form = $r->form( 'post', 'HourEdit', $form );
+        $h = new Hour( $params['id']);
+        $e = new Estimate($h->getData('estimate_id'));
+		$form = $r->view( 'hourEdit', $h);
 
         return $r->template('template/standard_inside.html',
                             array(
-                            'title' => 'Create/Edit Hour',
-                            'controls' => '',
-                            'body' => $form
+                            'title' 	=> 'Create/Edit Hour',
+                            'controls'	=> $r->view( 'jumpSelect', $h, array('estimate_id'=>$e->id)).
+                            				$r->view( 'jumpSelect', $e, array('project_id'=>$e->getData('project_id'))),
+                            'body' 		=> $form
                             ));
     }
 
     function post( $posted_object ) {
-        if( !$posted_object->is_valid( )) {
-            $this->render_for_get( array( 'errors' => $posted_object->errors( )) );
-            
-        }
 
     }
 }

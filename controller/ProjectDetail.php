@@ -14,7 +14,6 @@ class ProjectDetail extends PageController {
 		$project_info = $r->view('projectInfo', $project);
         $contact_table = $r->view('contactTable',$project->getContacts());
 		$estimate_table = $r->view('estimateTable', $project->getEstimates());
-
         return $r->template('template/standard_inside.html',
                             array(
                             'title' => $project->getName(),

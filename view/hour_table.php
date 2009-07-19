@@ -13,14 +13,14 @@ function hourTable( $hours, $o = array()){
     							'Billable Hours'
     							);
     $table['rows'] =  array();
-    foreach($hours as $e){
-      $table['rows'][] = array(	$e->id,
-      							$e->getName(),
-      							$e->getData('date'),
-      							$e->getStaffName(),
-      							$e->getHours(),
-      							$e->getDiscount(),
-      							$e->getBillableHours()
+    foreach($hours as $h){
+      $table['rows'][] = array(	$h->id,
+      							$r->link( 'HourEdit', $h),
+      							$h->getData('date'),
+      							$h->getStaffName(),
+      							$h->getHours(),
+      							$h->getDiscount(),
+      							$h->getBillableHours()
       							);
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Hours'));

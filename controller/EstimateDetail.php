@@ -7,16 +7,12 @@ class EstimateDetail extends PageController {
     function get( $params){
         $r =& getRenderer();
 
-		$estimate = new Estimate( $params['estimate_id']);
-        $select_estimate = $r->objectSelect( $estimate, 
-                                             array('name'=>'estimate_id'),
-                                             array( 'project_id'=>$estimate->getData( 'project_id')));
-		$select_estimate .= $r->submit();
-		$select_estimate = $r->form( 'get', 'EstimateDetail', $select_estimate);
+		$estimate = new Estimate( $params['id']);
+		$select_estimate = $r->view( "jumpSelect", $estimate, array('project_id'=>$estimate->getData( 'project_id')));
 
         
-		$estimate_info = $r->view('estimateInfo', $estimate);
-        $hour_table = $r->view('hourTable',$estimate->getHours());
+		$estimate_info = $r->view( 'estimateInfo', $estimate);
+        $hour_table = $r->view( 'hourTable', $estimate->getHours());
 
         return $r->template('template/standard_inside.html',
                             array(

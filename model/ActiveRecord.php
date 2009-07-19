@@ -1,5 +1,4 @@
 <?php
-
 class ActiveRecord  extends AMPSystem_Data_Item {
 	var $_class_name = "ActiveRecord";
 	var $name_field;
