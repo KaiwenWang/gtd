@@ -19,7 +19,9 @@ margin:0;
 display: inline;
 border-bottom:1px dashed;
 }
-
+select{
+width:172px;
+}
 .msg{
 width: 450px;
 border: 2px solid;
