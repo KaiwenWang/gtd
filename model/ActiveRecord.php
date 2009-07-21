@@ -2,8 +2,8 @@
 class ActiveRecord  extends AMPSystem_Data_Item {
 	var $_class_name = "ActiveRecord";
 	var $name_field;
-	var $db_fields = array();
-	
+	protected static $schema;
+	protected static $schema_json;	
 	function __construct( $id = null){
         parent::__construct( getDbcon(), $id);
     }
@@ -16,11 +16,18 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		return $obj->find( $search_criteria);
 	}
 	function getFieldType( $field){
-		$field_type = $this->db_fields[ $field];
-		if (!$field_type) bail(" No field of type $field available on ".$this->_class_name.' Object');
-		if ( strchr( ',', $field_type)) return str_getcsv( $field_type);
-		return $field_type;
+		$s = call_user_func( array(get_class($this), 'getSchema'));
+		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file.");
+		if ( !$s['fields'][$field]) bail( "db field '$field' exists in schema file, but does not have it's type set");
+		return $s['fields'][$field];
 	} 
+	public static function getSchema(){
+		if ( !isset( self::$schema)) {
+			$r =& getRenderer();
+            self::$schema = $r->jsonDecode( Hour::$schema_json);
+        }
+        return self::$schema; 
+	}
 	function defaultSearchCriteria( $field_name){}
     function &_getSearchSource( $criteria = null ){
         if ( isset( $this->_search_source ) && $this->_search_source ) {

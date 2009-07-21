@@ -8,35 +8,26 @@ class Hour extends ActiveRecord {
 	var $_class_name = "Hour";
 	var $_search_criteria_global = array( "modin = 62");
 
-	var $db_fields = array(
-						'estimate_id'=>'Estimate',
-						'description'=>'text',
-						'staff_id'=>'Staff',
-						'date'=>'date',
-						'hours'=>'float',
-						'support_contract_id'=>'SupportContract',
-						'discount'=>'float',
-						'basecamp_id'=>'int'
-					);
-
-    public $schema = "{	
-			'fields' : {	'estimate_id' :	'Estimate',
+    protected static $schema_json = "{	
+			'fields'   : {	'estimate_id' : 'Estimate',
 							'support_contract_id' : 'SupportContract',
-							'staff_id' 	  : 'Staff',
-							'description' :	'text',
-							'date' 		  : 'date',
-							'hours' 	  : 'float',
-							'discount' 	  : 'float',
+							'staff_id' : 'Staff',
+							'description' : 'text',
+							'date' : 'date',
+							'hours' : 'float',
+							'discount' : 'float',
 							'basecamp_id' : 'int'
-					},
-			'required' : [	'staff_id',
+					   },
+			'required' : {	'staff_id',
 							[ 'estimate_id' , 'support_contract_id' ]
-					]
+							'description',
+							'date'
+					   }
 			}";
 
 	var $hours;
 	var $staff;
-
+	
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"62"));
@@ -66,14 +57,6 @@ class Hour extends ActiveRecord {
     function getStaffName(){
         $staff = $this->getStaff();
         return $staff->getName();
-	}
-	function defaultSearchCriteria( $field_name){
-		if( $field_name == 'estimate_id'){
-		    $e = new Estimate( $this->getData( 'estimate_id'));
-    		if( $e->getData( 'project_id')) return array( 'project_id' => $e->getData( 'project_id'));
-    		if( $e->getData( 'support_contract_id')) return array( 'support_contract_id' => $e->getData( 'support_contract_id'));
-		}
-		parent::defaultSearchCriteria( $field_name);
 	}
 	function _adjustSetData($data) {
 		$this->legacyFieldName($data,'custom2', "estimate_id" );

@@ -18,7 +18,7 @@ class Render{
 	var $system_messages;
 
 	function __construct(){
-		$this->json = new Services_JSON();
+		$this->json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
 	}
 	function view( $view_function_name, $data, $options = array()){
 	   	$viewDirectory =& getViewDirectory();
@@ -43,9 +43,12 @@ class Render{
     	$msg = $this->template('template/message.html', array( 'type'=>$type, 'message'=>$text));
 		$this->system_messages .= $msg;
     }
-    function json( $data){
+    function jsonEncode( $data){
     	return $this->json->encode( $data);
     }
+    function jsonDecode( $data){
+    	return $this->json->decode( $data);
+    }    
     function css($stylesheet){
     	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
     }
@@ -99,7 +102,6 @@ class Render{
 		}
 		if ( class_exists( $field_type)){
 			$class = $field_type;
-			if( !$search_criteria) $search_criteria = $obj->defaultSearchCriteria( $field_name);
 			if( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
 							else	{	$objects = getAll( $class);}
 			foreach( $objects as $o){
@@ -116,18 +118,18 @@ class Render{
     function input( $field_type, $tokens = array()){
     	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
     	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
-    	if ( isset( $tokens['value'])) $tokens['value'] = htmlentities($tokens['value']);
+    	if ( isset( $tokens['value'])) $tokens['value'] = htmlspecialchars( $tokens['value']);
     	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
    		if (!$o['name']) bail('A select field must have token["name"] passed to it in order to work');
 	    $attributes_html = $this->attr( $o);
 	    $options_html = '';
-	    if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.$o['title'].'</option>';
+	    if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.htmlspecialchars($o['title']).'</option>';
 	    foreach( $data as $value => $description){
 	        if ( isset( $o['selected_value']) && $value == $o['selected_value']){	$selected = 'selected="selected"';}
 	        							else	{	$selected = '';}
-	        $options_html .= '<option '.$selected.' value="'.$value.'">'.$description.'</option>';
+	        $options_html .= '<option '.$selected.' value="'.$value.'">'.htmlspecialchars( $description).'</option>';
 	    }
 	    if ( isset( $o['select_none']) && $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
 	    return "<select $attributes_html>$options_html</select>";

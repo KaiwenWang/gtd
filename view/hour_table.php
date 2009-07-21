@@ -23,7 +23,8 @@ function hourTable( $hours, $o = array()){
       							$h->getBillableHours()
       							);
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Hours'));
+    if ( !isset($o['title'])) $o['title'] = 'Hours';
+    $html = $r->view( 'basicTable', $table, $o);
     return $html;
 }
 ?>

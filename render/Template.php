@@ -7,13 +7,13 @@ class Template{
          if (file_exists($file_path))
             $this->html = join("", file($file_path));
         else
-            die("Template file $template not found.");
+            bail("Template file $template not found.");
     }
     function replace_tags($tags = array()){
         if (count($tags) > 0) {
             foreach ($tags as $tag => $data) {
                 $data = ( file_exists( $data))  ? $this->runFile($data) : $data;
-                $this->html = eregi_replace( "\[\[" . $tag . "\]\]", $data, $this->html);
+                $this->html = preg_replace( "/\[\[" . $tag . "\]\]/i", $data, $this->html);
             }
 		}else{
             bail("No tags designated for replacement.");
