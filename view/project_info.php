@@ -1,22 +1,24 @@
 <?php
 
-function projectInfo( $project, $o = array()){
+function projectInfo( $p, $o = array()){
     $r =& getRenderer();
     $list_items = array(
-    	'Company'				=> $project->getCompanyName(),
-    	'Status'				=> $project->getData('status'),
-    	'Project Manager'		=> $project->getStaffName(),    	
-    	'Designer'				=> $project->getData('designer'),
-    	'Launch Date'			=> $project->getData('launch_date'),
-    	'Hour Cap'				=> $project->getData('hour_cap'),
-    	'Hourly Rate'			=> $project->getData('hourly_rate'),
-    	'Low Estimate'			=> $project->getLowEstimate(),
-    	'High Estimate'			=> $project->getHighEstimate(),
-    	'Total Hours Worked'	=> $project->getTotalHours(''),
-    	'Total Billable Hours'	=> $project->getBillableHours('')
+    	'Company'				=> $r->link( 'CompanyDetail', 
+    										 array('id'=>$p->get('company_id')), 
+    										 $p->getCompanyName()),
+    	'Status'				=> $p->get('status'),
+    	'Project Manager'		=> $r->link( 'StaffDetail', 
+    										 array('id'=>$p->get('staff_id')), 
+    										 $p->getStaffName()),    	
+    	'Designer'				=> $p->get('designer'),
+    	'Launch Date'			=> $p->get('launch_date'),
+    	'Hour Cap'				=> $p->get('hour_cap'),
+    	'Hourly Rate'			=> $p->get('hourly_rate'),
+    	'Low Estimate'			=> $p->getLowEstimate(),
+    	'High Estimate'			=> $p->getHighEstimate(),
+    	'Total Hours Worked'	=> $p->getTotalHours(),
+    	'Total Billable Hours'	=> $p->getBillableHours()
     );
-    $project_info = $r->view( 'basicList', $list_items);
-    
-    return $project_info;
+	return $r->view( 'basicList', $list_items);
 }
 ?>
