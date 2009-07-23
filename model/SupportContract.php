@@ -12,7 +12,28 @@ class SupportContract extends ActiveRecord {
 	var $product_instances;
 	var $bandwidths;
     var $company;
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'company_id'  :  'Company',
+							'domain_name'  :  'text',
+							'technology'  :  'text',
+							'monthly_rate'  :  'float',
+							'support_hours'  :  'float',
+							'hourly_rate'  :  'float',
+							'pro_bono'  :  'bool',
+							'contract_on_file'  :  'bool',
+							'status'  :  'text',
+							'not_monthly'  :  'bool',
+							'start_date'  :  'date',
+							'end_date'  :  'date',
+							'notes'  :  'textarea',
+							'no_contract_on_file'  :  'bool',
+							'contract_url'  :  'text',
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"67"));

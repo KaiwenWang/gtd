@@ -7,7 +7,18 @@ class Staff extends ActiveRecord {
 	var $_class_name = "Staff";
 	var $_search_criteria_global = array( "modin = 65");
 	var $projects;
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'first_name'  :  'text',
+							'last_name'  :  'text',
+							'email'  :  'text',
+							'basecamp_id'  :  'int',
+							'team'  :  'text',
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"65"));

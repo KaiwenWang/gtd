@@ -29,7 +29,7 @@ class Company extends ActiveRecord {
 								'preamp_id'  :  'int',
 								'status'  :  'text',
 								'product'  :  'text',
-								'bay_area'  :  'checkbox',
+								'bay_area'  :  'bool',
 								'balance'  :  'float'
     						},
     			'required' : {

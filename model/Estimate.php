@@ -13,7 +13,7 @@ class Estimate extends ActiveRecord {
 							'description'  :  'textarea',
 							'high_hours'  :  'float',
 							'due_date'  :  'date',
-							'completed'  :  'checkbox',
+							'completed'  :  'bool',
 							'notes'  :  'textarea',
 							'low_hours'  :  'float',
 							'basecamp_id'  :  'int'
