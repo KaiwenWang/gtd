@@ -6,7 +6,16 @@ class Bandwidth extends ActiveRecord {
 	var $name_field = "custom2";
 	var $_class_name = "Bandwidth";
     var $_search_criteria_global = array( "modin = 70");
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'support_contract_id'  :  'SupportContract',
+							'gigs_over'  :  'float',
+							'date'  :  'date'
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct(  $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"70"));

@@ -7,7 +7,21 @@ class Estimate extends ActiveRecord {
 	var $_class_name = "Estimate";
 	var $hours;
     var $_search_criteria_global = array( "modin = 63");
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'project_id'  :  'Project',
+							'description'  :  'textarea',
+							'high_hours'  :  'float',
+							'due_date'  :  'date',
+							'completed'  :  'checkbox',
+							'notes'  :  'textarea',
+							'low_hours'  :  'float',
+							'basecamp_id'  :  'int'
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"63"));

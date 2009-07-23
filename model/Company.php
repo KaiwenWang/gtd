@@ -13,7 +13,29 @@ class Company extends ActiveRecord {
 	var $contacts;
 	var $billing_contacts;
     var $_search_criteria_global = array( "modin = 60");
-    
+    protected static $schema_json = "{	
+    			'fields'   : {	
+								'name'  :  'text',
+								'notes'  :  'textarea',
+								'street'  :  'text',
+								'street_2'  :  'text',
+								'city'  :  'text',
+								'state'  :  'text',
+								'zip'  :  'int',
+								'phone'  :  'text',
+								'other_phone'  :  'text',
+								'billing_phone'  :  'text',
+								'stasi_id'  :  'int',
+								'preamp_id'  :  'int',
+								'status'  :  'text',
+								'product'  :  'text',
+								'bay_area'  :  'checkbox',
+								'balance'  :  'float'
+    						},
+    			'required' : {
+    							
+    						}
+    			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"60"));
@@ -107,7 +129,7 @@ class Company extends ActiveRecord {
 		$this->legacyFieldName($data,'custom8', "status" );
 		$this->legacyFieldName($data,'custom9', "product" );
 		$this->legacyFieldName($data,'custom10', "bay_area" );
-		$this->legacyFieldName($data,'custom11', "balence" );
+		$this->legacyFieldName($data,'custom11', "balance" );
 	}
     function makeCriteriaModin( $value ) {
         return $this->_makeCriteriaEquals( 'modin', $value );
@@ -157,7 +179,7 @@ class Company extends ActiveRecord {
 	function makeCriteriaBayArea( $value ) {
 		return $this->_makeCriteriaEquals( 'custom10', $value );
 	}
-	function makeCriteriaBalence( $value ) {
+	function makeCriteriaBalance( $value ) {
 		return $this->_makeCriteriaEquals( 'custom11', $value );
 	}
 }

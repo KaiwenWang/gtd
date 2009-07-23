@@ -6,7 +6,30 @@ class ProductInstance extends ActiveRecord {
 	var $name_field = "custom1";
 	var $_class_name = "ProductInstance";
 	var $_search_criteria_global = array( "modin = 68");
-	
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'domain_name'  :  'text',
+							'technology'  :  'text',
+							'dns_notes'  :  'textarea',
+							'other_domain_names'  :  'textarea',
+							'server'  :  'text',
+							'subsites'  :  'textarea',
+							'server_account'  :  'textarea',
+							'apache_file'  :  'text',
+							'contract_id'  :  'Contract',
+							'wordpress'  :  'checkbox',
+							'oscom'  :  'checkbox',
+							'drupal'  :  'checkbox',
+							'secure_domain'  :  'checkbox',
+							'china_ip'  :  'checkbox',
+							'phplist'  :  'checkbox',		
+							'company_id'  :  'Company',
+							'notes'  :  'textarea'
+						},
+			'required' : {
+							
+						}
+			}";	
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"68"));

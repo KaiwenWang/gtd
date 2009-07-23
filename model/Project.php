@@ -11,7 +11,50 @@ class Project extends ActiveRecord {
 	var $invoices;
 	var $company;
 	var $staff;
-	
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'name'  :  'text',
+							'amp_url'  :  'text',
+							'design_date'  :  'date',
+							'desinger'  :  'text',
+							'launch_date'  :  'date',
+							'discovery_date'  :  'date',
+							'crm_notes'  :  'textarea',
+							'udm_notes'  :  'textarea',
+							'content_notes'  :  'textarea',
+							'custom_notes'  :  'textarea',
+							'training_notes'  :  'textarea',
+							'email_notes'  :  'textarea',
+							'domain_notes'  :  'textarea',
+							'contract_notes'  :  'textarea',
+							'other_notes'  :  'textarea',
+							'status'  :  'text',
+							'deposit'  :  'float',
+							'contract_url'  :  'text',
+							'deposit_date'  :  'date',
+							'other_contacts'  :  'textarea',
+							'basecamp_id'  :  'int',
+							'final_payment'  :  'float',
+							'final_payment_date'  :  'date',
+							'cost'  :  'float',
+							'priority'  :  'text',
+							'real_launch_date'  :  'date',
+							'real_design_date'  :  'date',
+							'hour_cap'  :  'float',
+							'staff_id'  :  'Staff',
+							'company_id'  :  'Company',
+							'hourly_rate'  :  'float',
+							'hours_high'  :  'float',
+							'billing_status'  :  'text',
+							'main_payment'  :  'float',
+							'main_payment_date'  :  'date',
+							'billing_type'  :  'text',
+							'hours_low'  :  'float',
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"54"));

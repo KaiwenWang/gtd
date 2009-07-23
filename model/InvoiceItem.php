@@ -7,7 +7,19 @@ class InvoiceItem extends ActiveRecord {
 	var $_search_criteria_global = array( "modin = 73");
 
 	var $name_field = "custom2";
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'invoice_id'  :  'Invoice',
+							'name'  :  'text',
+							'description'  :  'textarea',
+							'amount'  :  'float',
+							'date'  :  'date',
+							'type'  :  'text'
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"73"));

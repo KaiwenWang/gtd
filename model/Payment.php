@@ -7,7 +7,22 @@ class Payment extends ActiveRecord {
 	var $_class_name = "Payment";
 	var $company;
 	var $_search_criteria_global = array( "modin = 69");
-
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'date'  :  'date',
+							'amount'  :  'float',
+							'type'  :  'text',
+							'preamp_id'  :  'int',
+							'preamp_client_id'  :  'int',
+							'product'  :  'text',
+							'invoice_id'  :  'Invoice',
+							'company_id'  :  'Company',
+							'notes'  :  'textarea'
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"69"));

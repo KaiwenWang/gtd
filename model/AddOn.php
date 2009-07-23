@@ -6,7 +6,19 @@ class AddOn extends  ActiveRecord {
 	var $name_field = "custom2";
 	var $_class_name = "AddOn";
     var $_search_criteria_global = array( "modin = 71");
+    protected static $schema_json = "{	
+			'fields'   : {	
+    						'support_contract_id'  :  'SupportContract',
+    						'name'  :  'text',
+    						'amount'  :  'float',
+    						'description'  :  'textarea',
+    						'date'  :  'date',
+    						'invoice_id'  :  'Invoice'
+    					},
+    		'required' : {
 
+    					}
+    		}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"71"));

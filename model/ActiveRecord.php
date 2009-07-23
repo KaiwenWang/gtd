@@ -19,12 +19,15 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		return $obj->find( $search_criteria);
 	}
 	function getFieldType( $field){
-		$s = call_user_func( array(get_class($this), 'getSchema'));
+		$s = $this->getSchema();
 		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file.");
 		if ( !$s['fields'][$field]) bail( "db field '$field' exists in schema file, but does not have it's type set");
 		return $s['fields'][$field];
 	} 
-	public static function getSchema(){
+	function getSchema(){
+		return call_user_func( array(get_class($this), '_getSchema'));
+	}
+	public static function _getSchema(){
 		if ( !isset( self::$schema)) {
 			$r =& getRenderer();
             self::$schema = $r->jsonDecode( Hour::$schema_json);

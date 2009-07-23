@@ -7,7 +7,33 @@ class Contact extends ActiveRecord {
 	var $_class_name = "Contact";
     var $_search_criteria_global = array( "modin = 61");
 	var $company;
-	
+    protected static $schema_json = "{	
+			'fields'   : {	
+							'first_name'  :  'text',
+							'last_name'  :  'text',
+							'company_id'  :  'Company',
+							'title'  :  'text',
+							'notes'  :  'textarea',
+							'email'  :  'text',
+							'phone'  :  'text',
+							'fax'  :  'text',
+							'street'  :  'text',
+							'street_2'  :  'text',
+							'city'  :  'text',
+							'state'  :  'text',
+							'zip'  :  'int',
+							'is_billing_contact'  :  'checkbox',
+							'is_primary_contact'  :  'checkbox',
+							'is_technical_contact'  :  'checkbox',
+							'preamp_id'  :  'int',
+							'stasi_id'  :  'int',
+							'stasi_project_id'  :  'int',
+							'help_id'  :  'int'
+						},
+			'required' : {
+							
+						}
+			}";
     function __construct( $id = null){
         parent::__construct( $id);
         $this->mergeData(array("modin"=>"61"));
