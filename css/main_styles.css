@@ -45,10 +45,20 @@ background: #fff9f9;
 
 #side{
 float: right;
-width: 200px;
+width: 17%;
 clear: right;
 }
-
+#side ul{
+list-style-type: none;
+margin: 10px 0;
+padding: 0;
+}
+#side li{
+margin:4px;
+padding:4px;
+background:#DDEEFF none repeat scroll 0 0;
+border:1px solid #99BBFF;
+}
 #application{
 margin-left:10px;
 }
@@ -58,15 +68,12 @@ margin-top:10px;
 height:20px;
 clear: both;
 }
-
-#side ul{
-list-style-type: none;
-margin: 10px 0;
-padding: 0;
-}
 .basic-table{
-width:80%;
+width:82%;
 border-collapse:collapse;
+}
+.basic-table th{
+padding: 4px;
 }
 .basic-table td{
 border: 1px solid black;
@@ -83,4 +90,29 @@ margin-right: 10px;
 }
 .basic-list-item form{
 margin: 0;
+}
+.inline tr{
+background:#DDEEFF none repeat scroll 0 0;
+border:1px solid #99BBFF;
+float:left;
+margin:2px;
+min-height:22px;
+min-width:220px;
+padding:4px;
+width:22%;
+}
+.inline input{
+width: 90%;
+float: right;
+}
+.inline select{
+width: 90%;
+float: right;
+}
+.inline .basic-list-label{
+font-size: 10px;
+}
+.inline .label-cell{
+}
+.inline .data-cell{
 }
