@@ -4,20 +4,23 @@ class PageController {
     var $_class_name = 'PageController';
     var $params = array();
     var $posted_objects = array();
+    var $response;
     
     function __construct(){
         
     } 
     function execute( $action, $params = array()){
         $this->params = $params;
-    	if ( $action == 'get'){
-    		return $this->get( $this->params);				
-    	} else if ( $action == 'post'){
-    		$this->beforePost();
-    		$this->post( $this->params);
-    		$this->afterPost();
+    	if ( method_exists( $this, $action)){
+			$beforeAction = 'before'.ucfirst( $action);
+	   		$afterAction = 'after'.ucfirst( $action);
+	    	if ( method_exists( $this, $beforeAction)) $this->$beforeAction();
+    		$this->response = $this->$action( $this->params);
+			if ( method_exists( $this, $afterAction)) $this->$afterAction();
+			if ( $this->response) return $this->response;
+			bail( 'No response from this action.');
     	} else {
-    		trigger_error( 'invalid or blank action requested: '.$action);
+    		bail( 'invalid or blank action requested: '.$action);
     	}
     }
     function get( $params){
