@@ -1,10 +1,9 @@
 <?php
 function hourEditForm( $h, $o = array()){
     $r =& getRenderer();
-	if( $h->getData( 'estimate_id')){
-		$e = new Estimate( $h->getData( 'estimate_id'));
-		$estimate_field = $r->field( $h, 'estimate_id', array( 'project_id' => $e->getData( 'project_id')));
-	}
+
+	$e = new Estimate( $h->get('estimate_id'));
+	$estimate_field = $r->field( $h, 'estimate_id', array( 'project_id' => $e->get('project_id')));
     
     $list_items = array(
 		'ID'			=> $h->id,
@@ -16,6 +15,7 @@ function hourEditForm( $h, $o = array()){
         'Discount' 		=> $r->field( $h, 'discount'),
 		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id')
     );
+    
     $form_contents = $r->view( 'basicList', 
     							$list_items, 
     							array( 'title'=>'Edit Hour "'.$h->getName().'"', 'display'=>'inline')

@@ -33,8 +33,8 @@ class FrontController {
     }  
     function createRequest( $action = 'get'){
     	$path = 'controller/'.$_REQUEST['controller'].'.php';
-		if( !file_exists($path)) bail( 'requested controller "'.$_REQUEST['controller'].'" does not exist.');
-        require_once('controller/'.$_REQUEST['controller'].'.php');
+		if (!file_exists( $path)) bail( 'requested controller "'.$_REQUEST['controller'].'" does not exist.');
+        require_once( $path);
         $this->requestedPageController = new $_REQUEST['controller'];
         $this->requestedAction = $action;
         $this->requestedParams = $_REQUEST;
