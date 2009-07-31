@@ -50,8 +50,8 @@ margin-right:20px;
 clear:left;
 }
 #content-controls{
-float:right;
-margin-right:70px;
+position:absolute;
+right:23%;
 }
 #side{
 float: right;
@@ -93,8 +93,12 @@ padding: 4px;
 color:#004488;
 }
 .basic-list{
-margin: 10px 0;
-padding: 0;
+-moz-border-radius-topright:6px;
+-moz-border-radius-bottomleft:6px;
+-moz-border-radius-bottomright:6px;
+border:1px solid #666666;
+margin:5px 0;
+padding:10px;
 }
 .basic-list-label{
 color: #333333;

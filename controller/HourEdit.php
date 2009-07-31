@@ -12,8 +12,7 @@ class HourEdit extends PageController {
 		if ( $h->getData('estimate_id')){
 	        $e = new Estimate( $h->getData('estimate_id'));
 	        $title = $e->getName();
-	        $controls['Estimates in this Project'] .= $r->view( 'jumpSelect', $e,
-	        													array('project_id'=>$e->getData('project_id')));
+	        $controls = $r->view( 'jumpSelect', $e, array('project_id'=>$e->getData('project_id')));
 			$hour_table = $r->view('hourTable', $e->getHours(), array('title'=>'Hours for '.$e->getName()));
 			$info = $r->view('projectInfo', new Project( $e->get('project_id')), array( 'class'=>'float-left'));
 			$info .= $r->view( 'estimateInfo', $e,  array( 'class'=>'float-left'));
@@ -29,7 +28,7 @@ class HourEdit extends PageController {
         return $r->template('template/standard_inside.html',
                             array(
                             'title' 	=> $title,
-                            'controls'	=> $r->view( 'basicList', $controls),
+                            'controls'	=> $controls,
                             'body' 		=> $info.$form.$hour_table
                             ));
     }

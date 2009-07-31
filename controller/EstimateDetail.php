@@ -8,16 +8,15 @@ class EstimateDetail extends PageController {
         $r =& getRenderer();
 
 		$e = new Estimate( $params['id']);
-		$controls['Estimates in this Project'] .= $r->view( 'jumpSelect', $e,
-	        													array('project_id'=>$e->getData('project_id')));
+		$controls = $r->view( 'jumpSelect', $e, array('project_id'=>$e->getData('project_id')));
 		$p_info = $r->view( 'projectInfo', new Project($e->getData('project_id')),  array( 'class'=>'float-left'));
-		$e_info = $r->view( 'estimateInfo', $e);
+		$e_info = $r->view( 'estimateInfo', $e, array( 'class'=>'float-left'));
         $hour_table = $r->view('hourTable', $e->getHours(), array('title'=>'Hours for '.$e->getName()));
 
         return $r->template('template/standard_inside.html',
                             array(
                             'title' => $e->getName(),
-                            'controls'	=> $r->view( 'basicList', $controls),
+                            'controls'	=> $controls,
                             'body' => $p_info.$e_info.$hour_table
                             ));
     }
