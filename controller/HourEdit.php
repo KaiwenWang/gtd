@@ -16,7 +16,7 @@ class HourEdit extends PageController {
 	        													array('project_id'=>$e->getData('project_id')));
 			$hour_table = $r->view('hourTable', $e->getHours(), array('title'=>'Hours for '.$e->getName()));
 			$info = $r->view('projectInfo', new Project( $e->get('project_id')), array( 'class'=>'float-left'));
-			$info .= $r->view( 'estimateInfo', $e);
+			$info .= $r->view( 'estimateInfo', $e,  array( 'class'=>'float-left'));
 		} elseif ( $h->getData('support_contract_id')){
 			$s = new SupportContract( $h->getData('support_contract_id'));
 	        $title = $s->getName();
