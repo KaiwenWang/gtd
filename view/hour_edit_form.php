@@ -20,7 +20,7 @@ function hourEditForm( $h, $o = array()){
     							$list_items, 
     							array( 'title'=>'Edit Hour "'.$h->getName().'"', 'display'=>'inline')
     							).$r->submit();
-    
-    return $r->form( 'post', 'HourEdit', $form_contents, array( 'redirect' => $r->url('HourEdit',$h)));
+    $o['redirect'] = $r->url('HourEdit',$h);
+    return $r->form( 'post', 'HourEdit', $form_contents, $o);
 }
 ?>

@@ -42,7 +42,13 @@ border-color:#BF0000;
 color:#BF0000;
 background: #fff9f9;
 }
-
+.float-left{
+float:left;
+margin-right:20px;
+}
+.clear-left{
+clear:left;
+}
 #side{
 float: right;
 width: 17%;
@@ -78,6 +84,9 @@ padding: 4px;
 .basic-table td{
 border: 1px solid black;
 padding: 4px;
+}
+.basic-table a{
+color:#004488;
 }
 .basic-list{
 margin: 10px 0;

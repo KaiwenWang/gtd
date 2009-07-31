@@ -12,8 +12,6 @@ function estimateInfo( $estimate, $o = array()){
     	'Completed'			=> $estimate->getData('completed') ? 'yes' : 'no',
     	'Notes'				=> $estimate->getData('notes')
     );
-    $estimate_info = $r->view( 'basicList', $list_items);
-    
-    return $estimate_info;
+	return $r->view( 'basicList', $list_items, $o);  
 }
 ?>

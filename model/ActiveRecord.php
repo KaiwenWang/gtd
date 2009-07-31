@@ -10,6 +10,9 @@ class ActiveRecord  extends AMPSystem_Data_Item {
     function get( $field){
     	return $this->getData( $field);
     }
+    function set( $fields){
+    	$this->mergeData( $fields);
+    }
 	function getName(){
 		return $this->getData($this->name_field);
 	}

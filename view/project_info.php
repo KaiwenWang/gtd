@@ -19,6 +19,6 @@ function projectInfo( $p, $o = array()){
     	'Total Hours Worked'	=> $p->getTotalHours(),
     	'Total Billable Hours'	=> $p->getBillableHours()
     );
-	return $r->view( 'basicList', $list_items);
+	return $r->view( 'basicList', $list_items, $o);
 }
 ?>
