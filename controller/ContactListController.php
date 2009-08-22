@@ -8,7 +8,7 @@
     @package controller
 */
 
-class ContactList extends PageController {
+class ContactListController extends PageController {
     var $_class_name = 'ContactList';
 
     function __construct(){

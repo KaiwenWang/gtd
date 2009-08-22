@@ -1,5 +1,5 @@
 <?php
-class EstimateDetail extends PageController {
+class EstimateDetailController extends PageController {
 
     function __construct(){
         parent::__construct();

@@ -1,5 +1,5 @@
 <?php
-class ProjectList extends PageController {
+class ProjectListController extends PageController {
     var $_class_name = 'ProjectList';
 
     function __construct(){

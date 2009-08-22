@@ -13,7 +13,7 @@
 
 */
 
-class ContactDetail extends PageController {
+class ContactDetailController extends PageController {
     var $_class_name = 'ContactDetail';
 
     function __construct(){

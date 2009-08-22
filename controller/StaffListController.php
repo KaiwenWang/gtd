@@ -1,5 +1,5 @@
 <?php
-class StaffList extends PageController {
+class StaffListController extends PageController {
     var $_class_name = 'StaffList';
 
     function __construct(){

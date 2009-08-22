@@ -1,5 +1,5 @@
 <?php
-class SupportContractList extends PageController {
+class SupportContractListController extends PageController {
     var $_class_name = 'SupportContractList';
 
     function __construct(){

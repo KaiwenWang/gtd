@@ -1,5 +1,5 @@
 <?php
-class SupportContractDetail extends PageController {
+class SupportContractDetailController extends PageController {
     function get( $x ) {
         $r =& getRenderer();
         $id = $this->params( 'id' );

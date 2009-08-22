@@ -1,5 +1,5 @@
 <?php
-class HomePage extends PageController {
+class HomePageController extends PageController {
     var $_class_name = 'HomePage';
 
     function __construct(){

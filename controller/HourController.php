@@ -7,10 +7,9 @@ class HourController extends PageController {
     }
     function edit( $params){
         $h = new Hour( $params['id']);
-	    $e = new Estimate( $h->get('estimate_id'));
+	    	$e = new Estimate( $h->get('estimate_id'));
         $p = new Project( $e->get( 'project_id'));
-        return $this->display( array( 'project' => $p, 'estimate' => $e )) ;
-    
+        return $this->display( array( 'project' => $p, 'estimate' => $e )); 
     }
     function post( $posted_object ) {
 

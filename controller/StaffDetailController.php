@@ -13,7 +13,7 @@
 */
 
 
-class StaffDetail extends PageController {
+class StaffDetailController extends PageController {
     var $_class_name = 'StaffDetail';
 
     function __construct(){

@@ -1,6 +1,6 @@
 <?php
 
-class PaymentList extends PageController {
+class PaymentListController extends PageController {
     var $_class_name = 'PaymentList';
 
     function __construct(){
