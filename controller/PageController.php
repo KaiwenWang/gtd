@@ -5,6 +5,7 @@ class PageController {
     var $params = array();
     var $posted_objects = array();
     var $response;
+    var $method;
     
     function __construct(){
         
@@ -15,6 +16,7 @@ class PageController {
 			$beforeAction = 'before'.ucfirst( $action);
 	   		$afterAction = 'after'.ucfirst( $action);
 	    	if ( method_exists( $this, $beforeAction)) $this->$beforeAction();
+            $this->current_action = $action;
     		$this->response = $this->$action( $this->params);
 			if ( method_exists( $this, $afterAction)) $this->$afterAction();
 			if ( $this->response) return $this->response;
@@ -40,6 +42,10 @@ class PageController {
     function post(){
 		// MUST be defined in a subclass
     }
+
+    function setMethod( $method ){
+        $this->method = $method;
+    }
     protected function afterPost( ){
 		foreach( $this->posted_objects as $obj) $obj->save();
 		if( $this->params('redirect')) {
@@ -52,6 +58,28 @@ class PageController {
             return $this->params[$key];
         }
         return false;
+    }
+    function layout_for_action( ){
+        return 'template/standard_inside.html';
+    }
+
+    function display( $params, $o){
+        $r = getRenderer( );
+        $params['r'] = $r;
+        isset( $o['action'])? $action = $o['action'] 
+                            : $action = $this->current_action;
+
+        $view_name = strtolower( str_replace( "Controller", "", get_class( $this ))) . ucwords( $action );
+
+
+        return $r->template( $this->layout_for_action( $action), $r->view( $view_name, $params ));
+        /*
+                array(
+                    'title' 	=> $title,
+                    'controls'	=> $controls,
+                    'body' 		=> $info.$form.$hour_table.$estimate_table
+                    ));
+         */
     }
 }
 ?>
