@@ -3,9 +3,11 @@ class PageController {
     var $authentication_level = array( 'staff');
     var $_class_name = 'PageController';
     var $params = array();
-    var $posted_objects = array();
+    var $posted_records = array();
     var $response;
     var $method;
+ 		var $before_actions = array( 'get_posted_records' => array('create','update','destroy') );
+		var $after_actions = array( 'save_posted_records' => array('create','update','destroy') );
     
     function __construct(){
         
@@ -35,7 +37,7 @@ class PageController {
 					if( $id == 'new') bail('Can\'t create new objects yet');
 					$obj = new $class_name( $id);
 					$obj->mergeData( $updated_fields);
-					$this->posted_objects[]=$obj;
+					$this->posted_records[]=$obj;
 				}
 			}
     }
@@ -47,7 +49,7 @@ class PageController {
         $this->method = $method;
     }
     protected function afterPost( ){
-			foreach( $this->posted_objects as $obj) $obj->save();
+			foreach( $this->posted_records as $obj) $obj->save();
 			if( $this->params('redirect')) {
 				header('Location: '.$this->params('redirect').'');
 				die();
