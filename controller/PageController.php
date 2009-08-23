@@ -6,8 +6,8 @@ class PageController {
     var $posted_records = array();
     var $response;
     var $method;
- 		var $before_actions = array( 'get_posted_records' => array('create','update','destroy') );
-		var $after_actions = array( 'save_posted_records' => array('create','update','destroy') );
+ 	var $before_actions = array( 'get_posted_records' => array('create','update','destroy') );
+	var $after_actions = array( 'save_posted_records' => array('create','update','destroy') );
     
     function __construct(){
         
@@ -24,11 +24,8 @@ class PageController {
 			if ( $this->response) return $this->response;
 				bail( 'No response from this action.');
     	} else {
-    		bail( 'invalid or blank action requested: '.$action);
+    		bail( 'non-existent action requested: '.$action);
     	}
-    }
-    function get( $params){
-		// MUST be defined in a subclass
     }
     protected function beforePost( ){
     	$record_set = $this->params['ActiveRecord'];
@@ -41,10 +38,6 @@ class PageController {
 				}
 			}
     }
-    function post(){
-		// MUST be defined in a subclass
-    }
-
     function setMethod( $method ){
         $this->method = $method;
     }
@@ -64,7 +57,7 @@ class PageController {
     function template_path_for( $action){
         return 'template/standard_inside.html';
     }
-    function display( $params, $o){
+    function display( $params, $o = array()){
         $r = getRenderer( );
         $params['r'] = $r;
         

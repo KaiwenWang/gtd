@@ -19,8 +19,9 @@ class FrontController {
             $application_html = $this->page->execute($this->router->action, 
                                                      $this->router->params( ));
             return $r->template( 'template/gtd_main_template.html', 
-            						array( 	'main-application'=>$application_html,
-            								'msg'=>$r->_dumpMessages()));
+            					  array( 'main-application'=>$application_html,
+            							 'msg'=>$r->_dumpMessages())
+            					);
         } else {
 			return $this->login();
         }

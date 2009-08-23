@@ -21,7 +21,7 @@ class HourController extends PageController {
     }
     function show(){
     }
-    function new(){
+    function add(){
     }
     function create(){
     }

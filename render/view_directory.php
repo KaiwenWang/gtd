@@ -20,28 +20,25 @@ function &getViewDirectory(){
 
 class ViewDirectory {
     var $_view_paths = array('view');
-    static $custom_locations = array(
+    var $custom_locations = array(
+		'jumpSelect' => 'view/control/jump_select.php',
 		'testView' => 'view/test_view.php',
-		'editHour' => 'view/edit_hour.php',
-		'estimateTable' => 'view/estimate_table.php',
-		'contactDetail' => 'view/contact_detail.php',
-		'contactTable' => 'view/contact_table.php',
+		'basicList' => 'view/basic/basic_list.php',
+		'basicTable' => 'view/basic/basic_table.php',
+		'estimateTable' => 'view/estimate/estimate_table.php',
+		'estimateInfo' => 'view/estimate/estimate_info.php',		
+		'contactDetail' => 'view/contact/contact_detail.php',
+		'contactTable' => 'view/contact/contact_table.php',
 		'companyInfo' => 'view/company_info.php',
 		'companyTable' => 'view/company_table.php',
-		'projectTable' => 'view/project_table.php',
-		'supportContractTable' => 'view/support_contract_table.php',
-		'staffTable' => 'view/staff_table.php',
-		'staffDetail' => 'view/staff_detail.php',
-		'basicTable' => 'view/basic_table.php',
-		'hoursByEstimate' => 'view/hours_by_estimate.php',
-		'hoursForEstimate' => 'view/hours_for_estimate.php',
-		'paymentTable' => 'view/payment_table.php',
-		'projectInfo' => 'view/project_info.php',		
-		'basicList' => 'view/basic_list.php',
-		'hourListItem' => 'view/hour_list_item.php',
-		'hoursList' => 'view/hours_list.php',
-		'hourTable' => 'view/hour_table.php',
-		'estimateInfo' => 'view/estimate_info.php'
+		'supportContractTable' => 'view/support_contract/support_contract_table.php',
+		'staffTable' => 'view/staff/staff_table.php',
+		'staffDetail' => 'view/staff/staff_detail.php',
+		'paymentTable' => 'view/payment/payment_table.php',
+		'projectInfo' => 'view/project/project_info.php',		
+		'projectTable' => 'view/project/project_table.php',
+		'hourListItem' => 'view/hour/hour_list_item.php',
+		'hourTable' => 'view/hour/hour_table.php'
     );
 
     function underscore( $value ) {
@@ -55,17 +52,12 @@ class ViewDirectory {
     }
 
     function find( $view_function_name ) {
+        if( isset( $this->custom_locations[$view_function_name])) return $this->custom_locations[$view_function_name];
         $probable_filename = $this->underscore( $view_function_name );
         foreach( $this->_view_paths as $test_path ) {
             $test_filename = $test_path . DIRECTORY_SEPARATOR . $probable_filename . '.php';
-            if( file_exists( $test_filename )) {
-                return $test_filename;
-            }
+            if( file_exists( $test_filename ))	return $test_filename;
         }
-        if( isset( $this->custom_locations[$view_function_name])) {
-            return $this->custom_locations[$view_function_name];
-        }
-
     }
 
 }
