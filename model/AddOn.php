@@ -8,12 +8,12 @@ class AddOn extends  ActiveRecord {
     var $_search_criteria_global = array( "modin = 71");
     protected static $schema_json = "{	
 			'fields'   : {	
-    						'support_contract_id'  :  'SupportContract',
-    						'name'  :  'text',
-    						'amount'  :  'float',
-    						'description'  :  'textarea',
-    						'date'  :  'date',
-    						'invoice_id'  :  'Invoice'
+    						'support_contract_id'	:  'SupportContract',
+    						'name'  		:  'text',
+    						'amount'  		:  'float',
+    						'description'  	:  'textarea',
+    						'date'  		:  'date',
+    						'invoice_id'  	:  'Invoice'
     					},
     		'required' : {
 
@@ -41,9 +41,6 @@ class AddOn extends  ActiveRecord {
         }
         return $total_add_ons;
     }	
-	
-
-
 
 	function _adjustSetData($data) {
 		$this->legacyFieldName($data,'custom1', "support_contract_id" );
@@ -52,10 +49,6 @@ class AddOn extends  ActiveRecord {
 		$this->legacyFieldName($data,'custom4', "description" );
 		$this->legacyFieldName($data,'custom5', "date" );
 		$this->legacyFieldName($data,'custom6', "invoice_id" );
-	
-	
-	
-
 	}
     function makeCriteriaModin( $value ) {
         return $this->_makeCriteriaEquals( 'modin', $value );

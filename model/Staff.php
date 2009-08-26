@@ -9,11 +9,11 @@ class Staff extends ActiveRecord {
 	var $projects;
     protected static $schema_json = "{	
 			'fields'   : {	
-							'first_name'  :  'text',
-							'last_name'  :  'text',
-							'email'  :  'text',
-							'basecamp_id'  :  'int',
-							'team'  :  'text',
+							'first_name'	:  'text',
+							'last_name'  	:  'text',
+							'email'  		:  'text',
+							'basecamp_id'	:  'int',
+							'team'  		:  'text',
 						},
 			'required' : {
 							

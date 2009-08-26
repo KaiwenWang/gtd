@@ -9,26 +9,26 @@ class Contact extends ActiveRecord {
 	var $company;
     protected static $schema_json = "{	
 			'fields'   : {	
-							'first_name'  :  'text',
-							'last_name'  :  'text',
-							'company_id'  :  'Company',
-							'title'  :  'text',
-							'notes'  :  'textarea',
-							'email'  :  'text',
-							'phone'  :  'text',
-							'fax'  :  'text',
-							'street'  :  'text',
+							'first_name':  'text',
+							'last_name'	:  'text',
+							'company_id':  'Company',
+							'title'  	:  'text',
+							'notes'  	:  'textarea',
+							'email'  	:  'text',
+							'phone'  	:  'text',
+							'fax'  		:  'text',
+							'street'  	:  'text',
 							'street_2'  :  'text',
-							'city'  :  'text',
-							'state'  :  'text',
-							'zip'  :  'int',
-							'is_billing_contact'  :  'bool',
-							'is_primary_contact'  :  'bool',
+							'city'  	:  'text',
+							'state'  	:  'text',
+							'zip'  		:  'int',
+							'is_billing_contact'	:  'bool',
+							'is_primary_contact'	:  'bool',
 							'is_technical_contact'  :  'bool',
-							'preamp_id'  :  'int',
+							'preamp_id' :  'int',
 							'stasi_id'  :  'int',
-							'stasi_project_id'  :  'int',
-							'help_id'  :  'int'
+							'stasi_project_id'		:  'int',
+							'help_id'  	:  'int'
 						},
 			'required' : {
 							

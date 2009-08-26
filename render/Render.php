@@ -21,7 +21,7 @@ class Render{
 		$this->json = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
 	}
 	function view( $view_function_name, $data, $options = array()){
-	   	$viewDirectory =& getViewDirectory();
+	   	$viewDirectory = ViewDirectory::singleton();
 	   	$path = $viewDirectory->find( $view_function_name );
 	   	if( !$path) bail("<b>$view_function_name</b> cannot be found. Please add it to the View Directory.");
 	   	if( !file_exists($path)) bail("View file <b>$path</b> does not exist, or has not been added to the View Directory.");

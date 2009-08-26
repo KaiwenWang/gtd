@@ -8,9 +8,9 @@ class Bandwidth extends ActiveRecord {
     var $_search_criteria_global = array( "modin = 70");
     protected static $schema_json = "{	
 			'fields'   : {	
-							'support_contract_id'  :  'SupportContract',
-							'gigs_over'  :  'float',
-							'date'  :  'date'
+							'support_contract_id'	:  'SupportContract',
+							'gigs_over'	:  'float',
+							'date'  	:  'date'
 						},
 			'required' : {
 							

@@ -9,14 +9,14 @@ class Estimate extends ActiveRecord {
     var $_search_criteria_global = array( "modin = 63");
     protected static $schema_json = "{	
 			'fields'   : {	
-							'project_id'  :  'Project',
-							'description'  :  'textarea',
-							'high_hours'  :  'float',
-							'due_date'  :  'date',
-							'completed'  :  'bool',
-							'notes'  :  'textarea',
-							'low_hours'  :  'float',
-							'basecamp_id'  :  'int'
+							'project_id'	:  'Project',
+							'description'  	:  'textarea',
+							'high_hours'  	:  'float',
+							'due_date'  	:  'date',
+							'completed'  	:  'bool',
+							'notes'  		:  'textarea',
+							'low_hours'  	:  'float',
+							'basecamp_id'  	:  'int'
 						},
 			'required' : {
 							

@@ -9,15 +9,15 @@ class Payment extends ActiveRecord {
 	var $_search_criteria_global = array( "modin = 69");
     protected static $schema_json = "{	
 			'fields'   : {	
-							'date'  :  'date',
-							'amount'  :  'float',
-							'type'  :  'text',
-							'preamp_id'  :  'int',
+							'date'  	:  'date',
+							'amount'  	:  'float',
+							'type'		:  'text',
+							'preamp_id' :  'int',
 							'preamp_client_id'  :  'int',
-							'product'  :  'text',
-							'invoice_id'  :  'Invoice',
-							'company_id'  :  'Company',
-							'notes'  :  'textarea'
+							'product'  	:  'text',
+							'invoice_id':  'Invoice',
+							'company_id':  'Company',
+							'notes'  	:  'textarea'
 						},
 			'required' : {
 							

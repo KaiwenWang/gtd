@@ -15,22 +15,22 @@ class Company extends ActiveRecord {
     var $_search_criteria_global = array( "modin = 60");
     protected static $schema_json = "{	
     			'fields'   : {	
-								'name'  :  'text',
-								'notes'  :  'textarea',
-								'street'  :  'text',
+								'name' 		:  'text',
+								'notes'  	:  'textarea',
+								'street'  	:  'text',
 								'street_2'  :  'text',
-								'city'  :  'text',
-								'state'  :  'text',
-								'zip'  :  'int',
-								'phone'  :  'text',
-								'other_phone'  :  'text',
-								'billing_phone'  :  'text',
+								'city'  	:  'text',
+								'state'  	:  'text',
+								'zip'  		:  'int',
+								'phone'  	:  'text',
+								'other_phone'  	:  'text',
+								'billing_phone' :  'text',
 								'stasi_id'  :  'int',
-								'preamp_id'  :  'int',
-								'status'  :  'text',
-								'product'  :  'text',
+								'preamp_id' :  'int',
+								'status'  	:  'text',
+								'product'  	:  'text',
 								'bay_area'  :  'bool',
-								'balance'  :  'float'
+								'balance'  	:  'float'
     						},
     			'required' : {
     							

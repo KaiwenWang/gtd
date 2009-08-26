@@ -9,14 +9,14 @@ class Hour extends ActiveRecord {
 	var $_search_criteria_global = array( "modin = 62");
 
     protected static $schema_json = "{	
-			'fields'   : {	'estimate_id' : 'Estimate',
+			'fields'   : {	'estimate_id' 	: 'Estimate',
 							'support_contract_id' : 'SupportContract',
-							'staff_id' : 'Staff',
-							'description' : 'text',
-							'date' : 'date',
-							'hours' : 'float',
-							'discount' : 'float',
-							'basecamp_id' : 'int'
+							'staff_id' 		: 'Staff',
+							'description' 	: 'text',
+							'date' 			: 'date',
+							'hours' 		: 'float',
+							'discount' 		: 'float',
+							'basecamp_id' 	: 'int'
 					   },
 			'required' : {	'staff_id',
 							[ 'estimate_id' , 'support_contract_id' ]

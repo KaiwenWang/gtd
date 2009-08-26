@@ -8,7 +8,7 @@ class FrontController {
     var $router;
     
     function __construct(){
-        $this->router = new Router();
+        $this->router = Router::singleton();
         require_once( $this->router->controller_path( ));
         $this->page = new $this->router->controller( );
     }

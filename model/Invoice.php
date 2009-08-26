@@ -11,16 +11,16 @@ class Invoice extends ActiveRecord {
     protected static $schema_json = "{	
 			'fields'   : {	
 							'support_contract_id'  :  'SupportContract',
-							'project_id'  :  'Project',
-							'type'  :  'text',
-							'start_date'  :  'date',
-							'end_date'  :  'date',
-							'pdf'  :  'text',
-							'url'  :  'text',
-							'html'  :  'textarea',
-							'sent_date'  :  'date',
-							'date'  :  'date',
-							'amount'  :  'float'
+							'project_id'	:  'Project',
+							'type'  		:  'text',
+							'start_date'  	:  'date',
+							'end_date'  	:  'date',
+							'pdf'  			:  'text',
+							'url'  			:  'text',
+							'html'  		:  'textarea',
+							'sent_date'  	:  'date',
+							'date'  		:  'date',
+							'amount'  		:  'float'
 						},
 			'required' : {
 							

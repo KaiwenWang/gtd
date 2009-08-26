@@ -9,12 +9,12 @@ class InvoiceItem extends ActiveRecord {
 	var $name_field = "custom2";
     protected static $schema_json = "{	
 			'fields'   : {	
-							'invoice_id'  :  'Invoice',
-							'name'  :  'text',
-							'description'  :  'textarea',
-							'amount'  :  'float',
-							'date'  :  'date',
-							'type'  :  'text'
+							'invoice_id'  	:  'Invoice',
+							'name'  		:  'text',
+							'description'  	:  'textarea',
+							'amount'  		:  'float',
+							'date'  		:  'date',
+							'type'  		:  'text'
 						},
 			'required' : {
 							
