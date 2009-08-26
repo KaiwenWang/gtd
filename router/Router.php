@@ -15,18 +15,20 @@ class Router{
  	 } 
 
 	function __construct( ){
-        if ( isset( $_POST['controller'])){
+        if ( $_POST['controller'] && isset($_POST['controller'])){
             $this->controller = $_POST['controller'].'Controller';
             $this->controller_prefix = $_POST['controller'];
             $this->action = isset( $_POST['action'] ) ? $_POST['action'] : 'post';
             $this->method = 'post';
-        } elseif ( isset(  $_GET['controller'])) {
+        } elseif ( $_GET['controller'] && isset(  $_GET['controller'])) {
             $this->controller = $_GET['controller'].'Controller';
             $this->controller_prefix = $_GET['controller'];
-            $this->action = isset( $_GET['action']) ? $_GET['action'] : 'get';
+            isset( $_GET['action']) ? $this->action = $_GET['action'] 
+            						: $this->action = 'get';
             $this->method = 'get';
         } else {
             $this->controller = 'HomePageController';
+            $this->action = 'get';
             $this->method = 'get';
             $this->controller_prefix = $_GET['controller'];
         }
@@ -45,6 +47,15 @@ class Router{
         $path = 'controller/'.$this->controller.'.php';
 		if (!file_exists( $path)) bail( 'requested controller "'.$this->controller.'" does not exist.');
         return $path;
+    }
+    
+    function params_to_str(){
+		$html = '';
+    	foreach( $this->params() as $key => $value){
+    		$html .= "[$key] => $value<br/>";
+    	}
+    	if(!$html) $html = 'none<br/>';
+    	return $html;
     }
 }
 ?>

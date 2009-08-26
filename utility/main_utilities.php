@@ -7,20 +7,29 @@
     @package utility
 */
 function bail( $msg){
-	echo '<br>'.$msg.'<br><br>';
+	$html = '';
+	if (class_exists('Router')){
+		$router = Router::singleton();
+		$html .= '
+				<h1 style="margin-bottom:0;">'.$router->controller.'</h1>
+				<h3 style="margin:4px 0;">Action: '.$router->action.'</h3>
+				<h3 style="margin:4px 0;">Method: '.$router->method.'</h3>
+				<h3 style="margin:6px 0 2px 0;"><u>Params</u></h3></dt> 
+				'.$router->params_to_str().'
+				';
+	}
+	$html .= '<h2 style="margin-bottom:2px;">ERRORS</h2>'.$msg.'<br>';
 	$trace = debug_backtrace();
-//	AMP_dump($trace);
-	$html = '<span style="text-decoration:underline">BACKTRACE</span><br><br>';
+	$html .= '<h2 style="margin-bottom:6px;">BACKTRACE</h2>';
 	foreach( $trace as $t){
-		$html .= 'FILE: '.$t['file'].'<br>';
-		$html .= 'LINE: '.$t['line'].'<br>';
-		if(isset($t['class'])) {
-			$function = $t['class'].'->'.$t['function'];
-		} else{
-			$function = $t['function'];
-		}
-		$html .= 'FUNCTION: '.$function.'<br>';
-		$html .= '<br>';
+		$html .= '
+					FILE: '.$t['file'].'<br>
+					LINE: '.$t['line'].'<br>
+				 ';
+
+		isset($t['class'])	?  $function = $t['class'].'->'.$t['function']
+							:  $function = $t['function'];
+		$html .= 'FUNCTION: '. $function .'<br><br>';
 	}
 	echo $html;
 	trigger_error( strip_tags($msg));
