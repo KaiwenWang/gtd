@@ -14,7 +14,7 @@ class Router{
     	return self::$instance;
  	 } 
 
-	function __construct( ){
+	private function __construct( ){
         if ( $_POST['controller'] && isset($_POST['controller'])){
             $this->controller = $_POST['controller'].'Controller';
             $this->controller_prefix = $_POST['controller'];

@@ -21,8 +21,8 @@ class ViewDirectory {
 		'estimateInfo' => 'view/estimate/estimate_info.php',		
 		'contactDetail' => 'view/contact/contact_detail.php',
 		'contactTable' => 'view/contact/contact_table.php',
-		'companyInfo' => 'view/company_info.php',
-		'companyTable' => 'view/company_table.php',
+		'companyInfo' => 'view/company/company_info.php',
+		'companyTable' => 'view/company/company_table.php',
 		'supportContractTable' => 'view/support_contract/support_contract_table.php',
 		'staffTable' => 'view/staff/staff_table.php',
 		'staffDetail' => 'view/staff/staff_detail.php',
@@ -34,15 +34,17 @@ class ViewDirectory {
     );
  	private static $instance;
 
-	function __construct(){
-		$this->router = Router::singleton();
-	}
-  	public static function singleton() {
+	public static function singleton() {
     	if(!isset(self::$instance)) {
     	  self::$instance = new ViewDirectory();
 	    }
     	return self::$instance;
  	 } 
+
+	private function __construct(){
+		$this->router = Router::singleton();
+	}
+  	
     function underscore( $value ) {
         $start_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
         $end_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );

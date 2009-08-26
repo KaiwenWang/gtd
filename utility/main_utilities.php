@@ -18,7 +18,7 @@ function bail( $msg){
 				'.$router->params_to_str().'
 				';
 	}
-	$html .= '<h2 style="margin-bottom:2px;">ERRORS</h2>'.$msg.'<br>';
+	$html .= '<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>';
 	$trace = debug_backtrace();
 	$html .= '<h2 style="margin-bottom:6px;">BACKTRACE</h2>';
 	foreach( $trace as $t){

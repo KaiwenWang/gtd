@@ -2,30 +2,40 @@
 class PageController {
     var $authentication_level = array( 'staff');
     var $_class_name = 'PageController';
+    var $method;
+    var $current_action;
     var $params = array();
     var $posted_records = array();
     var $response;
-    var $method;
+    var $data;
+    var $display_options = array();
  	var $before_actions = array( 'get_posted_records' => array('create','update','destroy') );
 	var $after_actions = array( 'save_posted_records' => array('create','update','destroy') );
     
     function __construct(){
-        
+        $this->data = new Collection();
     } 
     function execute( $action, $params = array()){
+    	if ( !method_exists( $this, $action)) bail( 'non-existent action requested: '.$action);
         $this->params = $params;
-    	if ( method_exists( $this, $action)){
-				$beforeAction = 'before'.ucfirst( $action);
-	   		$afterAction = 'after'.ucfirst( $action);
-	    	if ( method_exists( $this, $beforeAction)) $this->$beforeAction();
-	    	$this->current_action = $action;
-    		$this->response = $this->$action( $this->params);
-			if ( method_exists( $this, $afterAction)) $this->$afterAction();
-			if ( $this->response) return $this->response;
-				bail( 'No response from this action.');
-    	} else {
-    		bail( 'non-existent action requested: '.$action);
-    	}
+	   	$this->current_action = $action;
+		$this->executeBeforeActions();
+    	$this->executeAction();
+		$this->executeAfterActions();
+		$this->response = $this->display();
+    	if ( $this->response) return $this->response;
+    	bail( 'This action was valid, but did not render any html.');
+    }
+    function executeBeforeActions(){
+    	$beforeAction = 'before'.ucfirst( $action);
+    	if ( method_exists( $this, $beforeAction)) $this->$beforeAction();
+    }
+    function executeAction(){
+			$this->{$this->current_action}( $this->params);  //OMG php yer funny lookin!!
+    }
+    function executeAfterActions(){
+    	$afterAction = 'after'.ucfirst( $action);
+    	if ( method_exists( $this, $afterAction)) $this->$afterAction();
     }
     protected function beforePost( ){
     	$record_set = $this->params['ActiveRecord'];
@@ -57,16 +67,15 @@ class PageController {
     function template_path_for( $action){
         return 'template/standard_inside.html';
     }
-    function display( $params, $o = array()){
+    function display(){
         $r = getRenderer( );
-        $params['r'] = $r;
         
-        isset( $o['action'])? $action = $o['action'] 
-                            : $action = $this->current_action;
+        isset( $this->display_options['action'])? $action = $this->display_options['action'] 
+					                            : $action = $this->current_action;
 
         $view_name = strtolower( str_replace( "Controller", "", get_class( $this ))) . ucwords( $action );
 
-        return $r->template( $this->template_path_for( $action), $r->view( $view_name, $params ));
+        return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
     }
 }
 ?>
