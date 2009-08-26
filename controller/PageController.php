@@ -16,27 +16,37 @@ class PageController {
         $this->data = new Collection();
     } 
     function execute( $action, $params = array()){
-    	if ( !method_exists( $this, $action)) bail( 'non-existent action requested: '.$action);
         $this->params = $params;
-	   	$this->current_action = $action;
-		$this->executeBeforeActions();
-    	$this->executeAction();
-		$this->executeAfterActions();
+    	$this->current_action = $action;
+    	$this->executeActions();
 		$this->response = $this->display();
     	if ( $this->response) return $this->response;
     	bail( 'This action was valid, but did not render any html.');
+    }
+    function executeActions( ){
+    	if ( !method_exists( $this, $this->current_action)) bail( 'non-existent action requested: '.$action);
+   		$this->executeBeforeActions();
+		$this->{$this->current_action}( $this->params);
+		$this->executeAfterActions();
+		$this->nextAction();
     }
     function executeBeforeActions(){
     	$beforeAction = 'before'.ucfirst( $action);
     	if ( method_exists( $this, $beforeAction)) $this->$beforeAction();
     }
-    function executeAction(){
-			$this->{$this->current_action}( $this->params);  //OMG php yer funny lookin!!
-    }
     function executeAfterActions(){
     	$afterAction = 'after'.ucfirst( $action);
     	if ( method_exists( $this, $afterAction)) $this->$afterAction();
     }
+    function nextAction(){
+    	if(!$this->redirect_options) return;
+    	$this->current_action = $this->redirect_options['action'];
+    	$this->redirect_options = array();
+    	$this->executeActions();
+    }
+    function redirectTo( $o = array()){
+    	$this->redirect_options = $o;
+    }    
     protected function beforePost( ){
     	$record_set = $this->params['ActiveRecord'];
 			foreach($record_set as $class_name => $object_set){

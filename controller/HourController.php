@@ -18,6 +18,7 @@ class HourController extends PageController {
     function update(){
     }
     function post(){
+    	$this->redirectTo(array('action' => 'edit'));
     }
     function show(){
     }

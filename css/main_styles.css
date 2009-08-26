@@ -53,6 +53,12 @@ clear:left;
 position:absolute;
 right:23%;
 }
+#logo{
+height:63px;
+position:absolute;
+right:13px;
+top:6px;
+}
 #side{
 float: right;
 width: 17%;

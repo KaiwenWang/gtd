@@ -52,7 +52,7 @@ class Router{
     function params_to_str(){
 		$html = '';
     	foreach( $this->params() as $key => $value){
-    		$html .= "[$key] => $value<br/>";
+    		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
     	}
     	if(!$html) $html = 'none<br/>';
     	return $html;
