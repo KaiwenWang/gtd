@@ -1,16 +1,4 @@
 <?php
-/**
-    @package model
-*/
-/*
-$r = getRenderer();
-$hour = new Hour();
-
-$html = $r->field( $hour, 'estimate_id', array('staff'=>''));
-name='Model[Hour][new][estimate_id]'
-$_POST['Model']['Hour'][123]['estimate_id'];
-
-*/
 class Render{
 
 	var $_class_name = 'Render';

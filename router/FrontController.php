@@ -10,7 +10,8 @@ class FrontController {
     function __construct(){
         $this->router = Router::singleton();
         require_once( $this->router->controller_path( ));
-        $this->page = new $this->router->controller( );
+        class_exists($this->router->controller)	? $this->page = new $this->router->controller( )
+        										: bail("Requested controller <b>{$this->router->controller}</b> does not exist, but controller path <b>{$this->router->controller_path()}</b> <i>does</i> exist.  Maybe the controller name is misspelled?");
     }
     function execute(){
         $this->authenticate();
@@ -26,11 +27,11 @@ class FrontController {
 			return $this->login();
         }
     }  
-    function authenticate(){
-        //  Me aither yeh fuukken bastard yeu!
-    }
 	function login(){
     	// Ah steel wunt deu eet yeu fuk
+    }
+    function authenticate(){
+        //  Me aither yeh fuukken bastard yeu!
     }
 }
 ?>

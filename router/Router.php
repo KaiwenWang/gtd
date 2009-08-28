@@ -1,6 +1,7 @@
 <?php
 class Router{
     var $controller;
+    var $controller_prefix;
     var $action;
     var $method;
     var $params;
@@ -12,13 +13,14 @@ class Router{
     	  self::$instance = new $c();
 	    }
     	return self::$instance;
- 	 } 
+ 	 }
 
 	private function __construct( ){
         if ( $_POST['controller'] && isset($_POST['controller'])){
             $this->controller = $_POST['controller'].'Controller';
             $this->controller_prefix = $_POST['controller'];
-            $this->action = isset( $_POST['action'] ) ? $_POST['action'] : 'post';
+            isset( $_POST['action'] ) 	? $this->action = $_POST['action'] 
+            							: $this->action = 'post';
             $this->method = 'post';
         } elseif ( $_GET['controller'] && isset(  $_GET['controller'])) {
             $this->controller = $_GET['controller'].'Controller';
@@ -28,9 +30,9 @@ class Router{
             $this->method = 'get';
         } else {
             $this->controller = 'HomePageController';
-            $this->action = 'get';
+            $this->action = 'index';
             $this->method = 'get';
-            $this->controller_prefix = $_GET['controller'];
+            $this->controller_prefix = 'HomePage';
         }
     }
 
@@ -47,15 +49,6 @@ class Router{
         $path = 'controller/'.$this->controller.'.php';
 		if (!file_exists( $path)) bail( 'requested controller "'.$this->controller.'" does not exist.');
         return $path;
-    }
-    
-    function params_to_str(){
-		$html = '';
-    	foreach( $this->params() as $key => $value){
-    		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
-    	}
-    	if(!$html) $html = 'none<br/>';
-    	return $html;
     }
 }
 ?>

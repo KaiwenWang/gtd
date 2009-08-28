@@ -60,14 +60,18 @@ class ViewDirectory {
 
         $probable_filename = $this->underscore( $view_function_name );
 
-		$test_filename = 'view'.DIRECTORY_SEPARATOR.$this->underscore( $this->router->controller_prefix )
+		$i++;
+		
+		$test_filename[$i] = 'view'.DIRECTORY_SEPARATOR.$this->underscore( $this->router->controller_prefix )
 						  .DIRECTORY_SEPARATOR.$probable_filename.'.php';						  
-		if( file_exists( $test_filename ))	return $test_filename;
+		if( file_exists( $test_filename[$i] ))	return $test_filename[$i];
 
         foreach( $this->_view_paths as $test_path ) {
-            $test_filename = $test_path . DIRECTORY_SEPARATOR . $probable_filename . '.php';
-            if( file_exists( $test_filename ))	return $test_filename;
+        	$i++;
+            $test_filename[$i] = $test_path . DIRECTORY_SEPARATOR . $probable_filename . '.php';
+            if( file_exists( $test_filename[$i] ))	return $test_filename[$i];
         }
+        bail("View $view_function_name could not be found.<br>Lebowski looked in the following locations:<br>".array_dump($test_filename));
     }
 
 }

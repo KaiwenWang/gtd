@@ -1,8 +1,8 @@
 <?php
 class HourController extends PageController {
-    var $_class_name = 'HourEdit';
 	var $before_actions = array( 'get_posted_records' => array('create','update','destroy') );
 	var $after_actions = array( 'save_posted_records' => array('create','update','destroy') );
+
     function __construct(){
         parent::__construct();
     }

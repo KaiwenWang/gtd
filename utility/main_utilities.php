@@ -15,7 +15,7 @@ function bail( $msg){
 				<h3 style="margin:4px 0;">Action: '.$router->action.'</h3>
 				<h3 style="margin:4px 0;">Method: '.$router->method.'</h3>
 				<h3 style="margin:6px 0 2px 0;"><u>Params</u></h3></dt> 
-				'.$router->params_to_str().'
+				'.array_dump($router->params()).'
 				';
 	}
 	$html .= '<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>';
@@ -58,4 +58,13 @@ function getAll( $class){
 	$objects = $finder->find( array());
 	return $objects;
 }
+function array_dump($array){
+		$html = '';
+    	foreach( $array as $key => $value){
+    		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
+    	}
+    	if(!$html) $html = 'empty array<br/>';
+    	return $html;
+    }
+
 ?>
