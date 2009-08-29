@@ -1,8 +1,4 @@
 <?php
-trigger_error("************* MODEL TESTS STARTING ***********");
-require_once('include/all_includes.php');
-require_once( 'test/simpletest/autorun.php');
-
 class testHour extends UnitTestCase {
 	function testGetters( ) {
         $id = 20973;
