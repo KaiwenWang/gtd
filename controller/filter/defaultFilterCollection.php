@@ -1,6 +1,7 @@
 <?php
 class defaultFilterCollection {
-	var controller;
+	var $controller;
+	
     protected function get_posted_records( ){
     	$record_set = $this->controller->params['ActiveRecord'];
 			foreach( $record_set as $class_name => $object_set){

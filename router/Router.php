@@ -26,7 +26,7 @@ class Router{
             $this->controller = $_GET['controller'].'Controller';
             $this->controller_prefix = $_GET['controller'];
             isset( $_GET['action']) ? $this->action = $_GET['action'] 
-            						: $this->action = 'get';
+            						: $this->action = 'index';
             $this->method = 'get';
         } else {
             $this->controller = 'HomePageController';

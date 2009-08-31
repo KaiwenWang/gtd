@@ -1,34 +1,31 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Ape Planet</title>
-    <link rel="Stylesheet" href="css/main_styles.css" type="text/css" />
-    <link rel="Stylesheet" href="css/jquery-ui.css" type="text/css" />
-    <link rel="Stylesheet" href="css/tablesorter-themes/blue/style.css" type="text/css" />
- 	<script type="text/javascript" src="js/jquery.min.js"></script>
- 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/tablesorter/jquery.tablesorter.min.js"></script>
- 	<script type="text/javascript" src="js/jquery-gtd.js"></script>
- 	<script type="text/javascript" src="js/initializePage.js"></script>
+    <title>Ape Planet</title>
+    <link rel="Stylesheet" href="public/css/main_styles.css" type="text/css" />
+    <link rel="Stylesheet" href="public/css/jquery-ui.css" type="text/css" />
+    <link rel="Stylesheet" href="public/css/tablesorter-themes/blue/style.css" type="text/css" />
+ 	<script type="text/javascript" src="public/js/jquery.min.js"></script>
+ 	<script type="text/javascript" src="public/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="public/js/tablesorter/jquery.tablesorter.min.js"></script>
+ 	<script type="text/javascript" src="public/js/jquery-gtd.js"></script>
+ 	<script type="text/javascript" src="public/js/initializePage.js"></script>
     </head>
     <body>
         <h1 class="page_name">Planet of Apes</h1>
         <div id ="side">
-			<img src="img/spaceballs.gif" alt="" id="logo" />
+			<img src="public/img/spaceballs.gif" alt="" id="logo" />
 			<h3>Lists</h3>
             <ul>
-                <li><a href="index.php?action=get&controller=CompanyList">Companies</a></li>
-                <li><a href="index.php?action=get&controller=ProjectList">Projects</a></li>
-                <li><a href="index.php?action=get&controller=SupportContractList">Support Contracts</a></li>
-                <li><a href="index.php?action=get&controller=PaymentList">Payments</a></li>
-                <li><a href="index.php?action=get&controller=InvoiceList">Invoices</a></li>
-                <li><a href="index.php?action=get&controller=StaffList">Staff</a></li>
-                <li><a href="index.php?action=get&controller=ContactList">Contacts</a></li>
+                <li><a href="index.php?controller=Company">Companies</a></li>
+                <li><a href="index.php?controller=Project">Projects</a></li>
+                <li><a href="index.php?controller=SupportContract">Support Contracts</a></li>
+                <li><a href="index.php?controller=Payment">Payments</a></li>
+                <li><a href="index.php?controller=Invoice">Invoices</a></li>
+                <li><a href="index.php?controller=Staff">Staff</a></li>
+                <li><a href="index.php?controller=Contact">Contacts</a></li>
             </ul>   
 			<h3>Reports</h3>
-            <ul>
-                <li><a href="index.php?action=get&controller=HoursByEstimate">Hours By Estimate</a></li>
-            </ul>   
 
         </div>  
         <div id ="msg-container" align="center">
