@@ -14,8 +14,7 @@ function hourEditForm( $h, $o = array()){
         'Hours' 		=> $r->field( $h, 'hours'),        
         'Discount' 		=> $r->field( $h, 'discount'),
 		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id'),
-		'Submit'		=> $r->submit()
-    );
+    );	
     
     $form_contents = $r->view( 'basicList', 
     							$list_items, 
@@ -23,6 +22,6 @@ function hourEditForm( $h, $o = array()){
     						  );
     						  
     $o['redirect'] = $r->url('HourEdit',$h);
-    return $r->form( 'post', 'Hour', $form_contents, $o);
+    return $r->form( 'post', 'Hour', $form_contents.$r->submit(), $o);
 }
 ?>

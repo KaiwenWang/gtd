@@ -25,9 +25,14 @@ display:inline;
 font-size:16px;
 margin:0;
 padding:0 6px;
+position:relative;
+top:1px;
 }
 select{
 width:172px;
+}
+.submit_btn{
+float: right;
 }
 .msg{
 width: 450px;
@@ -175,3 +180,4 @@ font-size:14px;
 font-size:8px;
 margin-bottom:4px;
 }
+#quicksilver{display:inline-block;}
