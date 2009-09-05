@@ -1,5 +1,4 @@
 <?php
-
 function paymentTable( $modelObjects, $o = array()){
 	if ( !$modelObjects) return;
     $out = array();

@@ -6,19 +6,29 @@ table.tablesorter {
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color:#AABBCC;
 	border:1px solid #667788;
-	padding: 5px 20px 5px 8px;
+	padding: 2px 20px 2px 8px;
+}
+table.tablesorter thead tr{
+	background:#fff url('chrome_2.jpg') repeat-x center	;
 }
 table.tablesorter thead tr .header {
-	background-image: url(bg.gif);
+	background-image: url('bg.gif');
 	background-repeat: no-repeat;
 	background-position: center right;
 	cursor: pointer;
 }
+
+table.tablesorter tbody{
+height:110px;
+overflow-x:hidden;
+overflow-y:scroll;
+margin-bottom: 10px;
+}
+
 table.tablesorter tbody td {
 	color: #3D3D3D;
-	padding: 4px;
+	padding: 4px 4px 4px 8px;
 	background-color: #FFF;
 	vertical-align: top;
 }

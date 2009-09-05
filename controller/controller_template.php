@@ -1,23 +1,22 @@
 <?php
-/**
-Bastard
+class ExampleController extends PageController {
 
-some description of Bastard, and that thing he do.
-
-package @controller
-*/
-class Bastard extends PageController {
-    var $_class_name = 'Bastard';
-    
     function __construct(){
         parent::__construct();
     }
-    function get( $get = array()){
-		$r =& getRenderer();
-		
-        $html = $r->view('testView', $view_data, array('class'=>'test'));
+    function index( $params){		
     }
-	function post( $post = array()){
-	}
+    function show( $params){		
+    }
+    function edit( $params){		
+    }    
+    function update( $params){		
+    }
+    function edit_new( $params){		
+    }
+    function create( $params){		
+    }
+    function destroy( $params){		
+    }
 }
 ?>

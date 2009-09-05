@@ -48,6 +48,7 @@ margin-right:20px;
 }
 .clear-left{
 clear:left;
+overflow:hidden;
 }
 #content-controls{
 position:absolute;
@@ -88,12 +89,15 @@ clear: both;
 .basic-table{
 width:81%;
 border-collapse:collapse;
+border-bottom: 1px solid #999999;
 }
 .basic-table th{
-padding: 4px;
+font-size:12px;
+font-weight:bold;
 }
 .basic-table td{
-border: 1px solid black;
+border-left: 1px solid #999999;
+border-right: 1px solid #999999;
 padding: 4px;
 }
 .basic-table a{

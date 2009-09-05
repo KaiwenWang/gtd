@@ -1,5 +1,4 @@
 <?php
-
 function supportContractTable( $modelObjects, $o = array()){
     $r =& getRenderer();
     $out = array();
@@ -12,7 +11,7 @@ function supportContractTable( $modelObjects, $o = array()){
     						'Contrct on File');
     $out['rows'] =  array();
     foreach($modelObjects as $m){
-      $out['rows'][] = array(	$r->link( 'SupportContractDetail', array('id'=>$m->id),$m->getName()),
+      $out['rows'][] = array(	$r->link( 'SupportContract', array('action'=>'show','id'=>$m->id),$m->getName()),
       							$m->getData('status'),
       							$m->getData('pro_bono'),
       							$m->getData('monthly_rate'),
@@ -23,6 +22,5 @@ function supportContractTable( $modelObjects, $o = array()){
 
     $html = $r->view('basicTable',$out, array('title'=>'Support Contracts'));
     return $html;
-  
 }
 ?>

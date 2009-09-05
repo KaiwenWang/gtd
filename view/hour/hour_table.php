@@ -15,7 +15,7 @@ function hourTable( $hours, $o = array()){
     $table['rows'] =  array();
     foreach($hours as $h){
       $table['rows'][] = array(	$h->id,
-      							$r->link( 'HourEdit', $h),
+      							$r->link( 'Hour', array('action'=>'edit','id'=>$h->id),$h->getName()),
       							$h->getData('date'),
       							$h->getStaffName(),
       							$h->getHours(),

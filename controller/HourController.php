@@ -16,15 +16,14 @@ class HourController extends PageController {
         $d->project = new Project( $d->estimate->get('project_id'));
     }
     function update(){
-    }
-    function post(){
-    	$this->redirectTo(array('action' => 'edit'));
+	    $this->redirectTo(array('action' => 'edit'));
     }
     function show(){
     }
-    function add(){
+    function edit_new(){
     }
     function create(){
+    	$this->redirectTo(array('action' => 'edit'));
     }
     function destroy(){
     }

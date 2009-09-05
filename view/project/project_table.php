@@ -15,7 +15,7 @@ function projectTable( $projects, $o = array()){
     $table['rows'] =  array();
     foreach($projects as $p){
       $table['rows'][] = array(	$p->id,
-      							$r->link( 'ProjectDetail', array('id'=>$p->id), $p->getName()),
+      							$r->link( 'Project', array('action'=>'show','id'=>$p->id), $p->getName()),
       							$p->getData('status'),
       							$p->getStaffName(),
       							$p->getData('launch_date'),

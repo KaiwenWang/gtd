@@ -51,7 +51,7 @@ class Render{
     function url( $controller, $parameters){
 	    if( is_a( $parameters, 'ActiveRecord')){
 			$obj = $parameters;
-			$parameters = array( 'id' => $obj->id );
+			$parameters = array( 'action'=>'show','id' => $obj->id );
 	    }
     	return 'index.php?controller='.$controller.'&'.http_build_query($parameters);
     }

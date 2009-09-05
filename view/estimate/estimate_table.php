@@ -17,7 +17,7 @@ function estimateTable( $estimates, $o = array()){
     $table['rows'] =  array();
     foreach($estimates as $e){
       $table['rows'][] = array(	$e->id,
-      							$r->link( 'EstimateDetail', array('id'=>$e->id), $e->getName()),
+      							$r->link( 'Estimate', array('action'=>'show','id'=>$e->id), $e->getName()),
       							$e->getData('due_date'),
       							$e->getLowEstimate(),
       							$e->getHighEstimate(),
