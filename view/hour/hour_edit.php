@@ -14,7 +14,10 @@ function hourEdit($p){
 
     return array(   'title' 	=> $title,
                     'controls'	=> '',
-                    'body' 		=> $project_info.$hour_edit_form.$hour_table.$estimate_table
+                    'body' 		=> 	$project_info
+                    				.$hour_edit_form
+                    				.$hour_table
+                    				.$estimate_table
     								);
 }
 ?>

@@ -6,7 +6,7 @@ text-decoration: none;
 color:#006699;
 }
 form{
-margin: 10px 0;
+margin: 0;
 }
 h1 {
 margin:0 0 6px;
@@ -17,10 +17,14 @@ color:#333333;
 margin:0;
 }
 h3{
-color:#666666;
+border:0px solid #999999;
+border-bottom: none;
+background: #f0f6FF;
+color:#000;
+display:inline;
+font-size:16px;
 margin:0;
-display: inline;
-border-bottom:1px dashed;
+padding:0 6px;
 }
 select{
 width:172px;
@@ -57,8 +61,8 @@ right:23%;
 #logo{
 height:63px;
 position:absolute;
-right:13px;
-top:6px;
+right:11px;
+top:2px;
 }
 #side{
 float: right;
@@ -79,6 +83,7 @@ border:1px solid #99BBFF;
 }
 #application{
 margin-left:10px;
+width: 80%;
 }
 
 #footer{
@@ -87,9 +92,9 @@ height:20px;
 clear: both;
 }
 .basic-table{
-width:81%;
 border-collapse:collapse;
 border-bottom: 1px solid #999999;
+width: 100%;
 }
 .basic-table th{
 font-size:12px;
@@ -104,15 +109,17 @@ padding: 4px;
 color:#004488;
 }
 .basic-list{
--moz-border-radius-topright:6px;
+-moz-border-radius-topright:0px;
 -moz-border-radius-bottomleft:6px;
 -moz-border-radius-bottomright:6px;
-border:1px solid #666666;
+border:0px solid #666666;
 margin:5px 0;
 padding:10px;
 }
-.inline .basic-list{
-padding:10px 0 10px 10px;
+.basic-list-item{
+}
+.basic-cell{
+display: inline;
 }
 .basic-list-label{
 color: #333333;
@@ -122,12 +129,24 @@ margin-right: 10px;
 .basic-list-item form{
 margin: 0;
 }
-.inline tr{
+div.inline{
+width:100%;
+}
+.inline .basic-list{
+-moz-border-radius-topright:0px;
+-moz-border-radius-bottomleft:6px;
+-moz-border-radius-bottomright:6px;
+border:0px solid #666666;
+margin:0;
+padding:10px;
+width: auto;
+}
+.inline div.basic-list-item{
 background:#DDEEFF none repeat scroll 0 0;
 border:1px solid #99BBFF;
 float:left;
 margin:2px;
-min-height:22px;
+height:43px;
 min-width:220px;
 padding:4px;
 width:22%;
@@ -146,4 +165,13 @@ font-size: 10px;
 .inline .label-cell{
 }
 .inline .data-cell{
+}
+/* QUICKSEARCH */
+#quicksearch{
+display: inline;
+font-size:14px;
+}
+.qs_input{
+font-size:8px;
+margin-bottom:4px;
 }

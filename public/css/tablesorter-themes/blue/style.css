@@ -2,7 +2,6 @@
 table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
-	margin-top: 10px;
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {

@@ -2,7 +2,7 @@
 function projectInfo( $p, $o = array()){
     $r =& getRenderer();
     return '
-    	<div class="basic-list" style="width:80%;">
+    	<div class="basic-list">
     		<div>
     			<span>
     				Company: '.$r->link( 'Company', array('action'=>'show','id'=>$p->get('company_id')), $p->getCompanyName()).'

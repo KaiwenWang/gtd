@@ -16,6 +16,7 @@ function basicTable( $table, $o = array()){
     $attr = $r->attr($o);
     $html = '';
 	if( $o['title']) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
+	$html .= '<div id="quicksilver"><form><input type="text" class="qs-input" name="qs-input" /></form></div>';
     $html .= '<table class="basic-table tablesorter" cellspacing="0" cellpadding="0">';
 	$html .= '<thead>';
     $html .= '<tr>';
