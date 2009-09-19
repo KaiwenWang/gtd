@@ -15,6 +15,7 @@ class Template{
                 $data = ( file_exists( $data))  ? $this->runFile($data) : $data;
                 $this->html = preg_replace( "/\[\[" . $tag . "\]\]/i", $data, $this->html);
             }
+            $this->html = preg_replace( "/\[\[[^\]]*\]\]/", '', $this->html);
 		}else{
             bail("No tags designated for replacement.");
 		}
