@@ -23,6 +23,7 @@ class ViewDirectory {
 		'projectInfo' => 'view/project/project_info.php',		
 		'projectTable' => 'view/project/project_table.php',
 		'hourListItem' => 'view/hour/hour_list_item.php',
+		'hourNewForm' => 'view/hour/hour_new_form.php',
 		'hourTable' => 'view/hour/hour_table.php'
     );
  	private static $instance;

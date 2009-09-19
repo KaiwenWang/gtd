@@ -6,12 +6,12 @@ function projectIndex($d){
 					: $page_title = 'All Projects';
 		
 		$select_by_staff = $r->classSelect( 'Staff',
-											array(	'name'=>'staff_id',
+											array(	'name'=>'id',
 													'selected_value'=>$d->staff_selected_value,
 													'select_none'=>'All Staff Members'),
 											array('sort'=>'first_name'));
 		$select_by_staff .= $r->submit();
-		$select_by_staff = $r->form( 'get', 'Project', $select_by_staff);
+		$select_by_staff = $r->form( 'show', 'Staff', $select_by_staff);
 
 		$controls = $r->view('basicList', array('Projects by Staff'=>$select_by_staff));
 

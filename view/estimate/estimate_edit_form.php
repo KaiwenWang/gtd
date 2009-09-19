@@ -1,6 +1,7 @@
 <?php
-function estimateNewForm( $e, $o = array()){
+function estimateEditForm( $e, $o = array()){
     $r =& getRenderer();
+	
     $list_items = array(
 		'Description' => $r->field( $e, 'description'),
 		'Low Estimate' =>$r->field( $e, 'low_hours'),
@@ -12,13 +13,11 @@ function estimateNewForm( $e, $o = array()){
     
     $form_contents = $r->view( 'basicList', 
     							$list_items, 
-    							array( 'title'=>'Add Estimate', 'display'=>'inline')
+    							array( 'title'=>'Edit Estimate', 'display'=>'inline')
     						  );
     						  
-//	$form_contents .= $r->hidden('project_id',$e->get('project_id'));
-		  
     $o['method'] = 'post';
     
-    return $r->form( 'create', 'Estimate', $form_contents.$r->submit(), $o);
+    return $r->form( 'update', 'Estimate', $form_contents.$r->submit(), $o);
 }
 ?>

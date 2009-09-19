@@ -33,7 +33,7 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 	public static function _getSchema(){
 		if ( !isset( self::$schema)) {
 			$r =& getRenderer();
-            self::$schema = $r->jsonDecode( Estimate::$schema_json);
+            self::$schema = $r->jsonDecode( Hour::$schema_json);
         }
         return self::$schema; 
 	}

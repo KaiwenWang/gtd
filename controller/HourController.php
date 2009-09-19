@@ -21,10 +21,14 @@ class HourController extends PageController {
     }
     function show(){
     }
-    function edit_new(){
+    function new_record(){
     }
-    function create(){
-    	$this->redirectTo(array('action' => 'edit'));
+    function create( $params){
+     	$e = new Hour();
+    	$data = $params['ActiveRecord']['Hour']['new'];
+    	$e->mergeData( $data);
+    	$e->save();
+        $this->redirectTo(array('controller' => 'Project', 'action' => 'show', 'id' => $params['project_id']));
     }
     function destroy(){
     }

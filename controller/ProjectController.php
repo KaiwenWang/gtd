@@ -8,20 +8,7 @@ class ProjectController extends PageController {
 		$d = $this->data;
 		
 		$project_search_criteria = array('sort' => 'custom17,custom4'); #status,launch_date
-
-		if ( $params['staff_id']) {
-
-			$d->staff = new Staff( $params['staff_id']);			
-			$project_search_criteria['staff_id'] = $d->staff->id;			
-			$d->staff_selected_value = $d->staff->id;
-
-		} else {
-		
-			$d->staff_selected_value = false;
-		
-		}
-
-        $d->projects = getMany( 'Project', $project_search_criteria); 
+        $d->projects = getMany( 'Project', $project_search_criteria);
 	}
 	function show( $params){
 		$params['id']	? $this->data->project = new Project( $params['id'])
@@ -30,6 +17,9 @@ class ProjectController extends PageController {
 		$e = new Estimate();
 		$e->set(array('project_id'=>$params['id']));
 		$this->data->estimate = $e;
+
+		$this->data->hour = new Hour();
+		$this->data->hour->mergeData(array('estimate_id'=>$e->id));
 	}
 }
 ?>

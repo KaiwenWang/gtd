@@ -86,12 +86,14 @@ class Render{
     					'name' 	=> $field_id,
     					'id'	=> $field_id
     			    	);	
+
 		if ( is_array( $field_type)){
 			$data = $field_type;
 			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
 			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
 			return $this->select( $data, $tokens);
 		}
+
 		if ( class_exists( $field_type)){
 			$class = $field_type;
 			if( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
@@ -99,10 +101,11 @@ class Render{
 			foreach( $objects as $o){
 				$data[$o->id] = $o->getName();
 			}
-			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
+			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
 			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
 			return $this->select( $data, $tokens);
 		}
+	
 		if ( $id != 'new') $tokens['value'] = $obj->getData( $field_name);
 		$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field '.$field_type.'-field';
     	return $this->input( $field_type, $tokens);
