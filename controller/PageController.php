@@ -44,14 +44,30 @@ class PageController extends Collection {
    		$this->executeFilterSequence('after_filters');
   		$this->executeFilterSequence('around_filters');
 
-		$this->nextAction();
+		$this->redirect();
     }
-    function nextAction(){
-    	if(!$this->redirect_options) return;
-    	$this->current_action = $this->redirect_options['action'];
-    	$this->redirect_options = array();
-    	$this->executeActions();
+    function redirect(){
+    	if( $this->redirect_url){
+			trigger_error( 'REDIRECT URL: ' . $this->redirect_url);
+    		header('location: ' . $this->redirect_url);
+    		exit();
+    	} else{
+			return;
+    	}
+		bail('php redirect is stupid.');
     }
+    function redirectTo( $o = array()){
+    	$router = Router::singleton();
+    	$r = getRenderer();
+    	$o['controller']	? $controller = $o['controller']
+    						: $controller = $router->controller_prefix;
+    	$o['action']	? $action = $o['action']
+    					: $action = 'index';
+		$o['action'] = $action;
+    	unset($o['controller']);
+    	if( !$o['action']) bail('action not specified in redirect request.');
+    	$this->redirect_url = $r->url( $controller, $o);
+    }    
     function renderResponse(){
         $r = getRenderer( );
         
@@ -61,10 +77,7 @@ class PageController extends Collection {
         $view_name = strtolower( str_replace( "Controller", "", get_class( $this ))) . ucwords( $action );
 
         return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
-    }    
-    function redirectTo( $o = array()){
-    	$this->redirect_options = $o;
-    }    
+    }        
     protected function executeFilterSequence( $filter_sequence_name){
     	$filter_sequence = $this->filter_sequences_for[$this->current_action][$filter_sequence_name];
     	foreach ($filter_sequence as $filter){
@@ -76,7 +89,7 @@ class PageController extends Collection {
     	$this->filter_sequences_for = array();
     	$filter_sequences = array('before_filters','after_filters','around_filters');
     	foreach( $filter_sequences as $filter_sequence_name){
-	    	foreach( $filter_sequence_name as $filter => $action_set){
+	    	foreach( $this->$filter_sequence_name as $filter => $action_set){
 				foreach( $action_set as $action ){
 					if( array_key_exists($this->current_action, $action_set) ) $this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
 				}
@@ -85,11 +98,10 @@ class PageController extends Collection {
     }
     private function loadFilterCollection(){
 		require_once('controller/filter/'.$this->filter_collection_name.'.php');
-    	$this->filter_collection = new $this->filter_collection_name;
-    	$this->filter_collection->controller = $this;
+    	$this->filter_collection = new $this->filter_collection_name( $this);
     }
     private function template_path_for( $action){
         return 'template/standard_inside.html';
-    }    
+    }
 }
 ?>

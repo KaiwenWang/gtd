@@ -1,15 +1,4 @@
 <?php
-/**
-    @package utility
-*/
-
-/**
-    getViewDirectory
-    
-    returns an array of every view and the file path where it can be located.
-
-    @return array keys are view function names, values are their file paths
-*/
 class ViewDirectory {
     var $_view_paths = array('view');
     var $custom_locations = array(
@@ -19,7 +8,8 @@ class ViewDirectory {
 		'basicTable' => 'view/basic/basic_table.php',
 		'bandwidthTable' => 'view/bandwidth/bandwidth_table.php',
 		'estimateTable' => 'view/estimate/estimate_table.php',
-		'estimateInfo' => 'view/estimate/estimate_info.php',		
+		'estimateInfo' => 'view/estimate/estimate_info.php',
+		'estimateNewForm' => 'view/estimate/estimate_new_form.php',	
 		'contactDetail' => 'view/contact/contact_detail.php',
 		'contactTable' => 'view/contact/contact_table.php',
 		'companyInfo' => 'view/company/company_info.php',

@@ -38,7 +38,7 @@ class Router{
 
     function params( ) {
         if( $this->params) return $this->params;
-        $params = $_GET + $_POST;
+        $params = array_merge( $_GET, $_POST);
         unset( $params['controller']);
         unset( $params['action']);
         $this->params = $params;

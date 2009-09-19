@@ -13,7 +13,7 @@ function hourEditForm( $h, $o = array()){
         'Staff' 		=> $r->field( $h, 'staff_id'),
         'Hours' 		=> $r->field( $h, 'hours'),        
         'Discount' 		=> $r->field( $h, 'discount'),
-		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id'),
+		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id')
     );	
     
     $form_contents = $r->view( 'basicList', 
@@ -21,7 +21,10 @@ function hourEditForm( $h, $o = array()){
     							array( 'title'=>'Edit Hour "'.$h->getName().'"', 'display'=>'inline')
     						  );
     						  
-    $o['redirect'] = $r->url('HourEdit',$h);
-    return $r->form( 'post', 'Hour', $form_contents.$r->submit(), $o);
+	$form_contents .= $r->hidden('id',$h->id);
+		  
+    $o['method'] = 'post';
+    
+    return $r->form( 'update', 'Hour', $form_contents.$r->submit(), $o);
 }
 ?>

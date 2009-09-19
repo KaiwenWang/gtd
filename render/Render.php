@@ -59,10 +59,14 @@ class Render{
     	if( !( $action && $controller)) {
     		bail( "r->form called without action:$action or controller:$controller being set");
 		}
+		isset($o['method'])	? $method = $o['method']
+							: $method = 'post';
+							
 		$attributes = $this->attr( $o);
     	$tokens =	array( 
     					'action' => $action,
     					'controller' => $controller,
+    					'method' => $method,
     					'attributes' => $attributes,
     					'form-content' => $content
     					);
@@ -145,6 +149,9 @@ class Render{
 	}
 	function submit(){
 		return $this->input( 'submit');
+	}
+	function hidden( $key, $value){
+		return $this->input( 'hidden', array('name'=>$key,'value'=>$value));
 	}
 	// Don't ever call dumpMessages, it's used by the FrontController.
     function _dumpMessages(){

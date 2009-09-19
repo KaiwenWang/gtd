@@ -19,9 +19,6 @@ table.tablesorter thead tr .header {
 }
 
 table.tablesorter tbody{
-height:110px;
-overflow-x:hidden;
-overflow-y:scroll;
 margin-bottom: 10px;
 }
 

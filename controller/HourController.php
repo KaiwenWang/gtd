@@ -10,13 +10,14 @@ class HourController extends PageController {
     
     }
     function edit( $params ){
+		if ( !$params['id']) bail('Required $params["id"] not present.');
     	$d = $this->data;
         $d->hour = new Hour( $params['id']);
 	    $d->estimate = new Estimate( $d->hour->get('estimate_id'));
         $d->project = new Project( $d->estimate->get('project_id'));
     }
-    function update(){
-	    $this->redirectTo(array('action' => 'edit'));
+    function update( $params ){
+	    $this->redirectTo( array('action' => 'edit','id'=>$params['id']));
     }
     function show(){
     }

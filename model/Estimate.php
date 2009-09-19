@@ -32,7 +32,7 @@ class Estimate extends ActiveRecord {
 			$this->hours = $finder->find(array("estimate_id"=>$this->id));
 		}
 		return $this->hours;	
-	}
+	}	
 	function getTotalHours(){
 		$hours = $this->getHours();
 		$total_hours = 0;

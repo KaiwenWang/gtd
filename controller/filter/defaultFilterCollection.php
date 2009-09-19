@@ -1,8 +1,11 @@
 <?php
 class defaultFilterCollection {
 	var $controller;
-	
+	function __construct( $controller ){
+    	$this->controller = $controller;
+	}
     protected function get_posted_records( ){
+    	trigger_error('get_posted_records starting');
     	$record_set = $this->controller->params['ActiveRecord'];
 			foreach( $record_set as $class_name => $object_set){
 				foreach( $object_set as $id => $updated_fields){
@@ -14,13 +17,9 @@ class defaultFilterCollection {
 				}
 			}
     }
-
     protected function save_posted_records( ){
-			foreach( $this->controller->posted_records as $obj) $obj->save();
-			if( $this->controller->params('redirect')) {
-				header('Location: '.$this->params('redirect').'');
-				die();
-			}
-    }
+    	trigger_error('save_posted_records starting');
+		foreach( $this->controller->posted_records as $obj) $obj->save();
+	}
 }
 ?>

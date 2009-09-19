@@ -26,6 +26,10 @@ class ProjectController extends PageController {
 	function show( $params){
 		$params['id']	? $this->data->project = new Project( $params['id'])
 						: Bail('required parameter $params["id"] missing.');
+						
+		$e = new Estimate();
+		$e->set(array('project_id'=>$params['id']));
+		$this->data->estimate = $e;
 	}
 }
 ?>
