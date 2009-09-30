@@ -6,6 +6,7 @@ class ViewDirectory {
 		'testView' => 'view/test_view.php',
 		'basicList' => 'view/basic/basic_list.php',
 		'basicTable' => 'view/basic/basic_table.php',
+		'basicFormContents' => 'view/basic/basic_form_contents.php',
 		'bandwidthTable' => 'view/bandwidth/bandwidth_table.php',
 		'estimateTable' => 'view/estimate/estimate_table.php',
 		'estimateInfo' => 'view/estimate/estimate_info.php',
