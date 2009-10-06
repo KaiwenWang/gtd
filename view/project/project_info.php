@@ -2,7 +2,7 @@
 function projectInfo( $p, $o = array()){
     $r =& getRenderer();
     return '
-    	<div class="basic-list">
+    	<div class="detail-list">
     		<div>
     			<span>
     				Company: '.$r->link( 'Company', array('action'=>'show','id'=>$p->get('company_id')), $p->getCompanyName()).'
@@ -17,13 +17,13 @@ function projectInfo( $p, $o = array()){
     	   		</span>
     			<span style="float:right">Status: '.$p->get('status').'</span>
 			</div>
-			<div>
-		    	Hour Cap: '.$p->get('hour_cap').'
-		    	Hourly Rate: '.$p->get('hourly_rate').'
-		    	Low Estimate: '.$p->getLowEstimate().'
-		    	High Estimate: '.$p->getHighEstimate().'
-		    	Total Hours Worked: '.$p->getTotalHours().'
-		    	Total Billable Hours: '.$p->getBillableHours().'
+			<div class="detail-project-hours">
+		    	<span>Hour Cap: '.$p->get('hour_cap').'</span>
+		    	<span>Hourly Rate: '.$p->get('hourly_rate').'</span>
+		    	<span>Low Estimate: '.$p->getLowEstimate().'</span>
+		    	<span>High Estimate: '.$p->getHighEstimate().'</span>
+		    	<span>Total Hours Worked: '.$p->getTotalHours().'</span>
+		    	<span>Total Billable Hours: '.$p->getBillableHours().'</span>
 			</div>
     	</div>
     ';

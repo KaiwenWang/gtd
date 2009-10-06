@@ -14,7 +14,7 @@ padding:9px 0 3px 6px;
 }
 h2{
 color:#333333;
-margin:0;
+margin:0 0 10px;
 }
 h3{
 border:0px solid #999999;
@@ -62,6 +62,7 @@ overflow:hidden;
 #content-controls{
 position:absolute;
 right:23%;
+top: 30px;
 }
 #logo{
 height:63px;
@@ -123,6 +124,21 @@ padding:10px;
 }
 .basic-list-item{
 }
+.detail-list{
+background: #DDEEEE;
+-moz-border-radius-topleft:6px;
+-moz-border-radius-topright:6px;
+-moz-border-radius-bottomleft:6px;
+-moz-border-radius-bottomright:6px;
+border:0px solid #666666;
+margin:5px 0;
+padding:10px;
+}
+.detail-project-hours span {
+display: inline;
+font-size: 11px;
+padding: 0 15px 0 0 ;
+}
 .basic-cell{
 display: inline;
 }
@@ -151,23 +167,26 @@ background:#DDEEFF none repeat scroll 0 0;
 border:1px solid #99BBFF;
 float:left;
 margin:2px;
-height:43px;
-min-width:220px;
+height:23px;
+min-width:280px;
 padding:4px;
 width:22%;
 }
 .inline input{
-width: 90%;
+width: 50%;
 float: right;
 }
 .inline select{
-width: 90%;
+width: 50%;
 float: right;
 }
 .inline .basic-list-label{
 font-size: 10px;
 }
 .inline .label-cell{
+display: block;
+width: 45%;
+float: left;
 }
 .inline .data-cell{
 }
@@ -181,3 +200,9 @@ font-size:8px;
 margin-bottom:4px;
 }
 #quicksilver{display:inline-block;}
+#estimate-print {
+border: 1px #dddddd solid;
+}
+#estimate-print td {
+border-bottom: 1px #dddddd solid;
+}

@@ -8,6 +8,7 @@ class ViewDirectory {
 		'basicTable' => 'view/basic/basic_table.php',
 		'bandwidthTable' => 'view/bandwidth/bandwidth_table.php',
 		'estimateTable' => 'view/estimate/estimate_table.php',
+		'estimatePrint' => 'view/estimate/estimate_print.php',
 		'estimateInfo' => 'view/estimate/estimate_info.php',
 		'estimateNewForm' => 'view/estimate/estimate_new_form.php',	
 		'contactDetail' => 'view/contact/contact_detail.php',

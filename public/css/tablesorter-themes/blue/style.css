@@ -3,6 +3,9 @@ table.tablesorter {
 	font-family:arial;
 	background-color: #CDCDCD;
 	text-align: left;
+	width:98%;
+	font-size:13px;
+	margin:15px 0 0 10px;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	border:1px solid #667788;
