@@ -28,14 +28,23 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		return $s['fields'][$field];
 	} 
 	function getSchema(){
-		return call_user_func( array(get_class($this), '_getSchema'));
+		$class = get_class($this);
+		trigger_error($class);
+		return call_user_func( array($class, '_getSchema'), $class);
 	}
-	public static function _getSchema(){
-		if ( !isset( self::$schema)) {
-			$r =& getRenderer();
-            self::$schema = $r->jsonDecode( Hour::$schema_json);
-        }
-        return self::$schema; 
+	public static function _getSchema($class){
+		return	eval(
+						'$r =& getRenderer();
+	        	    	return $r->jsonDecode( '.$class.'::$schema_json);'
+	        	    );
+		/*
+		Optimized, but only works in php 5.3.0+
+		if ( !isset( $class::$schema)) {
+		$r =& getRenderer();
+	    $class::$schema = $r->jsonDecode( '.$class.'::$schema_json);
+		}
+		return $class::$schema;
+		*/
 	}
 	function defaultSearchCriteria( $field_name){}
     function &_getSearchSource( $criteria = null ){
