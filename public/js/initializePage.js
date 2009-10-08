@@ -8,15 +8,15 @@ function enableTableSort(){
 	$(".basic-table").tablesorter({widgets: ['zebra']});
 }
 function enableQuickSearch(){
-	$('.qs-input').quicksilver($('.basic-table tbody tr'));
-/*
-	$('.basic-table tbody').quicksearch({
-	  position: 'before',
-	  attached: '.basic-table',
-	  stripeRowClass: ['odd', 'even'],
-	  loaderText: 'loading',
-	  labelText: '',
-	  delay: 100
+	$('.basic-table-container').each( function() {
+		rows = $(this)
+				.children('.basic-table')
+				.children('tbody')
+				.children('tr');
+		selector = 	$(this)
+					.children('.quicksearch')
+					.children('form')
+					.children('.qs-input');
+		selector.quicksearch(rows);
 	});
-	*/
 }
