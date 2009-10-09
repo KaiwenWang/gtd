@@ -17,19 +17,15 @@ jQuery.fn.quicksearch = function(list){
   return this;
    
   function filter(){
-    var term = jQuery.trim( jQuery(this).val().toLowerCase() );
-    var scores = [];
+    var term = jQuery.trim( jQuery(this).val().toLowerCase() ), scores = [];
    
     if ( !term ) {
       rows.show();
     } else {
       rows.hide();
 
-      cache.each(function(i){ // cache is all the rows of the table
-      	console.log("score = "+score);
-      	console.log("i = "+i);
-      	console.log("term = "+term);
-        var score = scores[term];
+      cache.each(function(i){
+        var score = this.score(term);
         if (score > 0) { scores.push([score, i]); }
       });
 
