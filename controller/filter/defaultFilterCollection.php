@@ -9,8 +9,9 @@ class defaultFilterCollection {
     	$record_set = $this->controller->params['ActiveRecord'];
 			foreach( $record_set as $class_name => $object_set){
 				foreach( $object_set as $id => $updated_fields){
-					if( $id == 'new') bail('Can\'t create new objects yet');
-					$obj = new $class_name( $id);
+					preg_match( '/new-.*/', $id) ?	$obj = new $class_name();
+												 :	$obj = new $class_name( $id);
+												 
 					$obj->mergeData( $updated_fields);
 					
 					$this->controller->posted_records[]=$obj;

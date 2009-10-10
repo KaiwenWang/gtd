@@ -76,10 +76,15 @@ class Render{
 	    else $tokens['redirect'] = '';
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
-    function field( $obj, $field_name, $search_criteria = array()){
+    
+    function field( $obj, $field_name, $search_criteria = array(), $new_object_index = 0){
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
   		$id = $obj->id;
-		if ( !$id) $id = 'new';
+		if ( !$id) {
+			isset($new_object_index)	? $id = 'new-'.$new_object_index
+										: $id = 'new';
+		}
+		
     	$field_type = $obj->getFieldType( $field_name);
     	$field_id = 'ActiveRecord['.$obj->_class_name."][$id][$field_name]";
 		$tokens =	array( 
