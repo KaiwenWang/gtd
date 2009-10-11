@@ -1,10 +1,12 @@
 <?php
 class Form {
-	var $new_object_counters = array();
-	var $content;
-	var $controller;
-	var $action;
-	var $method;
+
+	public $content;
+	public $controller;
+	public $action;
+	public $method;
+
+	private $new_object_counters = array();
 	
 	function __construct( $o = array()){
 		$this->controller = $o['controller'];
@@ -44,7 +46,7 @@ class Form {
 
 		return $fields;
 	}
-	function incrementNewObjectCounterFor( $obj){
+	private function incrementNewObjectCounterFor( $obj){
 		$class = get_class( $obj);
 
 		isset($this->new_object_counters[$class])	? $this->new_object_counters[$class]++
