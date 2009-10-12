@@ -1,5 +1,5 @@
 <?php
-require_once( 'AMP/System/Data/Item.inc.php');
+require_once('AMP/System/Data/Item.inc.php');
 require_once('model/ActiveRecord.php');
 require_once('model/AddOn.php');
 require_once('model/Contact.php');

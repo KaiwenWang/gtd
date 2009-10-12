@@ -1,5 +1,5 @@
 <?php
-class Form {
+class Form extends PHP5_Accessor{
 
 	public $content;
 	public $controller;
@@ -7,34 +7,28 @@ class Form {
 	public $method;
 
 	private $new_object_counters = array();
+	private $does_submit_button_exist = false;
 	
 	function __construct( $o = array()){
 		$this->controller = $o['controller'];
 		$this->action = $o['action'];
-		$this->method = $o['method'];
+		isset($o['method'])	? $this->method = $o['method']
+							: $this->method = 'post';
 	}
-	public function __set($key, $value) {
-		$setter_method ='set'.ucfirst($key);
-		
-		if ( method_exists( $this, $setter_method)){
-			return $this->$setter_method( $value);
-		}
-		$this->$key = $value;
-	}
-	public function __get($key) {
-		$getter_method ='get'.ucfirst($key);
-		
-		if ( method_exists( $this, $getter_method)){
-			return $this->$getter_method();
-		}
-		return $this->$key;
+	function getSubmitBtn(){
+		$this->does_submit_button_exist = true;
+		$r = getRenderer();
+		return  $r->submit();
 	}
 	function getHtml(){
 		$r = getRenderer();
+		
+		if (!$this->does_submit_button_exist) $this->content .= $r->submit();
+		
 		$html = $r->form( $this->action, 
-						 $this->controller, 
-						 $this->content.$r->submit(), 
-						 array('method'=>$this->method)
+						  $this->controller, 
+						  $this->content, 
+						  array('method'=>$this->method)
 						 );
 		return $html;
 	}
