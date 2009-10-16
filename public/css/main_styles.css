@@ -97,6 +97,9 @@ margin-top:10px;
 height:20px;
 clear: both;
 }
+.basic-table-container{
+margin-bottom: 10px;
+}
 .basic-table{
 border-collapse:collapse;
 border-bottom: 1px solid #999999;
@@ -191,18 +194,11 @@ float: left;
 .inline .data-cell{
 }
 /* QUICKSEARCH */
-#quicksearch{
-display: inline;
-font-size:14px;
-}
 .qs_input{
 font-size:8px;
 margin-bottom:4px;
 }
-#quicksilver{display:inline-block;}
-#estimate-print {
-border: 1px #dddddd solid;
-}
 #estimate-print td {
 border-bottom: 1px #dddddd solid;
 }
+.quicksearch{display:inline-block;}

@@ -29,7 +29,6 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 	} 
 	function getSchema(){
 		$class = get_class($this);
-		trigger_error($class);
 		return call_user_func( array($class, '_getSchema'), $class);
 	}
 	public static function _getSchema($class){

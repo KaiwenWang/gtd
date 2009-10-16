@@ -1,19 +1,19 @@
 <?php
-class PageController extends Collection {
-    var $current_action;
-    var $params = array();
-	var $data;
-    var $response;
+class PageController {
 
-    var $display_options = array();
-
-    var $filter_sequences = array();
+    public $params = array();
+	public $data;
+	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
         
-    var $filter_collection_name = 'defaultFilterCollection';
- 	var $before_filters = array();
-	var $after_filters = array();
-    var $around_filters = array();
+    protected $filter_collection_name = 'defaultFilterCollection';
+ 	protected $before_filters = array();
+	protected $after_filters = array();
+    protected $around_filters = array();
 
+    private $filter_sequences = array();
+    private $current_action;
+    private $response_html;
+    
     function __construct(){
         $this->data = new Collection();
         $this->loadFilterCollection();
@@ -46,7 +46,7 @@ class PageController extends Collection {
 
 		$this->redirect();
     }
-    function redirect(){
+    private function redirect(){
     	if( $this->redirect_url){
 			trigger_error( 'REDIRECT URL: ' . $this->redirect_url);
     		header('location: ' . $this->redirect_url);
@@ -56,7 +56,7 @@ class PageController extends Collection {
     	}
 		bail('php redirect is stupid.');
     }
-    function redirectTo( $o = array()){
+    protected function redirectTo( $o = array()){
     	$router = Router::singleton();
     	$r = getRenderer();
     	$o['controller']	? $controller = $o['controller']
@@ -69,29 +69,35 @@ class PageController extends Collection {
     	$this->redirect_url = $r->url( $controller, $o);
     }    
     function renderResponse(){
-        $r = getRenderer( );
+        $r = getRenderer();
         
-        isset( $this->display_options['action'])? $action = $this->display_options['action'] 
-					                            : $action = $this->current_action;
+        $this->display_options['action']	? $action = $this->display_options['action'] 
+					                        : $action = $this->current_action;
 
-        $view_name = strtolower( str_replace( "Controller", "", get_class( $this ))) . ucwords( $action );
+        $this->display_options['controller']? $view_name = $this->getViewNameFor( $this->display_options['controller'], $action)
+					                        : $view_name = $this->getViewNameFor( get_class($this), $action);
+					                        	
+		if ($this->display_options['view']) $view_name = $this->display_options['view'];
 
         return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
-    }        
+    }
     protected function executeFilterSequence( $filter_sequence_name){
     	$filter_sequence = $this->filter_sequences_for[$this->current_action][$filter_sequence_name];
+    	if (!$filter_sequence) return;
     	foreach ($filter_sequence as $filter){
-    		method_exists( $this->filterCollection, $filter)	? $this->filterCollection->$filter()
+    		method_exists( $this->filter_collection, $filter)	? $this->filter_collection->$filter()
     															: bail("Filter <b>$filter</b> does not exist");
     	}	
     } 
     private function generateFilterSequences(){
+    	trigger_error('running generateFilterSequences()');
     	$this->filter_sequences_for = array();
     	$filter_sequences = array('before_filters','after_filters','around_filters');
     	foreach( $filter_sequences as $filter_sequence_name){
 	    	foreach( $this->$filter_sequence_name as $filter => $action_set){
 				foreach( $action_set as $action ){
-					if( array_key_exists($this->current_action, $action_set) ) $this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
+					$this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
+					trigger_error("FILTER: $filter");
 				}
 	    	}
     	}
@@ -102,6 +108,9 @@ class PageController extends Collection {
     }
     private function template_path_for( $action){
         return 'template/standard_inside.html';
+    }
+    private function getViewNameFor( $controller, $action){
+    	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( $action );
     }
 }
 ?>

@@ -9,6 +9,7 @@ class EstimateController extends PageController {
 		
 		$d->estimate = new Estimate( $params['id']);
 		$d->project = new Project( $d->estimate->get('project_id'));
+		$d->hours = getMany('Hour', array("estimate_id"=>$params['id']));
     }
     function update( $params ){
 //    	bail(AMP_dump( $params));
