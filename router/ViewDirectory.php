@@ -16,6 +16,7 @@ class ViewDirectory {
 		'contactTable' => 'view/contact/contact_table.php',
 		'companyInfo' => 'view/company/company_info.php',
 		'companyTable' => 'view/company/company_table.php',
+		'companyNewForm' => 'view/company/company_new_form.php',
 		'invoiceTable' => 'view/invoice/invoice_table.php',
 		'productInstanceInfo' => 'view/product_instance/product_instance_info.php',
 		'supportContractTable' => 'view/support_contract/support_contract_table.php',
@@ -24,6 +25,7 @@ class ViewDirectory {
 		'paymentTable' => 'view/payment/payment_table.php',
 		'projectInfo' => 'view/project/project_info.php',		
 		'projectTable' => 'view/project/project_table.php',
+		'projectNewForm' => 'view/project/project_new_form.php',
 		'hourListItem' => 'view/hour/hour_list_item.php',
 		'hourNewForm' => 'view/hour/hour_new_form.php',
 		'hourTable' => 'view/hour/hour_table.php'
