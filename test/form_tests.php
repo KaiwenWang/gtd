@@ -3,7 +3,7 @@ class testForm extends UnitTestCase{
 	function testCreateFieldForExistingModel(){
 		$hour = new Hour(20974);
 		$form = new Form();
-		$f = $form->getFieldsFor($hour);
+		$f = $form->getFieldSetFor($hour);
 		$field_html = $f->hours;
 		
 		$this->assertEqual('<input type="text" value="2.5" id = "ActiveRecord[Hour][20974][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][20974][hours]" />',$field_html);
@@ -12,7 +12,7 @@ class testForm extends UnitTestCase{
 	function testCreateFieldForNewModel(){
 		$hour = new Hour();
 		$form = new Form();
-		$f = $form->getFieldsFor($hour);
+		$f = $form->getFieldSetFor($hour);
 		$field_html = $f->hours;
 
 		$this->assertEqual('<input type="text" value="" id = "ActiveRecord[Hour][new-0][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][new-0][hours]" />',$field_html);
@@ -22,13 +22,13 @@ class testForm extends UnitTestCase{
 		$form = new Form();
 
 		$hour1 = new Hour();
-		$f1 = $form->getFieldsFor($hour1);		
+		$f1 = $form->getFieldSetFor($hour1);		
 		$field_html = $f1->hours;
 
 		$this->assertEqual('<input type="text" value="" id = "ActiveRecord[Hour][new-0][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][new-0][hours]" />',$field_html);
 
 		$hour2 = new Hour();		
-		$f2 = $form->getFieldsFor($hour2);
+		$f2 = $form->getFieldSetFor($hour2);
 		$field_html = $f2->hours;
 
 		$this->assertEqual('<input type="text" value="" id = "ActiveRecord[Hour][new-1][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][new-1][hours]" />',$field_html);
@@ -39,7 +39,7 @@ class testForm extends UnitTestCase{
 
 		$form = new Form( array( 'controller'=>'Hour', 'action'=>'update', 'method'=>'post'));
 
-		$f = $form->getFieldsFor($hour);
+		$f = $form->getFieldSetFor($hour);
 		$html = $f->description;
 		$html .= $f->hours;
 		$html .= $f->discount;
@@ -56,5 +56,13 @@ class testForm extends UnitTestCase{
 ';
 		$this->assertEqual($correct_html, $form_html);
 	}
+}
+class testGetPostedRecords extends UnitTestCase{
+	function testGetAllPostedRecordsFilter(){}
+	function testFindPostedRecords(){}
+}
+class testSavePostedRecords extends UnitTestCase{
+	function testSaveAllPostedRecordsFilter(){}
+	function testSaveSelectedPostedRecords(){}
 }
 ?>

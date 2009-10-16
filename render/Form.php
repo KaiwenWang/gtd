@@ -32,11 +32,11 @@ class Form extends PHP5_Accessor{
 						 );
 		return $html;
 	}
-	function getFieldsFor( $obj){
+	function getFieldSetFor( $obj){
 		if( !is_a( $obj, 'ActiveRecord')) bail('Cannot get fields for non-ActiveRecord objects');
 
-		$obj->id	? $fields = new FieldCollection( $obj)
-					: $fields = new FieldCollection( $obj, $this->incrementNewObjectCounterFor( $obj));
+		$obj->id	? $fields = new FieldSet( $obj)
+					: $fields = new FieldSet( $obj, $this->incrementNewObjectCounterFor( $obj));
 
 		return $fields;
 	}
