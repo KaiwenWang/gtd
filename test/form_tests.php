@@ -2,7 +2,7 @@
 class testForm extends UnitTestCase{
 	function testCreateFieldForExistingModel(){
 		$hour = new Hour(20974);
-		$form = new Form();
+		$form = new Form( array( 'controller'=>'simpleTest', 'action'=>'test'));
 		$f = $form->getFieldSetFor($hour);
 		$field_html = $f->hours;
 		
@@ -11,7 +11,7 @@ class testForm extends UnitTestCase{
 	}
 	function testCreateFieldForNewModel(){
 		$hour = new Hour();
-		$form = new Form();
+		$form = new Form( array( 'controller'=>'simpleTest', 'action'=>'test'));
 		$f = $form->getFieldSetFor($hour);
 		$field_html = $f->hours;
 
@@ -19,7 +19,7 @@ class testForm extends UnitTestCase{
 
 	}
 	function testCreateFieldsForMultipleNewModels(){
-		$form = new Form();
+		$form = new Form( array( 'controller'=>'simpleTest', 'action'=>'test'));
 
 		$hour1 = new Hour();
 		$f1 = $form->getFieldSetFor($hour1);		
