@@ -1,18 +1,20 @@
 <?php
 
-
+//include the AMP constants for db connection
+$docRoot = getenv("DOCUMENT_ROOT");
+include $docRoot."/custom/config.php";
 //----------------------------
 // DATABASE CONFIGURATION
 //----------------------------
 $ruckusing_db_config = array(
 	
   'development' => array(
-     'type'      => 'mysql',
-     'host'      => 'localhost',
+     'type'      => $MM_DBTYPE,
+     'host'      => $MM_HOSTNAME,
      'port'      => 3306,
-     'database'  => 'php_migrator',
-     'user'      => 'root',
-     'password'  => ''
+     'database'  => $MM_DATABASE,
+     'user'      => $MM_USERNAME,
+     'password'  => $MM_PASSWORD
   ),
 
 	'test' 					=> array(
