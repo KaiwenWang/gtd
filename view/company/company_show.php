@@ -1,18 +1,21 @@
 <?php
 function companyShow($d){
-        $r =& getRenderer();
+  $r =& getRenderer();
 
-		$company_selector = $r->view( 'jumpSelect', $d->company );
+  $company_selector = $r->view( 'jumpSelect', $d->company );
     	
-        $html = $r->view( 'companyInfo', $d->company);
-       	$html .= $r->view( 'contactTable', $d->company->getContacts());
-		$html .= $r->view( 'projectTable', $d->company->getProjects());
-		$html .= $r->view( 'paymentTable', $d->company->getPayments());
+  $html = $r->view( 'companyInfo', $d->company);
+  $html .= $r->view( 'contactTable', $d->company->getContacts());
+  $html .= $r->view( 'projectTable', $d->company->getProjects());
+  $html .= $r->view( 'projectNewForm', $d->new_project);
+  $html .= $r->view( 'paymentTable', $d->company->getPayments());
 
-        return 			array(
-                            'title' => $d->company->getName(),
-                            'controls' => $company_selector,
-                            'body' => $html
-                        	);	
+
+
+  return  array(
+    'title' => $d->company->getName(),
+    'controls' => $company_selector,
+    'body' => $html
+	);	
 }
 ?>

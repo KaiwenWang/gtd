@@ -15,7 +15,7 @@ function projectIndex($d){
 
 		$controls = $r->view('basicList', array('Projects by Staff'=>$select_by_staff));
 
-        $project_table = $r->view('projectTable', $d->projects, array('id'=>'project'));
+    $project_table = $r->view('projectTable', $d->projects, array('id'=>'project'));
 
 
         return	array(

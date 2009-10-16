@@ -5,11 +5,31 @@ class CompanyController extends PageController {
         parent::__construct();
     }
     function index( $params){
+        
         $this->data->companies = getMany( 'Company', array("sort"=>"custom8,Company"));
+        $this->data->new_company = new Company();
+        
     }        
 	function show($params){
 		$params['id']	? $this->data->company = new Company( $params['id'])
 						: bail('no company selected');
-	}
+    $e = new Project();
+		$e->set(array('company_id'=>$params['id']));
+		$this->data->new_project = $e;
+		
+  	}
+	//added by margot -- get code review from ted and get it to show the new Company on redirect?
+	function create( $params){
+    	$c = new Company();
+    	$data = $params['ActiveRecord']['Company']['new'];
+    	$c->mergeData( $data);
+    	$c->save();
+    	$this->redirectTo( array('controller'=>'Company','action' => 'show'));
+    }
+    function new_record(){
+    }
+    function destroy(){
+    }
+
 }
 ?>
