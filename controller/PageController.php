@@ -1,10 +1,10 @@
 <?php
-class PageController {
+class PageController{
 
     public $params = array();
 	public $data;
 	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
-        
+
     protected $filter_collection_name = 'defaultFilterCollection';
  	protected $before_filters = array();
 	protected $after_filters = array();
@@ -13,10 +13,11 @@ class PageController {
     private $filter_sequences = array();
     private $current_action;
     private $response_html;
+    private $responseEnabled = true;
     
     function __construct(){
         $this->data = new Collection();
-        $this->loadFilterCollection();
+        $this->loadFilters();
         $this->generateFilterSequences();
     } 
     function execute( $action, $params = array()){
@@ -27,7 +28,7 @@ class PageController {
     	
 		$this->response = $this->renderResponse();
     	if ( $this->response) return $this->response;
-     	bail( 'This action was valid, but did not render any html, and was not set to redirect to another action');
+        if( $this->responseEnabled ) bail( 'This action was valid, but did not render any html, and was not set to redirect to another action. Use $this->disableResponse( ) if this is the desired behavior');
     }
 	function params( $key ){
         if( isset( $this->params[$key]) && $this->params[$key]) {
@@ -47,7 +48,7 @@ class PageController {
 		$this->redirect();
     }
     private function redirect(){
-    	if( $this->redirect_url){
+    	if( isset( $this->redirect_url) && $this->redirect_url){
 			trigger_error( 'REDIRECT URL: ' . $this->redirect_url);
     		header('location: ' . $this->redirect_url);
     		exit();
@@ -69,6 +70,7 @@ class PageController {
     	$this->redirect_url = $r->url( $controller, $o);
     }    
     function renderResponse(){
+        if ( !$this->responseEnabled ) return false;
         $r = getRenderer();
         
         $this->display_options['action']	? $action = $this->display_options['action'] 
@@ -81,26 +83,46 @@ class PageController {
 
         return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
     }
+    function disableResponse( ) {
+        $this->responseEnabled = false;
+
+    }
+    function enableResponse( ) {
+        $this->responseEnabled = true;
+    }
+    function isResponseEnabled( ) {
+        $this->responseEnabled;
+    }
     protected function executeFilterSequence( $filter_sequence_name){
+    	if ( !isset( $this->filter_sequences_for[$this->current_action][$filter_sequence_name])) return;
     	$filter_sequence = $this->filter_sequences_for[$this->current_action][$filter_sequence_name];
     	if (!$filter_sequence) return;
     	foreach ($filter_sequence as $filter){
-    		method_exists( $this->filter_collection, $filter)	? $this->filter_collection->$filter()
-    															: bail("Filter <b>$filter</b> does not exist");
+            if ( method_exists( $this, $filter)) {
+                $this->$filter();
+            } elseif ( method_exists( $this->filter_collection, $filter)) {
+                
+                $this->filter_collection->$filter();
+            } else {
+    	        bail("Filter <b>$filter</b> does not exist");
+            }
     	}	
     } 
+
     private function generateFilterSequences(){
-    	trigger_error('running generateFilterSequences()');
     	$this->filter_sequences_for = array();
     	$filter_sequences = array('before_filters','after_filters','around_filters');
     	foreach( $filter_sequences as $filter_sequence_name){
 	    	foreach( $this->$filter_sequence_name as $filter => $action_set){
 				foreach( $action_set as $action ){
 					$this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
-					trigger_error("FILTER: $filter");
 				}
 	    	}
     	}
+    }
+    function loadFilters(){
+        $this->loadFilterCollection( );
+
     }
     private function loadFilterCollection(){
 		require_once('controller/filter/'.$this->filter_collection_name.'.php');

@@ -16,13 +16,13 @@ class Router{
  	 }
 
 	private function __construct( ){
-        if ( $_POST['controller'] && isset($_POST['controller'])){
+        if ( isset($_POST['controller']) && $_POST['controller']){
             $this->controller = $_POST['controller'].'Controller';
             $this->controller_prefix = $_POST['controller'];
             isset( $_POST['action'] ) 	? $this->action = $_POST['action'] 
             							: $this->action = 'post';
             $this->method = 'post';
-        } elseif ( $_GET['controller'] && isset(  $_GET['controller'])) {
+        } elseif (  isset(  $_GET['controller']) && $_GET['controller']) {
             $this->controller = $_GET['controller'].'Controller';
             $this->controller_prefix = $_GET['controller'];
             isset( $_GET['action']) ? $this->action = $_GET['action'] 

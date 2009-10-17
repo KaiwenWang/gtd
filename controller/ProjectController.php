@@ -1,7 +1,6 @@
 <?php
 class ProjectController extends PageController {
- 	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
-	protected $after_filters = array( 'save_posted_records' => array('create','update','destroy') );
+ 	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
 
     function __construct(){
         parent::__construct();
@@ -23,9 +22,7 @@ class ProjectController extends PageController {
 	}
 	//added by margot -- get code help from ted why does the not actually add the project to the the company???
 	function create( $params){
-    	$p = new Project();
-    	$data = $params['ActiveRecord']['Project']['new'];
-    	$p->mergeData( $data);
+        $p = $this->new_projects[0];
     	$p->save();
     	$this->redirectTo( array('controller'=>'Company','action' => 'show','id' => $params['company_id']));
     }

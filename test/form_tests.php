@@ -57,12 +57,4 @@ class testForm extends UnitTestCase{
 		$this->assertEqual($correct_html, $form_html);
 	}
 }
-class testGetPostedRecords extends UnitTestCase{
-	function testGetAllPostedRecordsFilter(){}
-	function testFindPostedRecords(){}
-}
-class testSavePostedRecords extends UnitTestCase{
-	function testSaveAllPostedRecordsFilter(){}
-	function testSaveSelectedPostedRecords(){}
-}
 ?>

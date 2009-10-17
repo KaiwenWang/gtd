@@ -43,27 +43,18 @@ class ViewDirectory {
 		$this->router = Router::singleton();
 	}
   	
-    function underscore( $value ) {
-        $start_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
-        $end_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
-        $underscored = str_replace( $start_set, $end_set, $value );
-        if( substr($underscored, 0, 1) == '_' ) {
-            $underscored = substr($underscored,1 );
-        }
-        return $underscored;
-    }
-
     function find( $view_function_name ) {
         if( isset( $this->custom_locations[$view_function_name])) return $this->custom_locations[$view_function_name];
 
-        $probable_filename = $this->underscore( $view_function_name );
+        $probable_filename = snake_case( $view_function_name );
 
-		$i++;
 		
-		$test_filename[$i] = 'view'.DIRECTORY_SEPARATOR.$this->underscore( $this->router->controller_prefix )
+		$default_path = 'view'.DIRECTORY_SEPARATOR.$this->underscore( $this->router->controller_prefix )
 						  .DIRECTORY_SEPARATOR.$probable_filename.'.php';						  
-		if( file_exists( $test_filename[$i] ))	return $test_filename[$i];
+		if( file_exists( $default_path ))	return $default_path;
 
+		$i=0;
+		$test_filename = array( );
         foreach( $this->_view_paths as $test_path ) {
         	$i++;
             $test_filename[$i] = $test_path . DIRECTORY_SEPARATOR . $probable_filename . '.php';

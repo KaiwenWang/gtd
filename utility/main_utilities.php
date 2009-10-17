@@ -65,6 +65,33 @@ function array_dump($array){
     	}
     	if(!$html) $html = 'empty array<br/>';
     	return $html;
+}
+
+function snake_case( $value ) {
+    $start_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
+    $end_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
+    $underscored = str_replace( $start_set, $end_set, $value );
+    if( substr($underscored, 0, 1) == '_' ) {
+        $underscored = substr($underscored,1 );
     }
+    return $underscored;
+}
+
+function pluralize( $word ) {
+    $term_end = substr( $word, -1 );
+    // ending in Z
+    if ("z" == $term_end ){
+        $term_end = substr( $word, -2 );
+        if ("zz" == $term_end ) return $word . 'es';
+        return $word . 'zes';
+    }
+    // ending in Y
+    if ("y" == $term_end ) return substr( $word, 0, strlen( $word )-1 ). "ies" ;
+    // ending in Default 
+    if ($term_end != "s" ) return $word ."s";
+    else return $word .'es';
+    return $word;
+}
+
 
 ?>
