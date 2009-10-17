@@ -192,7 +192,7 @@ class Ruckusing_MySQLAdapter extends Ruckusing_BaseAdapter implements Ruckusing_
 		  // INSERT, DELETE, etc...
 			$res = mysql_query($query, $this->conn);
 			if($this->isError($res)) { 
-  			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)));
+  			trigger_error(sprintf("Error executing 'query' with:\n%s\n\nReason: %s\n\n", $query, mysql_error($this->conn)), E_USER_NOTICE);
 		  }
 		  return true;
 		}

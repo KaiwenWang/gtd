@@ -1,2 +1,384 @@
 
 Jun 08 01:35:14 [info] UPDATE `schema_info` SET version = 93
+Oct 16 21:10:22 [info] CREATE TABLE `schema_info` (
+`version` int(11) DEFAULT '0' NOT NULL
+) ;
+Oct 16 21:10:22 [info] INSERT INTO `schema_info` (version) VALUES (0)
+Oct 16 23:45:55 [info] SELECT version FROM `schema_info`
+Oct 16 23:48:49 [info] SELECT version FROM `schema_info`
+Oct 16 23:49:26 [info] SELECT version FROM `schema_info`
+Oct 16 23:50:46 [info] SELECT version FROM `schema_info`
+Oct 16 23:52:44 [info] SELECT version FROM `schema_info`
+Oct 16 23:52:44 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 16 23:52:44 [info] INSERT INTO "column" (Company,Notes,Street,Street_2,City,State,Zip,Phone,Cell_Phone,Work_Phone,custom6,custom7,custom8,custom9,custom10,custom11 ) SELECT (name,notes,street,street_2,city,state,zip,phone,other_phone,billing_phone,stasi_id,preamp_id,status,product,bay_area,balance ) WHERE modin="60";
+Oct 16 23:54:09 [info] SELECT version FROM `schema_info`
+Oct 16 23:54:09 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 16 23:55:17 [info] SELECT version FROM `schema_info`
+Oct 16 23:55:17 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 16 23:55:18 [info] INSERT INTO "company" (Company,Notes,Street,Street_2,City,State,Zip,Phone,Cell_Phone,Work_Phone,custom6,custom7,custom8,custom9,custom10,custom11 ) SELECT (name,notes,street,street_2,city,state,zip,phone,other_phone,billing_phone,stasi_id,preamp_id,status,product,bay_area,balance ) WHERE modin="60";
+Oct 16 23:57:26 [info] SELECT version FROM `schema_info`
+Oct 16 23:57:35 [info] SELECT version FROM `schema_info`
+Oct 16 23:57:35 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:00:09 [info] SELECT version FROM `schema_info`
+Oct 17 00:00:09 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:02:05 [info] SELECT version FROM `schema_info`
+Oct 17 00:02:05 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:02:05 [info] INSERT INTO `company` (Company,Notes,Street,Street_2,City,State,Zip,Phone,Cell_Phone,Work_Phone,custom6,custom7,custom8,custom9,custom10,custom11 ) SELECT (name,notes,street,street_2,city,state,zip,phone,other_phone,billing_phone,stasi_id,preamp_id,status,product,bay_area,balance ) FROM `userdata` WHERE modin=60;
+Oct 17 00:03:58 [info] SELECT version FROM `schema_info`
+Oct 17 00:03:58 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:03:58 [info] INSERT INTO `company` (name,notes,street,street_2,city,state,zip,phone,other_phone,billing_phone,stasi_id,preamp_id,status,product,bay_area,balance ) SELECT (Company,Notes,Street,Street_2,City,State,Zip,Phone,Cell_Phone,Work_Phone,custom6,custom7,custom8,custom9,custom10,custom11 ) FROM `userdata` WHERE modin=60;
+Oct 17 00:07:51 [info] SELECT version FROM `schema_info`
+Oct 17 00:07:51 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:09:05 [info] SELECT version FROM `schema_info`
+Oct 17 00:09:05 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:09:05 [info] INSERT INTO `company` (name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 17 00:09:05 [info] UPDATE `schema_info` SET version = 1
+Oct 17 00:09:05 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:10:45 [info] SELECT version FROM `schema_info`
+Oct 17 00:10:45 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:10:45 [info] DROP TABLE `company`
+Oct 17 00:10:45 [info] UPDATE `schema_info` SET version = 0
+Oct 17 00:11:49 [info] SELECT version FROM `schema_info`
+Oct 17 00:11:49 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:11:49 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 17 00:11:49 [info] UPDATE `schema_info` SET version = 1
+Oct 17 00:11:49 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:26:07 [info] SELECT version FROM `schema_info`
+Oct 17 00:26:15 [info] SELECT version FROM `schema_info`
+Oct 17 00:26:23 [info] SELECT version FROM `schema_info`
+Oct 17 00:27:01 [info] SELECT version FROM `schema_info`
+Oct 17 00:27:24 [info] SELECT version FROM `schema_info`
+Oct 17 00:27:43 [info] SELECT version FROM `schema_info`
+Oct 17 00:28:24 [info] SELECT version FROM `schema_info`
+Oct 17 00:28:24 [info] DROP TABLE `add_on`
+Oct 17 00:28:34 [info] SELECT version FROM `schema_info`
+Oct 17 00:29:36 [info] SELECT version FROM `schema_info`
+Oct 17 00:29:36 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:29:36 [info] DROP TABLE `company`
+Oct 17 00:29:36 [info] UPDATE `schema_info` SET version = 0
+Oct 17 00:30:11 [info] SELECT version FROM `schema_info`
+Oct 17 00:30:11 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:30:11 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 17 00:30:11 [info] UPDATE `schema_info` SET version = 1
+Oct 17 00:30:11 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 17 00:30:11 [info] INSERT INTO `company` (support_contract_id, name, amount, description, date, invoice_id ) SELECT custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=60;
+Oct 17 00:30:32 [info] SELECT version FROM `schema_info`
+Oct 17 00:30:32 [info] DROP TABLE `company`
+Oct 17 00:30:32 [info] UPDATE `schema_info` SET version = 0
+Oct 17 00:31:17 [info] SELECT version FROM `schema_info`
+Oct 17 00:31:17 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:31:17 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 17 00:31:17 [info] UPDATE `schema_info` SET version = 1
+Oct 17 00:31:17 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 17 00:34:51 [info] SELECT version FROM `schema_info`
+Oct 17 00:34:51 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 17 00:34:51 [info] INSERT INTO `company` (support_contract_id, name, amount, description, date, invoice_id ) SELECT custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=60;
+Oct 17 00:37:26 [info] SELECT version FROM `schema_info`
+Oct 17 00:37:26 [info] DROP TABLE `company`
+Oct 17 00:37:26 [info] UPDATE `schema_info` SET version = 0
+Oct 17 00:37:36 [info] SELECT version FROM `schema_info`
+Oct 17 00:37:36 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 17 00:37:36 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 17 00:37:36 [info] UPDATE `schema_info` SET version = 1
+Oct 17 00:37:36 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 17 00:37:36 [info] INSERT INTO `add_on` (id, support_contract_id, name, amount, description, date, invoice_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=71;
+Oct 17 00:37:36 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:46:38 [info] SELECT version FROM `schema_info`
+Oct 17 00:46:38 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 00:46:53 [info] SELECT version FROM `schema_info`
+Oct 17 00:48:52 [info] SELECT version FROM `schema_info`
+Oct 17 00:48:52 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 00:49:00 [info] SELECT version FROM `schema_info`
+Oct 17 00:49:46 [info] SELECT version FROM `schema_info`
+Oct 17 00:49:46 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 00:49:46 [info] UPDATE `schema_info` SET version = 3
+Oct 17 00:49:54 [info] SELECT version FROM `schema_info`
+Oct 17 00:55:28 [info] SELECT version FROM `schema_info`
+Oct 17 00:55:35 [info] SELECT version FROM `schema_info`
+Oct 17 00:55:35 [info] UPDATE `schema_info` SET version = 2
+Oct 17 00:55:39 [info] SELECT version FROM `schema_info`
+Oct 17 00:55:39 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 00:55:48 [info] SELECT version FROM `schema_info`
+Oct 17 00:57:13 [info] SELECT version FROM `schema_info`
+Oct 17 00:57:13 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 00:57:20 [info] SELECT version FROM `schema_info`
+Oct 17 01:03:37 [info] SELECT version FROM `schema_info`
+Oct 17 01:03:40 [info] SELECT version FROM `schema_info`
+Oct 17 01:03:40 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 01:03:40 [info] UPDATE `schema_info` SET version = 3
+Oct 17 01:03:44 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:09 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:17 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:17 [info] UPDATE `schema_info` SET version = 2
+Oct 17 01:10:21 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:21 [info] INSERT NOT WORKING HAHAHAHA
+Oct 17 01:10:21 [info] UPDATE `schema_info` SET version = 3
+Oct 17 01:10:41 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:45 [info] SELECT version FROM `schema_info`
+Oct 17 01:10:45 [info] UPDATE `schema_info` SET version = 2

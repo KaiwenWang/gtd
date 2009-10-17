@@ -26,7 +26,7 @@ class Ruckusing_FrameworkRunner {
 	
 	function __construct($db, $argv) {
 		try {
-			set_error_handler( array("Ruckusing_FrameworkRunner", "scr_error_handler"), E_ALL );
+			//set_error_handler( array("Ruckusing_FrameworkRunner", "scr_error_handler"), E_ALL );
 
 			//parse arguments
 			$this->parse_args($argv);

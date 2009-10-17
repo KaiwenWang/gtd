@@ -1,8 +1,7 @@
 <?php
 
 //include the AMP constants for db connection
-$docRoot = getenv("DOCUMENT_ROOT");
-include $docRoot."/custom/config.php";
+include $_SERVER['HOME']."/public_html/custom/config.php";
 //----------------------------
 // DATABASE CONFIGURATION
 //----------------------------
