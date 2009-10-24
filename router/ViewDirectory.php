@@ -28,7 +28,8 @@ class ViewDirectory {
 		'projectNewForm' => 'view/project/project_new_form.php',
 		'hourListItem' => 'view/hour/hour_list_item.php',
 		'hourNewForm' => 'view/hour/hour_new_form.php',
-		'hourTable' => 'view/hour/hour_table.php'
+		'hourTable' => 'view/hour/hour_table.php',
+		'authenticateWidget' => 'view/authenticate/authenticate_widget.php'
     );
  	private static $instance;
 

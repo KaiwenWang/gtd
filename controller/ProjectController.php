@@ -2,9 +2,6 @@
 class ProjectController extends PageController {
  	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
 
-    function __construct(){
-        parent::__construct();
-    }
     function index( $params){
 		$d = $this->data;
 		

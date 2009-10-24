@@ -1,9 +1,6 @@
 <?php
 class EstimateController extends PageController {
 
-    function __construct(){
-        parent::__construct();
-    }
     function edit( $params){
 		$d = $this->data;
 		

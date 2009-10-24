@@ -13,9 +13,13 @@ class FrontController {
 		$r =& getRenderer();
         $application_html = $this->page->execute($this->router->action, 
                                                  $this->router->params( ));
+		require_once('controller/AuthenticateController.php');
+		$login = new AuthenticateController();
+		$login_message = $login->execute('widget');
         return $r->template( 'template/gtd_main_template.html', 
         					  array( 'main-application'=>$application_html,
-        							 'msg'=>$r->_dumpMessages())
+        							 'msg'=>$r->_dumpMessages(),
+        							 'login'=>$login_message)
         					);
     }  
 }

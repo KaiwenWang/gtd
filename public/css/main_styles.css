@@ -202,3 +202,22 @@ margin-bottom:4px;
 border-bottom: 1px #dddddd solid;
 }
 .quicksearch{display:inline-block;}
+/* LOGIN FORM */
+#login-container{
+width:400px;
+margin:20px auto;
+}
+#login-container h2{
+background:#DDEEFF none repeat scroll 0 0;
+border:1px solid #99BBFF;
+margin:0;
+padding:4px;
+}
+#login-form{
+border:1px solid black;
+padding:20px;
+}
+/*LOGIN WIDGET */
+#login-widget{
+float: right;
+}

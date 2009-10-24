@@ -1,9 +1,6 @@
 <?php
 class CompanyController extends PageController {
 
-    function __construct(){
-        parent::__construct();
-    }
     function index( $params){
         
         $this->data->companies = getMany( 'Company', array("sort"=>"custom8,Company"));

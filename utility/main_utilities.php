@@ -40,6 +40,9 @@ function &getRenderer(){
 	if( $render === null) $render = new Render();
 	return $render;
 }
+function getUser(){
+	return Session::getUser();
+}
 function getDbcon(){
 	return AMP_Registry::getDbcon();
 }
@@ -54,6 +57,7 @@ function getMany( $class, $search_criteria = array()){
 	return $objects;
 }
 function getAll( $class){
+	if( !class_exists($class)) bail("Class $class does not exist");
 	$finder = new $class;
 	$objects = $finder->find( array());
 	return $objects;

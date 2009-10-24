@@ -1,18 +1,5 @@
 <?php
-/**
-    ContactList
-    
-    Displays a list of all the contacts in the system. Doesn't yet take any options but we will add sort and search later.
-              
-    @return html
-    @package controller
-*/
-
 class ContactController extends PageController {
-
-    function __construct(){
-        parent::__construct();
-    }
     
     function index( $params){
         $this->data->contacts = getAll( 'Contact');

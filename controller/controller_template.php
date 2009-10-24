@@ -1,9 +1,6 @@
 <?php
 class ExampleController extends PageController {
 
-    function __construct(){
-        parent::__construct();
-    }
     function index( $params){		
     }
     function show( $params){		

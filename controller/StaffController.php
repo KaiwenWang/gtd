@@ -1,9 +1,6 @@
 <?php
 class StaffController extends PageController {
 
-    function __construct(){
-        parent::__construct();
-    }
     function index(){
         $this->data->staff = getAll( 'Staff');
     }

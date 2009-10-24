@@ -3,9 +3,6 @@ class HourController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
 	var $after_filters = array( 'save_posted_records' => array('create','update','destroy') );
 	
-    function __construct(){
-        parent::__construct();
-    }
     function index( $params ){
     
     }

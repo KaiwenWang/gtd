@@ -12,6 +12,9 @@ class Form extends PHP5_Accessor{
 	function __construct( $o = array()){
 		$this->controller = $o['controller'];
 		$this->action = $o['action'];
+		$this->css_class = $o['class'];
+		$this->css_id = $o['id'];
+		
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
 	}
@@ -24,11 +27,13 @@ class Form extends PHP5_Accessor{
 		$r = getRenderer();
 		
 		if (!$this->does_submit_button_exist) $this->content .= $r->submit();
-		
+
 		$html = $r->form( $this->action, 
 						  $this->controller, 
 						  $this->content, 
-						  array('method'=>$this->method)
+						  array('method'=>$this->method,
+						  		'class'=>$this->css_class,
+						  		'id'=>$this->css_id)
 						 );
 		return $html;
 	}

@@ -23,9 +23,10 @@ class PageController{
     function execute( $action, $params = array()){
         $this->params = $params;
     	$this->current_action = $action;
+    	if( isset($params['partial']) && $params['partial']) $this->render_partial = true;
     	
     	$this->executeActionChain();
-    	
+
 		$this->response = $this->renderResponse();
     	if ( $this->response) return $this->response;
         if( $this->responseEnabled ) bail( 'This action was valid, but did not render any html, and was not set to redirect to another action. Use $this->disableResponse( ) if this is the desired behavior');
@@ -68,7 +69,7 @@ class PageController{
     	unset($o['controller']);
     	if( !$o['action']) bail('action not specified in redirect request.');
     	$this->redirect_url = $r->url( $controller, $o);
-    }    
+    }
     function renderResponse(){
         if ( !$this->responseEnabled ) return false;
         $r = getRenderer();
@@ -81,6 +82,10 @@ class PageController{
 					                        	
 		if ($this->display_options['view']) $view_name = $this->display_options['view'];
 
+		if ($this->render_partial) {
+			$response = $r->view( $view_name, $this->data );
+			return $response['body'];
+		}
         return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
     }
     function disableResponse( ) {
