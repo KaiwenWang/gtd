@@ -526,3 +526,19 @@ Oct 30 19:31:18 [info] CREATE TABLE `contact` (
 ) ;
 Oct 30 19:31:18 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
 Oct 30 19:31:18 [info] UPDATE `schema_info` SET version = 4
+Oct 30 19:42:57 [info] SELECT version FROM `schema_info`
+Oct 30 19:44:03 [info] SELECT version FROM `schema_info`
+Oct 30 19:44:50 [info] SELECT version FROM `schema_info`
+Oct 30 19:44:50 [info] CREATE TABLE `estimate` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`project_id` int(11),
+`description` text,
+`high_hours` float,
+`due_date` date,
+`completed` tinyint(1),
+`notes` text,
+`low_hours` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 19:44:50 [info] INSERT INTO `estimate` (id, project_id, description, high_hours, due_date, completed, notes, low_hours, basecamp_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=63;
+Oct 30 19:44:50 [info] UPDATE `schema_info` SET version = 5
