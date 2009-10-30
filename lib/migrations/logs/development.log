@@ -542,3 +542,34 @@ Oct 30 19:44:50 [info] CREATE TABLE `estimate` (
 ) ;
 Oct 30 19:44:50 [info] INSERT INTO `estimate` (id, project_id, description, high_hours, due_date, completed, notes, low_hours, basecamp_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=63;
 Oct 30 19:44:50 [info] UPDATE `schema_info` SET version = 5
+Oct 30 19:58:33 [info] SELECT version FROM `schema_info`
+Oct 30 19:58:33 [info] CREATE TABLE `hour` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`estimate_id` int(11),
+`support_contact_id` int(11),
+`staff_id` int(11),
+`description` varchar(255),
+`date` date,
+`hours` float,
+`discount` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 19:58:33 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
+Oct 30 19:58:33 [info] UPDATE `schema_info` SET version = 6
+Oct 30 20:00:20 [info] SELECT version FROM `schema_info`
+Oct 30 20:00:20 [info] DROP TABLE `hour`
+Oct 30 20:00:20 [info] UPDATE `schema_info` SET version = 5
+Oct 30 20:00:24 [info] SELECT version FROM `schema_info`
+Oct 30 20:00:24 [info] CREATE TABLE `hour` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`estimate_id` int(11),
+`support_contract_id` int(11),
+`staff_id` int(11),
+`description` varchar(255),
+`date` date,
+`hours` float,
+`discount` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 20:00:24 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
+Oct 30 20:00:24 [info] UPDATE `schema_info` SET version = 6
