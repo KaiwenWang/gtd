@@ -431,3 +431,98 @@ Oct 30 19:00:03 [info] CREATE TABLE `bandwidth` (
 ) ;
 Oct 30 19:00:03 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
 Oct 30 19:00:04 [info] UPDATE `schema_info` SET version = 3
+Oct 30 19:27:58 [info] SELECT version FROM `schema_info`
+Oct 30 19:28:55 [info] SELECT version FROM `schema_info`
+Oct 30 19:28:55 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 19:28:55 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 19:28:55 [info] UPDATE `schema_info` SET version = 4
+Oct 30 19:30:11 [info] SELECT version FROM `schema_info`
+Oct 30 19:30:23 [info] SELECT version FROM `schema_info`
+Oct 30 19:30:23 [info] DROP TABLE `bandwidth`
+Oct 30 19:30:23 [info] UPDATE `schema_info` SET version = 3
+Oct 30 19:30:29 [info] SELECT version FROM `schema_info`
+Oct 30 19:30:29 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 19:30:29 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 19:30:29 [info] UPDATE `schema_info` SET version = 4
+Oct 30 19:31:13 [info] SELECT version FROM `schema_info`
+Oct 30 19:31:13 [info] DROP TABLE `contact`
+Oct 30 19:31:13 [info] UPDATE `schema_info` SET version = 4
+Oct 30 19:31:13 [info] DROP TABLE `bandwidth`
+Oct 30 19:31:13 [info] UPDATE `schema_info` SET version = 2
+Oct 30 19:31:18 [info] SELECT version FROM `schema_info`
+Oct 30 19:31:18 [info] CREATE TABLE `bandwidth` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`gigs_over` float,
+`date` date
+) ;
+Oct 30 19:31:18 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
+Oct 30 19:31:18 [info] UPDATE `schema_info` SET version = 3
+Oct 30 19:31:18 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 19:31:18 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 19:31:18 [info] UPDATE `schema_info` SET version = 4

@@ -4,8 +4,9 @@ class CreateContactTable extends Ruckusing_BaseMigration {
 
   public function up() {
     $c = $this->create_table('contact');
+    $c->column('first_name', 'string');
     $c->column('last_name', 'string');
-    $c->column('company_id', 'Company');
+    $c->column('company_id', 'integer');
     $c->column('title', 'string');
     $c->column('notes', 'text');
     $c->column('email', 'string');
@@ -58,7 +59,7 @@ class CreateContactTable extends Ruckusing_BaseMigration {
   }//up()
 
   public function down() {
-    $this->drop_table('bandwidth');
+    $this->drop_table('contact');
   }//down()
 }
 ?>
