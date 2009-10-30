@@ -382,3 +382,52 @@ Oct 17 01:10:21 [info] UPDATE `schema_info` SET version = 3
 Oct 17 01:10:41 [info] SELECT version FROM `schema_info`
 Oct 17 01:10:45 [info] SELECT version FROM `schema_info`
 Oct 17 01:10:45 [info] UPDATE `schema_info` SET version = 2
+Oct 30 18:48:35 [info] SELECT version FROM `schema_info`
+Oct 30 18:48:56 [info] SELECT version FROM `schema_info`
+Oct 30 18:50:58 [info] SELECT version FROM `schema_info`
+Oct 30 18:50:58 [info] DROP TABLE `add_on`
+Oct 30 18:50:58 [info] UPDATE `schema_info` SET version = 2
+Oct 30 18:50:58 [info] DROP TABLE `company`
+Oct 30 18:50:58 [info] UPDATE `schema_info` SET version = 0
+Oct 30 18:51:01 [info] SELECT version FROM `schema_info`
+Oct 30 18:51:01 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 30 18:51:01 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 30 18:51:01 [info] UPDATE `schema_info` SET version = 1
+Oct 30 18:51:01 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 30 18:51:01 [info] INSERT INTO `add_on` (id, support_contract_id, name, amount, description, date, invoice_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=71;
+Oct 30 18:51:01 [info] UPDATE `schema_info` SET version = 2
+Oct 30 19:00:03 [info] SELECT version FROM `schema_info`
+Oct 30 19:00:03 [info] CREATE TABLE `bandwidth` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`gigs_over` float,
+`date` date
+) ;
+Oct 30 19:00:03 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
+Oct 30 19:00:04 [info] UPDATE `schema_info` SET version = 3
