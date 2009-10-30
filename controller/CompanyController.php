@@ -11,7 +11,9 @@ class CompanyController extends PageController {
 		$params['id']	? $this->data->company = new Company( $params['id'])
 						: bail('no company selected');
     	$p = new Project();
-		$p->set(array('company_id'=>$params['id']));
+		$p->set( array(	'company_id'=>$params['id'],
+						'staff_id'=>getUser()
+					  ));
 		$this->data->new_project = $p;
   	}
 	//added by margot -- get code review from ted and get it to show the new Company on redirect?
