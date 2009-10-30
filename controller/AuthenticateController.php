@@ -1,6 +1,8 @@
 <?php
 class AuthenticateController extends PageController {
-
+	
+	protected $authentication_type = 'public';
+	
 	function login(){
 	}
 	function widget(){
@@ -10,7 +12,7 @@ class AuthenticateController extends PageController {
 		}
 	}
 	function create_session($params){
-		Session::startSession($params['id']);
+		Session::startSession( $params['id'], 'staff');
 		$this->redirectTo( array('controller'=>'Staff','action'=>'show','id'=>$params['id']));
 	}
 	

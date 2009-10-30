@@ -5,6 +5,7 @@ class Router{
     var $action;
     var $method;
     var $params;
+
  	private static $instance;
 
   	public static function singleton() {

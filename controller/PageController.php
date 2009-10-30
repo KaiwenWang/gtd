@@ -5,6 +5,7 @@ class PageController{
 	public $data;
 	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
 
+	protected $authentication_type = 'staff'; // staff, public
     protected $filter_collection_name = 'defaultFilterCollection';
  	protected $before_filters = array();
 	protected $after_filters = array();
@@ -98,6 +99,13 @@ class PageController{
     function isResponseEnabled( ) {
         $this->responseEnabled;
     }
+    function loadFilters(){
+        $this->loadFilterCollection( );
+
+    }
+    function getAuthenticationType(){
+    	return $this->authentication_type;
+    }
     protected function executeFilterSequence( $filter_sequence_name){
     	if ( !isset( $this->filter_sequences_for[$this->current_action][$filter_sequence_name])) return;
     	$filter_sequence = $this->filter_sequences_for[$this->current_action][$filter_sequence_name];
@@ -124,10 +132,6 @@ class PageController{
 				}
 	    	}
     	}
-    }
-    function loadFilters(){
-        $this->loadFilterCollection( );
-
     }
     private function loadFilterCollection(){
 		require_once('controller/filter/'.$this->filter_collection_name.'.php');

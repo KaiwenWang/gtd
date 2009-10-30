@@ -29,6 +29,7 @@ class ViewDirectory {
 		'hourListItem' => 'view/hour/hour_list_item.php',
 		'hourNewForm' => 'view/hour/hour_new_form.php',
 		'hourTable' => 'view/hour/hour_table.php',
+		'authenticateLogin' => 'view/authenticate/authenticate_login.php',
 		'authenticateWidget' => 'view/authenticate/authenticate_widget.php'
     );
  	private static $instance;
@@ -51,7 +52,7 @@ class ViewDirectory {
 
 		
 		$default_path = 'view'.DIRECTORY_SEPARATOR.snake_case( $this->router->controller_prefix )
-						  .DIRECTORY_SEPARATOR.$probable_filename.'.php';						  
+						  .DIRECTORY_SEPARATOR.$probable_filename.'.php';				  
 		if( file_exists( $default_path ))	return $default_path;
 
 		$i=0;
@@ -61,7 +62,7 @@ class ViewDirectory {
             $test_filename[$i] = $test_path . DIRECTORY_SEPARATOR . $probable_filename . '.php';
             if( file_exists( $test_filename[$i] ))	return $test_filename[$i];
         }
-        bail("View $view_function_name could not be found.<br>GTD looked in the following locations:<br>".array_dump($test_filename));
+        bail("View $view_function_name could not be found.<br>GTD looked in the following locations:<br>$default_path<br>".array_dump($test_filename));
     }
 
 }
