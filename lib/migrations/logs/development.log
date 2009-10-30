@@ -708,3 +708,37 @@ Oct 30 22:42:11 [info] INSERT INTO `project` (id, name, amp_url, design_date, de
 Oct 30 22:42:11 [info] UPDATE `schema_info` SET version = 11
 Oct 30 22:42:27 [info] SELECT version FROM `schema_info`
 Oct 30 22:42:45 [info] SELECT version FROM `schema_info`
+Oct 30 22:50:41 [info] SELECT version FROM `schema_info`
+Oct 30 22:51:38 [info] SELECT version FROM `schema_info`
+Oct 30 22:51:38 [info] CREATE TABLE `staff` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`email` varchar(255),
+`basecamp_id` int(11),
+`team` varchar(255)
+) ;
+Oct 30 22:51:38 [info] INSERT INTO `staff` (id, first_name, last_name, email, basecamp_id, team ) SELECT id, First_Name, Last_Name, Email, custom1, custom2 FROM `userdata` WHERE modin=65;
+Oct 30 22:51:38 [info] UPDATE `schema_info` SET version = 12
+Oct 30 22:53:33 [info] SELECT version FROM `schema_info`
+Oct 30 23:05:56 [info] SELECT version FROM `schema_info`
+Oct 30 23:05:56 [info] CREATE TABLE `support_contract` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`company_id` int(11),
+`domain_name` varchar(255),
+`technology` varchar(255),
+`monthly_rate` float,
+`support_hours` float,
+`hourly_rate` float,
+`pro_bono` tinyint(1),
+`contract_on_file` tinyint(1),
+`no_contract_on_file` tinyint(1),
+`status` varchar(255),
+`not_monthly` tinyint(1),
+`start_date` date,
+`end_date` date,
+`notes` text,
+`contract_url` varchar(255)
+) ;
+Oct 30 23:05:56 [info] INSERT INTO `support_contract` (id, company_id, domain_name, technology, monthly_rate, support_hours, hourly_rate, pro_bono, contract_on_file, status, not_monthly, start_date, end_date, notes, no_contract_on_file, contract_url ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom19, custom20 FROM `userdata` WHERE modin=67;
+Oct 30 23:05:56 [info] UPDATE `schema_info` SET version = 13

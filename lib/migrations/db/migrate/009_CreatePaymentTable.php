@@ -40,6 +40,9 @@ class CreatePaymentTable extends Ruckusing_BaseMigration {
 
   public function down() {
     $this->drop_table('payment');
+    //since this script will expect to drop a payment table we will create an empty one so the script doesn't shit the bed 
+    $this->create_table('payment');
+    
   }//down()
 }
 ?>
