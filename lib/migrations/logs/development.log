@@ -661,3 +661,50 @@ Oct 30 22:27:46 [info] CREATE TABLE `product_instance` (
 ) ;
 Oct 30 22:27:46 [info] INSERT INTO `product_instance` (id, domain_name, technology, dns_notes, other_domain_names, server, subsites, server_account, apache_file, contract_id, wordpress, oscom, drupal, secure_domain, china_ip, phplist, company_id, notes ) SELECT id, custom1, custom2, custom12, custom13, custom14, custom15, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom25, Company, Notes FROM `userdata` WHERE modin=68;
 Oct 30 22:27:46 [info] UPDATE `schema_info` SET version = 10
+Oct 30 22:40:27 [info] SELECT version FROM `schema_info`
+Oct 30 22:42:05 [info] SELECT version FROM `schema_info`
+Oct 30 22:42:11 [info] SELECT version FROM `schema_info`
+Oct 30 22:42:11 [info] CREATE TABLE `project` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`amp_url` varchar(255),
+`design_date` date,
+`desinger` varchar(255),
+`launch_date` date,
+`discovery_date` date,
+`crm_notes` text,
+`udm_notes` text,
+`content_notes` text,
+`custom_notes` text,
+`training_notes` text,
+`email_notes` text,
+`domain_notes` text,
+`contract_notes` text,
+`other_notes` text,
+`status` varchar(255),
+`deposit` float,
+`contract_url` varchar(255),
+`deposit_date` date,
+`other_contacts` text,
+`basecamp_id` int(11),
+`final_payment` float,
+`final_payment_date` date,
+`cost` float,
+`priority` varchar(255),
+`real_launch_date` date,
+`real_design_date` date,
+`hour_cap` float,
+`staff_id` int(11),
+`company_id` int(11),
+`hourly_rate` float,
+`hours_high` float,
+`billing_status` varchar(255),
+`main_payment` float,
+`main_payment_date` date,
+`billing_type` varchar(255),
+`hours_low` float
+) ;
+Oct 30 22:42:11 [info] INSERT INTO `project` (id, name, amp_url, design_date, desinger, launch_date, discovery_date, crm_notes, udm_notes, content_notes, custom_notes, training_notes, email_notes, domain_notes, contract_notes, other_notes, status, deposit, contract_url, deposit_date, other_contacts, basecamp_id, final_payment, final_payment_date, cost, priority, real_launch_date, real_design_date, hour_cap, staff_id, company_id, hourly_rate, hours_high, billing_status, main_payment, main_payment_date, billing_type, hours_low ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom15, custom16, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36, custom37, custom38, custom39 FROM `userdata` WHERE modin=54;
+Oct 30 22:42:11 [info] UPDATE `schema_info` SET version = 11
+Oct 30 22:42:27 [info] SELECT version FROM `schema_info`
+Oct 30 22:42:45 [info] SELECT version FROM `schema_info`
