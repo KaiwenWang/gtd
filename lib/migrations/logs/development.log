@@ -573,3 +573,20 @@ Oct 30 20:00:24 [info] CREATE TABLE `hour` (
 ) ;
 Oct 30 20:00:24 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
 Oct 30 20:00:24 [info] UPDATE `schema_info` SET version = 6
+Oct 30 20:49:52 [info] SELECT version FROM `schema_info`
+Oct 30 20:49:52 [info] CREATE TABLE `invoice` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`project_id` int(11),
+`type` varchar(255),
+`start_date` date,
+`end_date` date,
+`pdf` varchar(255),
+`url` varchar(255),
+`html` text,
+`sent_date` date,
+`date` date,
+`amount` float
+) ;
+Oct 30 20:49:52 [info] INSERT INTO `invoice` (id, support_contract_id, project_id, type, start_date, end_date, pdf, url, html, sent_date, date, amount ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=72;
+Oct 30 20:49:52 [info] UPDATE `schema_info` SET version = 7
