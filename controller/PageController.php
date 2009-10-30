@@ -51,7 +51,6 @@ class PageController{
     }
     private function redirect(){
     	if( isset( $this->redirect_url) && $this->redirect_url){
-			trigger_error( 'REDIRECT URL: ' . $this->redirect_url);
     		header('location: ' . $this->redirect_url);
     		exit();
     	} else{

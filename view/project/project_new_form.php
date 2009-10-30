@@ -1,28 +1,29 @@
 <?php
-function projectNewForm( $p, $o = array()){
-    $r =& getRenderer();
+function projectNewForm( $project, $o = array()){
+    $r = getRenderer();
+
+    $form = new Form( array('controller'=>'Project','action'=>'create'));
+
+    $f = $form->getFieldSetFor($project);
     $list_items = array(
-		'Name' => $r->field( $p, 'name'),
-		'Status'=> $r->field( $p, 'status'),
-		'Launch Deadline' =>$r->field( $p, 'launch_date'),
-		'Discovery Deadline' => $r->field( $p, 'discovery_date'),
-		'Notes'=> $r->field( $p, 'other_notes'),
-		'Domain'=> $r->field( $p, 'domain_notes'),
-		'Initial Estimated Cost'=> $r->field( $p, 'cost'),
-		'Hour Cap'=> $r->field( $p, 'hour_cap'),
-		'Hourly Rate'=> $r->field( $p, 'hourly_rate'),
-		'Billing Status'=> $r->field( $p, 'billing_status')
+		'Name' => $f->name,
+		'Company' => $f->company_id,
+		'Status'=> $f->status,
+		'Launch Deadline' =>$f->launch_date,
+		'Discovery Deadline' => $f->discovery_date,
+		'Notes'=> $f->other_notes,
+		'Domain'=> $f->domain_notes,
+		'Initial Estimated Cost'=> $f->cost,
+		'Hour Cap'=> $f->hour_cap,
+		'Hourly Rate'=> $f->hourly_rate,
+		'Billing Status'=> $f->billing_status
 	);	
     
-    $form_contents = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicList', 
     							$list_items, 
     							array( 'title'=>'Add Project', 'display'=>'inline')
     						  );
-    						  
-	   $form_contents .= $r->hidden('company_id',$p->get('company_id'));
-		  
-    $o['method'] = 'post';
-    
-    return $r->form( 'create', 'Project', $form_contents.$r->submit(), $o);
+
+    return $form->html;
 }
 ?>

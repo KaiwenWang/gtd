@@ -21,7 +21,7 @@ class ProjectController extends PageController {
 	function create( $params){
         $p = $this->new_projects[0];
     	$p->save();
-    	$this->redirectTo( array('controller'=>'Company','action' => 'show','id' => $params['company_id']));
+    	$this->redirectTo( array('controller'=>'Company','action' => 'show','id' => $p->get('company_id')));
     }
     function new_record(){
     }
