@@ -590,3 +590,16 @@ Oct 30 20:49:52 [info] CREATE TABLE `invoice` (
 ) ;
 Oct 30 20:49:52 [info] INSERT INTO `invoice` (id, support_contract_id, project_id, type, start_date, end_date, pdf, url, html, sent_date, date, amount ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=72;
 Oct 30 20:49:52 [info] UPDATE `schema_info` SET version = 7
+Oct 30 21:00:48 [info] SELECT version FROM `schema_info`
+Oct 30 21:01:20 [info] SELECT version FROM `schema_info`
+Oct 30 21:01:20 [info] CREATE TABLE `invoice_item` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`invoice_id` int(11),
+`name` varchar(255),
+`description` text,
+`amount` float,
+`date` date,
+`type` text
+) ;
+Oct 30 21:01:20 [info] INSERT INTO `invoice_item` (id, invoice_id, name, description, amount, date, type ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=73;
+Oct 30 21:01:20 [info] UPDATE `schema_info` SET version = 8
