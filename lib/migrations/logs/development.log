@@ -603,3 +603,61 @@ Oct 30 21:01:20 [info] CREATE TABLE `invoice_item` (
 ) ;
 Oct 30 21:01:20 [info] INSERT INTO `invoice_item` (id, invoice_id, name, description, amount, date, type ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=73;
 Oct 30 21:01:20 [info] UPDATE `schema_info` SET version = 8
+Oct 30 21:20:12 [info] SELECT version FROM `schema_info`
+Oct 30 21:20:12 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`date` date,
+`amount` float,
+`type` varchar(255),
+`preamp_id` int(11),
+`preamp_client_id` int(11),
+`product` varchar(255),
+`invoice_id` int(11),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 21:20:12 [info] INSERT INTO `payment` (id, date, amount, type, preamp_id, preamp_client_id, product, invoice_id, company_id, notes ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, Company, Notes FROM `userdata` WHERE modin=69;
+Oct 30 21:20:12 [info] UPDATE `schema_info` SET version = 9
+Oct 30 22:10:35 [info] SELECT version FROM `schema_info`
+Oct 30 22:10:47 [info] SELECT version FROM `schema_info`
+Oct 30 22:10:47 [info] DROP TABLE `payment`
+Oct 30 22:10:47 [info] UPDATE `schema_info` SET version = 8
+Oct 30 22:10:50 [info] SELECT version FROM `schema_info`
+Oct 30 22:10:50 [info] DROP TABLE `payment`
+Oct 30 22:10:50 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`date` date,
+`amount` float,
+`type` varchar(255),
+`preamp_id` int(11),
+`preamp_client_id` int(11),
+`product` varchar(255),
+`invoice_id` int(11),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 22:10:50 [info] INSERT INTO `payment` (id, date, amount, type, preamp_id, preamp_client_id, product, invoice_id, company_id, notes ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, Company, Notes FROM `userdata` WHERE modin=69;
+Oct 30 22:10:50 [info] UPDATE `schema_info` SET version = 9
+Oct 30 22:27:46 [info] SELECT version FROM `schema_info`
+Oct 30 22:27:46 [info] CREATE TABLE `product_instance` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`domain_name` varchar(255),
+`technology` varchar(255),
+`dns_notes` text,
+`other_domain_names` text,
+`server` varchar(255),
+`subsites` text,
+`server_account` text,
+`apache_file` varchar(255),
+`contract_id` int(11),
+`wordpress` tinyint(1),
+`oscom` tinyint(1),
+`drupal` tinyint(1),
+`secure_domain` tinyint(1),
+`china_ip` tinyint(1),
+`phplist` tinyint(1),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 22:27:46 [info] INSERT INTO `product_instance` (id, domain_name, technology, dns_notes, other_domain_names, server, subsites, server_account, apache_file, contract_id, wordpress, oscom, drupal, secure_domain, china_ip, phplist, company_id, notes ) SELECT id, custom1, custom2, custom12, custom13, custom14, custom15, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom25, Company, Notes FROM `userdata` WHERE modin=68;
+Oct 30 22:27:46 [info] UPDATE `schema_info` SET version = 10
