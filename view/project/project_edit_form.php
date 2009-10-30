@@ -1,26 +1,34 @@
 <?php
 function projectEditForm( $p, $o = array()){
     $r =& getRenderer();
-    $form = new Form( array( 'controller'=>'project', 'action'=>'update'));
+    $form = new Form( array( 'controller'=>'Project', 'action'=>'update'));
     $fs = $form->getFieldSetFor($p);
-    return '
-    	<div class="detail-list">
-    		<div>
-    			<span>
+
+	$form->content = '
+			<div class="float-right">
+    			<span style="float:right">Status: '.$fs->status.'</span>
+    			<br>
+				<span style="float:right">Launch Date: '.$fs->launch_date.'</span>
+			</div>
+	  		<div>
     				Company: '.$fs->company_id.'
-    	   		</span>
-    			<span style="float:right">Launch Date: '.$fs->launch_date.'</span>
     		</div>
     		<div>
-    			<span>Project Manager: '.$fs->staff_id.'
+    			Project Manager: '.$fs->staff_id.'
+    		</div>
+    		<div>
 		    	Designer: '.$fs->desinger.'
-    	   		</span>
-    			<span style="float:right">Status: '.$fs->status.'</span>
 			</div>
 			<div class="detail-project-hours">
 		    	<span>Hour Cap: '.$fs->hour_cap.'</span>
 		    	<span>Hourly Rate: '.$fs->hourly_rate.'</span>
 			</div>
+			';
+
+    return '
+    	<div class="detail-list">
+			'.$form->html.'
+			<div class="clear"></div>
     	</div>
     ';
 }

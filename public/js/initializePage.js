@@ -2,6 +2,7 @@ $('document').ready(function(){
 	$('#application').initializeForm();
 	enableTableSort();
 	enableQuickSearch();
+	enableSwappable();
 });
 
 function enableTableSort(){
@@ -18,5 +19,12 @@ function enableQuickSearch(){
 					.children('form')
 					.children('.qs-input');
 		selector.quicksearch(rows);
+	});
+}
+function enableSwappable(){
+	$(".js-swappable-btn").each( function(){
+		$(this).click( function(){
+			$(this).siblings('.swappable-item').toggle();
+		})
 	});
 }

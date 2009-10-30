@@ -50,9 +50,10 @@ class ViewDirectory {
 
         $probable_filename = snake_case( $view_function_name );
 
-		
-		$default_path = 'view'.DIRECTORY_SEPARATOR.snake_case( $this->router->controller_prefix )
-						  .DIRECTORY_SEPARATOR.$probable_filename.'.php';				  
+		$reg_ex = '/[^_]*/';
+		preg_match($reg_ex,$probable_filename,$matches);
+		$folder_name = $matches[0];
+		$default_path = 'view'.DIRECTORY_SEPARATOR.$folder_name.DIRECTORY_SEPARATOR.$probable_filename.'.php';				  
 		if( file_exists( $default_path ))	return $default_path;
 
 		$i=0;

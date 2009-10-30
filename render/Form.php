@@ -26,7 +26,7 @@ class Form extends PHP5_Accessor{
 	function getHtml(){
 		$r = getRenderer();
 		
-		if (!$this->does_submit_button_exist) $this->content .= $r->submit();
+		if (!$this->does_submit_button_exist) $this->content .= '<div class="submit-container">'.$r->submit().'</div>';
 
 		$html = $r->form( $this->action, 
 						  $this->controller, 
