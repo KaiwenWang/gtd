@@ -92,7 +92,7 @@ class CreateProjectTable extends Ruckusing_BaseMigration {
   }//up()
 
   public function down() {
-    drop_table('project_table');
+    $this->drop_table('project');
   }//down()
 }
 ?>

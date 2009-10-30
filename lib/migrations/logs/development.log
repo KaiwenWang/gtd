@@ -742,3 +742,774 @@ Oct 30 23:05:56 [info] CREATE TABLE `support_contract` (
 ) ;
 Oct 30 23:05:56 [info] INSERT INTO `support_contract` (id, company_id, domain_name, technology, monthly_rate, support_hours, hourly_rate, pro_bono, contract_on_file, status, not_monthly, start_date, end_date, notes, no_contract_on_file, contract_url ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom19, custom20 FROM `userdata` WHERE modin=67;
 Oct 30 23:05:56 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:06:47 [info] SELECT version FROM `schema_info`
+Oct 30 23:06:47 [info] DROP TABLE `support_contract`
+Oct 30 23:06:47 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:06:47 [info] DROP TABLE `staff`
+Oct 30 23:06:47 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:07:17 [info] SELECT version FROM `schema_info`
+Oct 30 23:07:17 [info] DROP TABLE `staff`
+Oct 30 23:07:17 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:07:17 [info] DROP TABLE `project_table`
+Oct 30 23:07:17 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:07:17 [info] DROP TABLE `product_instance`
+Oct 30 23:07:17 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:07:17 [info] DROP TABLE `payment`
+Oct 30 23:07:17 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:07:18 [info] DROP TABLE `invoice_item`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:07:18 [info] DROP TABLE `invoice`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:07:18 [info] DROP TABLE `hour`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:07:18 [info] DROP TABLE `estimate`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:07:18 [info] DROP TABLE `contact`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:07:18 [info] DROP TABLE `bandwidth`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:07:18 [info] DROP TABLE `add_on`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:07:18 [info] DROP TABLE `company`
+Oct 30 23:07:18 [info] UPDATE `schema_info` SET version = 0
+Oct 30 23:07:58 [info] SELECT version FROM `schema_info`
+Oct 30 23:07:58 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 1
+Oct 30 23:07:58 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `add_on` (id, support_contract_id, name, amount, description, date, invoice_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=71;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:07:58 [info] CREATE TABLE `bandwidth` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`gigs_over` float,
+`date` date
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:07:58 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:07:58 [info] CREATE TABLE `estimate` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`project_id` int(11),
+`description` text,
+`high_hours` float,
+`due_date` date,
+`completed` tinyint(1),
+`notes` text,
+`low_hours` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `estimate` (id, project_id, description, high_hours, due_date, completed, notes, low_hours, basecamp_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=63;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:07:58 [info] CREATE TABLE `hour` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`estimate_id` int(11),
+`support_contract_id` int(11),
+`staff_id` int(11),
+`description` varchar(255),
+`date` date,
+`hours` float,
+`discount` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:07:58 [info] CREATE TABLE `invoice` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`project_id` int(11),
+`type` varchar(255),
+`start_date` date,
+`end_date` date,
+`pdf` varchar(255),
+`url` varchar(255),
+`html` text,
+`sent_date` date,
+`date` date,
+`amount` float
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `invoice` (id, support_contract_id, project_id, type, start_date, end_date, pdf, url, html, sent_date, date, amount ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=72;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:07:58 [info] CREATE TABLE `invoice_item` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`invoice_id` int(11),
+`name` varchar(255),
+`description` text,
+`amount` float,
+`date` date,
+`type` text
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `invoice_item` (id, invoice_id, name, description, amount, date, type ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=73;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:07:58 [info] DROP TABLE `payment`
+Oct 30 23:07:58 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`date` date,
+`amount` float,
+`type` varchar(255),
+`preamp_id` int(11),
+`preamp_client_id` int(11),
+`product` varchar(255),
+`invoice_id` int(11),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `payment` (id, date, amount, type, preamp_id, preamp_client_id, product, invoice_id, company_id, notes ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, Company, Notes FROM `userdata` WHERE modin=69;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:07:58 [info] CREATE TABLE `product_instance` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`domain_name` varchar(255),
+`technology` varchar(255),
+`dns_notes` text,
+`other_domain_names` text,
+`server` varchar(255),
+`subsites` text,
+`server_account` text,
+`apache_file` varchar(255),
+`contract_id` int(11),
+`wordpress` tinyint(1),
+`oscom` tinyint(1),
+`drupal` tinyint(1),
+`secure_domain` tinyint(1),
+`china_ip` tinyint(1),
+`phplist` tinyint(1),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `product_instance` (id, domain_name, technology, dns_notes, other_domain_names, server, subsites, server_account, apache_file, contract_id, wordpress, oscom, drupal, secure_domain, china_ip, phplist, company_id, notes ) SELECT id, custom1, custom2, custom12, custom13, custom14, custom15, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom25, Company, Notes FROM `userdata` WHERE modin=68;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:07:58 [info] CREATE TABLE `project` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`amp_url` varchar(255),
+`design_date` date,
+`desinger` varchar(255),
+`launch_date` date,
+`discovery_date` date,
+`crm_notes` text,
+`udm_notes` text,
+`content_notes` text,
+`custom_notes` text,
+`training_notes` text,
+`email_notes` text,
+`domain_notes` text,
+`contract_notes` text,
+`other_notes` text,
+`status` varchar(255),
+`deposit` float,
+`contract_url` varchar(255),
+`deposit_date` date,
+`other_contacts` text,
+`basecamp_id` int(11),
+`final_payment` float,
+`final_payment_date` date,
+`cost` float,
+`priority` varchar(255),
+`real_launch_date` date,
+`real_design_date` date,
+`hour_cap` float,
+`staff_id` int(11),
+`company_id` int(11),
+`hourly_rate` float,
+`hours_high` float,
+`billing_status` varchar(255),
+`main_payment` float,
+`main_payment_date` date,
+`billing_type` varchar(255),
+`hours_low` float
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `project` (id, name, amp_url, design_date, desinger, launch_date, discovery_date, crm_notes, udm_notes, content_notes, custom_notes, training_notes, email_notes, domain_notes, contract_notes, other_notes, status, deposit, contract_url, deposit_date, other_contacts, basecamp_id, final_payment, final_payment_date, cost, priority, real_launch_date, real_design_date, hour_cap, staff_id, company_id, hourly_rate, hours_high, billing_status, main_payment, main_payment_date, billing_type, hours_low ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom15, custom16, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36, custom37, custom38, custom39 FROM `userdata` WHERE modin=54;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:07:58 [info] CREATE TABLE `staff` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`email` varchar(255),
+`basecamp_id` int(11),
+`team` varchar(255)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `staff` (id, first_name, last_name, email, basecamp_id, team ) SELECT id, First_Name, Last_Name, Email, custom1, custom2 FROM `userdata` WHERE modin=65;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:07:58 [info] CREATE TABLE `support_contract` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`company_id` int(11),
+`domain_name` varchar(255),
+`technology` varchar(255),
+`monthly_rate` float,
+`support_hours` float,
+`hourly_rate` float,
+`pro_bono` tinyint(1),
+`contract_on_file` tinyint(1),
+`no_contract_on_file` tinyint(1),
+`status` varchar(255),
+`not_monthly` tinyint(1),
+`start_date` date,
+`end_date` date,
+`notes` text,
+`contract_url` varchar(255)
+) ;
+Oct 30 23:07:58 [info] INSERT INTO `support_contract` (id, company_id, domain_name, technology, monthly_rate, support_hours, hourly_rate, pro_bono, contract_on_file, status, not_monthly, start_date, end_date, notes, no_contract_on_file, contract_url ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom19, custom20 FROM `userdata` WHERE modin=67;
+Oct 30 23:07:58 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:11:51 [info] SELECT version FROM `schema_info`
+Oct 30 23:11:51 [info] DROP TABLE `support_contract`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:11:51 [info] DROP TABLE `staff`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:11:51 [info] DROP TABLE `project`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:11:51 [info] DROP TABLE `product_instance`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:11:51 [info] DROP TABLE `payment`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:11:51 [info] DROP TABLE `invoice_item`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:11:51 [info] DROP TABLE `invoice`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:11:51 [info] DROP TABLE `hour`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:11:51 [info] DROP TABLE `estimate`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:11:51 [info] DROP TABLE `contact`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:11:51 [info] DROP TABLE `bandwidth`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:11:51 [info] DROP TABLE `add_on`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:11:51 [info] DROP TABLE `company`
+Oct 30 23:11:51 [info] UPDATE `schema_info` SET version = 0
+Oct 30 23:11:58 [info] SELECT version FROM `schema_info`
+Oct 30 23:11:58 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 1
+Oct 30 23:11:58 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `add_on` (id, support_contract_id, name, amount, description, date, invoice_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=71;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:11:58 [info] CREATE TABLE `bandwidth` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`gigs_over` float,
+`date` date
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:11:58 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:11:58 [info] CREATE TABLE `estimate` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`project_id` int(11),
+`description` text,
+`high_hours` float,
+`due_date` date,
+`completed` tinyint(1),
+`notes` text,
+`low_hours` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `estimate` (id, project_id, description, high_hours, due_date, completed, notes, low_hours, basecamp_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=63;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:11:58 [info] CREATE TABLE `hour` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`estimate_id` int(11),
+`support_contract_id` int(11),
+`staff_id` int(11),
+`description` varchar(255),
+`date` date,
+`hours` float,
+`discount` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:11:58 [info] CREATE TABLE `invoice` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`project_id` int(11),
+`type` varchar(255),
+`start_date` date,
+`end_date` date,
+`pdf` varchar(255),
+`url` varchar(255),
+`html` text,
+`sent_date` date,
+`date` date,
+`amount` float
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `invoice` (id, support_contract_id, project_id, type, start_date, end_date, pdf, url, html, sent_date, date, amount ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=72;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:11:58 [info] CREATE TABLE `invoice_item` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`invoice_id` int(11),
+`name` varchar(255),
+`description` text,
+`amount` float,
+`date` date,
+`type` text
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `invoice_item` (id, invoice_id, name, description, amount, date, type ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=73;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:11:58 [info] DROP TABLE `payment`
+Oct 30 23:11:58 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`date` date,
+`amount` float,
+`type` varchar(255),
+`preamp_id` int(11),
+`preamp_client_id` int(11),
+`product` varchar(255),
+`invoice_id` int(11),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `payment` (id, date, amount, type, preamp_id, preamp_client_id, product, invoice_id, company_id, notes ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, Company, Notes FROM `userdata` WHERE modin=69;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:11:58 [info] CREATE TABLE `product_instance` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`domain_name` varchar(255),
+`technology` varchar(255),
+`dns_notes` text,
+`other_domain_names` text,
+`server` varchar(255),
+`subsites` text,
+`server_account` text,
+`apache_file` varchar(255),
+`contract_id` int(11),
+`wordpress` tinyint(1),
+`oscom` tinyint(1),
+`drupal` tinyint(1),
+`secure_domain` tinyint(1),
+`china_ip` tinyint(1),
+`phplist` tinyint(1),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `product_instance` (id, domain_name, technology, dns_notes, other_domain_names, server, subsites, server_account, apache_file, contract_id, wordpress, oscom, drupal, secure_domain, china_ip, phplist, company_id, notes ) SELECT id, custom1, custom2, custom12, custom13, custom14, custom15, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom25, Company, Notes FROM `userdata` WHERE modin=68;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:11:58 [info] CREATE TABLE `project` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`amp_url` varchar(255),
+`design_date` date,
+`desinger` varchar(255),
+`launch_date` date,
+`discovery_date` date,
+`crm_notes` text,
+`udm_notes` text,
+`content_notes` text,
+`custom_notes` text,
+`training_notes` text,
+`email_notes` text,
+`domain_notes` text,
+`contract_notes` text,
+`other_notes` text,
+`status` varchar(255),
+`deposit` float,
+`contract_url` varchar(255),
+`deposit_date` date,
+`other_contacts` text,
+`basecamp_id` int(11),
+`final_payment` float,
+`final_payment_date` date,
+`cost` float,
+`priority` varchar(255),
+`real_launch_date` date,
+`real_design_date` date,
+`hour_cap` float,
+`staff_id` int(11),
+`company_id` int(11),
+`hourly_rate` float,
+`hours_high` float,
+`billing_status` varchar(255),
+`main_payment` float,
+`main_payment_date` date,
+`billing_type` varchar(255),
+`hours_low` float
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `project` (id, name, amp_url, design_date, desinger, launch_date, discovery_date, crm_notes, udm_notes, content_notes, custom_notes, training_notes, email_notes, domain_notes, contract_notes, other_notes, status, deposit, contract_url, deposit_date, other_contacts, basecamp_id, final_payment, final_payment_date, cost, priority, real_launch_date, real_design_date, hour_cap, staff_id, company_id, hourly_rate, hours_high, billing_status, main_payment, main_payment_date, billing_type, hours_low ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom15, custom16, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36, custom37, custom38, custom39 FROM `userdata` WHERE modin=54;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:11:58 [info] CREATE TABLE `staff` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`email` varchar(255),
+`basecamp_id` int(11),
+`team` varchar(255)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `staff` (id, first_name, last_name, email, basecamp_id, team ) SELECT id, First_Name, Last_Name, Email, custom1, custom2 FROM `userdata` WHERE modin=65;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:11:58 [info] CREATE TABLE `support_contract` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`company_id` int(11),
+`domain_name` varchar(255),
+`technology` varchar(255),
+`monthly_rate` float,
+`support_hours` float,
+`hourly_rate` float,
+`pro_bono` tinyint(1),
+`contract_on_file` tinyint(1),
+`no_contract_on_file` tinyint(1),
+`status` varchar(255),
+`not_monthly` tinyint(1),
+`start_date` date,
+`end_date` date,
+`notes` text,
+`contract_url` varchar(255)
+) ;
+Oct 30 23:11:58 [info] INSERT INTO `support_contract` (id, company_id, domain_name, technology, monthly_rate, support_hours, hourly_rate, pro_bono, contract_on_file, status, not_monthly, start_date, end_date, notes, no_contract_on_file, contract_url ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom19, custom20 FROM `userdata` WHERE modin=67;
+Oct 30 23:11:58 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:12:59 [info] SELECT version FROM `schema_info`
+Oct 30 23:12:59 [info] DROP TABLE `support_contract`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 13
+Oct 30 23:12:59 [info] DROP TABLE `staff`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:12:59 [info] DROP TABLE `project`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:12:59 [info] DROP TABLE `product_instance`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:12:59 [info] DROP TABLE `payment`
+Oct 30 23:12:59 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY
+) ;
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:12:59 [info] DROP TABLE `invoice_item`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:12:59 [info] DROP TABLE `invoice`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:12:59 [info] DROP TABLE `hour`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:12:59 [info] DROP TABLE `estimate`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:12:59 [info] DROP TABLE `contact`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:12:59 [info] DROP TABLE `bandwidth`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:12:59 [info] DROP TABLE `add_on`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:12:59 [info] DROP TABLE `company`
+Oct 30 23:12:59 [info] UPDATE `schema_info` SET version = 0
+Oct 30 23:13:05 [info] SELECT version FROM `schema_info`
+Oct 30 23:13:05 [info] CREATE TABLE `company` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`notes` text,
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`phone` varchar(255),
+`other_phone` varchar(255),
+`billing_phone` varchar(255),
+`stasi_id` int(11),
+`preamp_id` int(11),
+`status` varchar(255),
+`bay_area` tinyint(1),
+`product` varchar(255),
+`balance` float
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `company` (id, name, notes, street, street_2, city, state, zip, phone, other_phone, billing_phone, stasi_id, preamp_id, status, product, bay_area, balance ) SELECT id, Company, Notes, Street, Street_2, City, State, Zip, Phone, Cell_Phone, Work_Phone, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=60;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 1
+Oct 30 23:13:05 [info] CREATE TABLE `add_on` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`name` varchar(255),
+`amount` float,
+`description` text,
+`date` date,
+`invoice_id` int(11)
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `add_on` (id, support_contract_id, name, amount, description, date, invoice_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=71;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 2
+Oct 30 23:13:05 [info] CREATE TABLE `bandwidth` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`gigs_over` float,
+`date` date
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `bandwidth` (id, support_contract_id, gigs_over, date ) SELECT id, custom1, custom2, custom3 FROM `userdata` WHERE modin=70;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 3
+Oct 30 23:13:05 [info] CREATE TABLE `contact` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`company_id` int(11),
+`title` varchar(255),
+`notes` text,
+`email` varchar(255),
+`phone` varchar(255),
+`fax` varchar(255),
+`street` varchar(255),
+`street_2` varchar(255),
+`city` varchar(255),
+`state` varchar(255),
+`zip` int(11),
+`is_billing_contact` tinyint(1),
+`is_primary_contact` tinyint(1),
+`is_technical_contact` tinyint(1),
+`preamp_id` int(11),
+`stasi_id` int(11),
+`stasi_project_id` int(11),
+`help_id` int(11)
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `contact` (id, first_name, last_name, company_id, title, notes, email, phone, fax, street, street_2, city, state, zip, is_billing_contact, is_primary_contact, is_technical_contact, preamp_id, stasi_id, stasi_project_id, help_id ) SELECT id, First_Name, Last_Name, Company, occupation, Notes, Email, Phone, Work_Fax, Street, Street_2, City, State, Zip, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=61;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 4
+Oct 30 23:13:05 [info] CREATE TABLE `estimate` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`project_id` int(11),
+`description` text,
+`high_hours` float,
+`due_date` date,
+`completed` tinyint(1),
+`notes` text,
+`low_hours` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `estimate` (id, project_id, description, high_hours, due_date, completed, notes, low_hours, basecamp_id ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8 FROM `userdata` WHERE modin=63;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 5
+Oct 30 23:13:05 [info] CREATE TABLE `hour` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`estimate_id` int(11),
+`support_contract_id` int(11),
+`staff_id` int(11),
+`description` varchar(255),
+`date` date,
+`hours` float,
+`discount` float,
+`basecamp_id` int(11)
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `hour` (id, estimate_id, description, staff_id, date, hours, support_contract_id, discount, basecamp_id ) SELECT id, custom2, custom3, custom4, custom5, custom6, custom7, custom10, custom11 FROM `userdata` WHERE modin=62;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 6
+Oct 30 23:13:05 [info] CREATE TABLE `invoice` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`support_contract_id` int(11),
+`project_id` int(11),
+`type` varchar(255),
+`start_date` date,
+`end_date` date,
+`pdf` varchar(255),
+`url` varchar(255),
+`html` text,
+`sent_date` date,
+`date` date,
+`amount` float
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `invoice` (id, support_contract_id, project_id, type, start_date, end_date, pdf, url, html, sent_date, date, amount ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11 FROM `userdata` WHERE modin=72;
+Oct 30 23:13:05 [info] UPDATE `schema_info` SET version = 7
+Oct 30 23:13:05 [info] CREATE TABLE `invoice_item` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`invoice_id` int(11),
+`name` varchar(255),
+`description` text,
+`amount` float,
+`date` date,
+`type` text
+) ;
+Oct 30 23:13:05 [info] INSERT INTO `invoice_item` (id, invoice_id, name, description, amount, date, type ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6 FROM `userdata` WHERE modin=73;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 8
+Oct 30 23:13:06 [info] DROP TABLE `payment`
+Oct 30 23:13:06 [info] CREATE TABLE `payment` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`date` date,
+`amount` float,
+`type` varchar(255),
+`preamp_id` int(11),
+`preamp_client_id` int(11),
+`product` varchar(255),
+`invoice_id` int(11),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:13:06 [info] INSERT INTO `payment` (id, date, amount, type, preamp_id, preamp_client_id, product, invoice_id, company_id, notes ) SELECT id, custom1, custom2, custom3, custom4, custom5, custom6, custom7, Company, Notes FROM `userdata` WHERE modin=69;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 9
+Oct 30 23:13:06 [info] CREATE TABLE `product_instance` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`domain_name` varchar(255),
+`technology` varchar(255),
+`dns_notes` text,
+`other_domain_names` text,
+`server` varchar(255),
+`subsites` text,
+`server_account` text,
+`apache_file` varchar(255),
+`contract_id` int(11),
+`wordpress` tinyint(1),
+`oscom` tinyint(1),
+`drupal` tinyint(1),
+`secure_domain` tinyint(1),
+`china_ip` tinyint(1),
+`phplist` tinyint(1),
+`company_id` int(11),
+`notes` text
+) ;
+Oct 30 23:13:06 [info] INSERT INTO `product_instance` (id, domain_name, technology, dns_notes, other_domain_names, server, subsites, server_account, apache_file, contract_id, wordpress, oscom, drupal, secure_domain, china_ip, phplist, company_id, notes ) SELECT id, custom1, custom2, custom12, custom13, custom14, custom15, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom25, Company, Notes FROM `userdata` WHERE modin=68;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 10
+Oct 30 23:13:06 [info] CREATE TABLE `project` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`name` varchar(255),
+`amp_url` varchar(255),
+`design_date` date,
+`desinger` varchar(255),
+`launch_date` date,
+`discovery_date` date,
+`crm_notes` text,
+`udm_notes` text,
+`content_notes` text,
+`custom_notes` text,
+`training_notes` text,
+`email_notes` text,
+`domain_notes` text,
+`contract_notes` text,
+`other_notes` text,
+`status` varchar(255),
+`deposit` float,
+`contract_url` varchar(255),
+`deposit_date` date,
+`other_contacts` text,
+`basecamp_id` int(11),
+`final_payment` float,
+`final_payment_date` date,
+`cost` float,
+`priority` varchar(255),
+`real_launch_date` date,
+`real_design_date` date,
+`hour_cap` float,
+`staff_id` int(11),
+`company_id` int(11),
+`hourly_rate` float,
+`hours_high` float,
+`billing_status` varchar(255),
+`main_payment` float,
+`main_payment_date` date,
+`billing_type` varchar(255),
+`hours_low` float
+) ;
+Oct 30 23:13:06 [info] INSERT INTO `project` (id, name, amp_url, design_date, desinger, launch_date, discovery_date, crm_notes, udm_notes, content_notes, custom_notes, training_notes, email_notes, domain_notes, contract_notes, other_notes, status, deposit, contract_url, deposit_date, other_contacts, basecamp_id, final_payment, final_payment_date, cost, priority, real_launch_date, real_design_date, hour_cap, staff_id, company_id, hourly_rate, hours_high, billing_status, main_payment, main_payment_date, billing_type, hours_low ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom15, custom16, custom17, custom18, custom19, custom20, custom21, custom22, custom23, custom24, custom26, custom27, custom28, custom29, custom30, custom31, custom32, custom33, custom34, custom35, custom36, custom37, custom38, custom39 FROM `userdata` WHERE modin=54;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 11
+Oct 30 23:13:06 [info] CREATE TABLE `staff` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`email` varchar(255),
+`basecamp_id` int(11),
+`team` varchar(255)
+) ;
+Oct 30 23:13:06 [info] INSERT INTO `staff` (id, first_name, last_name, email, basecamp_id, team ) SELECT id, First_Name, Last_Name, Email, custom1, custom2 FROM `userdata` WHERE modin=65;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 12
+Oct 30 23:13:06 [info] CREATE TABLE `support_contract` (
+`id` int(11) UNSIGNED auto_increment PRIMARY KEY,
+`company_id` int(11),
+`domain_name` varchar(255),
+`technology` varchar(255),
+`monthly_rate` float,
+`support_hours` float,
+`hourly_rate` float,
+`pro_bono` tinyint(1),
+`contract_on_file` tinyint(1),
+`no_contract_on_file` tinyint(1),
+`status` varchar(255),
+`not_monthly` tinyint(1),
+`start_date` date,
+`end_date` date,
+`notes` text,
+`contract_url` varchar(255)
+) ;
+Oct 30 23:13:06 [info] INSERT INTO `support_contract` (id, company_id, domain_name, technology, monthly_rate, support_hours, hourly_rate, pro_bono, contract_on_file, status, not_monthly, start_date, end_date, notes, no_contract_on_file, contract_url ) SELECT id, Company, custom1, custom2, custom3, custom4, custom5, custom6, custom7, custom8, custom9, custom10, custom11, custom12, custom19, custom20 FROM `userdata` WHERE modin=67;
+Oct 30 23:13:06 [info] UPDATE `schema_info` SET version = 13
