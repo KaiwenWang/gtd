@@ -2,10 +2,9 @@
 
 class AddOn extends  ActiveRecord {
 
-	var $datatable = "userdata";
-	var $name_field = "custom2";
+	var $datatable = "add_on";
+	var $name_field = "name";
 	var $_class_name = "AddOn";
-    var $_search_criteria_global = array( "modin = 71");
     protected static $schema_json = "{	
 			'fields'   : {	
     						'support_contract_id'	:  'SupportContract',
@@ -21,7 +20,6 @@ class AddOn extends  ActiveRecord {
     		}";
     function __construct( $id = null){
         parent::__construct( $id);
-        $this->mergeData(array("modin"=>"71"));
     }
 
     function getAddOns(){
@@ -42,38 +40,6 @@ class AddOn extends  ActiveRecord {
         return $total_add_ons;
     }	
 
-	function _adjustSetData($data) {
-		$this->legacyFieldName($data,'custom1', "support_contract_id" );
-		$this->legacyFieldName($data,'custom2', "name" );
-		$this->legacyFieldName($data,'custom3', "amount" );
-		$this->legacyFieldName($data,'custom4', "description" );
-		$this->legacyFieldName($data,'custom5', "date" );
-		$this->legacyFieldName($data,'custom6', "invoice_id" );
 	}
-    function makeCriteriaModin( $value ) {
-        return $this->_makeCriteriaEquals( 'modin', $value );
-    }
-	function makeCriteriaSupportContractId( $value ) {
-		return $this->_makeCriteriaEquals( 'custom1', $value );
-	}
-	function makeCriteriaName( $value ) {
-		return $this->_makeCriteriaEquals( 'custom2', $value );
-	}
-	function makeCriteriaAmount( $value ) {
-		return $this->_makeCriteriaEquals( 'custom3', $value );
-	}
-	function makeCriteriaDescription( $value ) {
-		return $this->_makeCriteriaEquals( 'custom4', $value );
-	}
-	function makeCriteriaDate( $value ) {
-		return $this->_makeCriteriaEquals( 'custom5', $value );
-	}
-	function makeCriteriaInvoiceId( $value ) {
-		return $this->_makeCriteriaEquals( 'custom6', $value );
-	}
-	
-
-
-}
 
 ?>

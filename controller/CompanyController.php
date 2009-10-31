@@ -3,7 +3,7 @@ class CompanyController extends PageController {
 
     function index( $params){
         
-        $this->data->companies = getMany( 'Company', array("sort"=>"custom8,Company"));
+        $this->data->companies = getMany( 'Company', array("sort"=>"status, name"));
         $this->data->new_company = new Company();
         
     }        

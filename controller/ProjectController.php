@@ -5,7 +5,7 @@ class ProjectController extends PageController {
     function index( $params){
 		$d = $this->data;
 		
-		$project_search_criteria = array('sort' => 'custom17 DESC,custom4'); #status,launch_date
+		$project_search_criteria = array('sort' => 'status DESC, launch_date'); #status,launch_date
         $d->projects = getMany( 'Project', $project_search_criteria);
 	}
 	function show( $params){
