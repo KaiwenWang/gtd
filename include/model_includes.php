@@ -1,5 +1,11 @@
 <?php
-require_once('AMP/System/Data/Item.inc.php');
+require_once('include/database_config.php');
+require_once('lib/adodb/adodb.inc.php');
+#require_once('lib/utility.functions.inc.php');
+require_once('lib/amp_orm/AMP_Data.php');
+require_once('lib/amp_orm/AMP_Data_Item.php');
+require_once('lib/amp_orm/AMP_Data_Set.php');
+require_once('lib/amp_orm/AMP_Data_Search.php');
 require_once('model/ActiveRecord.php');
 require_once('model/AddOn.php');
 require_once('model/Contact.php');

@@ -1,6 +1,4 @@
 <?php
-require_once('ActiveRecord.php');
-require_once('gtd/utility/main_utilities.php');
 class Hour extends ActiveRecord {
 
 	var $datatable = "hour";

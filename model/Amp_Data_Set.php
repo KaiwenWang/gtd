@@ -1,5 +1,4 @@
 <?php
-require_once ('AMP/System/Data/Set.inc.php');
 class Amp_Data_Set extends AMPSystem_Data_Set {
 
     function Amp_Data_Set ( &$dbcon ) {

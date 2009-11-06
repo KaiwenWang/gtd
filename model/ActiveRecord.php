@@ -51,7 +51,6 @@ class ActiveRecord  extends AMPSystem_Data_Item {
             if ( !isset( $criteria )) return $this->_search_source;
             $data_set = &$this->_search_source;
         } else {
-            require_once( 'Amp_Data_Set.php' );
             $data_set = &new Amp_Data_Set( $this->dbcon );
             $data_set->setSource( $this->datatable );
         }

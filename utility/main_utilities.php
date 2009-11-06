@@ -19,21 +19,27 @@ function bail( $msg){
 				';
 	}
 	$html .= '<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>';
-	$trace = debug_backtrace();
-	$html .= '<h2 style="margin-bottom:6px;">BACKTRACE</h2>';
-	foreach( $trace as $t){
-		$html .= '
-					FILE: '.$t['file'].'<br>
-					LINE: '.$t['line'].'<br>
-				 ';
 
-		isset($t['class'])	?  $function = $t['class'].'->'.$t['function']
-							:  $function = $t['function'];
-		$html .= 'FUNCTION: '. $function .'<br><br>';
-	}
+        $html .= '<h2 style="margin-bottom:6px;">BACKTRACE</h2>';
+        $html .= backtrace();
+
 	echo $html;
 	trigger_error( strip_tags($msg));
 	exit();
+}
+function backtrace(){
+    $trace = debug_backtrace();
+    foreach( $trace as $t){
+            $html .= '
+                                    FILE: '.$t['file'].'<br>
+                                    LINE: '.$t['line'].'<br>
+                             ';
+
+            isset($t['class'])	?  $function = $t['class'].'->'.$t['function']
+                                                    :  $function = $t['function'];
+            $html .= 'FUNCTION: '. $function .'<br><br>';
+    }
+    return $html;
 }
 function &getRenderer(){
 	static $render = null;
@@ -44,7 +50,7 @@ function getUser(){
 	return Session::getUser();
 }
 function getDbcon(){
-	return AMP_Registry::getDbcon();
+    return AMP::getDbcon();
 }
 function getOne( $class, $search_criteria = array()){
 	$finder = new $class();

@@ -1,19 +1,19 @@
 <?php
 
 //include the AMP constants for db connection
-include $_SERVER['HOME']."/public_html/custom/config.php";
+include $_SERVER['HOME']."/public_html/custom/gtd/include/database_config.php";
 //----------------------------
 // DATABASE CONFIGURATION
 //----------------------------
 $ruckusing_db_config = array(
 	
   'development' => array(
-     'type'      => $MM_DBTYPE,
-     'host'      => $MM_HOSTNAME,
+     'type'      => 'mysql',
+     'host'      => DB_HOST,
      'port'      => 3306,
-     'database'  => $MM_DATABASE,
-     'user'      => $MM_USERNAME,
-     'password'  => $MM_PASSWORD
+     'database'  => DB_NAME,
+     'user'      => DB_USER,
+     'password'  => DB_PASS
   ),
 
 	'test' 					=> array(

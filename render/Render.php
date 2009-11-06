@@ -146,7 +146,7 @@ class Render{
 	    if ( $id != 'new') $tokens['selected_value'] = $obj->id;
 	    return $this->select( $data, $tokens);	
 	}
-	function classSelect( $class, $tokens, $search_criteria){
+	function classSelect( $class, $tokens, $search_criteria = array()){
 		if( !class_exists($class)) bail("Class \"$class\" does not exist.");
 		if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
 	    				else	{	$objects = getAll( $class);}
