@@ -21,7 +21,10 @@ class AMP {
   }
 
   function get_column_names( $table_name ) {
-      return AMP::getDbcon()->MetaColumnNames($table_name);
+    static $table_defs;
+    if (isset($table_defs[$table_name] )) return $table_defs[$table_name];
+    $table_defs[$table_name] = AMP::getDbcon()->MetaColumnNames($table_name);
+    return $table_defs[$table_name];
       #AMP_cache_set( AMP_REGISTRY_SYSTEM_DATASOURCE_DEFS, $definedSources );
 
   }
