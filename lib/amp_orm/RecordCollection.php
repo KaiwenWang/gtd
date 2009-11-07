@@ -13,21 +13,17 @@
  *
  * * **/
 
- class AMPSystem_Data_Set extends AMPSystem_Data {
+ class RecordCollection extends Data {
 
     var $sort = array();
     var $limit;
     var $offset;
-    var $_search_class = 'AMPSystem_Data_Search';
+    var $_search_class = 'RecordSearch';
     var $_search_exact_values = array();
     var $_search_fulltext = array( );
     var $_id_field_lookups;
     
     var $source;
-
-    function AMPSystem_Data_Set ( &$dbcon ) {
-        $this->init($dbcon);
-    }
 
     //Data Management Functions
 
@@ -147,7 +143,7 @@
     }
 
     function insertData( $values ){
-        $source = &new AMPSystem_Data_Item( $this->dbcon );
+        $source = &new Record( $this->dbcon );
         $source->setSource( $this->datatable );
         $source->setData( $values );
         $sql = $source->debug_insertSQL( );
@@ -334,11 +330,25 @@
         
     }
 
+    function setSortAndLimit( $options ) {
+        $order_by = isset( $options['sort']) && $options['sort'] ? $options['sort'] : false;
+        $source_limit = isset( $options['limit']) && $options['limit'] ? $options['limit'] : false;
+        $source_offset = isset( $options['offset']) && $options['offset'] ? $options['offset'] : false;
+
+        if ( $order_by || $source_limit || $source_offset ) {
+            if( $order_by ) {
+                $this->setSort( $order_by );
+            }
+            if ( $source_limit ) {
+                $this->setLimit( $source_limit );
+            }
+            if ( $source_offset ) {
+                $this->setOffset( $source_offset );
+            }
+        }
+    }
+ 
+
 }
 
-class Amp_Data_Set extends AMPSystem_Data_Set {
-    function Amp_Data_Set ( &$dbcon ) {
-        $this->init($dbcon);
-    }
-}
 ?>

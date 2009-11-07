@@ -1,19 +1,15 @@
 <?php
-class ActiveRecord  extends AMPSystem_Data_Item {
+class ActiveRecord  extends Record {
 	var $_class_name = "ActiveRecord";
-	var $name_field;
-	protected static $schema;
+        var $name_field;
+
+        protected static $schema;
 	protected static $schema_json;	
-	function __construct( $id = null){
-        parent::__construct( getDbcon(), $id);
-    }
-    function get( $field){
-    	return $this->getData( $field);
-    }
-    function set( $fields){
-    	$this->mergeData( $fields);
-    }
-	function getName(){
+
+        function getData( $column_name = null){
+          return $this->get( $column_name);
+        }
+        function getName(){
 		return $this->getData($this->name_field);
 	}
 	function getArray( $search_criteria){
@@ -46,30 +42,5 @@ class ActiveRecord  extends AMPSystem_Data_Item {
 		*/
 	}
 	function defaultSearchCriteria( $field_name){}
-    function &_getSearchSource( $criteria = null ){
-        if ( isset( $this->_search_source ) && $this->_search_source ) {
-            if ( !isset( $criteria )) return $this->_search_source;
-            $data_set = &$this->_search_source;
-        } else {
-            $data_set = &new Amp_Data_Set( $this->dbcon );
-            $data_set->setSource( $this->datatable );
-        }
-        if ( isset( $criteria )) {
-            $data_set->setCriteria( $criteria );
-            /*
-            foreach( $criteria as $crit_phrase ){
-                $data_set->addCriteria( $crit_phrase );
-            }
-            */
-        }
-        foreach( $this->_search_criteria_global as $crit_phrase ){
-            $data_set->addCriteria( $crit_phrase );
-        }
-        if ( !$this->_allow_db_cache ) $data_set->clearCache( );
-        
-        $this->_search_source = &$data_set;
-        return $this->_search_source;
-
-    }
 }
 ?>

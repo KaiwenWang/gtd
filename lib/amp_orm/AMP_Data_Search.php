@@ -1,16 +1,12 @@
 <?php
 
-class AMPSystem_Data_Search  {
+class RecordSearch {
 
     var $_source;
     var $_dbcon;
     var $_exact_value_fields = array( );
 
-    function AMPSystem_Data_Search( &$source ) {
-        $this->init( $source );
-    }
-
-    function init( &$source ) {
+    function __construct( &$source ) {
         $this->_source = &$source;
         $this->_dbcon = &$source->dbcon;
     }

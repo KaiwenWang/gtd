@@ -12,31 +12,23 @@
  *  Author: austin@radicaldesigns.org
  *
  * * **/
-#require_once( 'AMP/System/Config.inc.php');
 
-class AMPSystem_Data {
+class Data {
 
-    var $dbcon;
-    var $datatable;
-    var $source;
+    protected $dbcon;
+    protected $datatable;
+    protected $source;
 
-    var $sql_criteria = array();
-    var $_sql_select = array();
+    protected $sql_criteria = array();
+    protected $_sql_select = array();
 
-    var $_nativeColumns = array( );
-    var $id_field = "id";
-    var $name_field = "name";
+    protected $_nativeColumns = array( );
+    protected $id_field = "id";
+    protected $name_field = "name";
 
-    var $_debug_constant = 'AMP_DISPLAYMODE_DEBUG';
-    var $_debug_cache_constant = 'AMP_DISPLAYMODE_DEBUG_CACHE';
+    protected $errors = array();
 
-    var $errors = array();
-
-    function AMPSystem_Data( &$dbcon ) {
-        $this->init ( $dbcon );
-    }
-
-    function init( &$dbcon ) {
+    function __construct( &$dbcon ) {
         $this->dbcon = &$dbcon;
         $this->setSource( $this->datatable );
 
@@ -93,6 +85,7 @@ class AMPSystem_Data {
         $this->_sql_select[] = $exp;
         return true;
     }
+
     function addCriteria( $exp ) {
         if (!is_string($exp)) return false;
         if (array_search( $exp, $this->sql_criteria )!==FALSE) return true;
@@ -124,7 +117,6 @@ class AMPSystem_Data {
     function _makeSource( ) {
         if ($this->datatable) return " FROM " . $this->datatable;
 
-        print backtrace();
         trigger_error ("No datatable set in ". get_class($this));
         return false;
     }
@@ -138,14 +130,7 @@ class AMPSystem_Data {
         return AMP::get_column_names( $sourceDef );
     }
 
-    function addError( $error ) {
-        $this->errors[] = $error;
-    }
-
-    function getErrors() {
-        return join("<BR>" , $this->errors);
-    }
-
+    # sets a minimum id for the next database insert
     function _setSourceIncrement( $new_value ){
         if ( $lowest_id = lowerlimitInsertID($this->datatable, $new_value)) {
             $this->dbcon->Execute( "ALTER TABLE ".$this->datatable." AUTO_INCREMENT = ".$lowest_id);
@@ -153,28 +138,13 @@ class AMPSystem_Data {
 
     }
 
-    function notify( $action ){
-        foreach( $this->_observers as $observer ){
-            $observer->update( $this, $action );
-        }
+    # validation error handling code
+    function addError( $error ) {
+        $this->errors[] = $error;
     }
 
-    function addObserver( &$observer, $observer_key = null ){
-        if ( isset( $observer_key )){
-            $this->_observers[$observer_key] = &$observer;
-            return;
-        }
-        $this->_observers[] = &$observer;
-    }
-
-    function __sleep( ){
-        $response = get_object_vars( $this );
-        unset( $response['dbcon']);
-        return array_keys( $response );
-    }
-
-    function __wakeup( ){
-        $this->dbcon = AMP_Registry::getDbcon( );
+    function getErrors() {
+        return join("<BR>" , $this->errors);
     }
 
 }

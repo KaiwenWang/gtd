@@ -1,7 +1,7 @@
 <?php
 
 class AMP {
-    function getDbcon(){
+    function getDb(){
         static $dbcon;
         
         if($dbcon) return $dbcon;
@@ -12,6 +12,9 @@ class AMP {
             die( 'Connection to database '.DB_NAME.' was refused.  Please check database_config file.' );
         }
         return $dbcon;
+    }
+    function getDbcon(){
+      return AMP::getDb();
     }
     function array_filter_by_keys( $filter, $data){
       return array_intersect_key( $data, array_flip($filter)); 
