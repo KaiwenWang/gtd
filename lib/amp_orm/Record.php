@@ -217,7 +217,6 @@ class Record extends Data {
     }
 
     function set( $fields){
-    	$this->mergeData( $fields);
         $this->itemdata = array_merge( $this->itemdata, AMP::array_filter_by_keys( $this->_allowed_keys, $data ));
         if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
         if (isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];

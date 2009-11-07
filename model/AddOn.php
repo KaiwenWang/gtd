@@ -5,6 +5,7 @@ class AddOn extends  ActiveRecord {
 	var $datatable = "add_on";
 	var $name_field = "name";
 	var $_class_name = "AddOn";
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
     						'support_contract_id'	:  'SupportContract',

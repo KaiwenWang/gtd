@@ -10,6 +10,7 @@ class Project extends ActiveRecord {
 	var $invoices;
 	var $company;
 	var $staff;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'name'  		:  'text',

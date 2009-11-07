@@ -6,6 +6,7 @@ class InvoiceItem extends ActiveRecord {
 	var $_class_name = "InvoiceItem";
 
 	var $name_field = "name";
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'invoice_id'  	:  'Invoice',

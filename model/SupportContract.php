@@ -11,6 +11,7 @@ class SupportContract extends ActiveRecord {
 	var $product_instances;
 	var $bandwidths;
     var $company;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'company_id'  	:  'Company',

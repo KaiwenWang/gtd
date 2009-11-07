@@ -6,6 +6,7 @@ class Payment extends ActiveRecord {
 	var $name_field = "amount";
 	var $_class_name = "Payment";
 	var $company;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'date'  	:  'date',

@@ -28,18 +28,17 @@ class ActiveRecord  extends Record {
 		return call_user_func( array($class, '_getSchema'), $class);
 	}
 	public static function _getSchema($class){
-		return	eval(
+/*
+          return	eval(
 						'$r =& getRenderer();
 	        	    	return $r->jsonDecode( '.$class.'::$schema_json);'
 	        	    );
-		/*
-		Optimized, but only works in php 5.3.0+
-		if ( !isset( $class::$schema)) {
-		$r =& getRenderer();
-	    $class::$schema = $r->jsonDecode( '.$class.'::$schema_json);
-		}
-		return $class::$schema;
-		*/
+       */ 
+            if ( !isset( $class::$schema)) {
+                $r =& getRenderer();
+	        $class::$schema = $r->jsonDecode( $class::$schema_json);
+            }
+	    return $class::$schema;
 	}
 	function defaultSearchCriteria( $field_name){}
 }

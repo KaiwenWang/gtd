@@ -1,7 +1,7 @@
 <?php
 
 //include the AMP constants for db connection
-include $_SERVER['HOME']."/public_html/custom/gtd/include/database_config.php";
+include $_SERVER['HOME']."/gtd/include/database_config.php";
 //----------------------------
 // DATABASE CONFIGURATION
 //----------------------------

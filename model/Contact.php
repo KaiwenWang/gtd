@@ -6,6 +6,7 @@ class Contact extends ActiveRecord {
 	var $name_field = "first_name";
 	var $_class_name = "Contact";
 	var $company;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name':  'text',

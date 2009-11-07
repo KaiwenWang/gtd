@@ -6,6 +6,7 @@ class Staff extends ActiveRecord {
 	var $name_field = "first_name";
 	var $_class_name = "Staff";
 	var $projects;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name'	:  'text',

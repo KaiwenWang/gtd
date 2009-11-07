@@ -5,7 +5,8 @@ class Estimate extends ActiveRecord {
 	var $datatable = "estimate";
 	var $name_field = "description";
 	var $_class_name = "Estimate";
-	var $hours;
+        var $hours;
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'project_id'	:  'Project',

@@ -12,6 +12,7 @@ class Company extends ActiveRecord {
 	var $payments;
 	var $contacts;
 	var $billing_contacts;
+        protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
 								'name' 		:  'text',

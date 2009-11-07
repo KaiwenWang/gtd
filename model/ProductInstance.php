@@ -5,6 +5,7 @@ class ProductInstance extends ActiveRecord {
 	var $datatable = "product_instance";
 	var $name_field = "domain_name";
 	var $_class_name = "ProductInstance";
+        protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'domain_name'  	:  'text',
