@@ -29,7 +29,7 @@
 
     function readData() {
         $sql = $this->_assembleSQL();
-        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)); 
+#        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)); 
         if ($this->source = $this->dbcon->CacheExecute($sql)) {
             return true;
         }

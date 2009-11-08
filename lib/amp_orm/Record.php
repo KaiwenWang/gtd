@@ -26,7 +26,8 @@ class Record extends Data {
     var $_class_name;
 
     var $_sort_property;
-    var $_sort_direction = AMP_SORT_ASC;
+#    var $_sort_direction = AMP_SORT_ASC;
+    var $_sort_direction = 'asc';
     var $_sort_method = "";
     var $_sort_auto = true;
 
@@ -86,7 +87,7 @@ class Record extends Data {
 
         $sql = $this->_assembleSQL();
 
-        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this) . ' read'); 
+#        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this) . ' read'); 
 
         if ( $itemdata = $this->dbcon->CacheGetRow( $sql )) {
             $this->setData( $itemdata );
@@ -156,7 +157,7 @@ class Record extends Data {
         $save_fields = AMP::array_filter_by_keys($this->_itemdata_keys, $item_data );
 		if ( !is_array( $this->id_field ) && !isset( $save_fields[ $this->id_field ] )) {
             $save_fields[ $this->id_field ] = "";
-            $this->_blankIdAction();
+#            $this->_blankIdAction();
         }
 
         $result = $this->dbcon->Replace( $this->datatable, $save_fields, $this->id_field, $quote=true);
@@ -300,11 +301,12 @@ class Record extends Data {
         }
 
         //sort descending
+/*
         if ( $this->_sort_direction == AMP_SORT_DESC ) {
             return strnatcasecmp( $file2->$sort_method( ) , 
                                     $file1->$sort_method( ) ); 
         }
-
+*/
         //sort ascending
         return strnatcasecmp( $file1->$sort_method( ) , $file2->$sort_method( ) );
     }
