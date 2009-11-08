@@ -1,6 +1,6 @@
 body{
 font-family: Verdana;
-margin:0 45px;
+margin:0 60px;
 }
 a{
 text-decoration: none;
@@ -10,26 +10,29 @@ form{
 margin: 0;
 }
 h1 {
-margin:0 0 6px;
-padding:9px 0 3px 6px;
+bottom:5px;
+margin:0;
+padding:0;
+position:relative;
 }
 h2{
-color:#333333;
-margin:0 0 10px;
+color:#eee;
+margin:0;
+display: block;
+background: #000;
+padding: 0 5px
 }
 h3{
 border:0px solid #999999;
 border-bottom: none;
-background: #f0f6FF;
 color:#000;
 display:inline;
 font-size:16px;
 margin:0;
-padding:0 6px;
+padding:0 5px 0 0;
 position:relative;
 top:1px;
 }
-
 .clear-left{ clear: left;}
 .clear-right{ clear: right;}
 .clear-both{ clear: both;}
@@ -62,8 +65,9 @@ clear:left;
 overflow:hidden;
 }
 #content-controls{
+display:none;
 position:absolute;
-right:23%;
+right:18%;
 top: 30px;
 }
 #logo{
@@ -73,10 +77,11 @@ right:11px;
 top:2px;
 }
 #side{
-float: right;
-width: 14%;
-clear: right;
-margin-left: 15px;
+clear:right;
+float:right;
+margin-left:15px;
+margin-top:30px;
+width:12%;
 }
 #side ul{
 list-style-type: none;
@@ -90,14 +95,18 @@ background:#DDEEFF none repeat scroll 0 0;
 border:1px solid #99BBFF;
 }
 #application{
-margin-left:10px;
-width: 84%;
+width: 100%;
 }
-
 #footer{
 margin-top:10px;
 height:20px;
 clear: both;
+}
+#scroll-wheel-corrector{
+height:105%;
+position:absolute;
+top:0;
+width:1px;
 }
 .basic-table-container{
 margin-bottom: 10px;
@@ -266,4 +275,11 @@ float: right;
 /* PROJECT INFO */
 .launch-date{
 margin-right: 10px;
+}
+.status{
+color: red;
+font-weight: bold;
+}
+.project-manager{
+font-weight: bold;
 }

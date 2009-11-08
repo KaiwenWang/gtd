@@ -10,12 +10,22 @@ function projectInfo( $p, $o = array()){
     		</div>
     		<div>
 				<span class="launch-date">Launch Date: '.date('m/d/Y',strtotime($p->get('launch_date'))).'</span>    		
-				<span>Status: '.$p->get('status').'</span>
+				<span class="status-label">
+					Status: 
+				</span>				
+				<span class="status">
+				'.$p->get('status').'
+				</span>
 			</div>
     		<div>
-    			Project Manager: '.$r->link( 	'Staff', 
+    			<span class="project-manager-label">
+	    			Project Manager: 
+    			</span>
+    			<span class="project-manager">
+    					'.$r->link( 	'Staff', 
 	    			   								 array('action'=>'show','id'=>$p->get('staff_id')),
     			   									 $p->getStaffName()).'
+				</span>
 			</div>';
 	if( $p->get('designer') ){
 		$html .='

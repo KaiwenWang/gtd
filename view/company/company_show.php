@@ -5,14 +5,13 @@ function companyShow($d){
   $company_selector = $r->view( 'jumpSelect', $d->company );
     	
   $html = $r->view( 'companyInfo', $d->company);
-  $html .= $r->view( 'contactTable', $d->company->getContacts());
 
   $html .= $r->view('jsHideable',
   					array(
   						'Create New Project' => $r->view( 'projectNewForm', $d->new_project)
   					)
   				);
-
+  $html .= $r->view( 'contactTable', $d->company->getContacts());
   $html .= $r->view( 'projectTable', $d->company->getProjects());
 
 
