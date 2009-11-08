@@ -1,5 +1,6 @@
 body{
 font-family: Verdana;
+margin:0 45px;
 }
 a{
 text-decoration: none;
@@ -73,7 +74,7 @@ top:2px;
 }
 #side{
 float: right;
-width: 17%;
+width: 14%;
 clear: right;
 margin-left: 15px;
 }
@@ -90,7 +91,7 @@ border:1px solid #99BBFF;
 }
 #application{
 margin-left:10px;
-width: 80%;
+width: 84%;
 }
 
 #footer{
