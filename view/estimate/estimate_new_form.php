@@ -1,24 +1,27 @@
 <?php
 function estimateNewForm( $e, $o = array()){
     $r =& getRenderer();
+
+    $form = new Form( array( 'controller'=>'Estimate', 'action'=>'create'));
+    $fs = $form->getFieldSetFor($e);
+
     $list_items = array(
-		'Description' => $r->field( $e, 'description'),
-		'Low Estimate' =>$r->field( $e, 'low_hours'),
-		'High Estimate' => $r->field( $e, 'high_hours'),
-		'Due Date' => $r->field( $e, 'due_date'),
-		'Details' => $r->field( $e, 'notes'),
-		'Project' => $r->field( $e, 'project_id')
+		'Description' => 	$fs->description,
+		'Low Estimate' =>	$fs->low_hours,
+		'High Estimate' => 	$fs->high_hours,
+		'Due Date' => 		$fs->due_date,
+		'Details' => 		$fs->notes,
+		'Project' => 		$fs->project_id
 	);	
     
-    $form_contents = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
     							array( 'title'=>'Add Estimate', 'display'=>'inline')
     						  );
     						  
 //	$form_contents .= $r->hidden('project_id',$e->get('project_id'));
 		  
-    $o['method'] = 'post';
     
-    return $r->form( 'create', 'Estimate', $form_contents.$r->submit(), $o);
+    return $form->html;
 }
 ?>

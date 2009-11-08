@@ -29,6 +29,9 @@ position:relative;
 top:1px;
 }
 
+.clear-left{ clear: left;}
+.clear-right{ clear: right;}
+.clear-both{ clear: both;}
 .msg{
 width: 450px;
 border: 2px solid;
@@ -116,12 +119,8 @@ padding: 4px;
 color:#004488;
 }
 .basic-list{
--moz-border-radius-topright:0px;
--moz-border-radius-bottomleft:6px;
--moz-border-radius-bottomright:6px;
-border:0px solid #666666;
-margin:5px 0;
-padding:10px;
+margin: 0;
+padding: 0 10px;
 }
 .basic-list-item{
 }
@@ -133,10 +132,12 @@ background: #DDEEEE;
 -moz-border-radius-bottomright:6px;
 border:0px solid #666666;
 margin:5px 0;
-padding:10px;
+padding:5px;
+width:420px;
 }
 .detail-project-hours span {
-display: inline;
+display: inline-block;
+width: 175px;
 font-size: 11px;
 padding: 0 15px 0 0 ;
 }
@@ -144,12 +145,17 @@ padding: 0 15px 0 0 ;
 display: inline;
 }
 .basic-list-label{
-color: #333333;
-font-weight: bold;
-margin-right: 10px;
+color:#333333;
+display:block;
+float:left;
+font-weight:bold;
+width:200px;
 }
 .basic-list-item form{
 margin: 0;
+}
+.basic-form-contents .submit_btn{
+margin-left: 20px;
 }
 div.inline{
 width:100%;
@@ -178,7 +184,7 @@ width: 50%;
 float: right;
 }
 .inline select{
-width: 50%;
+width: 52%;
 float: right;
 }
 .inline .basic-list-label{
@@ -192,8 +198,18 @@ float: left;
 .inline .data-cell{
 }
 /* FORMS */
+h3.basic-form-header{
+background: none;
+font-size: 10px;
+margin: 10px 0 0 5px;
+}
+.basic-form-contents{
+margin-left: 20px;
+}
 .submit-container{
-text-align: right;
+margin-bottom:20px;
+margin-left:30px;
+margin-top: 10px;
 }
 select{
 width:172px;
@@ -208,7 +224,25 @@ border-bottom: 1px #dddddd solid;
 }
 .quicksearch{ display: inline-block;}
 /* JS-SWAPPABLE */
-.js-swappable-btn{ float: right;}
+.js-swappable{
+float: left;
+}
+.js-swappable-btn{ 
+display:block;
+float:right;
+font-size:12px;
+}
+/* JS-HIDEABLE */
+.js-hideable{
+float:left;
+margin-top:5px;
+}
+.js-hideable-btn{ 
+margin:0 5px 0 8px;
+}
+.hideable-item{
+margin-top:5px;
+}
 /* LOGIN FORM */
 #login-container{
 width:400px;
@@ -227,4 +261,8 @@ padding:20px;
 /*LOGIN WIDGET */
 #login-widget{
 float: right;
+}
+/* PROJECT INFO */
+.launch-date{
+margin-right: 10px;
 }

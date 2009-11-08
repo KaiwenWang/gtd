@@ -18,8 +18,8 @@ function basicFormContents( $list_items, $o){
 
 	isset($o['class']) 	? $o['class'] .= 'basic-form-contents'
 						: $o['class'] .= 'basic-form-contents';
-	isset($o['title'])	? $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>'
-						: $html .= '<h3 class="basic-table-header"></h3>';
+	isset($o['title'])	? $html .= '<h3 class="basic-form-header">'.$o['title'].'</h3>'
+						: $html .= '<h3 class="basic-form-header"></h3>';
 
 	$html .= '<div class="basic-list" cellpadding="0" cellspacing="0">';
 
@@ -33,8 +33,7 @@ function basicFormContents( $list_items, $o){
 				</div>
 			</div>";
 
-	$html .= '<div class="clear-left"></div></div>';
-	
+	$html .= '</div>';
 	$attr = $r->attr($o);
 	
 	return "<div $attr >$html</div>";

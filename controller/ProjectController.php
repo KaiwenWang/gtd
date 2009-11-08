@@ -4,9 +4,11 @@ class ProjectController extends PageController {
 
     function index( $params){
 		$d = $this->data;
-		
+				
 		$project_search_criteria = array('sort' => 'status DESC, launch_date'); #status,launch_date
         $d->projects = getMany( 'Project', $project_search_criteria);
+        $d->new_project = new Project();
+	    $d->new_project->setData(array('staff_id'=>getUser()));
 	}
 	function show( $params){
 		$params['id']	? $this->data->project = new Project( $params['id'])
@@ -15,11 +17,17 @@ class ProjectController extends PageController {
 		$e->set(array('project_id'=>$params['id']));
 		$this->data->estimate = $e;
 		$this->data->hour = new Hour();
-		$this->data->hour->mergeData(array('estimate_id'=>$e->id));
+		$this->data->hour->set(array(
+								'estimate_id'=>$e->id,
+								'staff_id'=>getUser()
+								)
+							);
 	}
 	//added by margot -- get code help from ted why does the not actually add the project to the the company???
 	function create(){
         $p = $this->new_projects[0];
+        $p->set(array('company_id'=>123));
+        bail('$p = '.$p->get('company_id'));
     	$p->save();
     	$this->redirectTo( array('controller'=>'Company','action' => 'show','id' => $p->get('company_id')));
     }

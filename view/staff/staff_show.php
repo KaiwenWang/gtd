@@ -1,14 +1,21 @@
 <?php
 function staffShow($d){
 	$r = getRenderer();
-	
-    $staff_detail = $r->view( 'staffDetail', $d->staff);
+
+	$hidden_forms = $r->view('jsHideable',array(
+														
+						'Create New Project'	=> $r->view(
+													'projectNewForm', 
+													$d->project
+												)
+					));
 
     $project_table = $r->view( 'projectTable', $d->staff->getProjects());
 
     return  array(	'title'=>$d->staff->getName(),
                     'controls'=>$r->view( 'jumpSelect', $d->staff),
-                    'body'=>$staff_detail.$project_table
+                    'body'=> $hidden_forms
+                    		.$project_table
                     );
 }
 ?>

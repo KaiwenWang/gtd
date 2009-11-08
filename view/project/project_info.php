@@ -2,15 +2,16 @@
 function projectInfo( $p, $o = array()){
     $r =& getRenderer();
     $html = '
-    	<div class="detail-list">
-    		<div class="float-right">
-				<span>Status: '.$p->get('status').'</span>
-				<br>
-				<span>Launch Date: '.$p->get('launch_date').'</span>
-			</div>
     		<div>
-    				Company: '.$r->link( 'Company', array('action'=>'show','id'=>$p->get('company_id')), $p->getCompanyName()).'
+    			Project: '.$p->get('name').'
     		</div>
+    		<div>
+    			Company: '.$r->link( 'Company', array('action'=>'show','id'=>$p->get('company_id')), $p->getCompanyName()).'
+    		</div>
+    		<div>
+				<span class="launch-date">Launch Date: '.date('m/d/Y',strtotime($p->get('launch_date'))).'</span>    		
+				<span>Status: '.$p->get('status').'</span>
+			</div>
     		<div>
     			Project Manager: '.$r->link( 	'Staff', 
 	    			   								 array('action'=>'show','id'=>$p->get('staff_id')),
@@ -25,14 +26,14 @@ function projectInfo( $p, $o = array()){
 	}
 	$html .='
 			<div class="detail-project-hours">
-		    	<span>Hour Cap: '.$p->get('hour_cap').'</span>
-		    	<span>Hourly Rate: '.$p->get('hourly_rate').'</span>
-		    	<span>Low Estimate: '.$p->getLowEstimate().'</span>
-		    	<span>High Estimate: '.$p->getHighEstimate().'</span>
-		    	<span>Total Hours Worked: '.$p->getTotalHours().'</span>
-		    	<span>Total Billable Hours: '.$p->getBillableHours().'</span>
+		    	<span class="float-left">Low Estimate: '.$p->getLowEstimate().'</span>			
+		    	<span class="float-left">Hour Cap: '.$p->get('hour_cap').'</span>
+		    	<span class="float-left">High Estimate: '.$p->getHighEstimate().'</span>		    	
+		    	<span class="float-left">Hourly Rate: '.$p->get('hourly_rate').'</span>
+		    	<span class="float-left">Total Hours Worked: '.$p->getTotalHours().'</span>
+		    	<span class="float-left">Total Billable Hours: '.$p->getBillableHours().'</span>
+		    	<div class="clear-left"></div>
 			</div>
-    	</div>
     ';
     return $html;
 }

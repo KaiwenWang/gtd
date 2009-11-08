@@ -8,7 +8,13 @@ class StaffController extends PageController {
 		if( !$params['id']) {
 			bail('can has Staff id? kthx');
 		}
+
         $this->data->staff = new Staff($params['id']);
+		$this->data->project = new Project();
+		$this->data->project->set(array(
+								'staff_id'=>getUser()
+								)
+							);
     }    
 }
 ?>

@@ -2,29 +2,25 @@
 function hourNewForm( $h, $o = array()){
     $r =& getRenderer();
     
-    $e = new Estimate( $h->get('estimate_id'));
-	$estimate_field = $r->field( $h, 'estimate_id', array( 'project_id' => $o['project_id']));
-    
-    
+    $form = new Form( array( 'controller'=>'Hour', 'action'=>'create'));
+    $fs = $form->getFieldSetFor( $h );
+
     $list_items = array(
-    	'Estimate' 		=> $estimate_field,
-       	'Description' 	=> $r->field( $h, 'description'),
-        'Date Completed'=> $r->field( $h, 'date'),
-        'Staff' 		=> $r->field( $h, 'staff_id'),
-        'Hours' 		=> $r->field( $h, 'hours'),        
-        'Discount' 		=> $r->field( $h, 'discount'),
-		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id')
+    	'Estimate' 		=> $fs->estimate_id,
+       	'Description' 	=> $fs->description,
+        'Date Completed'=> $fs->date,
+        'Staff' 		=> $fs->staff_id,
+        'Hours' 		=> $fs->hours,        
+        'Discount' 		=> $fs->discount,
+		'Basecamp ID' 	=> $fs->basecamp_id
     );	
     
-    $form_contents = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
     							array( 'title'=>'Add Hour', 'display'=>'inline')
-    						  );
-    						  
-	$form_contents .= $r->hidden('project_id',$o['project_id']);
+    						  )
+    				 .$r->hidden('project_id',$o['project_id']);
 		  
-    $o['method'] = 'post';
     
-    return $r->form( 'create', 'Hour', $form_contents.$r->submit(), $o);
+    return $form->html;
 }
-?>

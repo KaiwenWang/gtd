@@ -18,9 +18,9 @@ function projectNewForm( $project, $o = array()){
 		'Hour Cap'=> $f->hour_cap,
 		'Hourly Rate'=> $f->hourly_rate,
 		'Billing Status'=> $f->billing_status
-	);	
-    
-    $form->content = $r->view( 'basicList', 
+	);		
+
+    $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
     							array( 'title'=>'Add Project', 'display'=>'inline')
     						  );
