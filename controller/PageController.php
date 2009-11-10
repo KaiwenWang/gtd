@@ -15,6 +15,7 @@ class PageController{
     private $current_action;
     private $response_html;
     private $responseEnabled = true;
+    private $render_partial = false;
     
     function __construct(){
         $this->data = new Collection();

@@ -29,7 +29,7 @@
 
     function readData() {
         $sql = $this->_assembleSQL();
-#        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)); 
+        AMP::debug_sql( $sql, get_class($this));
         if ($this->source = $this->dbcon->CacheExecute($sql)) {
             return true;
         }
@@ -56,7 +56,7 @@
     function clearCache( ){
         $cached_sql = $this->_assembleSQL( );
         $this->dbcon->CacheFlush( $cached_sql );
-        if (defined( $this->_debug_cache_constant ) && constant( $this->_debug_cache_constant )) AMP_DebugSQL( $cached_sql, get_class($this)." cleared cache"); 
+        AMP::debug_sql( $sql, get_class($this). ' cleared cache');
     }
 
     function makeReady() {
@@ -113,15 +113,11 @@
         if (!$criteria) return false;
         $sql = "DELETE" . $this->_makeSource(). " where " . $criteria;
         if($this->dbcon->Execute($sql)) {
-            if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) {
-                AMP_DebugSQL( $sql, get_class($this)); 
-            }
+            AMP::debug_sql( $sql, get_class($this));
 
             $cached_sql = $this->_assembleSql( $criteria ) ;
             $this->dbcon->CacheFlush( $cached_sql );
-            if (defined( $this->_debug_cache_constant ) && constant( $this->_debug_cache_constant )) {
-                AMP_DebugSQL( $cached_sql, get_class($this)." cleared cache"); 
-            }
+            AMP::debug_sql( $sql, get_class($this). ' cleared cache');
             return $this->dbcon->Affected_Rows();
         }
         trigger_error ( sprintf( AMP_TEXT_ERROR_DATABASE_SQL_FAILED, get_class( $this ), 'delete', $this->dbcon->ErrorMsg(), $sql ));
@@ -135,7 +131,7 @@
         $sql = "UPDATE " . $this->datatable . " SET " . join( ", ", $update_actions ) .
                " where " . $criteria;
         if ($this->dbcon->Execute($sql)) {
-            if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)." update"); 
+            AMP::debug_sql( $sql, get_class($this) . ' update');
             return $this->dbcon->Affected_Rows();
         }
         trigger_error ( sprintf( AMP_TEXT_ERROR_DATABASE_SQL_FAILED, get_class( $this ), 'update', $this->dbcon->ErrorMsg(), $sql ));
@@ -145,10 +141,10 @@
     function insertData( $values ){
         $source = &new Record( $this->dbcon );
         $source->setSource( $this->datatable );
-        $source->setData( $values );
+        $source->set( $values );
         $sql = $source->debug_insertSQL( );
         if ($this->dbcon->Execute($sql)) {
-            if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)." insert"); 
+            AMP::debug_sql( $sql, get_class($this) . ' insert');
             return $this->dbcon->Affected_Rows();
         }
 
@@ -184,7 +180,7 @@
     function getGroupedIndex($column) {
         $sql = "SELECT $column, count(" . $this->id_field . ") as qty FROM "
             . $this->datatable . $this->_makeCriteria() . " GROUP BY $column";
-        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)." index"); 
+        AMP::debug_sql( $sql, get_class($this) . ' index');
         $result = $this->dbcon->CacheGetAssoc($sql);
         if ( !$result && $db_error = $this->dbcon->ErrorMsg( )) {
             trigger_error( sprintf( AMP_TEXT_ERROR_LOOKUP_SQL_FAILED, get_class($this) . __FUNCTION__, $db_error ) . $sql );
@@ -207,7 +203,7 @@
             trigger_error( sprintf( AMP_TEXT_ERROR_LOOKUP_SQL_FAILED, get_class($this) . __FUNCTION__, $db_error ) . $sql );
 			return 0;
         }
-        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)." count"); 
+        AMP::debug_sql( $sql, get_class($this) . ' count');
 
         return $set->Fields( 'qty' );
     }
@@ -230,7 +226,7 @@
                 $sql .= $this->_makeSort( );
             }
 			$set = $this->dbcon->CacheGetAssoc( $sql );
-            if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this)." lookup " .$field); 
+            AMP::debug_sql( $sql, get_class($this) . ' lookup');
             if ( !$set && $db_error = $this->dbcon->ErrorMsg( )) {
                 trigger_error( sprintf( AMP_TEXT_ERROR_LOOKUP_SQL_FAILED, get_class($this) . __FUNCTION__, $db_error ) . $sql );
             }
@@ -266,9 +262,9 @@
 
             $items = array();
             foreach ($rows as $row) {
-                    $object =& new $class();
-                    $object->setData($row);
-                    $items[$object->id] = &$object;
+                    $object = new $class();
+                    $object->set_data_from_db($row);
+                    $items[$object->id] = $object;
             }
 
             return $items;

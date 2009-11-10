@@ -20,13 +20,12 @@ class Record extends Data {
 
     var $itemdata = array( );
     var $_itemdata_keys;
-	var $_allowed_keys;
+    var $_allowed_keys = array();
 
     var $id;
     var $_class_name;
 
     var $_sort_property;
-#    var $_sort_direction = AMP_SORT_ASC;
     var $_sort_direction = 'asc';
     var $_sort_method = "";
     var $_sort_auto = true;
@@ -57,7 +56,7 @@ class Record extends Data {
     function setSource( $sourcename ) {
         parent::setSource( $sourcename );
         $this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
-		$this->_allowed_keys = $this->_itemdata_keys;
+        $this->_allowed_keys = $this->_itemdata_keys;
     }
 
 	function _addAllowedKey( $key_name ) {
@@ -87,16 +86,21 @@ class Record extends Data {
 
         $sql = $this->_assembleSQL();
 
-#        if (defined( $this->_debug_constant ) && constant( $this->_debug_constant )) AMP_DebugSQL( $sql, get_class($this) . ' read'); 
+        AMP::debug_sql($sql, get_class($this));
 
         if ( $itemdata = $this->dbcon->CacheGetRow( $sql )) {
-            $this->setData( $itemdata );
+            $this->set_data_from_db($itemdata);
             return true;
         }
 
         if ($this->dbcon->ErrorMsg() ) 
             trigger_error ( sprintf( AMP_TEXT_ERROR_DATABASE_READ_FAILED, get_class( $this ) , $this->dbcon->ErrorMsg() ));
         return false;
+    }
+
+    function set_data_from_db($data) {
+      $this->itemdata = $data;
+      $this->id = $data[ $this->id_field ];
     }
 
     function hasData() {
@@ -127,9 +131,7 @@ class Record extends Data {
         if ( ( $itemdata = $this->dbcon->Execute( $sql )) && $this->dbcon->Affected_Rows( )) {
             $cached_sql = $this->_assembleSqlByID( $item_id );
             $this->dbcon->CacheFlush( $cached_sql ) ;
-            if (defined( $this->_debug_cache_constant ) && constant( $this->_debug_cache_constant )) {
-                AMP_DebugSQL( $cached_sql, get_class($this)." cleared cache"); 
-            }
+            AMP::debug_sql($sql, get_class($this)." cleared cache");
             return true;
         } 
 
@@ -153,7 +155,7 @@ class Record extends Data {
     }
 
     function save() {
-        $item_data = $this->getData( );
+        $item_data = $this->get( );
         $save_fields = AMP::array_filter_by_keys($this->_itemdata_keys, $item_data );
 		if ( !is_array( $this->id_field ) && !isset( $save_fields[ $this->id_field ] )) {
             $save_fields[ $this->id_field ] = "";
@@ -180,7 +182,7 @@ class Record extends Data {
     function clearItemCache( $id ) {
         $sql = $this->_assembleSqlByID( $id );
         $this->dbcon->CacheFlush( $sql );
-        if (defined( $this->_debug_cache_constant ) && constant( $this->_debug_cache_constant )) AMP_DebugSQL( $sql, get_class($this)." cleared cache"); 
+        AMP::debug_sql($sql, get_class($this)." cleared cache");
         $data_set = &$this->getCollection( );
         $data_set->clearCache( );
     }
@@ -196,18 +198,14 @@ class Record extends Data {
     }
 
     function setData( $data ) {
-        $this->itemdata = AMP::array_filter_by_keys( $this->_allowed_keys, $data );
-        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
-        if (is_string( $this->id_field ) && isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];
+      $this->set( $data );
     }
-
-    function legacyFieldname( $data, $oldname, $newname ) {
-        if (isset($data[$oldname])) $this->itemdata[$newname] = $data[$oldname];
-        if (isset($data[$newname])) {
-            $this->itemdata[$newname] = $data[$newname];
-            $this->itemdata[$oldname] = $data[$newname];
-        }
-		$this->_addAllowedKey($newname);
+    
+    function set( $fields){
+        if(!$this->itemdata) $this->itemdata= array();
+        $this->itemdata = array_merge( $this->itemdata, AMP::array_filter_by_keys( $this->_allowed_keys, $fields));
+#        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
+        if (isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];
     }
 
     function get( $fieldname = null ) {
@@ -217,15 +215,18 @@ class Record extends Data {
         return false;
     }
 
-    function set( $fields){
-        $this->itemdata = array_merge( $this->itemdata, AMP::array_filter_by_keys( $this->_allowed_keys, $data ));
-        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
-        if (isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];
-    }
-
     function getName() {
         if (!isset($this->name_field)) return;
-        return $this->getData( $this->name_field );
+        return $this->get( $this->name_field );
+    }
+
+    function legacyFieldname( $data, $oldname, $newname ) {
+        if (isset($data[$oldname])) $this->itemdata[$newname] = $data[$oldname];
+        if (isset($data[$newname])) {
+            $this->itemdata[$newname] = $data[$newname];
+            $this->itemdata[$oldname] = $data[$newname];
+        }
+		$this->_addAllowedKey($newname);
     }
 
    /**

@@ -26,10 +26,8 @@ class ProjectController extends PageController {
 	//added by margot -- get code help from ted why does the not actually add the project to the the company???
 	function create(){
         $p = $this->new_projects[0];
-        $p->set(array('company_id'=>123));
-        bail('$p = '.$p->get('company_id'));
-    	$p->save();
-    	$this->redirectTo( array('controller'=>'Company','action' => 'show','id' => $p->get('company_id')));
+        $p->save();
+    	$this->redirectTo( array('controller'=>'Project','action' => 'show','id' => $p->id));
     }
     function update(){
     	$p = $this->updated_projects[0];
