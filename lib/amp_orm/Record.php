@@ -164,9 +164,10 @@ class Record extends Data {
 
         $result = $this->dbcon->Replace( $this->datatable, $save_fields, $this->id_field, $quote=true);
 
+		bail(dump($result));
 
         if ($result == ADODB_REPLACE_INSERTED ) {
-            $this->mergeData( array( $this->id_field => $this->dbcon->Insert_ID() ));
+            $this->set( array( $this->id_field => $this->dbcon->Insert_ID() ));
         }
         
         if ($result) {

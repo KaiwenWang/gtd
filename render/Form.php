@@ -12,9 +12,13 @@ class Form extends PHP5_Accessor{
 	function __construct( $o = array()){
 		$this->controller = $o['controller'];
 		$this->action = $o['action'];
-		$this->css_class = $o['class'];
-		$this->css_id = $o['id'];
 		
+		isset($o['class']) 	? $this->css_class = $o['class']
+							: $this->css_class = 'standard-form';
+							
+		isset($o['id'])	? $this->css_id = $o['id']
+						: $this->css_id = '';
+						
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
 	}

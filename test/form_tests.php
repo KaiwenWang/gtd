@@ -47,10 +47,10 @@ class testForm extends UnitTestCase{
 		$form->content = $html;
 		$form_html = $form->html;
 		
-		$correct_html = '<form method="post" action="index.php" >
+		$correct_html = '<form method="post" action="index.php" class = "standard-form" >
 <input type="hidden" name="controller" value="Hour"/>
 <input type="hidden" name="action" value="update"/>
-<input type="text" value="SimpleTest Hour Description 2" id = "ActiveRecord[Hour][20974][description]" class = "description-field Hour-field text-field" name = "ActiveRecord[Hour][20974][description]" /><input type="text" value="2.5" id = "ActiveRecord[Hour][20974][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][20974][hours]" /><input type="text" value="1" id = "ActiveRecord[Hour][20974][discount]" class = "discount-field Hour-field float-field" name = "ActiveRecord[Hour][20974][discount]" /><input type="submit" class="submit_btn" value="submit"/>
+<input type="text" value="SimpleTest Hour Description 2" id = "ActiveRecord[Hour][20974][description]" class = "description-field Hour-field text-field" name = "ActiveRecord[Hour][20974][description]" /><input type="text" value="2.5" id = "ActiveRecord[Hour][20974][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][20974][hours]" /><input type="text" value="1" id = "ActiveRecord[Hour][20974][discount]" class = "discount-field Hour-field float-field" name = "ActiveRecord[Hour][20974][discount]" /><div class="submit-container"><input type="submit" class="submit_btn" value="submit"/></div>
 
 </form>
 ';

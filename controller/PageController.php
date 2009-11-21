@@ -6,7 +6,7 @@ class PageController{
 	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
 
 	protected $authentication_type = 'staff'; // staff, public
-    protected $filter_collection_name = 'defaultFilterCollection';
+    protected $filter_collection_name = 'DefaultFilterCollection';
  	protected $before_filters = array();
 	protected $after_filters = array();
     protected $around_filters = array();
