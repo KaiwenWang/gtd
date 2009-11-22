@@ -1,19 +1,5 @@
 <?php
-
-/* * * * * * * *
- * 
- *  AMPSystem_Data_Set
- *
- *  Data Source for List Operations
- *
- *
- *  AMP 3.5.0
- *  2005-07-04
- *  Author: austin@radicaldesigns.org
- *
- * * **/
-
- class RecordCollection extends Data {
+class RecordCollection extends Data {
 
     var $sort = array();
     var $limit;
@@ -56,7 +42,7 @@
     function clearCache( ){
         $cached_sql = $this->_assembleSQL( );
         $this->dbcon->CacheFlush( $cached_sql );
-        AMP::debug_sql( $sql, get_class($this). ' cleared cache');
+        AMP::debug_sql( $cached_sql, get_class($this). ' cleared cache');
     }
 
     function makeReady() {
@@ -343,8 +329,5 @@
             }
         }
     }
- 
-
+    
 }
-
-?>

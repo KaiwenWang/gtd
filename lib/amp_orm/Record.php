@@ -1,18 +1,5 @@
 <?php
-
-/* * * * * * * * *
- *
- *  AMPSystem_Data_Item
- *
- *  A base class for retrieving and changing
- *  a single Database record
- *
- *  AMP 3.5.0
- *  2005-07-04
- *  Author: austin@radicaldesigns.org
- *
- * * * * * **/
-require('utility.php');
+require_once('utility.php');
 
 class Record extends Data {
 
@@ -159,14 +146,11 @@ class Record extends Data {
         $save_fields = AMP::array_filter_by_keys($this->_itemdata_keys, $item_data );
 		if ( !is_array( $this->id_field ) && !isset( $save_fields[ $this->id_field ] )) {
             $save_fields[ $this->id_field ] = "";
-#            $this->_blankIdAction();
         }
 
         $result = $this->dbcon->Replace( $this->datatable, $save_fields, $this->id_field, $quote=true);
 
-		bail(dump($result));
-
-        if ($result == ADODB_REPLACE_INSERTED ) {
+        if ($result == 2 ) {
             $this->set( array( $this->id_field => $this->dbcon->Insert_ID() ));
         }
         
@@ -408,6 +392,4 @@ class Record extends Data {
         return $search->updateData( $action, $scope );
     }
 
-
 }
-?>

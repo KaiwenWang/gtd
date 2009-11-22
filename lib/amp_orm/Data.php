@@ -1,18 +1,4 @@
 <?php
-
-/* * * * * * * *
- * 
- *  AMPSystem_Data
- *
- *  Base Class for Data Models
- *
- *
- *  AMP 3.5.0
- *  2005-07-04
- *  Author: austin@radicaldesigns.org
- *
- * * **/
-
 class Data {
 
     protected $dbcon;
@@ -148,4 +134,3 @@ class Data {
     }
 
 }
-?>

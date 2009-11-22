@@ -16,8 +16,8 @@ function basicFormContents( $list_items, $o){
 	$r =& getRenderer();
 	$html = '';
 
-	isset($o['class']) 	? $o['class'] .= 'basic-form-contents'
-						: $o['class'] .= 'basic-form-contents';
+	isset($o['class']) 	? $o['class'] .= ' basic-form-contents'
+						: $o['class'] = 'basic-form-contents';
 	isset($o['title'])	? $html .= '<h3 class="basic-form-header">'.$o['title'].'</h3>'
 						: $html .= '<h3 class="basic-form-header"></h3>';
 

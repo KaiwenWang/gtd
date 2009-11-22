@@ -1,6 +1,7 @@
 <?php
 class EstimateController extends PageController {
-
+ 	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
+ 	
     function edit( $params){
 		$d = $this->data;
 		
@@ -9,19 +10,11 @@ class EstimateController extends PageController {
 		$d->hours = getMany('Hour', array("estimate_id"=>$params['id']));
     }
     function update( $params ){
-//    	bail(AMP_dump( $params));
-    	$estimates = $params['ActiveRecord']['Estimate'];
-    	foreach( $estimates as $estimate_id => $estimate_data){
-	    	$e = new Estimate( $estimate_id);
-    		$e->mergeData( $estimate_data);
-    		$e->save();
-    	}
+    	foreach( $this->updated_estimates as $e) $e->save();
 	    $this->redirectTo( array('action' => 'edit','id'=>$e->id));
     }
     function create( $params){
-    	$e = new Estimate();
-    	$data = $params['ActiveRecord']['Estimate']['new'];
-    	$e->mergeData( $data);
+    	$e = $this->new_estimates[0];
     	$e->save();
     	$this->redirectTo( array('controller'=>'Project','action' => 'show','id'=>$e->get('project_id')));
     }

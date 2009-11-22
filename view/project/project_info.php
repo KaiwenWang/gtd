@@ -1,6 +1,10 @@
 <?php
 function projectInfo( $p, $o = array()){
     $r =& getRenderer();
+    $p->get('launch_date') ? $launch_date = date( 'm/d/Y',
+    											strtotime($p->get('launch_date'))
+    											)
+    					   : $launch_date = 'NOT SET';
     $html = '
     		<div>
     			Project: '.$p->get('name').'
@@ -9,7 +13,7 @@ function projectInfo( $p, $o = array()){
     			Company: '.$r->link( 'Company', array('action'=>'show','id'=>$p->get('company_id')), $p->getCompanyName()).'
     		</div>
     		<div>
-				<span class="launch-date">Launch Date: '.date('m/d/Y',strtotime($p->get('launch_date'))).'</span>    		
+				<span class="launch-date">Launch Date: '.$launch_date.'</span>    		
 				<span class="status-label">
 					Status: 
 				</span>				
