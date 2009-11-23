@@ -152,6 +152,7 @@ class Record extends Data {
 
         if ($result == 2 ) {
             $this->set( array( $this->id_field => $this->dbcon->Insert_ID() ));
+            $this->id = $this->get( $this->id_field );
         }
         
         if ($result) {
