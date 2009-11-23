@@ -1,14 +1,7 @@
 <?php
-
-function supportContractInfo( $contract, $options ) {
+function supportcontractInfo( $contract, $options ) {
     $r =& getRenderer();
     $list_items = array(
-        /*
-    	'Invoices'				=> $contract->getData('due_date'),
-        'Product Instances'	=> $contract->getBillableHours( ),
-    	'Bandwidth'			=> $contract->getData('completed') ? 'yes' : 'no',
-         */
-
     	'Company'				    => $contract->getCompanyName(),
     	'Domain Name'				=> $contract->getData('domain_name'),
     	'Tech'				        => $contract->getData('technology'),
@@ -30,4 +23,3 @@ function supportContractInfo( $contract, $options ) {
     
     return $contract_info;
 }
-?>

@@ -1,7 +1,7 @@
 <?php
-function companyNewForm( $c, $o = array()){
+function companyEditForm( $c, $o = array()){
     $r =& getRenderer();
-    $form = new Form( array( 'controller'=>'Company', 'action'=>'create'));
+    $form = new Form( array( 'controller'=>'Company', 'action'=>'update'));
     $fs = $form->getFieldSetFor($c);
 
     $list_items = array(

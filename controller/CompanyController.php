@@ -1,6 +1,8 @@
 <?php
 class CompanyController extends PageController {
-
+ 	var $before_filters = array( 'get_posted_records' => 
+ 									array( 'create','update','destroy')
+ 								);
     function index( $params){
         
         $this->data->companies = getMany( 'Company', array("sort"=>"status, name"));
@@ -16,13 +18,13 @@ class CompanyController extends PageController {
 					  ));
 		$this->data->new_project = $p;
   	}
-	//added by margot -- get code review from ted and get it to show the new Company on redirect?
 	function create( $params){
-    	$c = new Company();
-    	$data = $params['ActiveRecord']['Company']['new'];
-    	$c->mergeData( $data);
+		$c = $this->new_companies[0];
     	$c->save();
-    	$this->redirectTo( array('controller'=>'Company','action' => 'show'));
+    	$this->redirectTo( array('controller'=>'Company',
+    							 'action' => 'show',
+    							 'id'=>$c->id
+    							 ));
     }
     function new_record(){
     }

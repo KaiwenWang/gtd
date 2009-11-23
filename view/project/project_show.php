@@ -5,30 +5,26 @@ function projectShow($d){
 	$select_project = 		$r->view( 'jumpSelect', $d->project);
 
 
-	$editable_project_info= $r->view(	'jsSwappable',
-										'Project Info',
-					 					array(
-						 					$r->view(	'projectInfo'	  , $d->project),
-											$r->view(	'projectEditForm' , $d->project)
+	$editable_project_info= $r->view( 'jsSwappable',
+									  'Project Info',
+					 				   array(
+						 				$r->view( 'projectInfo', $d->project),
+										$r->view( 'projectEditForm' , $d->project)
 										)
 									);
 
 	$hidden_forms = $r->view('jsHideable',array(
-	
-						'Create New Estimate'=> $r->view(	
-															'estimateNewForm', 
-															$d->estimate
-														),
-														
-						'Log Hours'	=> $r->view(
-													'hourNewForm', 
-													$d->hour, 
-													array('project_id'=>$d->project->id)
+						'Create New Estimate'=> $r->view( 'estimateNewForm', 
+														  $d->estimate
+														),								
+						'Log Hours'	=> $r->view( 'hourNewForm', 
+												 $d->hour, 
+												 array('project_id'=>$d->project->id)
 												)
 					));
 
 
-	$estimate_table = 		$r->view('estimateTable', $d->project->getEstimates());
+	$estimate_table = $r->view('estimateTable', $d->project->getEstimates());
 	
 
 	return	array(

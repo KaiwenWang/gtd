@@ -8,11 +8,15 @@ class EstimateController extends PageController {
 		
 		$d->estimate = new Estimate( $params['id']);
 		$d->project = new Project( $d->estimate->get('project_id'));
+
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array( 'estimate_id'=>$params['id'],
 								  'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
 								  ));
+		$d->new_estimate = new Estimate();
+		$d->new_estimate->set(array('project_id'=>$d->project->id));
+		
 		$d->estimates = $d->project->getEstimates();
 		$d->hours = getMany('Hour', array('estimate_id'=>$params['id']));
     }

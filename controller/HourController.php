@@ -6,7 +6,6 @@ class HourController extends PageController {
     
     }
     function edit( $params ){
-    	echo "ID: ".$params['id'];
 		if ( !$params['id']) bail('Required $params["id"] not present.');
     	$d = $this->data;
         $d->hour = new Hour( $params['id']);

@@ -1,6 +1,8 @@
 <?php
 class ProjectController extends PageController {
- 	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
+ 	var $before_filters = array( 'get_posted_records' => 
+ 									array( 'create','update','destroy')
+ 								);
 
     function index( $params){
 		$d = $this->data;

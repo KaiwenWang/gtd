@@ -1,5 +1,5 @@
 <?php
-function supportContractTable( $modelObjects, $o = array()){
+function supportcontractTable( $modelObjects, $o = array()){
     $r =& getRenderer();
     $out = array();
     $out['headers'] = array('Contract Name',

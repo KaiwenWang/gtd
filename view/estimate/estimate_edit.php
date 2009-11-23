@@ -14,7 +14,7 @@ function estimateEdit($d){
 	$hidden_forms = $r->view('jsHideable',array(
 						'Create New Estimate'=> $r->view(	
 													 	 'estimateNewForm', 
-														 $d->estimate
+														 $d->new_estimate
 														),
 														
 						'Log Hours'	=> $r->view(

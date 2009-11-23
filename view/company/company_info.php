@@ -9,12 +9,20 @@
 
 */
 
-function companyInfo( $company, $o){
+function companyInfo( $c, $o){
     $r =& getRenderer();
 
 	$list_items = array(
-					'Status'	=> $company->getData('status'),
-					'Balance'	=> $company->getBalance()
+						'Name'		=> $c->get('name'),
+						'Notes'		=> $c->get('notes'),
+						'Street'	=> $c->get('street'),
+						'Street 2'	=> $c->get('street_2'),
+						'City'		=> $c->get('city'),
+						'State'		=> $c->get('state'),
+						'Zip'		=> $c->get('zip'),
+						'Phone'		=> $c->get('phone'),
+						'Product'	=> $c->get('product'),
+						'Status'	=> $c->get('status')
 					);
 					
 	$html = $r->view( 'basicList', $list_items);

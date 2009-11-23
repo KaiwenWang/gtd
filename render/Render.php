@@ -70,14 +70,18 @@ class Render{
     					'attributes' => $attributes,
     					'form-content' => $content
     					);
-    	if ( isset( $o['redirect'])) $tokens['redirect'] = $this->input( 	'hidden',
-    																array(	'name'=>'redirect',
-    																		'value'=>$o['redirect']));
-	    else $tokens['redirect'] = '';
+
+    	if ( isset( $o['redirect'])) {
+    		$tokens['redirect'] = $this->input( 'hidden',array(	'name'=>'redirect',
+    														    'value'=>$o['redirect']
+    															));
+    	} else $tokens['redirect'] = '';
+    	
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
     
-    function field( $obj, $field_name, $search_criteria = array(), $new_object_index = 0){
+    function field( $obj,$field_name,$search_criteria = array(),$new_object_index = 0){
+
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
   		$id = $obj->id;
 		if ( !$id) {
@@ -101,10 +105,12 @@ class Render{
 
 		if ( class_exists( $field_type)){
 			$class = $field_type;
-			if( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
-							else	{	$objects = getAll( $class);}
-			foreach( $objects as $o){
-				$data[$o->id] = $o->getName();
+			$search_criteria ? $objects = getMany( $class, $search_criteria)
+							 : $objects = getAll( $class);
+			if( $objects ) {
+				foreach( $objects as $o) $data[$o->id] = $o->getName();
+			} else {
+				$data = array();
 			}
 			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
 			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';

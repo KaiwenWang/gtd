@@ -19,7 +19,6 @@ class ViewDirectory {
 		'companyNewForm' => 'view/company/company_new_form.php',
 		'invoiceTable' => 'view/invoice/invoice_table.php',
 		'productInstanceInfo' => 'view/product_instance/product_instance_info.php',
-		'supportContractTable' => 'view/support_contract/support_contract_table.php',
 		'staffTable' => 'view/staff/staff_table.php',
 		'staffDetail' => 'view/staff/staff_detail.php',
 		'paymentTable' => 'view/payment/payment_table.php',
