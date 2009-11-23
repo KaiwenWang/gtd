@@ -18,10 +18,11 @@ function bail( $msg){
 				'.array_dump($router->params()).'
 				';
 	}
-	$html .= '<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>';
-
-        $html .= '<h2 style="margin-bottom:6px;">BACKTRACE</h2>';
-        $html .= backtrace();
+	$html .= '
+				<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>
+				<h2 style="margin-bottom:6px;">BACKTRACE</h2>
+				'.backtrace().'
+				';
 
 	echo $html;
 	trigger_error( strip_tags($msg));
@@ -30,14 +31,18 @@ function bail( $msg){
 function backtrace(){
     $trace = debug_backtrace();
     foreach( $trace as $t){
-            $html .= '
-                                    FILE: '.$t['file'].'<br>
-                                    LINE: '.$t['line'].'<br>
-                             ';
+    		$file = 'FILE: '.$t['file'];
+    		$line = 'LINE: '.$t['line'];
 
             isset($t['class'])	?  $function = $t['class'].'->'.$t['function']
-                                                    :  $function = $t['function'];
-            $html .= 'FUNCTION: '. $function .'<br><br>';
+								:  $function = $t['function'];
+			$function = 'FUNCTION: '. $function;		
+
+            $html .= "
+            			$file <br>
+            			$line <br>
+            			$function <br><br>
+            		 ";			
     }
     return $html;
 }

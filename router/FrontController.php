@@ -28,6 +28,7 @@ class FrontController {
    		$auth_type = $this->page->getAuthenticationType();
    		
    		if ( $auth_type == 'public') return true;
+   		if ( !Session::sessionExists()) return false;
    		if ( $auth_type == Session::getUserType()) return true;
 		return false;
    	}
