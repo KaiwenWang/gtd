@@ -24,7 +24,12 @@ class HourController extends PageController {
 		$d->new_estimate->set(array('project_id'=>$d->project->id));
     }
     function update( $params ){
-	    $this->redirectTo( array('action' => 'edit','id'=>$params['id']));
+    	$h = $this->updated_hours[0];
+		$h->save();
+        $this->redirectTo(array('controller' => 'Estimate', 
+        						'action' => 'edit', 
+        						'id' => $h->get('estimate_id')
+        						));
     }
     function show(){
     }
