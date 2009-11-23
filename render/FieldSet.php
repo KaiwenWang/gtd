@@ -12,11 +12,18 @@ class FieldSet {
 		$this->new_object_counter = $new_object_counter;
 	}
 	function __get( $field_name) {
+		return $this->field($field_name);
+	}
+	function field( $field_name, $search_criteria = array()){
 		$r = getRenderer();
-		if( $this->is_new_object) 	return $r->field( $this->obj, 
-													  $field_name, array(),
-													  $this->new_object_counter);
-		else 					 	return $r->field( $this->obj, $field_name);
+		
+		return $this->is_new_object ? $r->field( $this->obj, 
+												 $field_name,
+												 $search_criteria,
+												 $this->new_object_counter)
+
+									: $r->field( $this->obj,
+												 $field_name,
+												 $search_criteria);
 	}
 }
-?>
