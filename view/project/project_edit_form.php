@@ -5,9 +5,9 @@ function projectEditForm( $p, $o = array()){
     $fs = $form->getFieldSetFor($p);
 
 	$list_items = array(
+			'Name' =>			$fs->name,
 			'Status' =>			$fs->status,
 			'Launch Date' =>	$fs->launch_date,
-			'Name' =>			$fs->name,
 			'Company' =>		$fs->company_id,
 			'Project Manager'=> $fs->staff_id,
 			'Designer'=>		$fs->desinger,

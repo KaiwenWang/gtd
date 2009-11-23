@@ -1,12 +1,12 @@
 <?php
 class HourController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
-	var $after_filters = array( 'save_posted_records' => array('create','update','destroy') );
 	
     function index( $params ){
     
     }
     function edit( $params ){
+    	echo "ID: ".$params['id'];
 		if ( !$params['id']) bail('Required $params["id"] not present.');
     	$d = $this->data;
         $d->hour = new Hour( $params['id']);
@@ -21,12 +21,12 @@ class HourController extends PageController {
     function new_record(){
     }
     function create( $params){
-/*     	$e = new Hour();
-    	$data = $params['ActiveRecord']['Hour']['new'];
-    	$e->mergeData( $data);
-    	$e->save();
-*/
-        $this->redirectTo(array('controller' => 'Project', 'action' => 'show', 'id' => $params['project_id']));
+		$h = $this->new_hours[0];
+		$h->save();
+        $this->redirectTo(array('controller' => 'Estimate', 
+        						'action' => 'edit', 
+        						'id' => $h->get('estimate_id')
+        						));
     }
     function destroy(){
     }

@@ -16,7 +16,7 @@ function estimateNewForm( $e, $o = array()){
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Add Estimate', 'display'=>'inline')
+    							array( 'title'=>'Add Estimate')
     						  );
     						  
 //	$form_contents .= $r->hidden('project_id',$e->get('project_id'));

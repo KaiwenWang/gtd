@@ -30,6 +30,7 @@ function bail( $msg){
 }
 function backtrace(){
     $trace = debug_backtrace();
+    $html = '';
     foreach( $trace as $t){
     		$file = 'FILE: '.$t['file'];
     		$line = 'LINE: '.$t['line'];

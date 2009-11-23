@@ -8,11 +8,11 @@ class FrontController {
         $this->page = $this->getPageController();
     }
     function execute(){
-		$r =& getRenderer();
-		$this->authenticate() ?	$application_html = $this->page->execute(	$this->router->action, 
-                                  		               						$this->router->params( ))
+		$this->authenticate() ?	$application_html = $this->page->execute($this->router->action, 
+                                  		               					 $this->router->params( ))
                               :	$application_html = $this->renderLoginScreen();
 
+		$r = getRenderer();
         return $r->template( 'template/gtd_main_template.html', 
         					  array( 'main-application'=>$application_html,
         							 'msg'=>$r->_dumpMessages(),

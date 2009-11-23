@@ -1,17 +1,4 @@
 <?php
-/**
-@package view
-*/
-/**
-	basic list item
-	
-	basic pattern for a single row in a table/list display
-	
-	data (array):
-	['headers'] array of column headers
-	['rows'] array of rows, each row is an array of data
-	
-*/
 function basicList( $list_items, $o){
 	$r =& getRenderer();
 
@@ -19,7 +6,7 @@ function basicList( $list_items, $o){
 
 	$attr = $r->attr($o);
 	$html = '';
-	if( $o['title']) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
+	if( isset($o['title'])) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
 
 	$html .= '<div class="basic-list" cellpadding="0" cellspacing="0">';
 
@@ -36,4 +23,3 @@ function basicList( $list_items, $o){
 	$html .= '<div class="clear-left"></div></div>';
 	return "<div $attr >$html</div>";
 }
-?>
