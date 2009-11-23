@@ -1,23 +1,22 @@
 <?php
 function estimateEditForm( $e, $o = array()){
     $r =& getRenderer();
-	
+    $form = new Form( array( 'controller'=>'Estimate', 'action'=>'update'));
+    $fs = $form->getFieldSetFor($e);
+
     $list_items = array(
-		'Description' => $r->field( $e, 'description'),
-		'Low Estimate' =>$r->field( $e, 'low_hours'),
-		'High Estimate' => $r->field( $e, 'high_hours'),
-		'Due Date' => $r->field( $e, 'due_date'),
-		'Details' => $r->field( $e, 'notes'),
-		'Project' => $r->field( $e, 'project_id')
+		'Description' => $fs->description,
+		'Low Estimate' =>$fs->low_hours,
+		'High Estimate' => $fs->high_hours,
+		'Due Date' => $fs->due_date,
+		'Details' => $fs->notes,
+		'Project' => $fs->project_id
 	);	
     
-    $form_contents = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Edit Estimate', 'display'=>'inline')
-    						  );
-    						  
-    $o['method'] = 'post';
+    							array( 'title'=>'Edit Estimate')
+    						  );    						  
     
-    return $r->form( 'update', 'Estimate', $form_contents.$r->submit(), $o);
+    return $form->html;
 }
-?>

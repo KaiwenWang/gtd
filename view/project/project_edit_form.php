@@ -22,4 +22,3 @@ function projectEditForm( $p, $o = array()){
 
     return $form->html;
 }
-?>

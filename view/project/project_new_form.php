@@ -5,6 +5,7 @@ function projectNewForm( $project, $o = array()){
     $form = new Form( array('controller'=>'Project','action'=>'create'));
 
     $f = $form->getFieldSetFor($project);
+    
     $list_items = array(
 		'Name' => $f->name,
 		'Company' => $f->company_id,
@@ -27,4 +28,3 @@ function projectNewForm( $project, $o = array()){
 
     return $form->html;
 }
-?>

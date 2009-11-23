@@ -18,11 +18,7 @@ class ProjectController extends PageController {
 		$this->data->estimate->set(array('project_id'=>$params['id']));
 
 		$this->data->hour = new Hour();
-		$this->data->hour->set(array(
-								'estimate_id'=>$e->id,
-								'staff_id'=>getUser()
-								)
-							);
+		$this->data->hour->set(array( 'staff_id'=>getUser() ));
 	}
 	function create(){
         $p = $this->new_projects[0];

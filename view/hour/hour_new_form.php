@@ -1,12 +1,18 @@
 <?php
 function hourNewForm( $h, $o = array()){
-    $r =& getRenderer();
+    $r = getRenderer();
     
     $form = new Form( array( 'controller'=>'Hour', 'action'=>'create'));
     $fs = $form->getFieldSetFor( $h );
 
+	isset($o['project_id'])	? $estimate_field = $fs->field( 'estimate_id', 
+															array('project_id'=>$o['project_id'])
+														  )
+							: $estimate_field = $fs->estimate_id;
+
+
     $list_items = array(
-    	'Estimate' 		=> $fs->estimate_id,
+    	'Estimate' 		=> $estimate_field,
        	'Description' 	=> $fs->description,
         'Date Completed'=> $fs->date,
         'Staff' 		=> $fs->staff_id,
