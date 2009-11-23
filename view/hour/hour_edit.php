@@ -2,7 +2,7 @@
 function hourEdit($d){
 	$r = getRenderer( );
 
-    $title = $d->project->getName();
+    $title = $d->project->getName().': '.$d->estimate->getName();
 
 
 	$editable_project_info= $r->view(	'jsSwappable',
