@@ -34,7 +34,7 @@ function estimateEdit($d){
 	$estimate_table = $r->view('estimateTable', $d->estimates);
 
 	return	array(
-		'title' => $d->project->getName(),
+		'title' => $d->project->getName().': '.$d->estimate->getName(),
 		'controls' => $select_project,
 		'body' => 	$editable_project_info
 					.$hidden_forms
@@ -43,4 +43,3 @@ function estimateEdit($d){
 		);
 
 }
-?>

@@ -1,30 +1,34 @@
 <?php
 function hourEditForm( $h, $o = array()){
-    $r =& getRenderer();
-
-	$e = new Estimate( $h->get('estimate_id'));
-	$estimate_field = $r->field( $h, 'estimate_id', array( 'project_id' => $e->get('project_id')));
+    $r = getRenderer();
     
+    $form = new Form( array( 'controller'=>'Hour', 'action'=>'update'));
+    $fs = $form->getFieldSetFor( $h );
+
+	if( isset($o['project_id']) ){
+		$estimate_field = $fs->field( 'estimate_id', 
+									  array('project_id'=>$o['project_id'])
+								  	);
+	} else {
+		$estimate_field = $fs->estimate_id;
+	}
+
     $list_items = array(
-		'ID'			=> $h->id,
     	'Estimate' 		=> $estimate_field,
-       	'Description' 	=> $r->field( $h, 'description'),
-        'Date Completed'=> $r->field( $h, 'date'),
-        'Staff' 		=> $r->field( $h, 'staff_id'),
-        'Hours' 		=> $r->field( $h, 'hours'),        
-        'Discount' 		=> $r->field( $h, 'discount'),
-		'Basecamp ID' 	=> $r->field( $h, 'basecamp_id')
+       	'Description' 	=> $fs->description,
+        'Date Completed'=> $fs->date,
+        'Staff' 		=> $fs->staff_id,
+        'Hours' 		=> $fs->hours,        
+        'Discount' 		=> $fs->discount,
+		'Basecamp ID' 	=> $fs->basecamp_id
     );	
     
-    $form_contents = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicList', 
     							$list_items, 
-    							array( 'title'=>'Edit Hour "'.$h->getName().'"', 'display'=>'inline')
+    							array( 'title' => 'Edit Hour: '.$h->getName(),
+    							 	   'display' => 'inline')
     						  );
-    						  
-	$form_contents .= $r->hidden('id',$h->id);
 		  
-    $o['method'] = 'post';
     
-    return $r->form( 'update', 'Hour', $form_contents.$r->submit(), $o);
+    return $form->html;
 }
-?>

@@ -291,3 +291,7 @@ font-weight: bold;
 .project-manager{
 font-weight: bold;
 }
+/* HOUR EDIT */
+#hour-edit-container{
+clear: left;
+}

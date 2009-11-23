@@ -5,11 +5,13 @@ function hourNewForm( $h, $o = array()){
     $form = new Form( array( 'controller'=>'Hour', 'action'=>'create'));
     $fs = $form->getFieldSetFor( $h );
 
-	isset($o['project_id'])	? $estimate_field = $fs->field( 'estimate_id', 
-															array('project_id'=>$o['project_id'])
-														  )
-							: $estimate_field = $fs->estimate_id;
-
+	if( isset($o['project_id']) ){
+		$estimate_field = $fs->field( 'estimate_id', 
+									  array('project_id'=>$o['project_id'])
+								  	);
+	} else {
+		$estimate_field = $fs->estimate_id;
+	}
 
     $list_items = array(
     	'Estimate' 		=> $estimate_field,
@@ -24,8 +26,7 @@ function hourNewForm( $h, $o = array()){
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
     							array( 'title'=>'Add Hour', 'display'=>'inline')
-    						  )
-    				 .$r->hidden('project_id',$o['project_id']);
+    						  );
 		  
     
     return $form->html;

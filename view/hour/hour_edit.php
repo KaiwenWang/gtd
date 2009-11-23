@@ -1,23 +1,47 @@
 <?php
-function hourEdit($p){
+function hourEdit($d){
 	$r = getRenderer( );
 
-    $title = $p->project->getName();
+    $title = $d->project->getName();
 
-    $project_info	= $r->view( 'projectInfo', $p->project, array( 'class'=>'float-left'));
-    			
-    $hour_edit_form = $r->view( 'hourEditForm', $p->hour, array('class'=>'clear-left'));
 
-    $hour_table = $r->view('hourTable', $p->estimate->getHours(), array('title'=>'Hours for '.$p->estimate->getName()));
+	$editable_project_info= $r->view(	'jsSwappable',
+										'Estimate Info',
+					 					array(
+						 					$r->view( 'estimateInfo', $d->estimate),
+											$r->view( 'estimateEditForm', $d->estimate)
+										)
+									);
 
-    $estimate_table = $r->view('estimateTable', $p->project->getEstimates());
+	$hidden_forms = $r->view('jsHideable',array(
+						'Create New Estimate'=> $r->view(	
+													 	 'estimateNewForm', 
+														 $d->new_estimate
+														),
+														
+						'Log Hours'	=> $r->view(
+												'hourNewForm', 
+												$d->new_hour, 
+												array('project_id'=>$d->project->id)
+											   )
+					));
+
+    $hour_edit_form = '<div id="hour-edit-container">
+    				   '.$r->view( 'hourEditForm', 
+    				   			  $d->hour, array('class'=>'clear-left')
+    				   			  ).'
+    				   	</div>';
+
+    $hour_table = $r->view('hourTable', $d->estimate->getHours(), array('title'=>'Hours for '.$d->estimate->getName()));
+
+    $estimate_table = $r->view('estimateTable', $d->project->getEstimates());
 
     return array(   'title' 	=> $title,
                     'controls'	=> '',
-                    'body' 		=> 	$project_info
+                    'body' 		=> 	$editable_project_info
+                    				.$hidden_forms
                     				.$hour_edit_form
                     				.$hour_table
                     				.$estimate_table
     								);
 }
-?>
