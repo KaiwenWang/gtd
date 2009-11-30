@@ -1,6 +1,6 @@
 <?php
 function projectIndex($d){
-	$r =& getRenderer();	
+	$r = getRenderer();	
 
 	$new_project_form = $r->view('jsHideable', array(
   						'Create New Project' => $r->view( 'projectNewForm', 
