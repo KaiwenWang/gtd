@@ -23,7 +23,7 @@ function hourEditForm( $h, $o = array()){
 		'Basecamp ID' 	=> $fs->basecamp_id
     );	
     
-    $form->content = $r->view( 'basicList', 
+    $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
     							array( 'title' => 'Edit Hour: '.$h->getName(),
     							 	   'display' => 'inline')

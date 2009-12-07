@@ -14,6 +14,7 @@ bottom:5px;
 margin:0;
 padding:0;
 position:relative;
+width: 500px;
 }
 h2{
 color:#eee;
@@ -140,6 +141,7 @@ margin: 0;
 padding: 0 10px;
 }
 .basic-list-item{
+clear: left;
 }
 .detail-list{
 background: #DDEEEE;
@@ -166,7 +168,7 @@ color:#333333;
 display:block;
 float:left;
 font-weight:bold;
-width:200px;
+width:170px;
 }
 .basic-list-item form{
 margin: 0;
@@ -293,5 +295,5 @@ font-weight: bold;
 }
 /* HOUR EDIT */
 #hour-edit-container{
-clear: left;
+float: left;
 }

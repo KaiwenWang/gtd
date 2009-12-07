@@ -10,11 +10,16 @@ class StaffController extends PageController {
 		}
 
         $this->data->staff = new Staff($params['id']);
-		$this->data->project = new Project();
-		$this->data->project->set(array(
+		$this->data->new_project = new Project();
+		$this->data->new_project->set(array(
 								'staff_id'=>getUser()
 								)
 							);
-    }    
+		$this->data->new_support_hour = new Hour();
+		$this->data->new_support_hour->set(array(
+								'staff_id'=>getUser()
+								)
+							);
+    }
 }
 ?>

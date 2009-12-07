@@ -13,6 +13,11 @@ function hourEdit($d){
 										)
 									);
 
+    $hour_edit_form = '<div id="hour-edit-container">
+    				   '.$r->view( 'hourEditForm', 
+    				   			  $d->hour, array('class'=>'clear-left')
+    				   			  ).'
+    				   	</div>';
 	$hidden_forms = $r->view('jsHideable',array(
 						'Create New Estimate'=> $r->view(	
 													 	 'estimateNewForm', 
@@ -23,14 +28,15 @@ function hourEdit($d){
 												'hourNewForm', 
 												$d->new_hour, 
 												array('project_id'=>$d->project->id)
-											   )
-					));
+											   ),
+    				   	'Edit Hour' => $r->view( 
+											  	'hourEditForm', 
+    				   						  	$d->hour 
+    				   			  			   )
+					), 
+					array('open_by_default'=> array('Edit Hour'))
+					);
 
-    $hour_edit_form = '<div id="hour-edit-container">
-    				   '.$r->view( 'hourEditForm', 
-    				   			  $d->hour, array('class'=>'clear-left')
-    				   			  ).'
-    				   	</div>';
 
     $hour_table = $r->view('hourTable', $d->estimate->getHours(), array('title'=>'Hours for '.$d->estimate->getName()));
 
@@ -40,7 +46,6 @@ function hourEdit($d){
                     'controls'	=> '',
                     'body' 		=> 	$editable_project_info
                     				.$hidden_forms
-                    				.$hour_edit_form
                     				.$hour_table
                     				.$estimate_table
     								);
