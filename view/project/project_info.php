@@ -21,9 +21,11 @@ function projectInfo( $p, $o = array()){
     		</div>
     		<div>
 				<span class="launch-date">Launch Date: '.$launch_date.'</span>    		
+			</div>
+			<div>
 				<span class="status-label">
 					Status: 
-				</span>				
+				</span>
 				<span class="status">
 				'.$p->get('status').'
 				</span>
