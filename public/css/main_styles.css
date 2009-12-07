@@ -233,6 +233,18 @@ margin-top: 10px;
 select{
 width:172px;
 }
+/* BUTTONS */
+.standard-btn{
+border: 1px solid #999999;
+-moz-border-radius:11px;
+display:inline-block;
+background: #ffffff;
+padding:2px 6px;
+}
+.deter-btn{
+font-size: 9px;
+color:#990000;
+}
 /* QUICKSEARCH */
 .qs_input{
 font-size:8px;
@@ -296,4 +308,16 @@ font-weight: bold;
 /* HOUR EDIT */
 #hour-edit-container{
 float: left;
+}
+/* SUPPORT CONRACT */
+#correct-mistake-contract-btn{
+margin-left:10px;
+}
+#update-contract-btn{
+float:right;
+margin-bottom:5px;
+}
+#cancel-contract-btn{
+float:right;
+clear:right;
 }

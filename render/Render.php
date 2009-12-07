@@ -43,8 +43,7 @@ class Render{
     function link( $controller, $parameters, $text = false, $o = array()){
 	    $attributes_html = $this->attr( $o);
 	    if( is_a( $parameters, 'ActiveRecord')){
-			$obj = $parameters;
-			if ( !$text) $text = $obj->getName();
+			if ( !$text) $text = $parameters->getName();
 	    }
     	return '<a href="'.$this->url( $controller, $parameters).'" '.$attributes_html.'>'.$text.'</a>';
     }

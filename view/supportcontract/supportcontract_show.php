@@ -11,14 +11,28 @@ function supportcontractShow($d){
   							)
   						);
 
-   
-	$editable_contract_info= $r->view(	'jsSwappable',
-										'Contract Info',
-			 					array(
-				 					$r->view( 'supportcontractInfo', $d->contract),
-									$r->view( 'supportcontractEditForm', $d->contract)
-								)
-							);
+  	$contract_info = '
+						<div class="detail-list float-left"> 
+	 						'.$r->view( 'supportcontractInfo', $d->contract).'
+							'.$r->link( 'SupportContract', 
+										array( 'action'=>'correct_mistake', 'id'=>$d->contract->id), 
+										'Correct Mistake', 
+										array( 'id'=>'correct-mistake-contract-btn', 'class'=>'deter-btn')
+									  ).'
+							'.$r->link( 'SupportContract', 
+										array( 'action'=>'edit', 'id'=>$d->contract->id), 
+										'Update Contract', 
+										array( 'id'=>'update-contract-btn', 'class'=>'standard-btn')
+									  ).'
+							'.$r->link( 'SupportContract', 
+										array('action'=>'cancel', 'id'=>$d->contract->id),
+										'Cancel Contract', 
+										array('id'=>'cancel-contract-btn','class'=>'standard-btn')
+									  ).'
+						</div>
+					';
+
+					$r->view( 'supportcontractEditForm', $d->contract);
     
     $hour_table 		= $r->view( 'hourTable', 		$d->contract->getHours( ));
 
@@ -27,7 +41,7 @@ function supportcontractShow($d){
 	return array(
 		'title' => $d->	contract->getName(),
 		'controls' => $contract_finder,
-		'body' 	=> 	$editable_contract_info
+		'body' 	=> 	$contract_info
 					.$hidden_forms
 					.$hour_table
 		);

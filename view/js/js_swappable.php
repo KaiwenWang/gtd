@@ -1,9 +1,11 @@
 <?php
 function jsSwappable( $title, $o){
+	isset( $o['button_text']) ? $button_text = $o['button_text']
+							  : $button_text = 'Edit';
 	return 	'
 		<div class="js-swappable">
 	    	<div class="detail-list">
-				<a class="js-swappable-btn" href="#">Edit</a>
+				<a class="js-swappable-btn" href="#">'.$button_text.'</a>
 				<div class="swappable-item">'.$o[0].'</div>
 				<div class="swappable-item" style="display:none;">'.$o[1].'</div>
 			</div>
