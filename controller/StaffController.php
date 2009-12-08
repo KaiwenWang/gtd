@@ -17,7 +17,8 @@ class StaffController extends PageController {
 							);
 		$this->data->new_support_hour = new Hour();
 		$this->data->new_support_hour->set(array(
-								'staff_id'=>getUser()
+								'staff_id'=>getUser(),
+								'date'=>date('Y-m-d')
 								)
 							);
     }

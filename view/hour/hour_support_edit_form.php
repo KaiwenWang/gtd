@@ -2,7 +2,7 @@
 function hourSupportNewForm( $h, $o = array()){
     $r = getRenderer();
     
-    $form = new Form( array( 'controller'=>'Hour', 'action'=>'update'));
+    $form = new Form( array( 'controller'=>'SupportHour', 'action'=>'update'));
     $fs = $form->getFieldSetFor( $h );
 
     $list_items = array(
