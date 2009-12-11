@@ -1,6 +1,5 @@
 <?php
-
-function hourTable( $hours, $o = array()){
+function supporthourTable( $hours, $o = array()){
     $r =& getRenderer();
     if( !$hours ) return false;
     $table = array();
@@ -15,7 +14,7 @@ function hourTable( $hours, $o = array()){
     $table['rows'] =  array();
     foreach($hours as $h){
       $table['rows'][] = array(	$h->id,
-      							$r->link( 'Hour', array('action'=>'show','id'=>$h->id),$h->getName()),
+      							$r->link( 'SupportHour', array('action'=>'show','id'=>$h->id),$h->getName()),
       							$h->getData('date'),
       							$h->getStaffName(),
       							$h->getHours(),

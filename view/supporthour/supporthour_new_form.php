@@ -1,5 +1,5 @@
 <?php
-function hourSupportNewForm( $h, $o = array()){
+function supporthourNewForm( $h, $o = array()){
     $r = getRenderer();
     
     $form = new Form( array( 'controller'=>'SupportHour', 'action'=>'create'));

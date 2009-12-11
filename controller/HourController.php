@@ -5,7 +5,7 @@ class HourController extends PageController {
     function index( $params ){
     
     }
-    function edit( $params ){
+    function show( $params ){
 		if ( !$params['id']) bail('Required $params["id"] not present.');
 
     	$d = $this->data;
@@ -27,11 +27,9 @@ class HourController extends PageController {
     	$h = $this->updated_hours[0];
 		$h->save();
         $this->redirectTo(array('controller' => 'Estimate', 
-        						'action' => 'edit', 
+        						'action' => 'show', 
         						'id' => $h->get('estimate_id')
         						));
-    }
-    function show(){
     }
     function new_record(){
     }

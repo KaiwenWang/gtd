@@ -10,7 +10,11 @@ class SupportContractController extends PageController {
         								);
 
 		$this->data->new_hour = new Hour();
-		$this->data->new_hour->set(array( 'staff_id' => getUser()));
+		$this->data->new_hour->set(array( 
+										'staff_id' => getUser(),
+										'date' => date('Y-m-d'),
+										'date' => date('Y-m-d')
+										));
 	}
     function show( $params ) {
         $params['id']	? $this->data->contract = new SupportContract( $params['id'] )
@@ -19,7 +23,10 @@ class SupportContractController extends PageController {
         $this->data->new_contract = new SupportContract();
 		
 		$this->data->new_hour = new Hour();
-		$this->data->new_hour->set(array( 'staff_id' => getUser(),
-									  'support_contract_id' => $params['id'] ));
+		$this->data->new_hour->set(array( 
+										'staff_id' => getUser(),
+										'date' => date('Y-m-d'),
+									  	'support_contract_id' => $params['id'] )
+										);
 	}
 }

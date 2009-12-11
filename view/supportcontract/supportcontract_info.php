@@ -19,7 +19,22 @@ function supportcontractInfo( $contract, $options ) {
         'Total Hours'		        => $contract->getTotalHours( ),
         'Billable Hours'		    => $contract->getBillableHours( )
     );
-    $contract_info = $r->view( 'basicList', $list_items);
-    
+    $contract_info = $r->view( 'basicList', $list_items)
+					.$r->link( 'SupportContract', 
+										array( 'action'=>'correct_mistake', 'id'=>$contract->id), 
+										'Correct Mistake', 
+										array( 'id'=>'correct-mistake-contract-btn', 'class'=>'deter-btn')
+									  )
+					.$r->link( 'SupportContract', 
+										array( 'action'=>'edit', 'id'=>$contract->id), 
+										'Update Contract', 
+										array( 'id'=>'update-contract-btn', 'class'=>'standard-btn')
+									  )
+					.$r->link( 'SupportContract', 
+										array('action'=>'cancel', 'id'=>$contract->id),
+										'Cancel Contract', 
+										array('id'=>'cancel-contract-btn','class'=>'standard-btn')
+									  );
+	
     return $contract_info;
 }

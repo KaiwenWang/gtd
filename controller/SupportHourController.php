@@ -5,7 +5,7 @@ class SupportHourController extends PageController {
     function index( $params ){
     
     }
-    function edit( $params ){
+    function show( $params ){
 		if ( !$params['id']) bail('Required $params["id"] not present.');
 
     	$d = $this->data;
@@ -20,7 +20,6 @@ class SupportHourController extends PageController {
 								  ));
 								  
 		$d->new_support_contract = new SupportContract();
-		$d->new_support_contract->set(array('project_id'=>$d->project->id));
     }
     function update( $params ){
     	$h = $this->updated_hours[0];
@@ -29,8 +28,6 @@ class SupportHourController extends PageController {
         						'action' => 'show', 
         						'id' => $h->get('support_contract_id')
         						));
-    }
-    function show(){
     }
     function new_record(){
     }
@@ -45,4 +42,3 @@ class SupportHourController extends PageController {
     function destroy(){
     }
 }
-?>

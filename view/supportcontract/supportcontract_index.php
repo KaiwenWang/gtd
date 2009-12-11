@@ -5,7 +5,7 @@ function supportcontractIndex($d){
 	$hidden_forms = $r->view('jsHideable', array(
   						'Create New Support Contract' => $r->view( 'supportcontractNewForm', 
   														  			$d->new_contract),
-						'Log Support Hour' => $r->view( 'hourSupportNewForm',
+						'Log Support Hour' => $r->view( 'supporthourNewForm',
 														$d->new_hour)
   							)
   						);

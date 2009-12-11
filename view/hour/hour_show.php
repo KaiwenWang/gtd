@@ -1,5 +1,5 @@
 <?php
-function hourEdit($d){
+function hourShow($d){
 	$r = getRenderer( );
 
     $title = $d->project->getName().': '.$d->estimate->getName();

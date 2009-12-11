@@ -2,7 +2,7 @@
 class EstimateController extends PageController {
  	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
  	
-    function edit( $params){
+    function show( $params){
    		if ( !$params['id']) bail('Required $params["id"] not present.');
 		$d = $this->data;
 		
@@ -22,7 +22,7 @@ class EstimateController extends PageController {
     }
     function update( $params ){
     	foreach( $this->updated_estimates as $e) $e->save();
-	    $this->redirectTo( array('action' => 'edit','id'=>$e->id));
+	    $this->redirectTo( array('action' => 'show','id'=>$e->id));
     }
     function create( $params){
     	$e = $this->new_estimates[0];
@@ -34,4 +34,3 @@ class EstimateController extends PageController {
     function destroy(){
     }
 }
-?>

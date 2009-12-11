@@ -1,5 +1,5 @@
 <?php
-function estimateEdit($d){
+function estimateShow($d){
 	$r =& getRenderer();
 	$select_project = $r->view( 'jumpSelect', $d->project);
 
