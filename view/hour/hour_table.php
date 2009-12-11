@@ -1,18 +1,10 @@
 <?php
+function hourTable( $modelObjects, $o = array()){
 
-function hourTable( $hours, $o = array()){
-    $r =& getRenderer();
-    if( !$hours ) return false;
-    $table = array();
-    $table['headers'] = array(	'ID',
-    							'Description',
-                                'Date Completed',
-    							'Staff',
-    							'Hours',
-    							'Discount',
-    							'Billable Hours'
-    							);
+    $table['headers'] = array('Company','Status','Balance');
+
     $table['rows'] =  array();
+<<<<<<< Updated upstream
     foreach($hours as $h){
       $table['rows'][] = array(	$h->id,
       							$r->link( 'Hour', array('action'=>'show','id'=>$h->id),$h->getName()),
@@ -22,8 +14,14 @@ function hourTable( $hours, $o = array()){
       							$h->getDiscount(),
       							$h->getBillableHours()
       							);
+=======
+
+    foreach($modelObjects as $m){
+      $link = $r->link('Company',array('action'=>'show','id'=>$m->id),$m->getName());
+      $table['rows'][] = array( $link, $m->getData('status'), $m->getData('balence') );
+>>>>>>> Stashed changes
     }
-    if ( !isset($o['title'])) $o['title'] = 'Hours';
-    $html = $r->view( 'basicTable', $table, $o);
-    return $html;
+
+    return $r->view( 'basicTable', $table, array('title'=>'Companies'));
+  
 }

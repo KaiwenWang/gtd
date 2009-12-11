@@ -9,7 +9,7 @@ function staffShow($d){
 													$d->new_project
 												),
 						'Log Support Hour'	=> $r->view(
-													'hourSupportNewForm', 
+													'supporthourNewForm', 
 													$d->new_support_hour
 												)
 					));

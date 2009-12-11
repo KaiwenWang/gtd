@@ -16,11 +16,14 @@ class ProjectController extends PageController {
 		$params['id']	? $this->data->project = new Project( $params['id'])
 						: Bail('required parameter $params["id"] missing.');
 						
-		$this->data->estimate = new Estimate();
-		$this->data->estimate->set(array('project_id'=>$params['id']));
+		$this->data->new_estimate = new Estimate();
+		$this->data->new_estimate->set(array('project_id'=>$params['id']));
 
-		$this->data->hour = new Hour();
-		$this->data->hour->set(array( 'staff_id'=>getUser() ));
+		$this->data->new_hour = new Hour();
+		$this->data->new_hour->set(array( 
+										'staff_id'=>getUser(),
+										'date'=>date('Y-m-d')
+										));
 	}
 	function create(){
         $p = $this->new_projects[0];

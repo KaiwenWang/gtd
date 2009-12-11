@@ -37,7 +37,7 @@ class HourController extends PageController {
 		$h = $this->new_hours[0];
 		$h->save();
         $this->redirectTo(array('controller' => 'Estimate', 
-        						'action' => 'edit', 
+        						'action' => 'show', 
         						'id' => $h->get('estimate_id')
         						));
     }
