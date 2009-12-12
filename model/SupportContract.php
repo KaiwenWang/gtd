@@ -15,6 +15,8 @@ class SupportContract extends ActiveRecord {
     protected static $schema_json = "{	
 			'fields'   : {	
 							'company_id'  	:  'Company',
+							'replacement_contract_id' : 'SupportContract',
+							'previous_contract_id' : 'SupportContract',
 							'domain_name'  	:  'text',
 							'technology'  	:  'text',
 							'monthly_rate'  :  'float',
