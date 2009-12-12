@@ -57,5 +57,9 @@ class Hour extends ActiveRecord {
 	}
     function is_valid( ) {
     }
+
+    function makeCriteriaHourSearch($data) {
+        return $this->makeCriteriaForDateRange( $data );
+    }
 }
 ?>

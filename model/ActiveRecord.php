@@ -41,5 +41,20 @@ class ActiveRecord  extends Record {
 	    return $class::$schema;
 	}
 	function defaultSearchCriteria( $field_name){}
+
+        function makeCriteriaForDateRange( $data ) {
+            $field_name = isset($data['field_name']) ? $data['field_name'] : 'date';
+            if(isset($data['start_date']) && isset($data['end_date'])
+                && $data['start_date'] && $data['end_date'] ) {
+                    return "$field_name >= " . $this->dbcon->qstr($data['start_date'])
+                            . " AND $field_name <= " . $this->dbcon->qstr($data['end_date']);
+            } elseif(isset($data['start_date']) && $data['start_date'] ) {
+                    return "$field_name >= " . $this->dbcon->qstr($data['start_date']);
+
+            } elseif(isset($data['end_date']) && $data['end_date'] ) {
+                    return "$field_name <= " . $this->dbcon->qstr($data['end_date']);
+            }
+            return 'TRUE';
+        }
 }
 ?>

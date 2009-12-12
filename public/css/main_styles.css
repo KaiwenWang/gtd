@@ -253,7 +253,20 @@ margin-bottom:4px;
 #estimate-print td {
 border-bottom: 1px #dddddd solid;
 }
-.quicksearch{ display: inline-block;}
+.quicksearch{ 
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.basic-table-search{ 
+    display: inline-block;
+}
+.search-input { 
+    display: inline;
+    margin-left: 10px; 
+}
+.search-input label { 
+    margin-right: 4px; 
+}
 /* JS-SWAPPABLE */
 .js-swappable{
 float: left;

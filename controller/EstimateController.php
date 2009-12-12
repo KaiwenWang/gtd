@@ -18,7 +18,7 @@ class EstimateController extends PageController {
 		$d->new_estimate->set(array('project_id'=>$d->project->id));
 		
 		$d->estimates = $d->project->getEstimates();
-		$d->hours = getMany('Hour', array('estimate_id'=>$params['id']));
+		$d->hours = getMany('Hour', array_merge(array('estimate_id'=>$params['id']), $this->search_params('hour_search')));
     }
     function update( $params ){
     	foreach( $this->updated_estimates as $e) $e->save();

@@ -39,6 +39,11 @@ class PageController{
         }
         return false;
     }    
+
+    function search_params($key) {
+        if(!isset($_GET[$key])) return array();
+        return array($key => $_GET[$key] );
+    }
     function executeActionChain( ){
     	if ( !method_exists( $this, $this->current_action)) bail( 'non-existent action requested: '.$action);
     	
