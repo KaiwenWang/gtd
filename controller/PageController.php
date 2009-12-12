@@ -45,7 +45,7 @@ class PageController{
         return array($key => $_GET[$key] );
     }
     function executeActionChain( ){
-    	if ( !method_exists( $this, $this->current_action)) bail( 'non-existent action requested: '.$action);
+    	if ( !method_exists( $this, $this->current_action)) bail( 'non-existent action requested: '.$this->current_action);
     	
   		$this->executeFilterSequence('around_filters');
    		$this->executeFilterSequence('before_filters');
