@@ -1,4 +1,14 @@
 <?php
+class testAmpOrm extends UnitTestCase {
+	function testCloneRecord(){
+        $id = 20973;
+        $old_hour = new Hour( $id);
+        $this->assertEqual( $old_hour->getHours( ), 99.5);
+		$new_hour = $old_hour->cloneRecord();
+        $this->assertEqual( $new_hour->getHours( ), 99.5);
+        $this->assertFalse( $new_hour->id );
+	}
+}
 class testHour extends UnitTestCase {
 	function testGetters( ) {
         $id = 20973;

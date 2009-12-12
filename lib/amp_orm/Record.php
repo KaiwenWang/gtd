@@ -39,7 +39,12 @@ class Record extends Data {
     function read( $item_id ) {
         return $this->readData( $item_id );
     }
-
+	function cloneRecord(){
+		$obj = clone $this;
+        $obj->_itemdata_keys[ $this->id_field ] = null;
+        $obj->id = null; 
+		return $obj;
+	}
     function setSource( $sourcename ) {
         parent::setSource( $sourcename );
         $this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
