@@ -2,7 +2,7 @@ jQuery.fn.quicksearch = function(list){
   list = jQuery(list);
 
   if ( list.length ) {
-    var rows = list.children(),
+    var rows = list,
       cache = rows.map(function(){
         return this.innerHTML.toLowerCase();
       });
