@@ -1,6 +1,6 @@
 <?php
 class SupportContractController extends PageController {
- 	var $before_filters = array( 'get_posted_records' => array('process_renewal','create','update','destroy') );
+ 	var $before_filters = array( 'get_posted_records' => array('process_cancellation','process_renewal','create','update','destroy') );
     
 	function index( $params ){
         $this->data->new_contract = new SupportContract();
@@ -59,4 +59,34 @@ class SupportContractController extends PageController {
         						'id' => $new_contract->get('company_id')
         						));
 	}
+	function cancel( $params ){
+		$d = $this->data;
+		$params['id']	? $d->contract = new SupportContract( $params['id'] )
+						: Bail('required parameter $params["id"] missing.');
+
+		if( $d->contract->get('end_date') == EMPTY_DATE_STRING ){
+			$d->contract->set( array( 
+								'end_date' 	=> date('Y-m-d') 
+								));
+			$d->set_end_date_to_todays_date = true;
+		}
+	}
+	function process_cancellation(){
+		$contract = $this->updated_support_contracts[0];
+		$contract->set(array(
+							'status'=>SUPPORT_CONTRACT_STATUS_CANCELLED
+						));
+		$contract->save();
+        $this->redirectTo(array('controller' => 'Company', 
+        						'action' => 'show', 
+        						'id' => $contract->get('company_id')
+        						));
+
+	}
+	function correct_mistake( $params ){
+		$d = $this->data;
+		$params['id']	? $d->contract = new SupportContract( $params['id'] )
+						: Bail('required parameter $params["id"] missing.');
+	}
 }
+
