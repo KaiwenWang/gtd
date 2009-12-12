@@ -19,8 +19,9 @@ function companyShow($d){
 						)
 					);
 					
-	$project_table = $r->view( 'contactTable', $d->company->getContacts());
-	$contact_table = $r->view( 'projectTable', $d->company->getProjects());
+	$project_table = $r->view( 'projectTable', $d->company->getProjects());
+	$contract_table = $r->view( 'supportcontractTable', $d->company->getSupportContracts());
+	$contact_table = $r->view( 'contactTable', $d->company->getContacts());
 	
 	return  array(
 		'title' => $d->company->getName(),
@@ -28,6 +29,7 @@ function companyShow($d){
 		'body' =>   $editable_project_info
 					.$hidden_forms
 					.$project_table
+					.$contract_table
 					.$contact_table
 	);	
 }

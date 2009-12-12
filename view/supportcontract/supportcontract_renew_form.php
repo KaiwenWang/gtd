@@ -1,11 +1,12 @@
 <?php
 function supportcontractRenewForm( $contract, $o = array() ){
     $r =& getRenderer();
-    $form = new Form( array( 'controller'=>'SupportContract', 'action'=>'proccess_renewal'));
+    $form = new Form( array( 'controller'=>'SupportContract', 'action'=>'process_renewal'));
     $fs = $form->getFieldSetFor($contract);
 
     $list_items = array(
     	'Company'				    => $fs->company_id,
+		'Previous Contract'			=> $fs->previous_contract_id,
     	'Domain Name'				=> $fs->domain_name,
     	'Tech'				        => $fs->technology,
     	'Support Hours'				=> $fs->support_hours,

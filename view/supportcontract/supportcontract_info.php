@@ -2,7 +2,10 @@
 function supportcontractInfo( $contract, $options ) {
     $r =& getRenderer();
     $list_items = array(
-    	'Company'				    => $contract->getCompanyName(),
+    	'Company'				    => $r->link('Company',
+												array('action'=>'show','id'=>$contract->get('company_id')),
+												$contract->getCompanyName()
+										),
     	'Domain Name'				=> $contract->getData('domain_name'),
     	'Tech'				        => $contract->getData('technology'),
     	'Support Hours'				=> $contract->getData('support_hours'),
