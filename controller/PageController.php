@@ -146,7 +146,7 @@ class PageController{
         return 'template/standard_inside.html';
     }
     private function getViewNameFor( $controller, $action){
-    	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( $action );
+    	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
     }
 }
 ?>

@@ -104,6 +104,10 @@ class Render{
 
 		if ( class_exists( $field_type)){
 			$class = $field_type;
+			if( isset($search_criteria['select_none']) ){
+				$tokens['select_none'] = $search_criteria['select_none'];
+				unset($search_criteria['select_none']);
+			} 
 			$search_criteria ? $objects = getMany( $class, $search_criteria)
 							 : $objects = getAll( $class);
 			if( $objects ) {
@@ -111,6 +115,7 @@ class Render{
 			} else {
 				$data = array();
 			}
+
 			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
 			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
 			return $this->select( $data, $tokens);
@@ -133,7 +138,7 @@ class Render{
 	    if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.htmlspecialchars($o['title']).'</option>';
 	    foreach( $data as $value => $description){
 	        if ( isset( $o['selected_value']) && $value == $o['selected_value']){	$selected = 'selected="selected"';}
-	        							else	{	$selected = '';}
+			else{	$selected = '';}
 	        $options_html .= '<option '.$selected.' value="'.$value.'">'.htmlspecialchars( $description).'</option>';
 	    }
 	    if ( isset( $o['select_none']) && $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
