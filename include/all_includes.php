@@ -1,5 +1,6 @@
 <?php
 #define('DIRECTORY_SEPARATOR','/');
+require_once('constants.php');
 require_once('utility_includes.php');
 require_once('model_includes.php');
 require_once('lib_includes.php');
