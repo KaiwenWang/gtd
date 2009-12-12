@@ -1,7 +1,7 @@
 <?php
-function supportcontractNewForm( $contract, $o = array() ){
-    $r = getRenderer();
-    $form = new Form( array( 'controller'=>'SupportContract', 'action'=>'create'));
+function supportcontractRenewForm( $contract, $o = array() ){
+    $r =& getRenderer();
+    $form = new Form( array( 'controller'=>'SupportContract', 'action'=>'proccess_renewal'));
     $fs = $form->getFieldSetFor($contract);
 
     $list_items = array(
@@ -23,7 +23,7 @@ function supportcontractNewForm( $contract, $o = array() ){
 
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'New Contract')
+    							array( 'title'=>'Renew Contract')
     						  );
 
     return $form->html;

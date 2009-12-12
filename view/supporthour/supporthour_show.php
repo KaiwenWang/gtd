@@ -17,10 +17,6 @@ function supporthourShow($d){
     				   	</div>';
 
 	$hidden_forms = $r->view('jsHideable',array(
-						'Create New SupportContract'=> $r->view(	
-													 	 'supportcontractNewForm', 
-														 $d->new_support_contract
-														),
 						'Log Hours'	=> $r->view(
 												'hourNewForm', 
 												$d->new_hour, 

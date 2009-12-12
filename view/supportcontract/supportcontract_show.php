@@ -4,8 +4,6 @@ function supportcontractShow($d){
     $contract_finder 	= $r->view( 'jumpSelect', 		$d->contract );
  
 	$hidden_forms = $r->view('jsHideable', array(
-  						'Create New Support Contract' => $r->view( 'supportcontractNewForm', 
-  														  			$d->new_contract),
 						'Log Support Hour' => $r->view( 'supporthourNewForm',
 														$d->new_hour)
   							)
@@ -22,7 +20,7 @@ function supportcontractShow($d){
 
 
 	return array(
-		'title' => $d->	contract->getName(),
+		'title' => $d->contract->getName(),
 		'controls' => $contract_finder,
 		'body' 	=> 	$contract_info
 					.$hidden_forms

@@ -26,7 +26,7 @@ function supportcontractInfo( $contract, $options ) {
 										array( 'id'=>'correct-mistake-contract-btn', 'class'=>'deter-btn')
 									  )
 					.$r->link( 'SupportContract', 
-										array( 'action'=>'edit', 'id'=>$contract->id), 
+										array( 'action'=>'renew', 'id'=>$contract->id), 
 										'Update Contract', 
 										array( 'id'=>'update-contract-btn', 'class'=>'standard-btn')
 									  )

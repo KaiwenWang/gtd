@@ -23,7 +23,7 @@ function supportcontractEditForm( $contract, $o = array() ){
 
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Edit Project')
+    							array( 'title'=>'Edit Contract')
     						  );
 
     return $form->html;

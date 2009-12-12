@@ -18,8 +18,6 @@ class SupportHourController extends PageController {
 								  'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
 								  ));
-								  
-		$d->new_support_contract = new SupportContract();
     }
     function update( $params ){
     	$h = $this->updated_hours[0];
