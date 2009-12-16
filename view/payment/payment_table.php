@@ -8,7 +8,7 @@ function paymentTable( $modelObjects, $o = array()){
     $r = getRenderer(  );
     foreach($modelObjects as $m){
         $total_payments += $m->getAmount( );
-        $out['rows'][] = array( $m->getData('date'), 
+        $out['rows'][] = array( $r->link( 'Payment', array('action' => 'show', 'id' => $m->id), $m->getData('date')), 
                                 $r->link( 'Company', array( 'action' => 'show', 'id'=>$m->getCompany()->id ), $m->getCompanyName() ), 
                                 '$ ' . number_format( $m->getAmount(), 2) );
     }
