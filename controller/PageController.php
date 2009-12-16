@@ -67,6 +67,12 @@ class PageController{
     protected function redirectTo( $o = array()){
     	$router = Router::singleton();
     	$r = getRenderer();
+
+        if($o['url'] ) {
+            $this->redirect_url = $o['url'];
+            return;
+        }
+
     	$o['controller']	? $controller = $o['controller']
     						: $controller = $router->controller_prefix;
     	$o['action']	? $action = $o['action']

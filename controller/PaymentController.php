@@ -5,10 +5,13 @@ class PaymentController extends PageController {
                                 );
 
     function index( $params){
-    	$search_criteria = array("sort"=>"company_id,date");
+    	$search_criteria = array("sort"=>"date DESC");
     	$search_criteria = array_merge($search_criteria, $params);
 
 		$this->data->payments = getMany( 'Payment', $search_criteria);
+        $this->data->new_payment= new Payment();
+		$this->data->new_payment->set(array( 
+										'date' => date('Y-m-d') ));
     }        
     function show($params) {
         $params['id'] ? $this->data->payment = new Payment($params['id']) 
@@ -22,10 +25,10 @@ class PaymentController extends PageController {
 	function create( $params){
 		$c = $this->new_payments[0];
     	$c->save();
-    	$this->redirectTo( array('controller'=>'Company',
+    	$this->redirectTo( referrer( array('controller'=>'Company',
     							 'action' => 'show',
     							 'id'=>$c->getCompany()->id
-    							 ));
+    							 ) ));
     }
 	function update( $params){
 		$c = $this->updated_payments[0];
