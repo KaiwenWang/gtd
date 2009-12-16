@@ -28,7 +28,7 @@ function hourTable( $hours, $o = array()){
   #$table['rows'][] = array(	'TOTAL', '', '', '', $total_hours, $billable_hours );
 
     return $r->view( 'basicTable', $table, 
-          array('title'=>'Hours', 'search' => $r->view('hourSearch'))) 
+          array('title'=>'Hours', 'search' => $r->view('hourSearch', true))) 
         . '<div class="totals-data"><h3 class="basic-table-header">Total Hours: ' . $total_hours . '</h3></div>'
         . '<div class="totals-data"><h3 class="basic-table-header">Billable Hours: ' . $billable_hours . "</h3></div><p>&nbsp;</p>";
   

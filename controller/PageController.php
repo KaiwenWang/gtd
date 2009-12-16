@@ -42,6 +42,8 @@ class PageController{
 
     function search_params($key) {
         if(!isset($_GET[$key])) return array();
+        $valid_entries = array_filter( $_GET[$key] ) ;
+        if(empty($valid_entries)) return array();
         return array($key => $_GET[$key] );
     }
     function executeActionChain( ){
@@ -68,7 +70,7 @@ class PageController{
     	$router = Router::singleton();
     	$r = getRenderer();
 
-        if($o['url'] ) {
+        if(isset($o['url']) && $o['url'] ) {
             $this->redirect_url = $o['url'];
             return;
         }

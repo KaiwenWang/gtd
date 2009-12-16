@@ -56,6 +56,18 @@ class Estimate extends ActiveRecord {
 	function getHighEstimate(){
 		return $this->getData('high_hours');
 	}
+
+    function getProject() {
+        if(!$this->get('project_id')) return false;
+        return new Project( $this->get('project_id'));
+    }
+
+    function getName( ) {
+        $project = $this->getProject();
+        $desc = substr($this->get('description'), 0, 40);
+        if($project) return $project->getName() . ": " . $desc;
+        return $desc;
+    }
 }
 
 ?>

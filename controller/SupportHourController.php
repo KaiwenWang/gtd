@@ -3,6 +3,12 @@ class SupportHourController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
 	
     function index( $params ){
+        $d = $this->data;
+        $d->support_hours = getMany( 'SupportHour', array('sort' => 'id DESC'));
+		$d->new_support_hour = new SupportHour();
+		$d->new_support_hour->set( array( 'staff_id'=>getUser(),
+								  'date'=>date('Y-m-d')
+								  ));
     
     }
     function show( $params ){
@@ -32,10 +38,10 @@ class SupportHourController extends PageController {
     function create( $params){
 		$h = $this->new_hours[0];
 		$h->save();
-        $this->redirectTo(array('controller' => 'SupportContract', 
+        $this->redirectTo(referrer(array('controller' => 'SupportContract', 
         						'action' => 'show', 
         						'id' => $h->get('support_contract_id')
-        						));
+                            )));
     }
     function destroy(){
     }
