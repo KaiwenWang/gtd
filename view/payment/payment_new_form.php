@@ -9,7 +9,8 @@ function paymentNewForm( $payment, $o = array() ){
     	'Company'		    => $fs->company_id,
     	'Amount'				    => $fs->amount,
     	'Date'      				=> $fs->date,
-        'Type'                      => $fs->type,
+        'Payment Type'              => $fs->payment_type,
+        'Check No.'                 => $fs->check_number,
         'Notes'                     => $fs->notes
     );
 
