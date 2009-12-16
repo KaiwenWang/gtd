@@ -106,6 +106,4 @@ class SupportContract extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
-	}
-
-?>
+}

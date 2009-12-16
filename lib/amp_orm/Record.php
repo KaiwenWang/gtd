@@ -293,12 +293,11 @@ class Record extends Data {
         }
 
         //sort descending
-/*
-        if ( $this->_sort_direction == AMP_SORT_DESC ) {
+        if ( strtolower(  $this->_sort_direction ) == 'desc') {
             return strnatcasecmp( $file2->$sort_method( ) , 
                                     $file1->$sort_method( ) ); 
         }
-*/
+
         //sort ascending
         return strnatcasecmp( $file1->$sort_method( ) , $file2->$sort_method( ) );
     }

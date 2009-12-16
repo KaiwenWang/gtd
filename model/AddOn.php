@@ -41,6 +41,19 @@ class AddOn extends  ActiveRecord {
         return $total_add_ons;
     }	
 
-	}
+    function getCompany(  ) {
+        $contract = new SupportContract( $this->get( 'support_contract_id') );
+        $company = new Company( $contract->get( 'company_id' ));
+        return $company;
+    }
 
-?>
+    function _sort_default( &$item_set ){
+        return $this->sort( $item_set, 'date', 'desc');
+    }
+
+    function getDate() {
+        return $this->get( 'date' );
+    }
+
+}
+
