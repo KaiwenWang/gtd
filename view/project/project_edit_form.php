@@ -12,7 +12,8 @@ function projectEditForm( $p, $o = array()){
 			'Project Manager'=> $fs->staff_id,
 			'Designer'=>		$fs->desinger,
 			'Hour Cap'=>		$fs->hour_cap,
-			'Hourly Rate'=>		$fs->hourly_rate
+			'Hourly Rate'=>		$fs->hourly_rate,
+            'Server' =>         $fs->server
 			);
 			
     $form->content = $r->view( 'basicFormContents', 

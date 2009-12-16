@@ -50,6 +50,7 @@ class Project extends ActiveRecord {
 							'main_payment_date'		:  'date',
 							'billing_type'  :  'text',
 							'hours_low'  	:  'float',
+                            'server'        : 'text'
 						},
 			'required' : {
 							

@@ -18,7 +18,8 @@ function projectNewForm( $project, $o = array()){
 		'Initial Estimated Cost'=> $f->cost,
 		'Hour Cap'=> $f->hour_cap,
 		'Hourly Rate'=> $f->hourly_rate,
-		'Billing Status'=> $f->billing_status
+		'Billing Status'=> $f->billing_status,
+        'Server' => $f->server
 	);		
 
     $form->content = $r->view( 'basicFormContents', 

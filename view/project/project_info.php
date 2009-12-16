@@ -56,6 +56,7 @@ function projectInfo( $p, $o = array()){
 		    	<span class="float-left">Hourly Rate: '.$p->get('hourly_rate').'</span>
 		    	<span class="float-left">Total Hours Worked: '.$p->getTotalHours().'</span>
 		    	<span class="float-left">Total Billable Hours: '.$p->getBillableHours().'</span>
+		    	<span class="float-left">Server: '.$p->get('server').'</span>
 		    	<div class="clear-left"></div>
 			</div>
     ';
