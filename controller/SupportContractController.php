@@ -26,10 +26,10 @@ class SupportContractController extends PageController {
 										'date' => date('Y-m-d'),
 									  	'support_contract_id' => $params['id'] )
 										);
-		$this->data->new_addon = new AddOn();
-		$this->data->new_addon->set(array( 
+		$this->data->new_charge = new Charge();
+		$this->data->new_charge->set(array( 
 										'date' => date('Y-m-d'),
-									  	'support_contract_id' => $params['id'] )
+									  	'company_id' => $this->data->contract->get( 'company_id' ) )
 										);
 	}
 	function renew( $params ){

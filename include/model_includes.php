@@ -6,7 +6,7 @@ require_once('lib/amp_orm/Record.php');
 require_once('lib/amp_orm/RecordCollection.php');
 require_once('lib/amp_orm/AMP_Data_Search.php');
 require_once('model/ActiveRecord.php');
-require_once('model/AddOn.php');
+require_once('model/Charge.php');
 require_once('model/Contact.php');
 require_once('model/Invoice.php');
 require_once('model/Bandwidth.php');

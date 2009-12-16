@@ -17,6 +17,10 @@ class CompanyController extends PageController {
 						'staff_id'=>getUser()
 					  ));
 		$this->data->new_project = $p;
+		$this->data->new_charge = new Charge();
+		$this->data->new_charge->set(array( 
+										'date' => date('Y-m-d'),
+									  	'company_id' => $params['id'] ));
   	}
 	function create( $params){
 		$c = $this->new_companies[0];

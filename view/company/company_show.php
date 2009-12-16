@@ -15,13 +15,16 @@ function companyShow($d){
 	$hidden_forms = $r->view('jsHideable',
 						array(
 							'Create New Project' => $r->view( 'projectNewForm', 
-															  $d->new_project)
+															  $d->new_project),
+                            'Add Charge' => $r->view( 'chargeNewForm',
+                                                            $d->new_charge )
 						)
 					);
 					
 	$project_table = $r->view( 'projectTable', $d->company->getProjects());
 	$contract_table = $r->view( 'supportcontractTable', $d->company->getSupportContracts());
 	$contact_table = $r->view( 'contactTable', $d->company->getContacts());
+    $charge_table= $r->view( 'chargeTable', $d->company->getCharges( ));
 	
 	return  array(
 		'title' => $d->company->getName(),
@@ -31,6 +34,6 @@ function companyShow($d){
 					.$project_table
 					.$contract_table
 					.$contact_table
+					.$charge_table
 	);	
 }
-?>

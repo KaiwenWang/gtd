@@ -89,13 +89,6 @@ class SupportContract extends ActiveRecord {
 		}
 		return $this->bandwidths;
 	}
-	function getAddOns(){
-		if(!$this->add_ons){
-			$finder = new AddOn();
-			$this->add_ons = $finder->find(array("support_contract_id"=>$this->id));
-		}
-		return $this->add_ons;	
-	}
 	function getCompany(){
 		if(!$this->company){
 			$this->company = new Company( $this->getData('company_id'));

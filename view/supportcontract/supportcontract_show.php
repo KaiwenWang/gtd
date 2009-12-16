@@ -6,8 +6,8 @@ function supportcontractShow($d){
 	$hidden_forms = $r->view('jsHideable', array(
 						'Log Support Hour' => $r->view( 'supporthourNewForm',
 														$d->new_hour),
-						'Create Add On' => $r->view( 'addonNewForm',
-														$d->new_addon )
+                        'Add Charge' => $r->view( 'chargeNewForm',
+                                                        $d->new_charge )
   							)
   						);
 
@@ -18,7 +18,6 @@ function supportcontractShow($d){
 					';
     
     $hour_table 		= $r->view( 'supporthourTable', $d->contract->getHours( ));
-    $addon_table= $r->view( 'addonTable', $d->contract->getAddOns( ));
 
 
 
@@ -28,6 +27,5 @@ function supportcontractShow($d){
 		'body' 	=> 	$contract_info
 					.$hidden_forms
 					.$hour_table
-                    .$addon_table
 		);
 }

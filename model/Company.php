@@ -113,6 +113,11 @@ class Company extends ActiveRecord {
 		return $this->billing_contacts;	
 	}
 	
+	function getCharges(){
+		if(!$this->charges){
+			$finder = new Charge();
+			$this->charges = $finder->find(array("company_id"=>$this->id));
+		}
+		return $this->charges;	
+	}
 }
-
-?>
