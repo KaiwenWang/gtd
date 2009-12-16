@@ -25,7 +25,6 @@
 						.children('form')
 						.children('.qs-input');
 			selector.quicksearch(rows);
-                        });
 		});
 	}
 	$.fn.enable_Swappable = function (){
