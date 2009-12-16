@@ -21,6 +21,10 @@ class CompanyController extends PageController {
 		$this->data->new_charge->set(array( 
 										'date' => date('Y-m-d'),
 									  	'company_id' => $params['id'] ));
+		$this->data->new_payment = new Payment();
+		$this->data->new_payment->set(array( 
+										'date' => date('Y-m-d'),
+									  	'company_id' => $params['id'] ));
   	}
 	function create( $params){
 		$c = $this->new_companies[0];
@@ -36,4 +40,3 @@ class CompanyController extends PageController {
     }
 
 }
-?>

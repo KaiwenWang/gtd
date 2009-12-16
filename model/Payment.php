@@ -23,9 +23,7 @@ class Payment extends ActiveRecord {
 							
 						}
 			}";
-    function __construct( $id = null){
-        parent::__construct( $id);
-    }
+
     function getAmount(){
             return $this->getData('amount');
     }
@@ -39,6 +37,14 @@ class Payment extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+    function _sort_default( &$item_set ){
+        return $this->sort( $item_set, 'date', 'desc');
+    }
+
+    function getDate() {
+        return $this->get( 'date' );
+    }
+
 	
 }
 

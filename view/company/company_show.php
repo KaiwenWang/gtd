@@ -17,7 +17,9 @@ function companyShow($d){
 							'Create New Project' => $r->view( 'projectNewForm', 
 															  $d->new_project),
                             'Add Charge' => $r->view( 'chargeNewForm',
-                                                            $d->new_charge )
+                                                            $d->new_charge ),
+                            'Add Payment' => $r->view( 'paymentNewForm',
+                                                            $d->new_payment)
 						)
 					);
 					
@@ -25,6 +27,7 @@ function companyShow($d){
 	$contract_table = $r->view( 'supportcontractTable', $d->company->getSupportContracts());
 	$contact_table = $r->view( 'contactTable', $d->company->getContacts());
     $charge_table= $r->view( 'chargeTable', $d->company->getCharges( ));
+    $payment_table= $r->view( 'paymentTable', $d->company->getPayments( ));
 	
 	return  array(
 		'title' => $d->company->getName(),
@@ -35,5 +38,6 @@ function companyShow($d){
 					.$contract_table
 					.$contact_table
 					.$charge_table
+					.$payment_table
 	);	
 }
