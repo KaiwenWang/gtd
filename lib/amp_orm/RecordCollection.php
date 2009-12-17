@@ -20,7 +20,7 @@ class RecordCollection extends Data {
             return true;
         }
 
-        trigger_error ( sprintf( AMP_TEXT_ERROR_DATABASE_SQL_FAILED, get_class( $this ), 'read', $this->dbcon->ErrorMsg(), $sql ));
+        trigger_error ( sprintf( "SQL failed for %s %s Error: %s SQL: %s", get_class( $this ), 'read', $this->dbcon->ErrorMsg(), $sql ));
         return false;
         
     }

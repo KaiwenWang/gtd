@@ -42,5 +42,6 @@ function companyShow($d){
 					.$contact_table
 					.$charge_table
 					.$payment_table
+                    .$invoice_table
 	);	
 }

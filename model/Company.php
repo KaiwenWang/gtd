@@ -54,21 +54,8 @@ class Company extends ActiveRecord {
 		return $this->support_contracts;
 	}
 	function getInvoices(){
-		if (!$this->invoices){
-			$contracts = $this->getSupportContracts();
-			$projects = $this->getProjects();
-			$invoices = array();
-			if($contracts){
-				foreach($contracts as $contract){
-					if($contract->getInvoices()) $invoices = array_merge($invoices, $contract->getInvoices());
-				}
-			}
-			if($projects){
-				foreach($projects as $project){
-					if($project->getInvoices()) $invoices = array_merge($invoices,$project->getInvoices());
-				}
-			}
-				$this->invoices = $invoices;
+        if(!isset($this->invoices)) {
+            $this->invoices = getMany( 'Invoice', array('company_id' => $this->id));
 		}
 		return $this->invoices;
 	}
@@ -79,7 +66,14 @@ class Company extends ActiveRecord {
 		}
 		return $this->payments;	
 	}
-	function getTotalPayments(){
+	function getPaymentsTotal(){
+        $payments = $this->getPayments();
+        if(!$payments) return 0;
+        return array_reduce($this->getPayments(), 
+            function( $total, $pymt) { 
+                return $total + $pymt->getAmount(); 
+            }, 0 );
+        /*
 		$payments = $this->getPayments();
 		if( !$payments) return 0;
 		$total_payments = 0;
@@ -87,7 +81,9 @@ class Company extends ActiveRecord {
 			$total_payments += $payment->getAmount();
 		}
 		return $total_payments;
+         */
 	}
+
 	function getTotalInvoices(){
 		$invoices = $this->getInvoices();
 		$total_invoices = 0;
@@ -95,9 +91,6 @@ class Company extends ActiveRecord {
 			$total_invoices += $invoice->getAmount();
 		}
 		return $total_invoices;
-	}
-	function getBalance(){
-		return $this->getTotalInvoices() - $this->getTotalPayments();
 	}
 	function getContacts(){
 		if(!$this->contacts){
@@ -114,10 +107,44 @@ class Company extends ActiveRecord {
 	}
 	
 	function getCharges(){
-		if(!$this->charges){
+		if(!isset($this->charges)){
 			$finder = new Charge();
 			$this->charges = $finder->find(array("company_id"=>$this->id));
 		}
 		return $this->charges;	
 	}
+
+    function getChargesTotal(){
+        $charges = $this->getCharges();
+        return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
+    }
+
+    function getSupportHours() {
+        $support_contracts = getMany('SupportContract', array('company_id' => $this->id));
+        $support_contract_ids = array_map(function($sc) { return $sc->id; }, $support_contracts);
+        return getMany( 'Hour', array( 'support_contract' => $support_contract_ids ));
+    }
+    
+    function getProjectHours() {
+        $projects = getMany('Project', array('company_id' => $this->id));
+        $project_ids = array_map(function($p) { return $p->id; }, $projects);
+        $estimates = getMany('Estimate', array('project' => $project_ids));
+        $estimate_ids = array_map(function($p) { return $p->id; }, $estimates);
+        return getMany( 'Hour', array( 'estimate' => $estimate_ids ));
+    }
+
+    function calculateProjectCharges($hours) {
+        if(!$hours) return 0;
+        return array_reduce($hours, function($total, $hour) { return $total + $hour->getCost(); }, 0 );
+    }
+
+    function getBalance() {
+        $project_hours = $this->getProjectHours();
+        $project_charges = $this->calculateProjectCharges($project_hours);
+        return $project_charges + $this->getChargesTotal() - $this->getPaymentsTotal();
+
+        $support_hours = $this->getSupportHours();
+        $support_charges = $this->calculateSupport($support_hours);
+        return $project_charges + $support_charges + $this->getChargesTotal() - $this->getPaymentsTotal();
+    }
 }

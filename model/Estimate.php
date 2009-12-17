@@ -68,6 +68,11 @@ class Estimate extends ActiveRecord {
         if($project) return $project->getName() . ": " . $desc;
         return $desc;
     }
+
+    function makeCriteriaProject($values) {
+       return $this->_makeCriteriaMultiple( 'project_id', $values );
+    }
+
 }
 
 ?>

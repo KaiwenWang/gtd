@@ -14,7 +14,7 @@ function invoiceTable( $invoices, $options = array( )) {
     foreach($invoices as $e){
       $url = $e->getData('url');
       $table['rows'][] = array(	$e->id,
-      							$e->getData( 'start_date'),
+      							$r->link( 'Invoice', array('action' => 'show', 'id' => $e->id ), $e->getData( 'start_date')),
       							$e->getData('end_date'),
       							"<a href='$url' target='_blank'>" . $e->getData('sent_date') . "</a>",
       							$e->getAmount()

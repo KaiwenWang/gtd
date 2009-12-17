@@ -30,27 +30,39 @@ class Hour extends ActiveRecord {
         parent::__construct( $id);
     }
     function getName(){
-        return $this->getData('description');
+        return $this->get('description');
     }
 	function getHours(){
-		$hours = $this->getData('hours');
+		$hours = $this->get('hours');
     	if (!$hours) $hours = 0;
     	return $hours;
 	}
 	function getDiscount(){
-		$hours = $this->getData('discount');
+		$hours = $this->get('discount');
 		if (!$hours) $hours = 0;
 		return $hours;
 	} 
+    function getCost() {
+        $estimate = $this->getEstimate();
+        $project = $estimate->getProject();
+        return $this->get('hours') * $project->get('hourly_rate');
+    }
 	function getBillableHours(){
 		return $this->getHours() - $this->getDiscount();		
 	}
 	function getStaff(){
-	   if (!$this->staff){
-	       $this->staff = new Staff( $this->getData('staff_id'));
+	   if (!isset($this->staff)){
+	       $this->staff = new Staff( $this->get('staff_id'));
         }
         return $this->staff;
 	}
+    function getEstimate(){
+        if (!isset($this->estimate)){
+            $this->estimate = new Estimate( $this->get('estimate_id'));
+        }
+        return $this->estimate;
+    }
+
     function getStaffName(){
         $staff = $this->getStaff();
         return $staff->getName();
@@ -60,6 +72,21 @@ class Hour extends ActiveRecord {
 
     function makeCriteriaHourSearch($data) {
         return $this->makeCriteriaForDateRange( $data );
+    }
+
+    function makeCriteriaSupportContract($values) {
+        if(empty($values)) return;
+        if(is_array($values)) {
+            return "support_contract_id IN (". implode(",", $values). ")";
+        }
+        return "support_contract = " . $this->dbcon->qstr( $values );
+    }
+    function makeCriteriaEstimate($values) {
+        if(empty($values)) return;
+        if(is_array($values)) {
+            return "estimate_id IN (". implode(",", $values). ")";
+        }
+        return "estimate_id = " . $this->dbcon->qstr( $values );
     }
 }
 ?>

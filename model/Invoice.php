@@ -1,7 +1,7 @@
 <?php
 class Invoice extends ActiveRecord {
 
-	var $datatable = "Invoice";
+	var $datatable = "invoice";
 	var $name_field = "date";
 	var $_class_name = "Invoice";
 	var $invoice_items;
@@ -37,13 +37,8 @@ class Invoice extends ActiveRecord {
 		return $this->invoice_items;	
 	}
 	function getAmount(){
-		if ($this->getData('amount')) return $this->getData('amount');
-		$items = $this->getInvoiceItems();
-		$total = 0;
-		foreach ($items as $item){
-			$total += $item->getAmount();
-		}
-		return $total;
+		#if ($this->get('amount')) return $this->get('amount');
+        return $this->calculateTotals();
 	}	
 	function getCompany(){
 		if(!$this->company){
@@ -51,6 +46,11 @@ class Invoice extends ActiveRecord {
 		}
 		return $this->company;	
 	}
-    }
 
-?>
+    function calculateTotals() {
+        $company = $this->getCompany();
+        $amount = $company->getBalance();
+        $this->set(array('amount' => $amount ));
+        return $amount;
+    }
+}

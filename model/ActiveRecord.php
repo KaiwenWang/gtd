@@ -56,5 +56,13 @@ class ActiveRecord  extends Record {
             }
             return 'TRUE';
         }
+
+    function _makeCriteriaMultiple($fieldname, $values) {
+        if(empty($values)) return;
+        if(is_array($values)) {
+            return "$fieldname IN (". implode(",", $values). ")";
+        }
+        return "$fieldnamme = " . $this->dbcon->qstr( $values );
+    }
 }
 ?>
