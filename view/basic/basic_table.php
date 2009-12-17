@@ -18,7 +18,6 @@ function basicTable( $table, $o = array()){
 	if( $o['title']) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
 	$html .= '<div class="quicksearch"><form><input type="text" class="qs-input" name="qs-input" /></form></div>';
 	if( isset( $o['search'] ) && $o['search']) $html .= '<div class="basic-table-search">'.$o['search'].'</div>';
-
     $html .= '<table class="basic-table tablesorter" cellspacing="0" cellpadding="0">';
 	$html .= '<thead>';
     $html .= '<tr>';

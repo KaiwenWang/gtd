@@ -57,7 +57,10 @@ class HourController extends PageController {
         						'id' => $h->get('estimate_id')
         						)));
     }
+	function search($params){
+		$this->data = getMany( 'Hour', $params);
+		$this->options = $params;
+	}
     function destroy(){
     }
 }
-?>

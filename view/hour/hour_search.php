@@ -1,29 +1,50 @@
 <?php
 function hourSearch( $hours, $o = array()){
-    $r = new Render;
-    $start_date = isset($_GET['hour_search']['start_date']) ? $_GET['hour_search']['start_date'] : '';
-    $end_date = isset($_GET['hour_search']['end_date']) ? $_GET['hour_search']['end_date'] : '';
-    $html = '<form method="get" action="'.$_SERVER['PHP_SELF'] . '">' 
-          . '<div class="search-input">'
-          . '<label for="hour_search_start">Start Date</label>'
-          . '<input type="text" name="hour_search[start_date]" id="hour_search_start" value="'. $start_date .'" >'
-          . '</div>'
-          . '<div class="search-input">'
-          . '<label for="hour_search_end">End Date</label>'
-          . '<input type="text" name="hour_search[end_date]" id="hour_search_end" value="'. $end_date .'" >'
-          . '</div>'
-          . '<div class="search-input">'
-          . '<input type="submit" value="search">'
-          . '</div>';
+    $r = getRenderer();
 
-    foreach($_GET as $key => $value ) {
-        if($key == 'hour_search' ) continue;
-        $html .= "<input type='hidden' value='$value' name='$key'>";
-    }
+    $start_date = isset($o['hour_search']['start_date']) ? $o['hour_search']['start_date'] : '';
+    $end_date 	= isset($o['hour_search']['end_date']) ? $o['hour_search']['end_date'] : '';
+	unset($o['hour_search']);
 
-    $html .= '</form>'
-          . '<script type="text/javascript">'
-          . '$( function() { $("#hour_search_start, #hour_search_end").datepicker( { dateFormat: "yy-mm-dd" } ); } );'
-          . '</script>';
-    return $html;
+	
+	$search_form = new Form( array_merge(
+								array(	'method'=>'get',
+										'controller'=>'Hour',
+										'action'=>'search'),
+								$o
+							));
+
+    $search_form->content = '
+        <div class="search-input">
+        	<label for="hour_search_start">Start Date</label>
+			'.$r->input( 'date', array(	'name'=>'hour_search[start_date]',
+										'value'=>$start_date,
+										'id'=>'hour_search_start'
+										)).'
+        </div>
+        <div class="search-input">
+          	<label for="hour_search_end">End Date</label>
+			'.$r->input( 'date', array(	'name'=>'hour_search[end_date]',
+										'value'=>$end_date,
+										'id'=>'hour_search_end'
+										)).'
+        </div>
+        <div class="search-input">
+			'.$search_form->submitBtn.'
+		</div>
+		';
+
+	if($hours){
+		$hours_table = $r->view('hourTable',
+								$hours,
+								array( 'search_form' => $search_form->html )
+								);
+	}else{
+		$hours_table = '<h3>No hours matched your search</h3>'
+						.$search_form->html;
+	} 
+
+	return '<div id="hour-search-1" class="hour-search clear-left">
+				'.$hours_table.'
+			</div>';
 }

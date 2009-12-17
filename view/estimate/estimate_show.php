@@ -1,7 +1,8 @@
 <?php
 function estimateShow($d){
-	$r =& getRenderer();
-	$select_project = $r->view( 'jumpSelect', $d->project);
+	$r = getRenderer();
+
+	$select_project = $r->view( 'jumpSelect', $d->project );
 
 	$editable_project_info= $r->view(	'jsSwappable',
 										'Estimate Info',
@@ -23,23 +24,26 @@ function estimateShow($d){
 												array('project_id'=>$d->project->id)
 											   )
 					));
+							
+	$estimate_table = $r->view('estimateTable', $d->estimates);
 					
-	$d->hours 	? $hours_table = $r->view('hourTable', $d->hours)
+	$d->hours 	? $hours_table = $r->view( 'hourSearch',
+											$d->hours,
+											array(	'ajax_target_id'=>'hour-search-1',
+													'estimate_id'=>$d->estimate->id)
+											)
 				: $hours_table = '
 								<div class="empty-table-message">
 									No hours have been logged against this estimate in this period.
 								</div>
 								';
-								
-	$estimate_table = $r->view('estimateTable', $d->estimates);
-
+	
 	return	array(
 		'title' => $d->project->getName().': '.$d->estimate->getName(),
 		'controls' => $select_project,
 		'body' => 	$editable_project_info
 					.$hidden_forms
-					.$hours_table
 					.$estimate_table
+					.$hours_table
 		);
-
 }
