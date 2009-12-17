@@ -21,6 +21,8 @@ class Form extends PHP5_Accessor{
 						
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
+		unset($o['method'],$o['class'],$o['id']);
+		$this->params = $o;	
 	}
 	function getSubmitBtn(){
 		$this->does_submit_button_exist = true;
@@ -32,9 +34,14 @@ class Form extends PHP5_Accessor{
 		
 		if (!$this->does_submit_button_exist) $this->content .= '<div class="submit-container">'.$r->submit().'</div>';
 
+		$preset_search_criteria = '';
+		foreach($this->params as $key=>$value){
+    	   	$preset_search_criteria .= $r->input( 'hidden', array('name'=>$key,'value'=>$value));
+		}
 		$html = $r->form( $this->action, 
-						  $this->controller, 
-						  $this->content, 
+						  $this->controller,
+						  $preset_search_criteria 
+						  .$this->content, 
 						  array('method'=>$this->method,
 						  		'class'=>$this->css_class,
 						  		'id'=>$this->css_id)

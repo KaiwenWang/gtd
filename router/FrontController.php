@@ -12,6 +12,8 @@ class FrontController {
                                   		               					 $this->router->params( ))
                               :	$application_html = $this->renderLoginScreen();
 
+		if (isset($this->router->params['ajax_target_id'])) return $application_html;
+
 		$r = getRenderer();
         return $r->template( 'template/gtd_main_template.html', 
         					  array( 'main-application'=>$application_html,

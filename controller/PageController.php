@@ -3,6 +3,7 @@ class PageController{
 
     public $params = array();
 	public $data;
+	public $options = array();
 	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
 
 	protected $authentication_type = 'staff'; // staff, public
@@ -23,6 +24,7 @@ class PageController{
         $this->generateFilterSequences();
     } 
     function execute( $action, $params = array()){
+		unset($params['action'],$params['controller']);
         $this->params = $params;
     	$this->current_action = $action;
     	if( isset($params['partial']) && $params['partial']) $this->render_partial = true;
@@ -39,13 +41,18 @@ class PageController{
         }
         return false;
     }    
-
     function search_params($key) {
         if(!isset($_GET[$key])) return array();
         $valid_entries = array_filter( $_GET[$key] ) ;
         if(empty($valid_entries)) return array();
         return array($key => $_GET[$key] );
     }
+	function options( $key ){
+        if( isset( $this->options[$key]) && $this->options[$key]) {
+            return $this->options[$key];
+        }
+        return false;
+    }    
     function executeActionChain( ){
     	if ( !method_exists( $this, $this->current_action)) bail( 'non-existent action requested: '.$this->current_action);
     	
@@ -86,6 +93,7 @@ class PageController{
     }
     function renderResponse(){
         if ( !$this->responseEnabled ) return false;
+
         $r = getRenderer();
         
         $this->display_options['action']	? $action = $this->display_options['action'] 
@@ -95,12 +103,16 @@ class PageController{
 					                        : $view_name = $this->getViewNameFor( get_class($this), $action);
 					                        	
 		if ($this->display_options['view']) $view_name = $this->display_options['view'];
+		
+		$response = $r->view( $view_name, $this->data, $this->options );
 
-		if ($this->render_partial) {
-			$response = $r->view( $view_name, $this->data );
+		if(!is_array($response)) $response = array('body'=>$response);
+	
+		if ( isset($this->params['ajax_target_id'])) {
 			return $response['body'];
 		}
-        return $r->template( $this->template_path_for( $action), $r->view( $view_name, $this->data ));
+        
+		return $r->template( 'template/standard_inside.html', $response);
     }
     function disableResponse( ) {
         $this->responseEnabled = false;
@@ -151,7 +163,7 @@ class PageController{
     	$this->filter_collection = new $this->filter_collection_name( $this);
     }
     private function template_path_for( $action){
-        return 'template/standard_inside.html';
+        return '';
     }
     private function getViewNameFor( $controller, $action){
     	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );

@@ -126,6 +126,7 @@ class Render{
     	return $this->input( $field_type, $tokens);
     }
     function input( $field_type, $tokens = array()){
+		if ($field_type == 'date') $tokens['class'] = 'date-field';	
     	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
     	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
     	if ( isset( $tokens['value'])) $tokens['value'] = htmlspecialchars( $tokens['value']);
