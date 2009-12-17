@@ -27,7 +27,7 @@ function estimateShow($d){
 	$d->hours 	? $hours_table = $r->view('hourTable', $d->hours)
 				: $hours_table = '
 								<div class="empty-table-message">
-									No hours have been logged against this estimate.
+									No hours have been logged against this estimate in this period.
 								</div>
 								';
 								

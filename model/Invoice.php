@@ -11,6 +11,7 @@ class Invoice extends ActiveRecord {
 			'fields'   : {	
 							'support_contract_id'  :  'SupportContract',
 							'project_id'	:  'Project',
+                            'company_id'    :  'Company',
 							'type'  		:  'text',
 							'start_date'  	:  'date',
 							'end_date'  	:  'date',

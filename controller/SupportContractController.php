@@ -31,6 +31,8 @@ class SupportContractController extends PageController {
 										'date' => date('Y-m-d'),
 									  	'company_id' => $this->data->contract->get( 'company_id' ) )
 										);
+        $this->data->hours = getMany('Hour', array_merge(
+                    array('support_contract_id'=>$params['id'], 'sort' => 'date DESC'), $this->search_params('hour_search')));
 	}
 	function renew( $params ){
 		$d = $this->data;

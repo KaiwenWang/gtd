@@ -17,7 +17,12 @@ function supportcontractShow($d){
 						</div>
 					';
     
-    $hour_table 		= $r->view( 'supporthourTable', $d->contract->getHours( ));
+	$d->hours 	? $hours_table = $r->view('supporthourTable', $d->hours)
+				: $hours_table = '
+								<div class="empty-table-message">
+									No hours have been logged against this contract in this period.
+								</div>
+								';
 
 
 
@@ -26,6 +31,6 @@ function supportcontractShow($d){
 		'controls' => $contract_finder,
 		'body' 	=> 	$contract_info
 					.$hidden_forms
-					.$hour_table
+					.$hours_table
 		);
 }

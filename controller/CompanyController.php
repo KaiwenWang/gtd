@@ -25,6 +25,9 @@ class CompanyController extends PageController {
 		$this->data->new_payment->set(array( 
 										'date' => date('Y-m-d'),
 									  	'company_id' => $params['id'] ));
+		$this->data->new_invoice = new Invoice();
+		$this->data->new_invoice->set(array( 
+									  	'company_id' => $params['id'] ));
   	}
 	function create( $params){
 		$c = $this->new_companies[0];
