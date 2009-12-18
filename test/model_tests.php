@@ -108,4 +108,25 @@ class testCompany extends UnitTestCase {
 		}
 	}
 }
+class testCompanyBalanceCalc extends UnitTestCase {
+    function setUp() {
+        $this->company = new Company(249);
+    }
+    function testProjectHours() {
+        $hours = $this->company->getProjectHours();
+        $this->assertEqual( 4, current($hours)->getHours());
+    }
+    function testSupportHours() {
+        $hours = $this->company->getSupportHours();
+        $this->assertEqual( 443, count($hours));
+    }
+
+}
+class testSupportContractCharges extends UnitTestCase {
+    function setUp() {
+        $this->contract = new SupportContract(2857);
+    }
+    function testCharges() {
+    }
+}
 ?>

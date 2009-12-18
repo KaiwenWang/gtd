@@ -60,28 +60,18 @@ class Company extends ActiveRecord {
 		return $this->invoices;
 	}
 	function getPayments(){
-		if(!$this->payments){
-			$finder = new Payment();
-			$this->payments= $finder->find(array("company_id"=>$this->id));
+		if(!isset($this->payments)){
+			$this->payments = getMany('Payment',array("company_id"=>$this->id));
 		}
 		return $this->payments;	
 	}
 	function getPaymentsTotal(){
         $payments = $this->getPayments();
-        if(!$payments) return 0;
-        return array_reduce($this->getPayments(), 
+        if(empty($payments)) return 0;
+        return array_reduce($payments, 
             function( $total, $pymt) { 
                 return $total + $pymt->getAmount(); 
             }, 0 );
-        /*
-		$payments = $this->getPayments();
-		if( !$payments) return 0;
-		$total_payments = 0;
-		foreach ($payments as $payment){
-			$total_payments += $payment->getAmount();
-		}
-		return $total_payments;
-         */
 	}
 
 	function getTotalInvoices(){
@@ -132,11 +122,13 @@ class Company extends ActiveRecord {
             if(!isset($contracts[$contract_id])) $contracts[$contract_id] = array();
 
             $contracts[$contract_id][] = $hour;
+            return $contracts;
         }, array());
-
+        print count($hours_by_contract); 
         $total = 0;
         foreach( $hours_by_contract as $contract_id => $contract_hours ) {
             $contract = new SupportContract( $contract_id );
+            print "Got Contract $contract_id";
             $total += $contract->calculateCharges($contract_hours);
         }
         return $total;

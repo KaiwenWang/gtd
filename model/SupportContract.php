@@ -103,14 +103,46 @@ class SupportContract extends ActiveRecord {
     function calculateCharges( $hours ) {
         //split up by month
         $hours_by_month = array_reduce( $hours, function( $months, $hour ) {
-            $hour_month = date('Ym', strtotime($hour->date));
+            $hour_month = date('Ym', strtotime($hour->get('date')));
             if(!isset($months[$hour_month])) $months[$hour_month] = 0;
             $months[$hour_month] += $hour->getBillableHours();
+            return $months;
         }, array());
 
         //add in months which have no hours
-        
-        $total_charges = array_map( $hours_by_month, array($this, 'calculateMonthlyCharge'));
+        /*$months = array_keys($hours_by_month);
+        sort(&$months);
+        print_r($months);
+        $current_month = $months[0];
+        $last_month = $months[-1];
+        //add_in_missing_months
+        //foreach month check if in months array if not add it with 0
+        /*$real_date = true;
+        if($this->get('end_date') == '0000-00-00') $real_date = false;
+        $end_date = $this->get('end_date') && $real_date ? $this->get('end_date') : time();
+        $real_date = true;
+        if($this->get('start_date') == '0000-00-00') $real_date = false;
+        $sample_time = $this->get('start_date') && $real_date ? $this->get('start_date') : 
+        print $sample_time;
+        print $end_date;
+        while( $sample_time < $end_date ) {
+            $time_key = date('Ym', $sample_time);
+            if(!isset($hours_by_month[$time_key])) {
+                $hours_by_month[$time_key] = 0;
+            }
+            $next_month = date('m', $sample_time) + 1;
+            $next_year = date('Y', $sample_time);
+            if($next_month > 12 ) {
+                $next_month = $next_month - 12;
+                $next_year = $next_year + 1;
+            }
+            $sample_time = time( 0, 0, 0, $next_month, 1, $next_year );
+        }
+         */
+        print("<pre>");
+        print_r($hours_by_month);
+        print("</pre>"); 
+        $total_charges = array_map( array($this, 'calculateMonthlyCharge'), $hours_by_month);
         return array_sum($total_charges);
     }
 

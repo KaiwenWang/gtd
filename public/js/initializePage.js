@@ -72,7 +72,7 @@ $.fn.enable_MultiSelect = function(){
 $.fn.enable_Ajax = function(){
 	initializeSubmitButtons();
 	function initializeSubmitButtons(){
-		$('.standard-form').submit( function(){
+                $('input[name=ajax_target_id]').parents('form').submit( function(){
 			form = this;
 			getGraphData();
 			return false;
