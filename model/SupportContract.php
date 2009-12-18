@@ -11,7 +11,7 @@ class SupportContract extends ActiveRecord {
 	var $product_instances;
 	var $bandwidths;
     var $company;
-        protected static $schema;
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'company_id'  	:  'Company',
@@ -99,4 +99,28 @@ class SupportContract extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+
+    function calculateCharges( $hours ) {
+        //split up by month
+        $hours_by_month = array_reduce( $hours, function( $months, $hour ) {
+            $hour_month = date('Ym', strtotime($hour->date));
+            if(!isset($months[$hour_month])) $months[$hour_month] = 0;
+            $months[$hour_month] += $hour->getBillableHours();
+        }, array());
+
+        //add in months which have no hours
+        
+        $total_charges = array_map( $hours_by_month, array($this, 'calculateMonthlyCharge'));
+        return array_sum($total_charges);
+    }
+
+    function activeMonths() {
+    }
+
+    function calculateMonthlyCharge($hours) {
+        //compare support hours given > support hours / month
+        if($hours <= $this->get('support_hours')) return $this->get('monthly_rate');
+        $overage = $hours - $this->get('support_hours');
+        return $overage * $this->get('hourly_rate') + $this->get('monthly_rate');
+    }
 }

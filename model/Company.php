@@ -124,6 +124,24 @@ class Company extends ActiveRecord {
         $support_contract_ids = array_map(function($sc) { return $sc->id; }, $support_contracts);
         return getMany( 'Hour', array( 'support_contract' => $support_contract_ids ));
     }
+
+    function calculateSupportCharges($support_hours){
+        //split up by supportcontract id
+        $hours_by_contract = array_reduce($support_hours, function($contracts, $hour) {
+            $contract_id = $hour->get('support_contract_id');
+            if(!isset($contracts[$contract_id])) $contracts[$contract_id] = array();
+
+            $contracts[$contract_id][] = $hour;
+        }, array());
+
+        $total = 0;
+        foreach( $hours_by_contract as $contract_id => $contract_hours ) {
+            $contract = new SupportContract( $contract_id );
+            $total += $contract->calculateCharges($contract_hours);
+        }
+        return $total;
+    }
+
     
     function getProjectHours() {
         $projects = getMany('Project', array('company_id' => $this->id));
@@ -141,10 +159,9 @@ class Company extends ActiveRecord {
     function getBalance() {
         $project_hours = $this->getProjectHours();
         $project_charges = $this->calculateProjectCharges($project_hours);
-        return $project_charges + $this->getChargesTotal() - $this->getPaymentsTotal();
 
         $support_hours = $this->getSupportHours();
-        $support_charges = $this->calculateSupport($support_hours);
+        $support_charges = $this->calculateSupportCharges($support_hours);
         return $project_charges + $support_charges + $this->getChargesTotal() - $this->getPaymentsTotal();
     }
 }
