@@ -21,6 +21,7 @@ class Template{
 		}
     }
     function runFile($file) {
+        bail('File:'.$file);
         ob_start();
         include($file);
         $buffer = ob_get_contents();

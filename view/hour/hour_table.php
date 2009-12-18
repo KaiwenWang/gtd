@@ -1,6 +1,7 @@
 <?php
 function hourTable( $hours, $o = array() ){
     $r = getRenderer();
+    if(!$hours) return false;
 
     $table['headers'] = array('id','Action','Logged', 'Staff','Hours','Billable');
     $table['rows'] =  array();
@@ -24,6 +25,7 @@ function hourTable( $hours, $o = array() ){
 	
 	$o['title'] = 'Hours';
 	$o['id'] = 'hour_table';
+    
     $hours_table = $r->view( 'basicTable', $table, $o); 
     
 	$totals = '
@@ -35,8 +37,6 @@ function hourTable( $hours, $o = array() ){
 				</div>
 				';
 
-    $hours_table = $r->view( 'basicTable', $table, array( 'title'=>'Hours', 'search' => $r->view('hourSearch', true))) 
-  
 	return	$totals
 			.$hours_table;
 }

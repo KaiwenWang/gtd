@@ -21,7 +21,7 @@ class Form extends PHP5_Accessor{
 						
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
-		unset($o['method'],$o['class'],$o['id']);
+		unset($o['method'],$o['class'],$o['id'],$o['controller']);
 		$this->params = $o;	
 	}
 	function getSubmitBtn(){

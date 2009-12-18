@@ -37,14 +37,14 @@ function hourSearch( $hours, $o = array()){
 	if($hours){
 		$hours_table = $r->view('hourTable',
 								$hours,
-								array( 'search_form' => $search_form->html )
+								array( 'search' => $search_form->html )
 								);
 	}else{
 		$hours_table = '<h3>No hours matched your search</h3>'
 						.$search_form->html;
 	} 
 
-	return '<div id="hour-search-1" class="hour-search clear-left">
+	return '<div id="'.$o['ajax_target_id'].'" class="hour-search clear-left">
 				'.$hours_table.'
 			</div>';
 }
