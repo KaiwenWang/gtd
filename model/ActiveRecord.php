@@ -54,7 +54,7 @@ class ActiveRecord  extends Record {
             } elseif(isset($data['end_date']) && $data['end_date'] ) {
                     return "$field_name <= " . $this->dbcon->qstr($data['end_date']);
             }
-            return 'TRUE';
+            return;
         }
 
     function _makeCriteriaMultiple($fieldname, $values) {

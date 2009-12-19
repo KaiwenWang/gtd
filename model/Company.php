@@ -96,10 +96,10 @@ class Company extends ActiveRecord {
 		return $this->billing_contacts;	
 	}
 	
-	function getCharges(){
+	function getCharges($override_criteria = array()){
 		if(!isset($this->charges)){
-			$finder = new Charge();
-			$this->charges = $finder->find(array("company_id"=>$this->id));
+            $criteria = array_merge(array("company_id"=>$this->id),$override_criteria);
+			$this->charges = getMany('Charge', $criteria );
 		}
 		return $this->charges;	
 	}
@@ -109,10 +109,11 @@ class Company extends ActiveRecord {
         return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
     }
 
-    function getSupportHours() {
+    function getSupportHours($override_criteria = array()) {
         $support_contracts = getMany('SupportContract', array('company_id' => $this->id));
         $support_contract_ids = array_map(function($sc) { return $sc->id; }, $support_contracts);
-        return getMany( 'Hour', array( 'support_contract' => $support_contract_ids ));
+        $criteria = array_merge(array( 'support_contract' => $support_contract_ids ), $override_criteria);
+        return getMany( 'Hour', $criteria);
     }
 
     function calculateSupportCharges($support_hours){
@@ -133,12 +134,15 @@ class Company extends ActiveRecord {
     }
 
     
-    function getProjectHours() {
+    function getProjectHours($override_criteria = array()) {
+        /*
         $projects = getMany('Project', array('company_id' => $this->id));
         $project_ids = array_map(function($p) { return $p->id; }, $projects);
         $estimates = getMany('Estimate', array('project' => $project_ids));
         $estimate_ids = array_map(function($p) { return $p->id; }, $estimates);
-        return getMany( 'Hour', array( 'estimate' => $estimate_ids ));
+         */
+        $criteria = array_merge(array( 'company' => $this->id), $override_criteria );
+        return getMany( 'Hour', $criteria );
     }
 
     function calculateProjectCharges($hours) {

@@ -53,4 +53,28 @@ class Invoice extends ActiveRecord {
         $this->set(array('amount' => $amount ));
         return $amount;
     }
+
+    function getCharges() {
+        if(isset($this->charges)) return $this->charges;
+        $date_range = array('start_date'    => $this->get('start_date'), 
+                            'end_date'      => $this->get('end_date'));
+        $this->charges = $this->getCompany()->getCharges(array('for_date_range' => $date_range, 'sort' => 'date'));
+        return $this->charges;
+    }
+    function getSupportHours() {
+        if(isset($this->support_hours)) return $this->support_hours;
+
+        $date_range = array('start_date'    => $this->get('start_date'), 
+                            'end_date'      => $this->get('end_date'));
+        $this->support_hours = $this->getCompany()->getSupportHours(array('for_date_range' => $date_range, 'sort' => 'date'));
+        return $this->support_hours; 
+    }
+
+    function getProjectHours() {
+        if(isset($this->hours)) return $this->hours;
+        $date_range = array('start_date'    => $this->get('start_date'), 
+                            'end_date'      => $this->get('end_date'));
+        $this->hours = $this->getCompany()->getProjectHours(array('for_date_range' => $date_range, 'sort' => 'date'));
+        return $this->hours;
+    }
 }

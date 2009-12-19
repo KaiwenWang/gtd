@@ -18,6 +18,12 @@ function invoiceShow($d, $o = array() ) {
         'Total Payments' => $payments_to_date,
         'Total Due' => $total
         );
-    return array( 'title' => 'Show Invoice', 
-                  'body' => $r->view('basicList', $items ));
+    $invoice_items = $r->view('chargeTable', $d->charges, $o )
+                    .$r->view('hourTable', $d->project_hours, $o)
+                    .$r->view('supporthourTable', $d->support_hours, $o);
+    return array( 
+        'title' => 'Show Invoice', 
+        'body' => $r->view('basicList', $items )
+                    . $invoice_items
+    );
 }

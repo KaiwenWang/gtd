@@ -1,5 +1,5 @@
 <?php
-if(!defined('AMP_DEBUG_SQL') ) define('AMP_DEBUG_SQL', false );
+if(!defined('AMP_DEBUG_SQL') ) define('AMP_DEBUG_SQL', isset($_GET['debug']) && $_GET['debug']);
 
 class AMP {
     function getDb(){

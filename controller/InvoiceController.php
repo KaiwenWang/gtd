@@ -15,6 +15,10 @@ class InvoiceController extends PageController {
         $inv = new Invoice($params['id']);
         $this->data->invoice = $inv;
         $this->data->company = $inv->getCompany();
+        $this->data->charges = $inv->getCharges();
+        $this->data->project_hours = $inv->getProjectHours();
+        $this->data->support_hours = $inv->getSupportHours();
+
     }
 
 }

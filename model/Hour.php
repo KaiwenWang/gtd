@@ -5,7 +5,7 @@ class Hour extends ActiveRecord {
 	var $name_field = "description";
 	var $_class_name = "Hour";
     
-        protected static $schema;
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	'estimate_id' 	: 'Estimate',
 							'support_contract_id' : 'SupportContract',
@@ -82,11 +82,26 @@ class Hour extends ActiveRecord {
         return "support_contract = " . $this->dbcon->qstr( $values );
     }
     function makeCriteriaEstimate($values) {
+        return $this->_makeCriteriaMultiple('estimate_id', $values);
+        /*
         if(empty($values)) return;
         if(is_array($values)) {
             return "estimate_id IN (". implode(",", $values). ")";
         }
         return "estimate_id = " . $this->dbcon->qstr( $values );
+         */
+    }
+    function makeCriteriaProject($values) {
+        $estimates = getMany('estimate', array('project' => $values));
+        return $this->makeCriteriaEstimate( 
+                    array_map( function( $item ) { return $item->id; }, $estimates)
+                ); 
+    }
+    function makeCriteriaCompany($value) {
+        $projects = getMany('project', array('company_id' => $value));
+        return $this->makeCriteriaProject( 
+                    array_map( function( $item ) { return $item->id; }, $projects)
+                ); 
     }
 }
 ?>
