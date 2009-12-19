@@ -2,7 +2,7 @@
 function paymentTable( $modelObjects, $o = array()){
 	if ( !$modelObjects) return;
     $out = array();
-    $out['headers'] = array('Date','Company','Amount');
+    $out['headers'] = array('Date','Client','Amount');
     $out['rows'] =  array();
     $total_payments = 0;
     $r = getRenderer(  );

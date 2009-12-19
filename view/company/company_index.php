@@ -4,14 +4,14 @@ function companyIndex($d){
         
         $company_new_html = $r->view( 'jsHideable', 
         								array(
-        									'Create New Company' => $r->view('companyNewForm', $d->new_company)
+        									'Create New Client' => $r->view('companyNewForm', $d->new_company)
         									)
         							);
         							
         $company_table_html = $r->view('companyTable', $d->companies, array('id'=>'company'));
 
         return 	array(
-                        'title'=>'Listing All Companies',
+                        'title'=>'Listing All Clients',
                         'controls'=>'',
                         'body'=>
                         $company_new_html

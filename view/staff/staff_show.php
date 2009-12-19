@@ -8,6 +8,10 @@ function staffShow($d){
 													'projectNewForm', 
 													$d->new_project
 												),
+						'Log Project Hour' => $r->view(
+													'projectHourLoggerForm',
+													$d->active_projects
+												),
 						'Log Support Hour'	=> $r->view(
 													'supporthourNewForm', 
 													$d->new_support_hour

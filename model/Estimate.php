@@ -61,14 +61,6 @@ class Estimate extends ActiveRecord {
         if(!$this->get('project_id')) return false;
         return new Project( $this->get('project_id'));
     }
-
-    function getName( ) {
-        $project = $this->getProject();
-        $desc = substr($this->get('description'), 0, 40);
-        if($project) return $project->getName() . ": " . $desc;
-        return $desc;
-    }
-
     function makeCriteriaProject($values) {
        return $this->_makeCriteriaMultiple( 'project_id', $values );
     }

@@ -18,7 +18,7 @@ function contactTable( $contacts, $o = array()){
     $r =& getRenderer();
     $table = array();
     $table['headers'] = array(	'Contact',
-    							'Company',
+    							'Client',
     							'Email');
     $table['rows'] =  array();
     foreach($contacts as $contact){

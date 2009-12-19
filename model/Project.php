@@ -145,7 +145,10 @@ class Project extends ActiveRecord {
         $staff = $this->getStaff();
         return $staff->getName();
 	}
-	
+	function makeCriteriaActive($status){
+    	return $status 	? 'status NOT LIKE "done"'
+						: 'status LIKE "done"';
+	}	
 }
 
 ?>

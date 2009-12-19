@@ -19,7 +19,7 @@ function companyEditForm( $c, $o = array()){
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Add Company')
+    							array( 'title'=>'Add Client')
     						  );
     
     return $form->html;
