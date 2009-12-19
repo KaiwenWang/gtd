@@ -2,27 +2,42 @@
 class FrontController {
     private $router;
     private $page;
+    private $ajax_request = false;
     
     function __construct(){
         $this->router = Router::singleton();
         $this->page = $this->getPageController();
+        if( isset($this->router->params['ajax_target_id'])) $this->ajax_request = true;
     }
     function execute(){
-        $r = getRenderer();
-		$this->authenticate() ?	$response = $this->page->execute($this->router->action, 
+
+        $this->authenticate() ?	$response = $this->page->execute($this->router->action, 
                                   		               					 $this->router->params( ))
                               :	$response = $this->renderLoginScreen();
 
-		if (isset($this->router->params['ajax_target_id'])) return $response['body'];
-        $response =  array_merge(
-                               $response,
-                               array( 
+		if( $this->ajax_request) return $response['body'];
+
+        return $this->templatedResponse($response);
+    }
+    function templatedResponse($response){
+
+        if(isset($response['template']) && !$response['template']) {
+            return $response['body'];
+        }
+
+        $r = getRenderer();
+
+        $response =  array_merge( $response,
+                                   array( 
         							 'msg'=>$r->_dumpMessages(),
         							 'login'=>$this->renderLoginWidget()
         	    				));
-        return $r->template( 'template/gtd_main_template.html', 
-                                $response
-                            );
+
+        $response_template = isset($response['template']) ? $response['template'] : 'gtd_main_template';
+
+        return $r->template( 'template/' . $response_template . '.html', 
+                            $response
+                        );
     }
    	private function getPageController(){
    		require_once( $this->router->controller_path( ));

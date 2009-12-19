@@ -22,6 +22,7 @@ function invoiceShow($d, $o = array() ) {
                     .$r->view('hourTable', $d->project_hours, $o)
                     .$r->view('supporthourTable', $d->support_hours, $o);
     return array( 
+        'template' => 'invoice',
         'title' => 'Show Invoice', 
         'body' => $r->view('basicList', $items )
                     . $invoice_items
