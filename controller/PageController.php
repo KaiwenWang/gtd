@@ -107,12 +107,8 @@ class PageController{
 		$response = $r->view( $view_name, $this->data, $this->options );
 
 		if(!is_array($response)) $response = array('body'=>$response);
-	
-		if ( isset($this->params['ajax_target_id'])) {
-			return $response['body'];
-		}
-        
-		return $r->template( 'template/standard_inside.html', $response);
+        if($this->render_partial) return $response['body'];	
+		return $response; 
     }
     function disableResponse( ) {
         $this->responseEnabled = false;
