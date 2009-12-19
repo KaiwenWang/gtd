@@ -16,6 +16,8 @@ function companyShow($d){
 						array(
 							'Create New Project' => $r->view( 'projectNewForm', 
 															  $d->new_project),
+							'Create New Contact' => $r->view( 'contactNewForm', 
+															  $d->new_contact),
                             'Add Charge' => $r->view( 'chargeNewForm',
                                                             $d->new_charge ),
                             'Add Payment' => $r->view( 'paymentNewForm',

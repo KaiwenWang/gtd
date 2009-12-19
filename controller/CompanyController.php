@@ -28,6 +28,10 @@ class CompanyController extends PageController {
 		$this->data->new_invoice = new Invoice();
 		$this->data->new_invoice->set(array( 
 									  	'company_id' => $params['id'] ));
+		$this->data->new_contact = new Contact();
+		$this->data->new_contact->set(array( 
+									  	'company_id' => $params['id'] ));
+
   	}
 	function create( $params){
 		$c = $this->new_companies[0];
