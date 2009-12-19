@@ -64,5 +64,10 @@ class ActiveRecord  extends Record {
         }
         return "$fieldnamme = " . $this->dbcon->qstr( $values );
     }
+
+    function isValid() {
+        //stub
+        return true;
+    }
 }
 ?>

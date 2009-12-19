@@ -124,11 +124,9 @@ class Company extends ActiveRecord {
             $contracts[$contract_id][] = $hour;
             return $contracts;
         }, array());
-        print count($hours_by_contract); 
         $total = 0;
         foreach( $hours_by_contract as $contract_id => $contract_hours ) {
             $contract = new SupportContract( $contract_id );
-            print "Got Contract $contract_id";
             $total += $contract->calculateCharges($contract_hours);
         }
         return $total;
