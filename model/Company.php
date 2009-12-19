@@ -106,6 +106,7 @@ class Company extends ActiveRecord {
 
     function getChargesTotal(){
         $charges = $this->getCharges();
+		if(!$charges) return 0;
         return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
     }
 

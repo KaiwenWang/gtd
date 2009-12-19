@@ -45,6 +45,7 @@ class Hour extends ActiveRecord {
     function getCost() {
         $estimate = $this->getEstimate();
         $project = $estimate->getProject();
+		if(!$project) return 0;
         return $this->get('hours') * $project->get('hourly_rate');
     }
 	function getBillableHours(){
@@ -99,6 +100,7 @@ class Hour extends ActiveRecord {
     }
     function makeCriteriaCompany($value) {
         $projects = getMany('project', array('company_id' => $value));
+		if(!$projects) return false;
         return $this->makeCriteriaProject( 
                     array_map( function( $item ) { return $item->id; }, $projects)
                 ); 
