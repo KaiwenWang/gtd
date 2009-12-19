@@ -12,7 +12,7 @@ class Template{
     function replace_tags($tags = array()){
         if (count($tags) > 0) {
             foreach ($tags as $tag => $data) {
-                $data = ( file_exists( $data))  ? $this->runFile($data) : $data;
+//                $data = ( file_exists( $data))  ? $this->runFile($data) : $data;
                 $this->html = preg_replace( "/\[\[" . $tag . "\]\]/i", $data, $this->html);
             }
             $this->html = preg_replace( "/\[\[[^\]]*\]\]/", '', $this->html);
@@ -21,7 +21,6 @@ class Template{
 		}
     }
     function runFile($file) {
-        bail('File:'.$file);
         ob_start();
         include($file);
         $buffer = ob_get_contents();

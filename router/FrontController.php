@@ -8,18 +8,21 @@ class FrontController {
         $this->page = $this->getPageController();
     }
     function execute(){
-		$this->authenticate() ?	$application_html = $this->page->execute($this->router->action, 
+        $r = getRenderer();
+		$this->authenticate() ?	$response = $this->page->execute($this->router->action, 
                                   		               					 $this->router->params( ))
-                              :	$application_html = $this->renderLoginScreen();
+                              :	$response = $this->renderLoginScreen();
 
-		if (isset($this->router->params['ajax_target_id'])) return $application_html;
-
-		$r = getRenderer();
-        return $r->template( 'template/gtd_main_template.html', 
-        					  array( 'main-application'=>$application_html,
+		if (isset($this->router->params['ajax_target_id'])) return $response['body'];
+        $response =  array_merge(
+                               $response,
+                               array( 
         							 'msg'=>$r->_dumpMessages(),
-        							 'login'=>$this->renderLoginWidget())
-        					);
+        							 'login'=>$this->renderLoginWidget()
+        	    				));
+        return $r->template( 'template/gtd_main_template.html', 
+                                $response
+                            );
     }
    	private function getPageController(){
    		require_once( $this->router->controller_path( ));
