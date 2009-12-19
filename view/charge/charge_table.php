@@ -17,7 +17,7 @@ function chargeTable( $modelObjects, $o = array()){
       							'$ ' . number_format( $m->get('amount'), 2 ) );
     }
 
-    $html = $r->view('basicTable',$out, array('title'=>'Charges'));
+    $html = $r->view('basicTable',$out, array_merge(array('title'=>'Charges'), $o));
     $html .= '<div class="totals-data"><h3 class="basic-table-header">Total charges: $ ' . number_format( $total_charges, 2). '</h3></div><p>&nbsp;</p>';
     return $html;
 }

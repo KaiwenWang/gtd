@@ -1,10 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-    <title>Ape Planet</title>
+    <title>Your Radical Designs Invoice</title>
     <link rel="Stylesheet" href="public/css/main_styles.css" type="text/css" />
     <link rel="Stylesheet" href="public/css/jquery-ui.css" type="text/css" />
     <link rel="Stylesheet" href="public/css/tablesorter-themes/blue/style.css" type="text/css" />
+    <link rel="Stylesheet" href="public/css/printable.css" type="text/css" />
  	<script type="text/javascript" src="public/js/jquery.min.js"></script>
  	<script type="text/javascript" src="public/js/jquery-ui.min.js"></script>
  	<script type="text/javascript" src="public/js/jquery-easing.js"></script>
@@ -12,9 +13,11 @@
 
  	<script type="text/javascript" src="public/js/quicksearch.js"></script>
  	<script type="text/javascript" src="public/js/quicksilver.js"></script>
- 	<script type="text/javascript" src="public/js/initializePage.js"></script>
     </head>
     <body>
-            [[body]]
-    </body>
+        <div id="invoice" class="print">
+            <h1 class="page_name"><span style="color: rgb(153, 153, 153); font-weight: normal;">radical</span><span style="color: rgb(231, 100, 50); font-weight: bold;">DESIGNS</span></h1>
+                [[body]]
+        </div>  
+   </body>
 </html>

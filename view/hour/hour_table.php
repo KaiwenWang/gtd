@@ -29,11 +29,11 @@ function hourTable( $hours, $o = array() ){
     $hours_table = $r->view( 'basicTable', $table, $o); 
     
 	$totals = '
-				<div class="totals-data">
-					<h3 class="basic-table-header">Total Hours: ' . $total_hours . '</h3>
+				<div class="totals-data totals-hours">
+					<h3 class="basic-table-header">Total Project Hours: ' . $total_hours . '</h3>
 				</div>
-        		<div class="totals-data">
-					<h3 class="basic-table-header">Billable Hours: ' . $billable_hours . '</h3>
+        		<div class="totals-data totals-hours">
+					<h3 class="basic-table-header">Billable Project Hours: ' . $billable_hours . '</h3>
 				</div>
 				';
 

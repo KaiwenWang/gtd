@@ -27,9 +27,10 @@ function supporthourTable( $hours, $o = array()){
       							);
     }
     if ( !isset($o['title'])) $o['title'] = 'Hours';
-    $html = $r->view( 'basicTable', $table,
-          array('title'=>'Support Hours', 'search' => $r->view('hourSearch', true))) 
-        . '<div class="totals-data"><h3 class="basic-table-header">Total Hours: ' . $total_hours . '</h3></div>'
-        . '<div class="totals-data"><h3 class="basic-table-header">Billable Hours: ' . $billable_hours . "</h3></div><p>&nbsp;</p>";
+    $html = 
+         '<div class="totals-data totals-hours"><h3 class="basic-table-header">Total Support Hours: ' . $total_hours . '</h3></div>'
+        . '<div class="totals-data totals-hours"><h3 class="basic-table-header">Billable Support Hours: ' . $billable_hours . "</h3></div>"
+        . $r->view( 'basicTable', $table,
+          array('title'=>'Support Hours', $o)) ;
     return $html;
 }

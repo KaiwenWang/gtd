@@ -59,14 +59,16 @@ class Company extends ActiveRecord {
 		}
 		return $this->invoices;
 	}
-	function getPayments(){
+	function getPayments($override_criteria=array()){
+        $criteria = array_merge(array("company_id"=>$this->id), $override_criteria);
 		if(!isset($this->payments)){
-			$this->payments = getMany('Payment',array("company_id"=>$this->id));
+			$this->payments = getMany('Payment', $criteria);
 		}
 		return $this->payments;	
 	}
-	function getPaymentsTotal(){
-        $payments = $this->getPayments();
+	function getPaymentsTotal($criteria = array()){
+
+        $payments = $this->getPayments($criteria);
         if(empty($payments)) return 0;
         return array_reduce($payments, 
             function( $total, $pymt) { 
@@ -104,8 +106,8 @@ class Company extends ActiveRecord {
 		return $this->charges;	
 	}
 
-    function getChargesTotal(){
-        $charges = $this->getCharges();
+    function getChargesTotal($criteria = array()){
+        $charges = $this->getCharges($criteria);
 		if(!$charges) return 0;
         return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
     }
@@ -151,12 +153,17 @@ class Company extends ActiveRecord {
         return array_reduce($hours, function($total, $hour) { return $total + $hour->getCost(); }, 0 );
     }
 
-    function getBalance() {
-        $project_hours = $this->getProjectHours();
+    function getBalance($date = null) {
+        $date_range = array(); 
+        if ($date) {
+            $date_range = array( 'for_date_range' => 
+            array( 'end_date' => $date));
+        }
+        $project_hours = $this->getProjectHours($date_range);
         $project_charges = $this->calculateProjectCharges($project_hours);
 
-        $support_hours = $this->getSupportHours();
+        $support_hours = $this->getSupportHours($date_range);
         $support_charges = $this->calculateSupportCharges($support_hours);
-        return $project_charges + $support_charges + $this->getChargesTotal() - $this->getPaymentsTotal();
+        return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
     }
 }
