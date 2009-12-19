@@ -100,7 +100,7 @@ class SupportContract extends ActiveRecord {
         return $company->getName();
 	}
 
-    function calculateCharges( $hours ) {
+    function calculateCharges( $hours, $date_range = array() ) {
         if(!$this->isValid()) {
             bail( $this->errors );
         }
@@ -112,22 +112,27 @@ class SupportContract extends ActiveRecord {
             return $months;
         }, array());
 
-        foreach($this->activeMonths() as $month_id) {
+        foreach($this->activeMonths($date_range) as $month_id) {
             if(!isset($hours_by_month[$month_id])) $hours_by_month[$month_id] = 0;
         }
         //special logic for figuring out prorating on start and end dates
 
         $total_charges = array_map( array($this, 'calculateMonthlyCharge'), $hours_by_month, array_keys($hours_by_month));
+
         return array_sum($total_charges);
     }
 
-    function activeMonths() {
+    function activeMonths($date_range = array()) {
         if(!Util::is_a_date($this->get('start_date'))) {
             return array();
         }
-        $start_date = Util::start_of_month($this->get('start_date'));
+        $start_point = isset($date_range['start_date']) ?$date_range['start_date'] : $this->get('start_date');
+        // We move to the start of the month otherwise we may never see 
+        // ending months that don't end on the 31st.
+        $start_date = Util::start_of_month($start_point);
 
-        $end_date = Util::is_a_date($this->get('end_date')) ? strtotime($this->get('end_date')) : time();
+        $end_point = isset($date_range['end_date']) ?$date_range['end_date'] : $this->get('end_date');
+        $end_date = Util::is_a_date($end_point) ? strtotime($end_point) : time();
         $sample_time = $start_date;
         $included_months = array();
 

@@ -6,7 +6,7 @@ function invoiceShow($d, $o = array() ) {
     $project_hours = $d->company->getProjectHours( $date_range );
     $project_charges = $d->company->calculateProjectCharges($project_hours);
     $support_hours = $d->company->getSupportHours( $date_range );
-    $support_charges = $d->company->calculateSupportCharges($support_hours);
+    $support_charges = $d->company->calculateSupportCharges($support_hours, $date_range['for_date_range']);
 
     $total = $d->invoice->getAmount();
     $invoice_period = date('M jS, Y', strtotime($d->invoice->get('start_date'))) 

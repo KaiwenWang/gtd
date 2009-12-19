@@ -119,7 +119,7 @@ class Company extends ActiveRecord {
         return getMany( 'Hour', $criteria);
     }
 
-    function calculateSupportCharges($support_hours){
+    function calculateSupportCharges($support_hours, $date_range = array()){
         //split up by supportcontract id
         $hours_by_contract = array_reduce($support_hours, function($contracts, $hour) {
             $contract_id = $hour->get('support_contract_id');
@@ -131,7 +131,7 @@ class Company extends ActiveRecord {
         $total = 0;
         foreach( $hours_by_contract as $contract_id => $contract_hours ) {
             $contract = new SupportContract( $contract_id );
-            $total += $contract->calculateCharges($contract_hours);
+            $total += $contract->calculateCharges($contract_hours, $date_range);
         }
         return $total;
     }
@@ -163,7 +163,7 @@ class Company extends ActiveRecord {
         $project_charges = $this->calculateProjectCharges($project_hours);
 
         $support_hours = $this->getSupportHours($date_range);
-        $support_charges = $this->calculateSupportCharges($support_hours);
+        $support_charges = $this->calculateSupportCharges($support_hours, $date_range);
         return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
     }
 }
