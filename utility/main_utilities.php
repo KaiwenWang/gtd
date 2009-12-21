@@ -7,6 +7,7 @@
     @package utility
 */
 function bail( $msg){
+	if(is_array($msg)) $msg = array_dump($msg);
 	$html = '';
 	if (class_exists('Router')){
 		$router = Router::singleton();
@@ -19,7 +20,7 @@ function bail( $msg){
 				';
 	}
 	$html .= '
-				<h2 style="margin-bottom:2px;">FATAL ERROR</h2>'.$msg.'<br>
+				<h2 style="margin-bottom:2px;">ERROR MESSAGE</h2>'.$msg.'<br>
 				<h2 style="margin-bottom:6px;">BACKTRACE</h2>
 				'.backtrace().'
 				';

@@ -48,6 +48,7 @@ class Record extends Data {
     function setSource( $sourcename ) {
         parent::setSource( $sourcename );
         $this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
+	  	if(!is_array($this->_itemdata_keys)) bail('This model has no collumns in the database. Check to see if you ran the latest migrations, and make sure you set the correct datatable name on the model');
         $this->_allowed_keys = $this->_itemdata_keys;
     }
 

@@ -27,12 +27,12 @@ function companyShow($d){
 						)
 					);
 					
-	$project_table = $r->view( 'projectTable', $d->company->getProjects());
-	$contract_table = $r->view( 'supportcontractTable', $d->company->getSupportContracts());
-	$contact_table = $r->view( 'contactTable', $d->company->getContacts());
-    $charge_table= $r->view( 'chargeTable', $d->company->getCharges( ));
-    $payment_table= $r->view( 'paymentTable', $d->company->getPayments( ));
-    $invoice_table= $r->view( 'invoiceTable', $d->company->getInvoices( ));
+	$project_table = $r->view( 'projectTable', 	$d->company->getProjects());
+	$contract_table= $r->view( 'supportcontractTable', $d->company->getSupportContracts());
+	$contact_table = $r->view( 'contactTable', 	$d->company->getContacts());
+    $charge_table  = $r->view( 'chargeTable', 	$d->company->getCharges( ));
+    $payment_table = $r->view( 'paymentTable', 	$d->company->getPayments( ));
+    $invoice_table = $r->view( 'invoiceTable', 	$d->company->getInvoices( ));
 	
 	return  array(
 		'title' => $d->company->getName(),

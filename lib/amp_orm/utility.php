@@ -18,7 +18,7 @@ class AMP {
       return AMP::getDb();
     }
     function array_filter_by_keys( $filter, $data){
-      $filtered_array = array_intersect_key( $data, array_flip($filter)); 
+	  $filtered_array = array_intersect_key( $data, array_flip($filter)); 
       return $filtered_array ? $filtered_array
                              : array();
     } 

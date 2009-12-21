@@ -1,6 +1,5 @@
 /* tables */
 table.tablesorter {
-	font-family:arial;
 	background-color: #CDCDCD;
 	text-align: left;
 	width:99.6%;
@@ -12,7 +11,8 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th {
 	padding: 2px 20px 2px 8px;
 }
 table.tablesorter thead tr{
-	background:#fff url('chrome_2.jpg') repeat-x center	;
+	background:#ddeeff;
+/*	background:#fff url('chrome_2.jpg') repeat-x center	; */
 }
 table.tablesorter thead tr .header {
 	background-image: url('bg.gif');
