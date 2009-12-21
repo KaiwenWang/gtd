@@ -163,7 +163,7 @@ class Company extends ActiveRecord {
         $project_charges = $this->calculateProjectCharges($project_hours);
 
         $support_hours = $this->getSupportHours($date_range);
-        $support_charges = $this->calculateSupportCharges($support_hours, $date_range);
+        $support_charges = $this->calculateSupportCharges($support_hours, $date ? $date_range['for_date_range'] : array() );
         return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
     }
 }
