@@ -4,6 +4,7 @@ margin:0;
 background-color:#FEFAE1;
 background-position: right top;
 background-repeat: no-repeat;
+dasbackground-image: url('/public/img/bg_paint.jpg');
 }
 a{
 text-decoration: none;
@@ -300,6 +301,7 @@ margin-top:5px;
 #login-container{
 width:400px;
 margin:20px auto;
+background: #ffffff;
 }
 #login-container h2{
 background:#DDEEFF none repeat scroll 0 0;
@@ -310,7 +312,8 @@ color: #000000;
 }
 #login-form{
 border:1px solid black;
-padding:20px;
+padding:20px 122px 0 0;
+text-align:right;
 }
 /*LOGIN WIDGET */
 #login-widget{

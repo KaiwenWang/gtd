@@ -1,5 +1,7 @@
 <?php
-function chargeTable( $modelObjects, $o = array()){
+function chargeTable( $charges, $o = array()){
+	if(!$charges) return '<div class="clear-left"><h3>There are no charges at this time.</h3></div>';
+
     $r =& getRenderer();
     $out = array();
     $out['headers'] = array('Date',
@@ -8,7 +10,7 @@ function chargeTable( $modelObjects, $o = array()){
     						'Amount');
     $out['rows'] =  array();
     $total_charges=0;
-    foreach($modelObjects as $m){
+    foreach($charges as $m){
         $total_charges += $m->getData( 'amount' );
         $company = $m->getCompany(  );
         $out['rows'][] = array(	strftime( '%b %e, %Y', strtotime( $m->get( 'date' ) ) ),
