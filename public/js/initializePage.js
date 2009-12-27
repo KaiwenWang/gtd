@@ -1,37 +1,40 @@
 $('document').ready(function(){
-	initializePage();
+	$('#application').initialize_Gtd();
 });
-function initializePage(){
 
-	$('#application').enable_DateField()
-	$('#application').enable_TableSort()
-	$('#application').enable_QuickSearch()
-	$('#application').enable_Swappable()
-	$('#application').enable_Hideable()
-	$('#application').enable_Ajax()
+$.fn.initialize_Gtd = function(){
 
+	$('.date-field',this).enable_DateField();
+	$('.basic-table',this).enable_TableSort();
+	$('.basic-table-container',this).enable_QuickSearch();
+	$('.js-swappable-btn',this).enable_Swappable();
+	$('.js-hideable-btn',this).enable_Hideable();
+	$('input[name=ajax_target_id]',this).enable_Ajax();
+	$('input[name=auto_submit]',this).enable_AutoSubmit();
+
+	return this;
 }
+
 $.fn.slideFadeIn = function(speed, easing, callback) {
-		return this.animate({opacity: 'show', height: 'show'}, speed, easing, callback);  
+	return this.animate({opacity: 'show', height: 'show'}, speed, easing, callback);  
 }
 
 $.fn.slideFadeOut = function(speed, easing, callback) {        	
-		return this.animate({opacity: 'hide', height: 'hide'}, speed, easing, callback);  
+	return this.animate({opacity: 'hide', height: 'hide'}, speed, easing, callback);  
 }
 
 $.fn.enable_DateField= function(){
-	$(this).find(".date-field").datepicker({ dateFormat: 'yy-mm-dd'});
-  return this;
+	$(this).datepicker({ dateFormat: 'yy-mm-dd'});
+ 	 return this;
 }
 
-$.fn.submitForm = function(){};
-
 $.fn.enable_TableSort = function (){
-	$(".basic-table").tablesorter({widgets: ['zebra']});
+	$(this).tablesorter({widgets: ['zebra']});
+	return this;
 }
 
 $.fn.enable_QuickSearch = function (){
-	$('.basic-table-container').each( function() {
+	$(this).each( function() {
 		rows = $(this)
 				.children('.basic-table')
 				.children('tbody')
@@ -42,18 +45,20 @@ $.fn.enable_QuickSearch = function (){
 					.children('.qs-input');
 		selector.quicksearch(rows);
 	});
+	return this;
 }
 
 $.fn.enable_Swappable = function (){
-	$(".js-swappable-btn").each( function(){
+	$(this).each( function(){
 		$(this).click( function(){
 			$(this).siblings('.swappable-item').toggle();
 		})
 	});
+	return this;
 }
 
 $.fn.enable_Hideable = function (){
-	$(".js-hideable-btn").each( function(){
+	$(this).each( function(){
 		$(this).click( function(){
 			item = $(this).siblings('.hideable-item');
 			if ( item.css('display') == 'none' ){
@@ -63,16 +68,36 @@ $.fn.enable_Hideable = function (){
 			}
 		})
 	});
+	return this;
 }
 
 $.fn.enable_MultiSelect = function(){
-	$('.multiselect').multiSelect({oneOrMoreSelected: '*'});
+	$(this).multiSelect({oneOrMoreSelected: '*'});
+	return this;
+}
+
+$.fn.enable_AutoSubmit = function(){
+
+	$(this).each( function(){
+		auto_submit_input_name = '[name='+$(this).val()+']';
+		console.log(auto_submit_input_name);
+    	form = $( this ).parents('form');
+		$('.submit-container',form).hide();
+		$(auto_submit_input_name,form).change(function(){
+			console.log('firing: change');
+			$(form).submit();
+		});
+	});
 }
 
 $.fn.enable_Ajax = function(){
-	initializeSubmitButtons();
-	function initializeSubmitButtons(){
-                $('input[name=ajax_target_id]').parents('form').submit( function(){
+	var selector = this;
+	var ajax_target_id = '#'+$(this).val();
+ 
+	initializeSubmitButtons( );
+
+	function initializeSubmitButtons( ){
+            $( selector ).parents('form').submit( function(){
 			form = this;
 			getGraphData();
 			return false;
@@ -86,8 +111,8 @@ $.fn.enable_Ajax = function(){
 			data: serializeFormData(),
 			success: function(JSONtext){
 				loadView(JSONtext);
-				initializeSubmitButtons();
-				initializePage();
+//				initializeSubmitButtons();
+				$( ajax_target_id ).initialize_Gtd();
 			},
 			error: function (XMLHttpRequest, textStatus, errorThrown) {
 			  hideLoaderGraphic();
@@ -100,7 +125,7 @@ $.fn.enable_Ajax = function(){
         if ( console ) console.log(msg);
     }
     function loadView( html ){
-        $('#hour-search-1').html( html );
+        $(ajax_target_id).html( html );
         hideLoaderGraphic();
     }
     function serializeFormData() {
@@ -136,11 +161,5 @@ $.fn.enable_Ajax = function(){
         if(results) return results[1].replace('%20',' ');
         return false;
     }
-    function describeObject(obj) {
-        str='';
-        for(prop in obj){
-            str+=prop + " value :"+ obj[prop]+"<br>";
-        }
-        return(str);
-    }
+	return this;
 }

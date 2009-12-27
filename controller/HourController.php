@@ -47,7 +47,22 @@ class HourController extends PageController {
         						'id' => $h->get('estimate_id')
         						));
     }
-    function new_record(){
+    function new_form( $params ){
+		if(!$params['project_id']) bail('required parameter "project_id" is missing.');
+	
+		$project = new Project( $params['project_id'] );
+
+		$this->options = array( 'project_id' => $project->id,
+							   'title' => $project->getName()
+							   );
+		
+
+		$this->data = new Hour();
+		$this->data->set(array( 
+								'staff_id'=>getUser(),
+								'date'=>date('Y-m-d')
+								));
+		
     }
     function create( $params){
 		$h = $this->new_hours[0];

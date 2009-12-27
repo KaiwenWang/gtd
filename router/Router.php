@@ -35,17 +35,20 @@ class Router{
             $this->method = 'get';
             $this->controller_prefix = 'HomePage';
         }
+		$this->initializeParams();
     }
-
     function params( ) {
         if( $this->params) return $this->params;
-        $params = array_merge( $_GET, $_POST);
+		$this->initializeParams();
+        return $this->params;
+    }
+	function initializeParams(){
+		$this->method == 'get' ? $params = $_GET
+							   : $params = $_POST;
         unset( $params['controller']);
         unset( $params['action']);
         $this->params = $params;
-        return $this->params;
-    }
-
+	}
     function controller_path( ) {
         $path = 'controller/'.$this->controller.'.php';
 		if (!file_exists( $path)) bail( 'requested controller "'.$this->controller.'" does not exist.');

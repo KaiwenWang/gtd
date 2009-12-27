@@ -2,16 +2,16 @@
 function hourIndex($d){
         $r =& getRenderer();
         $new_hour_forms = $r->view('jsHideable', array(
-                    'Create New Project Hour' => $r->view( 'hourNewForm', 
+                    'Log Project Hour' => $r->view( 'projectHourLoggerForm', 
                                                       $d->new_hour),
-                    'Create New Support Hour' => $r->view( 'supporthourNewForm', 
+                    'Log Support Hour' => $r->view( 'supporthourNewForm', 
                                                       $d->new_support_hour)
                         ) 
   						);
 
 
         
-        $hour_table_html = $r->view('hourTable', $d->hours, array('id'=>'hour'));
+        $hour_table_html = $r->view('hourSearch', $d->hours, array('ajax_target_id'=>'hour-search-1'));
 
         return  array(
                         'title'=>'Listing All Hours',
