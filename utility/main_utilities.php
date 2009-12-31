@@ -118,12 +118,6 @@ function pluralize( $word ) {
     return $word;
 }
 
-function referrer( $url_array = array() ) {
-    $referrer = $_SERVER['HTTP_REFERER'];
-    if($referrer) return array('url' => $referrer );
-    return $url_array;
-}
-
 class Util {
     function is_a_date($date) {
         $null_dates = array(
