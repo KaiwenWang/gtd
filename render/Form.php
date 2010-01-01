@@ -6,6 +6,7 @@ class Form extends PHP5_Accessor{
 	public $action;
 	public $method;
 
+	protected $preset_fields = array();
 	private $new_object_counters = array();
 	private $does_submit_button_exist = false;
 	
@@ -22,11 +23,14 @@ class Form extends PHP5_Accessor{
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
 		unset($o['method'],$o['class'],$o['id'],$o['controller']);
-		$this->params = $o;	
+		$this->preset_fields = $o;	
 	}
 	function getSubmitBtn(){
+
 		$this->does_submit_button_exist = true;
+
 		$r = getRenderer();
+
 		return  $r->submit();
 	}
 	function getHtml(){
@@ -34,19 +38,35 @@ class Form extends PHP5_Accessor{
 		
 		if (!$this->does_submit_button_exist) $this->content .= '<div class="submit-container">'.$r->submit().'</div>';
 
-		$preset_search_criteria = '';
-		foreach($this->params as $key=>$value){
-    	   	$preset_search_criteria .= $r->input( 'hidden', array('name'=>$key,'value'=>$value));
-		}
+		$form_content = $this->renderPresetFields()
+						.$this->content;
+
 		$html = $r->form( $this->action, 
 						  $this->controller,
-						  $preset_search_criteria 
-						  .$this->content, 
+						  $form_content, 
 						  array('method'=>$this->method,
 						  		'class'=>$this->css_class,
-						  		'id'=>$this->css_id)
-						 );
+						  		'id'=>$this->css_id
+								)
+						  );
 		return $html;
+	}
+	function renderPresetFields(){
+		$r = getRenderer();
+		$hidden_fields = '';
+
+		foreach( $this->preset_fields as $key => $value){
+			if ( is_array( $value )){
+				// if $value is an array, make a set of hidden inputs that will show up as $_REQUEST[$key] when submitted
+				foreach( $value as $param_key => $param_value ){ 
+					$hidden_fields .= $r->input('hidden', array('name'=>$key."[".$param_key."]",'value'=>$param_value));
+				}
+			} else {
+    	   		$hidden_fields .= $r->input( 'hidden', array('name'=>$key,'value'=>$value));
+			}
+		}
+
+		return $hidden_fields;
 	}
 	function getFieldSetFor( $obj){
 		if( !is_a( $obj, 'ActiveRecord')) bail('Cannot get fields for non-ActiveRecord objects');
