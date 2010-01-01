@@ -1,5 +1,4 @@
 <?php
-
 class InvoiceController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
 
@@ -18,7 +17,6 @@ class InvoiceController extends PageController {
         $this->data->charges = $inv->getCharges();
         $this->data->project_hours = $inv->getProjectHours();
         $this->data->support_hours = $inv->getSupportHours();
-
     }
 
 }

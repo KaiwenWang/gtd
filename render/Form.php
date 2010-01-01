@@ -41,13 +41,14 @@ class Form extends PHP5_Accessor{
 		$form_content = $this->renderPresetFields()
 						.$this->content;
 
-		$html = $r->form( $this->action, 
-						  $this->controller,
-						  $form_content, 
-						  array('method'=>$this->method,
-						  		'class'=>$this->css_class,
-						  		'id'=>$this->css_id
-								)
+		$html = $r->form( array(
+							'action'=> $this->action, 
+							'controller'=> $this->controller,
+							'content'=> $form_content, 
+							'method'=> $this->method,
+							'class'=> $this->css_class,
+						  	'id'=> $this->css_id
+							)
 						  );
 		return $html;
 	}

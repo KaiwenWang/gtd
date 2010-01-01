@@ -54,27 +54,26 @@ class Render{
 	    }
     	return 'index.php?controller='.$controller.'&'.http_build_query($parameters);
     }
-    function form( $action, $controller, $content, $o = array()){
-    	if( !( $action && $controller)) {
-    		bail( "r->form called without action:$action or controller:$controller being set");
+    function form( $o ){
+    	if( !( $o['action'] )) {
+    		bail( "r->form called without action being set");
 		}
+    	if( !$o['controller'] ) {
+    		bail( "r->form called without controller being set");
+		}
+
 		isset($o['method'])	? $method = $o['method']
 							: $method = 'post';
 							
-		$attributes = $this->attr( $o);
-    	$tokens =	array( 
-    					'action' => $action,
-    					'controller' => $controller,
+		$attributes = $this->attr($o);
+
+    	$tokens = array( 
+    					'action' => $o['action'],
+    					'controller' => $o['controller'],
     					'method' => $method,
     					'attributes' => $attributes,
-    					'form-content' => $content
+    					'form-content' => $o['content']
     					);
-
-    	if ( isset( $o['redirect'])) {
-    		$tokens['redirect'] = $this->input( 'hidden',array(	'name'=>'redirect',
-    														    'value'=>$o['redirect']
-    															));
-    	} else $tokens['redirect'] = '';
     	
 		return $this->template('template/form_elements/form.html', $tokens);    
     }
