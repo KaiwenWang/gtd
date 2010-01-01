@@ -74,7 +74,6 @@ class PageController{
 		bail('php redirect is stupid.');
     }
     protected function redirectTo( $o = array()){
-    	$router = Router::singleton();
     	$r = getRenderer();
 
         if(isset($o['url']) && $o['url'] ) {
@@ -83,12 +82,12 @@ class PageController{
         }
 
     	$o['controller']	? $controller = $o['controller']
-    						: $controller = $router->controller_prefix;
-    	$o['action']	? $action = $o['action']
-    					: $action = 'index';
-		$o['action'] = $action;
+    						: bail('redirectTo requires param["controller"] to be set');
+
+    	if( !$o['action'])  bail('redirectTo requires param["action"] to be set');
+
     	unset($o['controller']);
-    	if( !$o['action']) bail('action not specified in redirect request.');
+
     	$this->redirect_url = $r->url( $controller, $o);
     }
     function renderResponse(){
