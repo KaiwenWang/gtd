@@ -38,10 +38,15 @@ class SupportHourController extends PageController {
     function create( $params){
 		$h = $this->new_hours[0];
 		$h->save();
-        $this->redirectTo(referrer(array('controller' => 'SupportContract', 
-        						'action' => 'show', 
-        						'id' => $h->get('support_contract_id')
-                            )));
+
+		isset($params['redirect']) 	? $redirect = $params['redirect']
+									: $redirect = array(
+													'controller'=>'SupportContract');
+        											'action' => 'show', 
+        											'id' => $h->get('support_contract_id')
+                            						);
+
+        $this->redirectTo($redirect);
     }
     function destroy(){
     }
