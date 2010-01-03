@@ -12,7 +12,7 @@ class Company extends ActiveRecord {
 	var $payments;
 	var $contacts;
 	var $billing_contacts;
-        protected static $schema;
+    protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
 								'name' 		:  'text',
@@ -36,9 +36,7 @@ class Company extends ActiveRecord {
     							
     						}
     			}";
-    function __construct( $id = null){
-        parent::__construct( $id);
-    }
+
 	function getProjects(){
 		if(!$this->projects){
 			$finder = new Project();

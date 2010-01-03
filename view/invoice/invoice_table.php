@@ -1,8 +1,7 @@
 <?php
-
 function invoiceTable( $invoices, $options = array( )) {
     if( !$invoices ) return false;
-    $r =& getRenderer();
+    $r = getRenderer();
     $table = array();
     $table['headers'] = array(	'ID',
     							'Start Date',
