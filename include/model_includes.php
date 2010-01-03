@@ -16,6 +16,7 @@ require_once('model/Estimate.php');
 require_once('model/InvoiceItem.php');
 require_once('model/Project.php');
 require_once('model/Company.php');
+require_once('model/CompanyPreviousBalance.php');
 require_once('model/Hour.php');
 require_once('model/Payment.php');
 require_once('model/Staff.php');
