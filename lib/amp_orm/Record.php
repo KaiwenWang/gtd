@@ -134,7 +134,6 @@ class Record extends Data {
 
     function delete( ){
         if ( !isset( $this->id )) return false;
-        $this->before_delete( );
         if ( !$this->deleteData( $this->id )) return false;
 
         return true;
