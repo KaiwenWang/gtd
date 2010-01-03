@@ -105,12 +105,12 @@ class SupportContract extends ActiveRecord {
             bail( $this->errors );
         }
         //split up by month
-        $hours_by_month = array_reduce( $hours, function( $months, $hour ) {
-            $hour_month = date('Ym', strtotime($hour->get('date')));
-            if(!isset($months[$hour_month])) $months[$hour_month] = 0;
-            $months[$hour_month] += $hour->getBillableHours();
-            return $months;
-        }, array());
+        $hours_by_month = array();
+		foreach( $hours as $hour){
+            $month = date('Ym', strtotime($hour->get('date')));
+            if(!isset($hours_by_month[$month])) $hours_by_month[$month] = 0;
+            $hours_by_month[$month] += $hour->getBillableHours();
+        }
 
         foreach($this->activeMonths($date_range) as $month_id) {
             if(!isset($hours_by_month[$month_id])) $hours_by_month[$month_id] = 0;
