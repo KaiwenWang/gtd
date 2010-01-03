@@ -22,6 +22,7 @@ switch ($test_suite){
 		$test->addTestFile('test/model_tests.php');
 		$test->addTestFile('test/form_tests.php');
 		$test->addTestFile('test/controller_tests.php');
+		break;
 	case 'php':
 		phpinfo();
 }
