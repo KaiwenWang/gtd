@@ -1,8 +1,7 @@
 <?php
 function chargeNewForm( $charge, $o = array() ){
     $r = getRenderer();
-    $form_action = isset( $o['action'] ) ? $o['action'] : 'create';
-    $form = new Form( array( 'controller'=>'Charge', 'action'=> $form_action));
+    $form = new Form( array( 'controller'=>'Charge', 'action'=> 'create'));
     $fs = $form->getFieldSetFor($charge);
 
     $form_fields = array(

@@ -4,7 +4,7 @@ function companyShow($d){
 	
 	$company_selector = $r->view( 'jumpSelect', $d->company );
 	
-	$editable_project_info = $r->view( 'jsSwappable',
+	$editable_project_info = $r->view('jsSwappable',
 									  'Company Info',
 					 				   array(
 						 				$r->view( 'companyInfo', $d->company),
@@ -14,25 +14,20 @@ function companyShow($d){
 	
 	$hidden_forms = $r->view('jsHideable',
 						array(
-							'Create New Project' => $r->view( 'projectNewForm', 
-															  $d->new_project),
-							'Create New Contact' => $r->view( 'contactNewForm', 
-															  $d->new_contact),
-                            'Add Charge' => $r->view( 'chargeNewForm',
-                                                            $d->new_charge ),
-                            'Add Payment' => $r->view( 'paymentNewForm',
-                                                            $d->new_payment),
-                            'Create Standard Invoice' => $r->view( 'invoiceNewForm',
-                                                            $d->new_invoice)
-						)
-					);
+							'Create New Project' => $r->view( 'projectNewForm', $d->new_project),
+							'Create New Contact' => $r->view( 'contactNewForm', $d->new_contact),
+                            'Add Charge' 		 => $r->view( 'chargeNewForm', $d->new_charge),
+                            'Add Payment' 		 => $r->view( 'paymentNewForm', $d->new_payment),
+                            'Create Standard Invoice' => $r->view( 'invoiceNewForm', $d->new_invoice)
+							)
+						);
 					
 	$project_table = $r->view( 'projectTable', 	$d->company->getProjects());
 	$contract_table= $r->view( 'supportcontractTable', $d->company->getSupportContracts());
 	$contact_table = $r->view( 'contactTable', 	$d->company->getContacts());
-    $charge_table  = $r->view( 'chargeTable', 	$d->company->getCharges( ));
-    $payment_table = $r->view( 'paymentTable', 	$d->company->getPayments( ));
-    $invoice_table = $r->view( 'invoiceTable', 	$d->company->getInvoices( ));
+    $charge_table  = $r->view( 'chargeTable', 	$d->company->getCharges());
+    $payment_table = $r->view( 'paymentTable', 	$d->company->getPayments());
+    $invoice_table = $r->view( 'invoiceTable', 	$d->company->getInvoices());
 	
 	return  array(
 		'title' => $d->company->getName(),

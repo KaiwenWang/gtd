@@ -1,6 +1,21 @@
 <?php
-
 function chargeEditForm( $charge, $o = array(  )) {
-    $r = getRenderer(  );
-    return $r->view( 'chargeNewForm', $charge, array( 'action' => 'update' ) );
+    $r = getRenderer();
+    $form = new Form( array( 'controller'=>'Charge', 'action'=> 'update'));
+    $fs = $form->getFieldSetFor($charge);
+
+    $form_fields = array(
+    	'Name'				        => $fs->name,
+    	'Description'				=> $fs->description,
+    	'Amount'				    => $fs->amount,
+    	'Date'      				=> $fs->date,
+    	'Company'		    => $fs->company_id
+    );
+
+    $form->content = $r->view( 'basicFormContents', 
+    							$form_fields, 
+    							array( 'title'=>'Edit Charge')
+    						  );
+
+    return $form->html;
 }

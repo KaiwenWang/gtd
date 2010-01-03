@@ -249,6 +249,11 @@ padding:2px 6px;
 font-size: 9px;
 color:#990000;
 }
+/* MESSAGES */
+h3.basic-message{
+margin-top:10px;
+display:block;
+}
 /* QUICKSEARCH */
 .qs_input{
 font-size:8px;
@@ -352,3 +357,4 @@ clear:right;
 .totals-data{
 clear:left;
 }
+
