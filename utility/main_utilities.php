@@ -134,6 +134,29 @@ class Util {
         return mktime( 0, 0, 0, $start_month, 1, $start_year );
     }
 
+    function percent_of_month_from_start($date) {
+        $day_of_month = date('j', strtotime($date));
+
+		if( $day_of_month < 10 ){
+			return 0;	
+		} elseif( $day_of_month < 20 ) {
+			return .5;
+		} else {
+			return 1;
+		}		
+    }
+
+    function percent_of_month_from_end($date) {
+        $day_of_month = date('j', strtotime($date));
+
+		if( $day_of_month > 20 ){
+			return 0;	
+		} elseif( $day_of_month > 10 ) {
+			return .5;
+		} else {
+			return 1;
+		}		
+    }
     function dump($value) {
         print("<pre>");
         print_r($value);
