@@ -37,8 +37,7 @@ class Invoice extends ActiveRecord {
 		return $this->invoice_items;	
 	}
 	function getAmount(){
-		#if ($this->get('amount')) return $this->get('amount');
-        return $this->calculateTotals();
+		//stub
 	}	
 	function getCompany(){
 		if(!$this->company){
@@ -48,11 +47,8 @@ class Invoice extends ActiveRecord {
 	}
 
     function calculateTotals() {
-        $company = $this->getCompany();
-        $amount = $company->getBalance();
-        $this->set(array('amount' => $amount ));
-        return $amount;
-    }
+    	//stub
+	}
 
     function getCharges() {
         if(isset($this->charges)) return $this->charges;

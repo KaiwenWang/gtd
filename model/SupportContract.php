@@ -49,11 +49,14 @@ class SupportContract extends ActiveRecord {
 		}
 		return $this->invoices;	
 	}
-    function getHours(){
+    function getHours( $criteria = array()){
+		
         if(!$this->hours){
             $finder = new Hour();
-            $this->hours = $finder->find(array("support_contract_id"=>$this->id));
+			$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
+            $this->hours = $finder->find($criteria);
         }
+
         return $this->hours;
     }
     function getTotalHours(){
@@ -99,89 +102,135 @@ class SupportContract extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+	function isValid(){
+		$valid = true;
 
-    function calculateCharges( $hours, $date_range = array() ) {
+        if(!Util::is_a_date($this->get('start_date'))) {
+        	$this->errors[] = 'contract '.$this->id.' has no start date';
+			$valid = false;
+		}
+
+		if ( $valid && parent::isValid()) return true;
+	}
+    function calculateTotal( $date_range = array() ) {
         if(!$this->isValid()) {
             bail( $this->errors );
         }
+
+		if(!isset($date_range['start_date'])) $date_range['start_date'] = $this->get('start_date');
+
+		if( isset($date_range['end_date']) 
+			&& Util::is_a_date($this->get('end_date')) 
+			&& ($date_range['end_date'] > $this->get('end_date')) ){
+			
+			 $date_range['end_date'] = $this->get('end_date');
+
+		}
+
+		$hours = $this->getHours( array( 'for_date_range' => $date_range ));
+
         //split up by month
-        $hours_by_month = array();
+        $billable_hours_by_month = array();
 		foreach( $hours as $hour){
             $month = date('Ym', strtotime($hour->get('date')));
-            if(!isset($hours_by_month[$month])) $hours_by_month[$month] = 0;
-            $hours_by_month[$month] += $hour->getBillableHours();
+            if(!isset($billable_hours_by_month[$month])) $billable_hours_by_month[$month] = 0;
+            $billable_hours_by_month[$month] += $hour->getBillableHours();
         }
 
+		// add all of the months in this date range with a monthly fee but no hours logged
         foreach($this->activeMonths($date_range) as $month_id) {
-            if(!isset($hours_by_month[$month_id])) $hours_by_month[$month_id] = 0;
+            if(!isset($billable_hours_by_month[$month_id])) $billable_hours_by_month[$month_id] = 0;
         }
-        //special logic for figuring out prorating on start and end dates
+		
+		$total_charges = 0;
+		foreach( $billable_hours_by_month as $month => $billable_hours) {
+			$total_charges += $this->calculateMonthlyCharge( $billable_hours, $month);
+        }
 
-        $total_charges = array_map( array($this, 'calculateMonthlyCharge'), $hours_by_month, array_keys($hours_by_month));
-
-        return array_sum($total_charges);
+		return $total_charges; 
     }
 
-    function activeMonths($date_range = array()) {
-        if(!Util::is_a_date($this->get('start_date'))) {
-            return array();
-        }
-        $start_point = isset($date_range['start_date']) ?$date_range['start_date'] : $this->get('start_date');
-        // We move to the start of the month otherwise we may never see 
-        // ending months that don't end on the 31st.
-        $start_date = Util::start_of_month($start_point);
+    function activeMonths( $date_range = array() ) {
+	
+		// if there is no requested start date,
+		// or the contract start date is later than the requested start date, 
+		// use the contract start date instead.
+        if ( isset($date_range['start_date'])){
+			($date_range['start_date'] > $this->get('start_date')) ? $start_date = $date_range['start_date'] 
+										 						   : $start_date = $this->get('start_date');
+		} else {
+			$start_date = $this->get('start_date');
+		}
+     	// We move the start date to the first of the month otherwise we may never see 
+        // ending months that don't end on the 31st when we loop below.
+		// (this also makes start date a timestamp)
+        $start_date = Util::start_of_month($start_date);
+       
+		// if there is no requested end date,
+		// or the contract end date is earlier than the requested end date, 
+		// use the contract end date instead.
+		if ( Util::is_a_date($this->get('end_date'))) $end_date = $this->get('end_date');
 
-        $end_point = isset($date_range['end_date']) ?$date_range['end_date'] : $this->get('end_date');
-        $end_date = Util::is_a_date($end_point) ? strtotime($end_point) : time();
-        $sample_time = $start_date;
+        if ( isset($date_range['end_date']) && isset($end_date)){
+			($date_range['end_date'] < $end_date) ? $end_date = $date_range['end_date'] 
+									 			  : $end_date = $this->get('end_date');
+		} elseif( isset($date_range['end_date'])){
+			$end_date = $date_range['end_date'];
+		}
+		// if there was no requested end date OR contract end date, use the current date 
+		if( !isset($end_date) || !Util::is_a_date($end_date) ){
+			$end_date = 'now';
+		} 
+ 
+		// make end date a timestamp
+       	$end_date = strtotime($end_date);
+
+		// loop over the requested months and make an array of their unique "month-id's"
         $included_months = array();
-
-        while( $sample_time < $end_date ) {
-            $included_months[] = date('Ym', $sample_time);
-            $sample_time = strtotime( '+1 month', $sample_time);
+		for( $time = $start_date; $time < $end_date; $time = strtotime('+1 month', $time)){
+            $included_months[] = date('Ym', $time);
         }
-        return $included_months;
 
+        return $included_months;
     }
 
     function calculateMonthlyCharge($hours, $month = null) {
         //compare support hours given > support hours / month
-        if($hours <= $this->get('support_hours')) { 
+        if( $hours <= $this->get('support_hours')) { 
             $amount = $this->calculateMonthlyBaseRate($month);
             return $amount;
         }
+
         $overage = $hours - $this->get('support_hours');
+		if( $overage < 0) $overage = 0;
+
         $amount = $overage * $this->get('hourly_rate') + $this->calculateMonthlyBaseRate($month);
+			
         return $amount;
     }
 
     function calculateMonthlyBaseRate($month = null) {
-        $base_rate = $this->get('monthly_rate');
-        if(!$month) return $base_rate; 
-        //turn month value into a date
-        //check against start_date
+        if(!$month) bail('calculateMonthlyBaseRate called without a valid month'); 
+        
         $start_date = $this->get('start_date');
         $start_month = Util::is_a_date($start_date) ? date('Ym', strtotime($start_date)) : false;
-        if ($start_month == $month) {
-            $day_of_start = date('d', strtotime($start_date));
-            if($day_of_start == '01') return $base_rate;
-            $days_in_month = Util::days_in_month($start_date);
-            $days_of_contract = $days_in_month - $day_of_start;
-            $amount_of_month_used = $days_of_contract / $days_in_month;
-            return round($amount_of_month_used * $base_rate, 2);
 
+		// Check to see if current month is the starting month of the contract
+        if ( $month == $start_month) {
+			$monthly_rate = $this->get('monthly_rate') * Util::percent_of_month_from_end( $start_date );
+			return $monthly_rate;
         } 
 
         $end_date = $this->get('end_date');
         $end_month = Util::is_a_date($end_date) ? date('Ym', strtotime($end_date)) : false;
-        if ($end_month == $month) {
-            $day_of_end = date('d', strtotime($end_date));
-            $days_in_month = Util::days_in_month($end_date);
-            if($day_of_end == '01' || $day_of_end == $days_in_month ) return $base_rate;
-            $amount_of_month_used = $day_of_end / $days_in_month;
-            return round($amount_of_month_used * $base_rate, 2);
-        }
-        return $base_rate;
 
+		// Check to see if current month is the ending month of the contract
+        if ( $month == $end_month) {
+			$monthly_rate =$this->get('monthly_rate') * Util::percent_of_month_from_start( $end_date );
+			return $monthly_rate;
+        }
+
+        $monthly_rate = $this->get('monthly_rate');
+		return $monthly_rate;
     }
 }

@@ -6,12 +6,13 @@ class Company extends ActiveRecord {
 	var $name_field = "name";
 	var $_class_name = "Company";
 
-	var $projects;
-	var $support_contracts;
-	var $invoices;
-	var $payments;
-	var $contacts;
-	var $billing_contacts;
+	protected $projects;
+	protected $support_contracts;
+	protected $invoices;
+	protected $payments;
+	protected $contacts;
+	protected $billing_contacts;
+	protected $previous_balance;
     protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
@@ -110,57 +111,64 @@ class Company extends ActiveRecord {
         return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
     }
 
-    function getSupportHours($override_criteria = array()) {
-        $support_contracts = getMany('SupportContract', array('company_id' => $this->id));
-        $support_contract_ids = array_map(function($sc) { return $sc->id; }, $support_contracts);
-        $criteria = array_merge(array( 'support_contract' => $support_contract_ids ), $override_criteria);
-        return getMany( 'Hour', $criteria);
-    }
+    function calculateSupportTotal( $date_range = array()){
 
-    function calculateSupportCharges( $support_hours = array(), $date_range = array()){
-        //split up by supportcontract id
-        $hours_by_contract = array();
-		foreach( $support_hours as $hour){ 
-            $contract_id = $hour->get('support_contract_id');
-            if(!isset($hours_by_contract[$contract_id])) $hours_by_contract[$contract_id] = array();
-            $hours_by_contract[$contract_id][] = $hour;
-        }
+		if( !isset($date_range['start_date'])){
 
-        $total = 0;
-        foreach( $hours_by_contract as $contract_id => $contract_hours ) {
-            $contract = new SupportContract( $contract_id );
-            $total += $contract->calculateCharges($contract_hours, $date_range);
-        }
+			$date_range['start_date'] = $this->getPreviousBalanceDate();
+
+		} elseif ( $date_range['start_date'] < $this->getPreviousBalanceDate() ){
+
+			$date_range['start_date'] = $this->getPreviousBalanceDate();
+
+		}
+
+		if ( isset($date_range['end_date']) && $date_range['end_date'] < $this->getPreviousBalanceDate() ){
+			return 0;
+		}
+
+		$contracts = $this->getSupportContracts();
+		$total = 0;
+		foreach($contracts as $c){
+
+			$amount = $c->calculateTotal($date_range);
+			$total += $amount;
+		}
+
         return $total;
     }
     
-    function getProjectHours($override_criteria = array()) {
-        /*
-        $projects = getMany('Project', array('company_id' => $this->id));
-        $project_ids = array_map(function($p) { return $p->id; }, $projects);
-        $estimates = getMany('Estimate', array('project' => $project_ids));
-        $estimate_ids = array_map(function($p) { return $p->id; }, $estimates);
-         */
-        $criteria = array_merge(array( 'company' => $this->id), $override_criteria );
-        return getMany( 'Hour', $criteria );
-    }
-
     function calculateProjectCharges($hours) {
         if(!$hours) return 0;
         return array_reduce($hours, function($total, $hour) { return $total + $hour->getCost(); }, 0 );
     }
 
-    function getBalance($date = null) {
-        $date_range = array(); 
-        if ($date) {
-            $date_range = array( 'for_date_range' => 
-            array( 'end_date' => $date));
-        }
-        $project_hours = $this->getProjectHours($date_range);
-        $project_charges = $this->calculateProjectCharges($project_hours);
+	function getPreviousBalance(){
+		if(!$this->previous_balance){
+			$this->previous_balance = getOne('CompanyPreviousBalance',array('company_id'=>$this->id, 'sort'=>'date DESC'));
+		}
+		return $this->previous_balance;
+	}
+	function getPreviousBalanceDate(){
+		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->get('date');
+	}
+    function getBalance( $end_date) {
+		bail('getBalance is a work in progress - Ted and Margot');
+		$previous_balance = $this->getPreviousBalance();
+        
+		$date_range = array();
 
-        $support_hours = $this->getSupportHours($date_range);
-        $support_charges = $this->calculateSupportCharges($support_hours, $date ? $date_range['for_date_range'] : array() );
+        if( $previous_balance ) $date_range['start_date'] = $previous_balance->get('date'); 
+        
+		if( $end_date ) $date_range['end_date'] = $end_date;
+
+		$date_range	? $search_criteria = array('for_date_range'=>$date_range)
+					: $search_criteria = array();
+
+        $project_charges = $this->calculateProjectCharges( $search_criteria);
+
+        $support_charges = $this->calculateSupportCharges( $search_criteria );
+
         return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
     }
 }
