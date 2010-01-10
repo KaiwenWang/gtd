@@ -87,25 +87,38 @@ class Company extends ActiveRecord {
 	}
 
     function calculateChargesTotal($date_range = array()){
+
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
+
+		if( !$date_range ) return 0;
+
         $charges = $this->getCharges( array( 'date_range'=> $date_range) );
 
 		if(!$charges) return 0;
 
 		$total = 0;
 		foreach( $charges as $charge){
-			$total += $charge->get('amount');
+			$total += $charge->getAmount();
 		}
 
 		return $total;
     }
 
-	function calculatePaymentsTotal($criteria = array()){
-        $payments = $this->getPayments($criteria);
-        if(empty($payments)) return 0;
-        return array_reduce($payments, 
-            function( $total, $pymt) { 
-                return $total + $pymt->getAmount(); 
-            }, 0 );
+	function calculatePaymentsTotal($date_range = array()){
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
+
+		if( !$date_range ) return 0;
+
+        $payments = $this->getPayments(array('date_range'=>$date_range));
+
+        if(!$payments) return 0;
+		
+		$total = 0;
+		foreach( $payments as $payment ){
+			$total += $payment->getAmount();
+		}
+
+		return $total;
 	}
 
 	function calculateInvoiceTotal(){
@@ -119,21 +132,14 @@ class Company extends ActiveRecord {
 
     function calculateSupportTotal( $date_range = array() ){
 
-		if( !isset($date_range['start_date'])){
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
 
-			$date_range['start_date'] = $this->getPreviousBalanceDate();
-
-		} elseif ( $date_range['start_date'] < $this->getPreviousBalanceDate() ){
-
-			$date_range['start_date'] = $this->getPreviousBalanceDate();
-
-		}
-
-		if ( isset($date_range['end_date']) && $date_range['end_date'] < $this->getPreviousBalanceDate() ){
-			return 0;
-		}
+		if( !$date_range ) return 0;
 
 		$contracts = $this->getSupportContracts();
+
+		if(!$contracts) return 0;
+
 		$total = 0;
 		foreach($contracts as $c){
 
@@ -144,10 +150,38 @@ class Company extends ActiveRecord {
         return $total;
     }
 
-    function calculateProjectCharges($hours) {
-        if(!$hours) return 0;
-        return array_reduce($hours, function($total, $hour) { return $total + $hour->getCost(); }, 0 );
+    function calculateProjectsTotal( $date_range = array() ) {
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
+
+		if( !$date_range ) return 0;
+		
+		$projects = $this->getProjects();
+		
+        if(!$projects) return 0;
+
+		$total = 0;
+		foreach($projects as $project){
+			$total += $project->calculateTotal($date_range);
+		}	
+	
+		return $total;
     }
+	
+	function calculateCosts($date_range = array()) {
+		if( empty($date_range['end_date'])) bail('$date_range["end_date"] required');
+
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
+
+		if( !$date_range ) return 0;
+		
+		$total = 0;
+
+		$total += $this->calculateSupportTotal( $date_range );
+		$total += $this->calculateProjectsTotal( $date_range );
+		$total += $this->calculateChargesTotal( $date_range );
+		
+		return $total;
+	}
 
 	function getPreviousBalance(){
 		if(!$this->previous_balance){
@@ -160,26 +194,39 @@ class Company extends ActiveRecord {
 		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->get('date');
 	}
 
-    function getBalance( $end_date) {
-		bail('getBalance is a work in progress - Ted and Margot');
+
+    function calculateBalance( $date_range = array()) {
+		if( empty($date_range['end_date'])) bail('$date_range["end_date"] required');
+
+		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
+
+		if( !$date_range ) return 0;
+		
+		$current_balance = $this->calculateCosts($date_range) - $this->calculatePaymentsTotal($date_range);
 		$previous_balance = $this->getPreviousBalance();
-        
-		$date_range = array();
+		
+		return $current_balance + $previous_balance->getAmount();
+	}
 
-        if( $previous_balance ) $date_range['start_date'] = $previous_balance->get('date'); 
-        
-		if( $end_date ) $date_range['end_date'] = $end_date;
+	function updateDateRangeWithPreviousBalanceDate( $date_range ){
 
-		$date_range	? $search_criteria = array('date_range'=>$date_range)
-					: $search_criteria = array();
+		if( !isset($date_range['start_date'])){
 
-        $project_charges = $this->calculateProjectCharges( $search_criteria);
+			$date_range['start_date'] = $this->getPreviousBalanceDate();
 
-        $support_charges = $this->calculateSupportCharges( $search_criteria );
+		} elseif ( $date_range['start_date'] < $this->getPreviousBalanceDate() ){
 
-        return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
-    }
+			$date_range['start_date'] = $this->getPreviousBalanceDate();
 
+		}
+
+		if ( isset($date_range['end_date']) && $date_range['end_date'] < $this->getPreviousBalanceDate() ){
+			return false;
+		}
+		
+		return $date_range;
+
+	}
 	function destroyAssociatedRecords(){
 		if($this->getProjects()){
 			foreach( $this->getProjects() as $project){

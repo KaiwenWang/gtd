@@ -93,14 +93,17 @@ class Project extends ActiveRecord {
 		}
 		return $hours;
 	}
-	function getBillableHours(){
+	function getBillableHours( $date_range = array() ){
 		$estimates = $this->getEstimates();
+
 		if( !$estimates) return 0;
-		$hours = 0;
+
+		$billable_hours = 0;
 		foreach ($estimates as $estimate){
-			$hours += $estimate->getBillableHours();
+			$billable_hours += $estimate->getBillableHours( $date_range );
 		}
-		return $hours;
+
+		return $billable_hours;
 	}
 	function getLowEstimate(){
 		$estimates = $this->getEstimates();
@@ -148,6 +151,9 @@ class Project extends ActiveRecord {
 	function makeCriteriaActive($status){
     	return $status 	? 'status NOT LIKE "done"'
 						: 'status LIKE "done"';
+	}
+	function calculateTotal($date_range){
+		return $this->getBillableHours( $date_range ) * $this->get('hourly_rate');
 	}	
 	function destroyAssociatedRecords(){
 		if($this->getEstimates()){

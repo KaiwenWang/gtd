@@ -32,5 +32,7 @@ class Charge extends  ActiveRecord {
     function getDate() {
         return $this->get( 'date' );
     }
-
+	function getAmount(){
+		return $this->get('amount');
+	}
 }

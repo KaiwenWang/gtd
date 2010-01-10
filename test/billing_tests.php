@@ -39,18 +39,113 @@ class testBilling extends UnitTestCase {
 		$total = $this->company->calculateSupportTotal($date_range);
 		$this->assertEqual( $total, 1825);
 	}
-	function testCalculateProjectTotal(){
-	
+	function testCalculateChargesTotalWithStartDate(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$charge_total = $this->company->calculateChargesTotal($date_range); 
+		$this->assertEqual($charge_total, 55.22 );
 	}
-	function testCalculateChargesTotal(){
+	function testCalculateChargesTotalWithStartDateBeforePreviousBalance(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$previous_balance = new CompanyPreviousBalance();
+		$previous_balance->set(array(
+								'company_id'=>$this->company->id,
+								'balance'=>600.22,
+								'date'=>'2010-01-21'
+								)
+							);
+		$previous_balance->save();
+
+		$charge_total = $this->company->calculateChargesTotal($date_range); 
+		$this->assertEqual($charge_total, 30 );
+	}
+	function testCalculateChargesTotalWithNoDateRange(){
+		$charge_total = $this->company->calculateChargesTotal(); 
+		$this->assertEqual($charge_total, 90.44 );
+	}
+	function testCalculatePaymentsTotalWithDateRange(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$payment_total = $this->company->calculatePaymentsTotal($date_range);
+		$this->assertEqual($payment_total, 650.50);
+	}
+	function testCalculatePaymentsTotalWithDateRangeAndPreviousBalance(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$previous_balance = new CompanyPreviousBalance();
+		$previous_balance->set(array(
+								'company_id'=>$this->company->id,
+								'balance'=>600.22,
+								'date'=>'2010-03-21'
+								)
+							);
+		$previous_balance->save();
+
+		$payment_total = $this->company->calculatePaymentsTotal($date_range);
+		$this->assertEqual($payment_total, 150.50);
+	}
+	function testCalculatePaymentsTotalWithoutDateRange(){
+		$payment_total = $this->company->calculatePaymentsTotal();
+		$this->assertEqual($payment_total, 951);
 
 	}
-	function testCalculatePaymentsTotal(){
-
+	function testCalculateProjectTotalWithDateRange(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		
+		$total = $this->company->calculateProjectsTotal( $date_range );
+		$this->assertEqual($total,500);
 	}
-	function testCalculateBalance(){
-//		$balance = $this->company->getBalance('2010-08-15');
-//		$this->assertEqual( $balance, 2454.72);
+	function testCalculateProjectTotalWithStartDateBeforePreviousBalanceDate(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$previous_balance = new CompanyPreviousBalance();
+		$previous_balance->set(array(
+								'company_id'=>$this->company->id,
+								'balance'=>600.22,
+								'date'=>'2010-03-21'
+								)
+							);
+		$previous_balance->save();	
+		
+		$total = $this->company->calculateProjectsTotal( $date_range );
+		$this->assertEqual($total,100);
+	}
+	function testCalculateProjectTotalWithoutDateRange(){
+		$total = $this->company->calculateProjectsTotal();
+		$this->assertEqual($total,600);
+	}
+	function testCalculateCostWithStartDateBeforePreviousBalanceDate() {
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$previous_balance = new CompanyPreviousBalance();
+		$previous_balance->set(array(
+								'company_id'=>$this->company->id,
+								'balance'=>600.22,
+								'date'=>'2010-03-21'
+								)
+							);
+		$previous_balance->save();	
+		$total = $this->company->calculateCosts( $date_range ); 
+		$this->assertEqual($total, 650);
+	}
+	function testCalculateCostWithDateRange() {
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$total = $this->company->calculateCosts( $date_range ); 
+		$this->assertEqual($total, 2380.22);
+	}
+	function testCalculateBalanceWithDateRange(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$balance = $this->company->calculateBalance( $date_range );
+		$this->assertWithinMargin( $balance, 2329.72, 0.001);
+	}
+	function testCalculateBalanceWithStartDateBeforePreviousBalance(){
+		$date_range = array( 'start_date'=>'2009-03-01', 'end_date'=>'2010-08-15');
+		$previous_balance = new CompanyPreviousBalance();
+		$previous_balance->set(array(
+								'company_id'=>$this->company->id,
+								'amount'=>600.22,
+								'date'=>'2010-03-21'
+								)
+							);
+		$previous_balance->save();	
+		
+		$balance = $this->company->calculateBalance( $date_range );
+		$this->assertEqual( $balance, 1099.72);
 	}
     function setUp() {
 		/* Billing Test Correct Answers:
@@ -69,12 +164,18 @@ class testBilling extends UnitTestCase {
 			Company Support Total = $ 2125
 
 			Charges in Range = $ 55.22
+			All charges = $ 95.44
 			Billable Project Hours in Range = $ 500
 
 			Payments (which are always in range) = $ 650.50 
 
 			Company Balance: $ 2454.72 
 			
+			support_hour4 $250 + project_hour1 $100 + sc1 $250 + support_contract $50 = $ 650 is Calculate Costs
+			
+			(Costs = $2380.22 Payments = $650.50 Previous Balance = 600) =  BalanceWithDateRange = $2329.72
+	
+			(Costs = $650 Payments = $150.50 Previous Balance = 600.22) = BalanceWithStartDateBeforePreviousBalance = $1099.72
 		*/
 		$this->company = new Company();
 		$this->company->set(array(
@@ -175,7 +276,7 @@ class testBilling extends UnitTestCase {
 							'support_contract_id'=>$this->sc_no_end_date->id,
 							'hours'=> 3,
 							'date'=> '2010-03-22'
-								)
+							)
 						);
 		$this->support_hour4->save();
 
@@ -215,6 +316,16 @@ class testBilling extends UnitTestCase {
 						);
 		$this->out_of_range_charge->save();
 
+		$this->old_range_charge = new Charge();
+		$this->old_range_charge->set( array(
+							'company_id'=>$this->company->id,
+							'amount'=>5,
+							'date'=>'2009-02-25'
+							)
+						);
+		$this->old_range_charge->save();
+
+
 		$this->project = new Project();
 		$this->project->set( array (
 							'company_id'=>$this->company->id,
@@ -237,6 +348,16 @@ class testBilling extends UnitTestCase {
 								)
 							);
 		$this->project_hour->save();
+
+		$this->project_old_hour = new Hour();
+		$this->project_old_hour->set( array(
+								'estimate_id'=>$this->estimate->id,
+								'hours'=> 20,
+								'date'=> '2009-02-21'
+								)
+							);
+		$this->project_old_hour->save();
+
 		$this->project_hour1 = new Hour();
 		$this->project_hour1->set( array(
 								'estimate_id'=>$this->estimate->id,
@@ -245,6 +366,7 @@ class testBilling extends UnitTestCase {
 								)
 							);
 		$this->project_hour1->save();
+
 
 		$this->out_of_range_project_hour = new Hour();
 		$this->out_of_range_project_hour->set( array(
@@ -261,7 +383,7 @@ class testBilling extends UnitTestCase {
 								'company_id'=>$this->company->id,
 								'amount'=>500,
 								'date'=>'2010-02-20'
-									)
+								)
 							);
 		$this->payment->save();
 
@@ -269,33 +391,32 @@ class testBilling extends UnitTestCase {
 		$this->payment1->set( array(
 								'company_id'=>$this->company->id,
 								'amount'=>150.50,
-								'date'=>'2010-08-20'
-									)
+								'date'=>'2010-08-01'
+								)
 							);
 		$this->payment1->save();
 
+		$this->out_of_range_payment = new Payment();
+		$this->out_of_range_payment->set( array(
+										'company_id'=>$this->company->id,
+										'amount'=>300.50,
+										'date'=>'2010-09-20'
+										)
+									);
+		$this->out_of_range_payment->save();
+
+		$this->old_payment = new Payment();
+		$this->old_payment->set( array(
+								'company_id'=>$this->company->id,
+								'amount'=>300.50,
+								'date'=>'2009-01-20'
+								)
+							);
+		$this->old_payment->save();
+
 	}
 	function tearDown(){
+		$this->company->destroyAssociatedRecords();
 		$this->company->delete();
-		$this->previous_balance->delete();
-		$this->old_previous_balance->delete();
-		$this->sc1->delete();
-		$this->sc_no_end_date->delete();
-		$this->support_hour->delete();
-		$this->support_hour1->delete();
-		$this->support_hour_invalid_date->delete();
-		$this->support_hour3->delete();
-		$this->support_hour4->delete();
-		$this->out_of_range_support_hour->delete();
-		$this->charge->delete();
-		$this->charge1->delete();
-		$this->out_of_range_charge->delete();
-		$this->project->delete();
-		$this->estimate->delete();
-		$this->project_hour->delete();
-		$this->project_hour1->delete();
-		$this->out_of_range_project_hour->delete();
-		$this->payment->delete();
-		$this->payment1->delete();
 	}
 }

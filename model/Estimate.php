@@ -25,10 +25,11 @@ class Estimate extends ActiveRecord {
     function __construct( $id = null){
         parent::__construct( $id);
     }
-	function getHours(){
+	function getHours( $search_criteria = array() ){
 		if(!$this->hours){
 			$finder = new Hour();
-			$this->hours = $finder->find(array("estimate_id"=>$this->id));
+			$criteria = array_merge( array('estimate_id'=>$this->id),$search_criteria);
+			$this->hours = $finder->find($criteria);
 		}
 		return $this->hours;	
 	}	
@@ -41,13 +42,19 @@ class Estimate extends ActiveRecord {
 		}
 		return $total_hours;
 	}
-	function getBillableHours(){
-		$hours = $this->getHours();
+	function getBillableHours( $date_range = array()){
+		$date_range	? $criteria = array( 'date_range' => $date_range)
+					: $criteria = array();	
+		
+		$hours = $this->getHours( $criteria );
+
 		if( !$hours) return 0;
+
 		$billable_hours = 0;
 		foreach ($hours as $hour){
 			$billable_hours += $hour->getBillableHours();
 		}
+
 		return $billable_hours;
 	}
 	function getLowEstimate(){

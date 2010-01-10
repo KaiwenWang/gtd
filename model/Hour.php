@@ -42,11 +42,10 @@ class Hour extends ActiveRecord {
 		if (!$hours) $hours = 0;
 		return $hours;
 	} 
-    function getCost() {
-        $estimate = $this->getEstimate();
-        $project = $estimate->getProject();
-		if(!$project) return 0;
-        return $this->get('hours') * $project->get('hourly_rate');
+    function getCost( $hourly_rate ) {
+		// really you want to ask a project about this.  use this if you need itemized costs in a display.
+		if(!$cost) return 0;
+        return $this->getBillableHours * $hourly_rate;
     }
 	function getBillableHours(){
 		return $this->getHours() - $this->getDiscount();		

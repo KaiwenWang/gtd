@@ -128,6 +128,8 @@ class SupportContract extends ActiveRecord {
 		}
 
 		$hours = $this->getHours( array( 'date_range' => $date_range ));
+		
+		if(!$hours) return 0;
 
         //split up by month
         $billable_hours_by_month = array();
