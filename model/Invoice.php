@@ -54,7 +54,7 @@ class Invoice extends ActiveRecord {
         if(isset($this->charges)) return $this->charges;
         $date_range = array('start_date'    => $this->get('start_date'), 
                             'end_date'      => $this->get('end_date'));
-        $this->charges = $this->getCompany()->getCharges(array('for_date_range' => $date_range, 'sort' => 'date'));
+        $this->charges = $this->getCompany()->getCharges(array('date_range' => $date_range, 'sort' => 'date'));
         return $this->charges;
     }
     function getSupportHours() {
@@ -62,7 +62,7 @@ class Invoice extends ActiveRecord {
 
         $date_range = array('start_date'    => $this->get('start_date'), 
                             'end_date'      => $this->get('end_date'));
-        $this->support_hours = $this->getCompany()->getSupportHours(array('for_date_range' => $date_range, 'sort' => 'date'));
+        $this->support_hours = $this->getCompany()->getSupportHours(array('date_range' => $date_range, 'sort' => 'date'));
         return $this->support_hours; 
     }
 
@@ -70,7 +70,7 @@ class Invoice extends ActiveRecord {
         if(isset($this->hours)) return $this->hours;
         $date_range = array('start_date'    => $this->get('start_date'), 
                             'end_date'      => $this->get('end_date'));
-        $this->hours = $this->getCompany()->getProjectHours(array('for_date_range' => $date_range, 'sort' => 'date'));
+        $this->hours = $this->getCompany()->getProjectHours(array('date_range' => $date_range, 'sort' => 'date'));
         return $this->hours;
     }
 }

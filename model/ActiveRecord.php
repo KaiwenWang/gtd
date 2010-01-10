@@ -42,7 +42,7 @@ class ActiveRecord  extends Record {
 	}
 	function defaultSearchCriteria( $field_name){}
 
-	function makeCriteriaForDateRange( $data ) {
+	function makeCriteriaDateRange( $data ) {
 		$field_name = isset($data['field_name']) ? $data['field_name'] : 'date';
 		if(isset($data['start_date']) && isset($data['end_date'])
 			&& $data['start_date'] && $data['end_date'] ) {

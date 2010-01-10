@@ -72,7 +72,7 @@ class Hour extends ActiveRecord {
     }
 
     function makeCriteriaHourSearch($data) {
-        return $this->makeCriteriaForDateRange( $data );
+        return $this->makeCriteriaDateRange( $data );
     }
 
     function makeCriteriaSupportContract($values) {

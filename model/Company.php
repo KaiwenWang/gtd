@@ -86,8 +86,8 @@ class Company extends ActiveRecord {
 		return $this->charges;	
 	}
 
-    function calculateChargesTotal($date_range= array()){
-        $charges = $this->getCharges( array( 'date_range'=>$date_range) );
+    function calculateChargesTotal($date_range = array()){
+        $charges = $this->getCharges( array( 'date_range'=> $date_range) );
 
 		if(!$charges) return 0;
 
@@ -170,7 +170,7 @@ class Company extends ActiveRecord {
         
 		if( $end_date ) $date_range['end_date'] = $end_date;
 
-		$date_range	? $search_criteria = array('for_date_range'=>$date_range)
+		$date_range	? $search_criteria = array('date_range'=>$date_range)
 					: $search_criteria = array();
 
         $project_charges = $this->calculateProjectCharges( $search_criteria);

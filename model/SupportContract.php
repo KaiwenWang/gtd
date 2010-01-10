@@ -127,7 +127,7 @@ class SupportContract extends ActiveRecord {
 
 		}
 
-		$hours = $this->getHours( array( 'for_date_range' => $date_range ));
+		$hours = $this->getHours( array( 'date_range' => $date_range ));
 
         //split up by month
         $billable_hours_by_month = array();
