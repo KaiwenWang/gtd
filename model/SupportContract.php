@@ -233,4 +233,12 @@ class SupportContract extends ActiveRecord {
         $monthly_rate = $this->get('monthly_rate');
 		return $monthly_rate;
     }
+	function destroyAssociatedRecords(){
+		if($this->getHours()){
+			foreach( $this->getHours() as $hour){
+				$hour->destroyAssociatedRecords();
+				$hour->delete();
+			}
+		}
+	}
 }

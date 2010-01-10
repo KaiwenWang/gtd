@@ -33,6 +33,10 @@ switch ($test_suite){
 		break;
 	case 'php':
 		phpinfo();
+		break;
+	case 'delete_test_records':
+		include('test/delete_test_records.php');
+		break;
 }
 
 $test->run(new HtmlReporter());

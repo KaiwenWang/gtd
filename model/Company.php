@@ -65,24 +65,6 @@ class Company extends ActiveRecord {
 		}
 		return $this->payments;	
 	}
-	function getPaymentsTotal($criteria = array()){
-
-        $payments = $this->getPayments($criteria);
-        if(empty($payments)) return 0;
-        return array_reduce($payments, 
-            function( $total, $pymt) { 
-                return $total + $pymt->getAmount(); 
-            }, 0 );
-	}
-
-	function getTotalInvoices(){
-		$invoices = $this->getInvoices();
-		$total_invoices = 0;
-		foreach ($invoices as $invoice){
-			$total_invoices += $invoice->getAmount();
-		}
-		return $total_invoices;
-	}
 	function getContacts(){
 		if(!$this->contacts){
 			$this->contacts= getMany('Contact', array("company_id"=>$this->id));
@@ -96,7 +78,6 @@ class Company extends ActiveRecord {
 		}
 		return $this->billing_contacts;	
 	}
-	
 	function getCharges($override_criteria = array()){
 		if(!isset($this->charges)){
             $criteria = array_merge(array("company_id"=>$this->id),$override_criteria);
@@ -105,13 +86,38 @@ class Company extends ActiveRecord {
 		return $this->charges;	
 	}
 
-    function getChargesTotal($criteria = array()){
-        $charges = $this->getCharges($criteria);
+    function calculateChargesTotal($date_range= array()){
+        $charges = $this->getCharges( array( 'date_range'=>$date_range) );
+
 		if(!$charges) return 0;
-        return array_reduce($charges, function($total, $charge) { return $total + $charge->get('amount'); }, 0 );
+
+		$total = 0;
+		foreach( $charges as $charge){
+			$total += $charge->get('amount');
+		}
+
+		return $total;
     }
 
-    function calculateSupportTotal( $date_range = array()){
+	function calculatePaymentsTotal($criteria = array()){
+        $payments = $this->getPayments($criteria);
+        if(empty($payments)) return 0;
+        return array_reduce($payments, 
+            function( $total, $pymt) { 
+                return $total + $pymt->getAmount(); 
+            }, 0 );
+	}
+
+	function calculateInvoiceTotal(){
+		$invoices = $this->getInvoices();
+		$total_invoices = 0;
+		foreach ($invoices as $invoice){
+			$total_invoices += $invoice->getAmount();
+		}
+		return $total_invoices;
+	}
+
+    function calculateSupportTotal( $date_range = array() ){
 
 		if( !isset($date_range['start_date'])){
 
@@ -137,7 +143,7 @@ class Company extends ActiveRecord {
 
         return $total;
     }
-    
+
     function calculateProjectCharges($hours) {
         if(!$hours) return 0;
         return array_reduce($hours, function($total, $hour) { return $total + $hour->getCost(); }, 0 );
@@ -149,9 +155,11 @@ class Company extends ActiveRecord {
 		}
 		return $this->previous_balance;
 	}
+
 	function getPreviousBalanceDate(){
 		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->get('date');
 	}
+
     function getBalance( $end_date) {
 		bail('getBalance is a work in progress - Ted and Margot');
 		$previous_balance = $this->getPreviousBalance();
@@ -171,4 +179,37 @@ class Company extends ActiveRecord {
 
         return $project_charges + $support_charges + $this->getChargesTotal($date_range) - $this->getPaymentsTotal($date_range);
     }
+
+	function destroyAssociatedRecords(){
+		if($this->getProjects()){
+			foreach( $this->getProjects() as $project){
+				$project->destroyAssociatedRecords();
+				$project->delete();
+			}
+		}
+		if($this->getPayments()){
+				foreach( $this->getPayments() as $payment){
+				$payment->destroyAssociatedRecords();
+				$payment->delete();
+			}
+		}
+		if($this->getCharges()){
+			foreach( $this->getCharges() as $charge){
+				$charge->destroyAssociatedRecords();
+				$charge->delete();
+			}
+		}
+		if($this->getSupportContracts()){
+			foreach( $this->getSupportContracts() as $contract){
+				$contract->destroyAssociatedRecords();
+				$contract->delete();
+			}
+		}
+		if($this->getContacts()){
+			foreach( $this->getContacts() as $contact){
+				$contact->destroyAssociatedRecords();
+				$contact->delete();
+			}
+		}
+	}
 }

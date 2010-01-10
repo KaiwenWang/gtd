@@ -1,15 +1,15 @@
 <?php
 class ActiveRecord  extends Record {
 	var $_class_name = "ActiveRecord";
-        var $name_field;
+    var $name_field;
 
-        protected static $schema;
+    protected static $schema;
 	protected static $schema_json;	
 
-        function getData( $column_name = null){
-          return $this->get( $column_name);
-        }
-        function getName(){
+    function getData( $column_name = null){
+   		return $this->get( $column_name);
+    }
+   function getName(){
 		return $this->getData($this->name_field);
 	}
 	function getArray( $search_criteria){
@@ -69,5 +69,9 @@ class ActiveRecord  extends Record {
         //stub
         return true;
     }
+	
+	function destroyAssociatedRecords(){
+		// overwrite in subclass
+	}
 }
 ?>

@@ -64,7 +64,12 @@ class Estimate extends ActiveRecord {
     function makeCriteriaProject($values) {
        return $this->_makeCriteriaMultiple( 'project_id', $values );
     }
-
+	function destroyAssociatedRecords(){
+		if($this->getHours()){
+			foreach( $this->getHours() as $hour){
+				$hour->destroyAssociatedRecords();
+				$hour->delete();
+			}
+		}
+	}
 }
-
-?>

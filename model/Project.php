@@ -149,6 +149,12 @@ class Project extends ActiveRecord {
     	return $status 	? 'status NOT LIKE "done"'
 						: 'status LIKE "done"';
 	}	
+	function destroyAssociatedRecords(){
+		if($this->getEstimates()){
+			foreach( $this->getEstimates() as $estimate){
+				$estimate->destroyAssociatedRecords();
+				$estimate->delete();
+			}
+		}
+	}
 }
-
-?>

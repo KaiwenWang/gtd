@@ -45,8 +45,4 @@ class Payment extends ActiveRecord {
     function getDate() {
         return $this->get( 'date' );
     }
-
-	
 }
-
-?>
