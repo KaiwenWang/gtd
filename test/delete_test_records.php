@@ -1,6 +1,7 @@
 <?php
 $companies = destroyRecords( 'Company', array('name'=>'destroy_test'));
 $companies = destroyRecords( 'Company', array('name'=>'Billing Test'));
+$companies = destroyRecords( 'Company', array('name'=>'Invoice Test'));
 
 function destroyRecords( $model, $criteria ){
 	$records = getMany( $model, $criteria );

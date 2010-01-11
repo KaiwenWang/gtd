@@ -147,6 +147,53 @@ class testBilling extends UnitTestCase {
 		$balance = $this->company->calculateBalance( $date_range );
 		$this->assertEqual( $balance, 1099.72);
 	}
+	function testInvoiceCreationWithDateRange(){
+		$date_range = array( 'start_date'=>'2010-01-01', 'end_date'=>'2010-08-15');
+		$previous_balance_date = array('end_date'=>$date_range['start_date']);
+		$amount_due_date = array('end_date'=>$date_range['end_date']);
+		$previous_balance = $this->company->calculateBalance( $previous_balance_date);
+		$new_costs = $this->company->calculateCosts($date_range);
+		$new_payments = $this->company->calculatePaymentsTotal($date_range);
+		$amount_due = $this->company->calculateBalance($amount_due_date);
+
+		$i = new Invoice();
+		$i->set(array(
+				'company_id'=>$this->company->id,
+				'type'=>'quarterly',
+				'start_date'=>$date_range['start_date'],
+				'end_date'=>$date_range['end_date'],
+				'previous_balance'=>$previous_balance,
+				'new_costs'=>$new_costs,
+				'amount_due'=>$amount_due,
+				'new_payments'=>$new_payments
+				)
+			);
+		$i->save();
+
+		$i2 = new Invoice();
+		$i2->setFromCompany( $this->company, $date_range);
+		$i2->save();
+
+		$this->assertEqual( $i->get('new_costs'), $i2->getNewCosts());
+		$this->assertEqual( $i->get('previous_balance'), $i2->getPreviousBalance());
+		$this->assertEqual( $i->get('new_payments'), $i2->getNewPaymentsTotal());
+		$this->assertEqual( $i->get('amount_due'), $i2->getAmountDue());
+
+		$i3 = new Invoice();
+		$i3->set(array(
+				'company_id'=>$this->company->id,
+				'start_date'=>$date_range['start_date'],
+				'end_date'=>$date_range['end_date'],
+				)
+			);
+		$i3->execute();
+		$i3->save();
+
+		$this->assertEqual( $i->get('new_costs'), $i3->getNewCosts());
+		$this->assertEqual( $i->get('previous_balance'), $i3->getPreviousBalance());
+		$this->assertEqual( $i->get('new_payments'), $i3->getNewPaymentsTotal());
+		$this->assertEqual( $i->get('amount_due'), $i3->getAmountDue());
+	}
     function setUp() {
 		/* Billing Test Correct Answers:
 			

@@ -2,25 +2,24 @@
 class Invoice extends ActiveRecord {
 
 	var $datatable = "invoice";
-	var $name_field = "date";
+	var $name_field = "id";
 	var $_class_name = "Invoice";
 	var $invoice_items;
 	var $company;
-        protected static $schema;
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
-							'support_contract_id'  :  'SupportContract',
-							'project_id'	:  'Project',
                             'company_id'    :  'Company',
 							'type'  		:  'text',
 							'start_date'  	:  'date',
 							'end_date'  	:  'date',
 							'pdf'  			:  'text',
-							'url'  			:  'text',
-							'html'  		:  'textarea',
 							'sent_date'  	:  'date',
-							'date'  		:  'date',
-							'amount'  		:  'float'
+							'status'  		:  'text',
+							'previous_balance'	:  'float',
+							'new_costs'  		:  'float',
+							'amount_due'	:  'float',
+							'new_payments' :  'float'
 						},
 			'required' : {
 							
@@ -29,6 +28,26 @@ class Invoice extends ActiveRecord {
     function __construct( $id = null){
         parent::__construct( $id);
     }
+	function isValid(){
+		$valid = true;
+
+		if( !$this->getData('company_id')){
+			$this->errors[] = 'company_id must be set';
+			$valid = false;
+		}
+		if( !$this->getData('start_date')){
+			$this->errors[] = 'start_date must be set';
+			$valid = false;
+		}
+		if( !$this->getData('end_date')){
+			 $this->errors[] =  'end_date must be set';
+		}
+
+		if ( $valid && parent::isValid()) return true;
+	}
+	function getName(){
+		return  $this->id;
+	}
 	function getInvoiceItems(){
 		if(!$this->invoice_items){
 			$finder = new InvoiceItem();
@@ -36,41 +55,55 @@ class Invoice extends ActiveRecord {
 		}
 		return $this->invoice_items;	
 	}
-	function getAmount(){
-		//stub
+	function getNewPaymentsTotal() {
+		return $this->get('new_payments');
+	}
+    function getNewCosts() {
+		return $this->get('new_costs');
+	}
+	function getAmountDue(){
+		return $this->get('amount_due');
 	}	
+    function getPreviousBalance() {
+		return $this->get('previous_balance');
+	}
 	function getCompany(){
-		if(!$this->company){
-			$this->company = new Company( $this->getData('company_id'));
-		}
+		$this->company = new Company( $this->getData('company_id') );
 		return $this->company;	
 	}
-
-    function calculateTotals() {
-    	//stub
+	function execute(){
+		if( !$this->isValid() ) bail( $this->errors );
+		
+		$this->setFromCompany( 	$this->getCompany(), 
+								array(
+									'start_date' => $this->get('start_date'),
+									'end_date' 	 =>	$this->get('end_date')
+									)
+								);
 	}
+	function setFromCompany( $company, $date_range){
+		if(!is_a( $company, 'Company')) bail('setFromCompany requires first param to be a Company object');
 
-    function getCharges() {
-        if(isset($this->charges)) return $this->charges;
-        $date_range = array('start_date'    => $this->get('start_date'), 
-                            'end_date'      => $this->get('end_date'));
-        $this->charges = $this->getCompany()->getCharges(array('date_range' => $date_range, 'sort' => 'date'));
-        return $this->charges;
-    }
-    function getSupportHours() {
-        if(isset($this->support_hours)) return $this->support_hours;
+		$this->company = $company;
 
-        $date_range = array('start_date'    => $this->get('start_date'), 
-                            'end_date'      => $this->get('end_date'));
-        $this->support_hours = $this->getCompany()->getSupportHours(array('date_range' => $date_range, 'sort' => 'date'));
-        return $this->support_hours; 
-    }
+		$previous_balance_date = array( 'end_date'=>$date_range['start_date'] );
+		$amount_due_date = array( 'end_date'=>$date_range['end_date'] );
 
-    function getProjectHours() {
-        if(isset($this->hours)) return $this->hours;
-        $date_range = array('start_date'    => $this->get('start_date'), 
-                            'end_date'      => $this->get('end_date'));
-        $this->hours = $this->getCompany()->getProjectHours(array('date_range' => $date_range, 'sort' => 'date'));
-        return $this->hours;
-    }
+		$previous_balance = $this->company->calculateBalance( $previous_balance_date);
+		$new_costs = $this->company->calculateCosts($date_range);
+		$new_payments = $this->company->calculatePaymentsTotal($date_range);
+		$amount_due = $this->company->calculateBalance($amount_due_date);
+
+		$this->set(array(
+				'company_id'=>$this->company->id,
+				'type'=>'stand_alone',
+				'start_date'=>$date_range['start_date'],
+				'end_date'=>$date_range['end_date'],
+				'previous_balance'=>$previous_balance,
+				'new_costs'=>$new_costs,
+				'new_payments'=>$new_payments,
+				'amount_due'=>$amount_due
+				)
+			);
+	}  
 }

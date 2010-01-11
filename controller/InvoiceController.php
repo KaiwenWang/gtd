@@ -4,8 +4,9 @@ class InvoiceController extends PageController {
 
     function create( $params ) {
         $inv = $this->new_invoices[0];
-        $inv->calculateTotals();
+        $inv->execute();
         $inv->save();
+
         $this->redirectTo( array( 'controller' => 'Invoice', 'action' => 'show', 'id' => $inv->id ));
     }
 
