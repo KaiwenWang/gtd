@@ -16,7 +16,7 @@ function invoiceTable( $invoices, $options = array( )) {
       							$r->link( 'Invoice', array('action' => 'show', 'id' => $e->id ), $e->getData( 'start_date')),
       							$e->getData('end_date'),
       							"<a href='$url' target='_blank'>" . $e->getData('sent_date') . "</a>",
-      							$e->getAmount()
+      							$e->getAmountDue()
       							);
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Invoices'));

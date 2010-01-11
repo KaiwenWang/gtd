@@ -8,7 +8,7 @@ function invoiceShow($d, $o = array() ) {
     $support_hours = $d->company->getSupportHours( $date_range );
     $support_charges = $d->company->calculateSupportCharges($support_hours, $date_range['date_range']);
 
-    $total = $d->invoice->getAmount();
+    $total = $d->invoice->getAmountDue();
     $invoice_period = date('M jS, Y', strtotime($d->invoice->get('start_date'))) 
         . " through " 
         . date('M jS, Y', strtotime($d->invoice->get('end_date')));  
