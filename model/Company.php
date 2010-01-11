@@ -40,29 +40,23 @@ class Company extends ActiveRecord {
 
 	function getProjects(){
 		if(!$this->projects){
-			$finder = new Project();
-			$this->projects= $finder->find(array("company_id"=>$this->id));
+			$this->projects= getMany('Project',array("company_id"=>$this->id));
 		}
 		return $this->projects;	
 	}
 	function getSupportContracts(){
 		if(!$this->support_contracts){
-			$finder = new SupportContract();
-			$this->support_contracts = $finder->find(array("company_id"=>$this->id));
+			$this->support_contracts = getMany('SupportContract',array("company_id"=>$this->id));
 		}
 		return $this->support_contracts;
 	}
 	function getInvoices(){
-        if(!isset($this->invoices)) {
-            $this->invoices = getMany( 'Invoice', array('company_id' => $this->id));
-		}
+        $this->invoices = getMany( 'Invoice', array('company_id' => $this->id));
 		return $this->invoices;
 	}
 	function getPayments($override_criteria=array()){
         $criteria = array_merge(array("company_id"=>$this->id), $override_criteria);
-		if(!isset($this->payments)){
-			$this->payments = getMany('Payment', $criteria);
-		}
+		$this->payments = getMany('Payment', $criteria);
 		return $this->payments;	
 	}
 	function getContacts(){
@@ -79,10 +73,8 @@ class Company extends ActiveRecord {
 		return $this->billing_contacts;	
 	}
 	function getCharges($override_criteria = array()){
-		if(!isset($this->charges)){
-            $criteria = array_merge(array("company_id"=>$this->id),$override_criteria);
-			$this->charges = getMany('Charge', $criteria );
-		}
+        $criteria = array_merge(array("company_id"=>$this->id),$override_criteria);
+		$this->charges = getMany('Charge', $criteria );
 		return $this->charges;	
 	}
 
@@ -173,14 +165,12 @@ class Company extends ActiveRecord {
 		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
 
 		if( !$date_range ) return 0;
-		
-		$total = 0;
 
-		$total += $this->calculateSupportTotal( $date_range );
-		$total += $this->calculateProjectsTotal( $date_range );
-		$total += $this->calculateChargesTotal( $date_range );
+		$support_total = $this->calculateSupportTotal( $date_range );
+		$project_total = $this->calculateProjectsTotal( $date_range );
+		$charges_total = $this->calculateChargesTotal( $date_range );
 		
-		return $total;
+		return $support_total + $project_total + $charges_total;
 	}
 
 	function getPreviousBalance(){
@@ -220,7 +210,7 @@ class Company extends ActiveRecord {
 
 		}
 
-		if ( isset($date_range['end_date']) && $date_range['end_date'] < $this->getPreviousBalanceDate() ){
+		if ( isset($date_range['end_date']) && $date_range['end_date'] <= $this->getPreviousBalanceDate() ){
 			return false;
 		}
 		

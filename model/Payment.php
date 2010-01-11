@@ -11,7 +11,7 @@ class Payment extends ActiveRecord {
 			'fields'   : {	
 							'date'  	:  'date',
 							'amount'  	:  'float',
-							'payment_type'		:  'text',
+							'payment_type' :  'text',
 							'preamp_id' :  'int',
 							'preamp_client_id'  :  'int',
 							'product'  	:  'text',

@@ -50,13 +50,8 @@ class SupportContract extends ActiveRecord {
 		return $this->invoices;	
 	}
     function getHours( $criteria = array()){
-		
-        if(!$this->hours){
-            $finder = new Hour();
-			$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
-            $this->hours = $finder->find($criteria);
-        }
-
+		$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
+        $this->hours = getMany('Hour',$criteria);
         return $this->hours;
     }
     function getTotalHours(){
