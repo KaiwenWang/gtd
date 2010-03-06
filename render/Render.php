@@ -99,7 +99,7 @@ class Render{
 		if ( is_array( $field_type)){
 			$data = $field_type;
 			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
-			$tokens['class'] =  "$field_name.-field $model_type-field select-field";
+			$tokens['class'] =  "$field_name-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
 
@@ -118,12 +118,12 @@ class Render{
 			}
 
 			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
-			$tokens['class'] =  "$field_name.-field $model_type-field select-field";
+			$tokens['class'] =  "$field_name-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
 	
 		if ( $id != 'new') $tokens['value'] = $obj->getData( $field_name);
-		$tokens['class'] =  "$field_name.-field $model_type-field select-field";
+		$tokens['class'] =  "$field_name-field $model_type-field $field_type-field";
     	return $this->input( $field_type, $tokens);
     }
     function input( $field_type, $tokens = array()){
