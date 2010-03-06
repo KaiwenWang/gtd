@@ -111,6 +111,7 @@ font-variant:small-caps;
 font-weight:bold;
 margin:4px;
 padding:4px;
+-moz-border-radius:4px;
 }
 #application{
 float:left;
@@ -309,13 +310,14 @@ float:left;
 margin-top:5px;
 }
 .js-hideable-btn{ 
+-moz-border-radius:4px;
 background:#FFFFFF none repeat scroll 0 0;
 border:1px solid #99BBFF;
 display:inline-block;
 font-variant:small-caps;
 font-weight:bold;
-margin:0 5px 4px 8px;
-padding:4px;
+margin:0 4px 4px 8px;
+padding:4px 10px 4px 4px;
 }
 .hideable-item{
 margin-top:5px;
