@@ -4,9 +4,8 @@ class Contact extends ActiveRecord {
 
 	var $datatable = "contact";
 	var $name_field = "first_name";
-	var $_class_name = "Contact";
-	var $company;
-        protected static $schema;
+    
+	protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name':  'text',
@@ -43,7 +42,7 @@ class Contact extends ActiveRecord {
 		return $name;
 	}
     function getCompany(){
-		if(!$this->company){
+		if(empty($this->company)){
 			$this->company = new Company( $this->getData('company_id'));
 		}
 		return $this->company;	

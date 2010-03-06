@@ -4,8 +4,7 @@ class Payment extends ActiveRecord {
 
 	var $datatable = "payment";
 	var $name_field = "amount";
-	var $_class_name = "Payment";
-	var $company;
+
     protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
@@ -29,7 +28,7 @@ class Payment extends ActiveRecord {
             return $this->getData('amount');
     }
     function getCompany(){
-            if(!$this->company){
+            if(empty($this->company)){
                     $this->company = new Company( $this->get('company_id'));
             }
             return $this->company;	

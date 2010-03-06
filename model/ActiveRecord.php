@@ -1,6 +1,5 @@
 <?php
 class ActiveRecord  extends Record {
-	var $_class_name = "ActiveRecord";
     var $name_field;
 
     protected static $schema;
@@ -13,7 +12,7 @@ class ActiveRecord  extends Record {
 		return $this->getData($this->name_field);
 	}
 	function getArray( $search_criteria){
-		$name = $this->_class_name;
+		$name = get_class($this);
 		$obj = new $name;
 		return $obj->find( $search_criteria);
 	}

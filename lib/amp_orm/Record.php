@@ -10,7 +10,6 @@ class Record extends Data {
     var $_allowed_keys = array();
 
     var $id;
-    var $_class_name;
 
     var $_sort_property;
     var $_sort_direction = 'asc';

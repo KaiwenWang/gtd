@@ -4,13 +4,7 @@ class SupportContract extends ActiveRecord {
 
 	var $datatable = "support_contract";
 	var $name_field = "domain_name";
-	var $_class_name = "SupportContract";
-	var $invoices;
-	var $hours;
-	var $add_ons;
-	var $product_instances;
-	var $bandwidths;
-    var $company;
+
     protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
@@ -41,6 +35,9 @@ class SupportContract extends ActiveRecord {
     }
     function getName(){
         return $this->getCompanyName().': '.$this->getData('domain_name');
+    }
+    function getShortName(){
+        return $this->getData('domain_name');
     }
 	function getInvoices(){
 		if(!$this->invoices){
@@ -74,21 +71,21 @@ class SupportContract extends ActiveRecord {
         return $billable_hours;
     }
 	function getProductInstances(){
-		if(!$this->product_instances){
+		if(empty($this->product_instances)){
 			$finder = new ProductInstance();
 			$this->product_instances = $finder->find(array("support_contract_id"=>$this->id));
 		}
 		return $this->product_instances;	
 	}
 	function getBandwidth(){
-		if(!$this->bandwidths){
+		if(empty($this->bandwidths)){
 			$finder = new Bandwidth();
 			$this->bandwidths = $finder->find(array("support_contract_id"=>$this->id));
 		}
 		return $this->bandwidths;
 	}
 	function getCompany(){
-		if(!$this->company){
+		if(empty($this->company)){
 			$this->company = new Company( $this->getData('company_id'));
 		}
 		return $this->company;	

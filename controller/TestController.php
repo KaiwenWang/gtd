@@ -1,6 +1,5 @@
 <?php
 class TestController extends PageController {
-    var $_class_name = 'TestController';
     
     function __construct(){
         parent::__construct();

@@ -3,7 +3,6 @@ class Charge extends  ActiveRecord {
 
 	var $datatable = "charge";
 	var $name_field = "name";
-	var $_class_name = "Charge";
     
     protected static $schema;
     protected static $schema_json = "{	

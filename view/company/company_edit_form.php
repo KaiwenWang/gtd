@@ -13,13 +13,12 @@ function companyEditForm( $c, $o = array()){
 		'State'		=> $fs->state,
 		'Zip'		=> $fs->zip,
 		'Phone'		=> $fs->phone,
-		'Product'	=> $fs->product,
 		'Status'	=> $fs->status
 	);	
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Add Client')
+    							array( 'title'=>'Edit Client')
     						  );
     
     return $form->html;

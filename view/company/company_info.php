@@ -21,7 +21,6 @@ function companyInfo( $c, $o){
 						'State'		=> $c->get('state'),
 						'Zip'		=> $c->get('zip'),
 						'Phone'		=> $c->get('phone'),
-						'Product'	=> $c->get('product'),
 						'Status'	=> $c->get('status')
 					);
 					

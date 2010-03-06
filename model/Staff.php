@@ -4,9 +4,8 @@ class Staff extends ActiveRecord {
 
 	var $datatable = "staff";
 	var $name_field = "first_name";
-	var $_class_name = "Staff";
-	var $projects;
-        protected static $schema;
+        
+	protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name'	:  'text',
@@ -28,7 +27,7 @@ class Staff extends ActiveRecord {
 		return $name;
 	}
 	function getProjects(){
-		if(!$this->projects){
+		if(empty($this->projects)){
 			$this->projects = getMany( 'Project', array("staff_id"=>$this->id));
 		}
 

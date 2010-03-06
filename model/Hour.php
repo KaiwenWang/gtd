@@ -3,7 +3,6 @@ class Hour extends ActiveRecord {
 
 	var $datatable = "hour";
 	var $name_field = "description";
-	var $_class_name = "Hour";
     
     protected static $schema;
     protected static $schema_json = "{	
@@ -22,9 +21,6 @@ class Hour extends ActiveRecord {
 							'date'
 					   }
 			}";
-
-	var $hours;
-	var $staff;
 	
     function __construct( $id = null){
         parent::__construct( $id);

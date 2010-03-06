@@ -13,7 +13,6 @@ function companyNewForm( $c, $o = array()){
 		'State'		=> $fs->state,
 		'Zip'		=> $fs->zip,
 		'Phone'		=> $fs->phone,
-		'Product'	=> $fs->product,
 		'Status'	=> $fs->status
 	);	
     

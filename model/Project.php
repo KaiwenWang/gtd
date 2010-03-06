@@ -4,7 +4,6 @@ class Project extends ActiveRecord {
 
 	var $datatable = "project";
 	var $name_field = "name";
-	var $_class_name = "Project";
 	var $hours;
 	var $estimates;
 	var $invoices;
@@ -28,7 +27,7 @@ class Project extends ActiveRecord {
 							'domain_notes'  :  'textarea',
 							'contract_notes':  'textarea',
 							'other_notes'  	:  'textarea',
-							'status'  		:  'text',
+							'status_id'  	:  'Status',
 							'deposit'  		:  'float',
 							'contract_url'  :  'text',
 							'deposit_date'  :  'date',

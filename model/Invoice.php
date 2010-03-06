@@ -3,7 +3,6 @@ class Invoice extends ActiveRecord {
 
 	var $datatable = "invoice";
 	var $name_field = "id";
-	var $_class_name = "Invoice";
 	var $invoice_items;
 	var $company;
     protected static $schema;

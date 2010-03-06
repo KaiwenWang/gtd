@@ -176,6 +176,19 @@ class Util {
         $end_of_month = strtotime("-1 day", $start_of_month);
         return date('d', $end_of_month);
     }
+	function include_directory($path){
+		$d = dir( rtrim($path,'/') ); 
+		while (false!== ($filename = $d->read())) { 
+			if (substr($filename, -4) == '.php') {
+	  			require_once "$path/$filename";
+ 			} 
+		} 
+		$d->close(); 
+	}
+	function log($msg){
+		trigger_error( "GTD LOGGER:: " . strip_tags($msg) );
+#		echo $msg;
+	}
 }
 
 

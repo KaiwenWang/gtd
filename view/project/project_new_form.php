@@ -9,7 +9,7 @@ function projectNewForm( $project, $o = array()){
     $list_items = array(
 		'Name' => $f->name,
 		'Company' => $f->company_id,
-		'Status'=> $f->status,
+		'Status'=> $f->field( 'status_id',array('type'=>'project')),
 		'Project_Manager'=>$f->staff_id,
 		'Launch Deadline' =>$f->launch_date,
 		'Discovery Deadline' => $f->discovery_date,

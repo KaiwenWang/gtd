@@ -1,5 +1,6 @@
 <?php
 class Router{
+
     var $controller;
     var $controller_prefix;
     var $action;
@@ -37,11 +38,13 @@ class Router{
         }
 		$this->initializeParams();
     }
+    
     function params( ) {
         if( $this->params) return $this->params;
 		$this->initializeParams();
         return $this->params;
     }
+    
 	function initializeParams(){
 		$this->method == 'get' ? $params = $_GET
 							   : $params = $_POST;
@@ -49,6 +52,7 @@ class Router{
         unset( $params['action']);
         $this->params = $params;
 	}
+	
     function controller_path( ) {
         $path = 'controller/'.$this->controller.'.php';
 		if (!file_exists( $path)) bail( 'requested controller "'.$this->controller.'" does not exist.');

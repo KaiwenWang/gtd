@@ -1,13 +1,13 @@
 <?php
 class Template{
-    var $_class_name = 'Template';
+
     var $html;
     
     function __construct($file_path){
          if (file_exists($file_path))
             $this->html = join("", file($file_path));
         else
-            bail("Template file $template not found.");
+            bail("Template file $file_path not found.");
     }
     function replace_tags($tags = array()){
         if (count($tags) > 0) {

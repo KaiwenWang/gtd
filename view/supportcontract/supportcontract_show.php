@@ -27,7 +27,7 @@ function supportcontractShow($d){
 
 
 	return array(
-		'title' => $d->contract->getName(),
+		'title' => 'Support Contract: '.$d->contract->getShortName(),
 		'controls' => $contract_finder,
 		'body' 	=> 	$contract_info
 					.$hidden_forms

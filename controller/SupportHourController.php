@@ -41,7 +41,7 @@ class SupportHourController extends PageController {
 
 		isset($params['redirect']) 	? $redirect = $params['redirect']
 									: $redirect = array(
-													'controller'=>'SupportContract');
+													'controller'=>'SupportContract',
         											'action' => 'show', 
         											'id' => $h->get('support_contract_id')
                             						);

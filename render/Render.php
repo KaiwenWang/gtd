@@ -1,7 +1,6 @@
 <?php
 class Render{
 
-	var $_class_name = 'Render';
 	var $json;
 	var $system_messages;
 
@@ -81,6 +80,9 @@ class Render{
     function field( $obj,$field_name,$search_criteria = array(),$new_object_index = 0){
 
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be a subclass of ActiveRecord');  	
+
+		$model_type = get_class($obj);
+
   		$id = $obj->id;
 		if ( !$id) {
 			isset($new_object_index)	? $id = 'new-'.$new_object_index
@@ -88,7 +90,7 @@ class Render{
 		}
 		
     	$field_type = $obj->getFieldType( $field_name);
-    	$field_id = 'ActiveRecord['.$obj->_class_name."][$id][$field_name]";
+    	$field_id = "ActiveRecord[$model_type][$id][$field_name]";
 		$tokens =	array( 
     					'name' 	=> $field_id,
     					'id'	=> $field_id
@@ -97,7 +99,7 @@ class Render{
 		if ( is_array( $field_type)){
 			$data = $field_type;
 			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
-			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
+			$tokens['class'] =  "$field_name.-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
 
@@ -116,12 +118,12 @@ class Render{
 			}
 
 			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
-			$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field select-field';
+			$tokens['class'] =  "$field_name.-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
 	
 		if ( $id != 'new') $tokens['value'] = $obj->getData( $field_name);
-		$tokens['class'] =  $field_name.'-field '.$obj->_class_name.'-field '.$field_type.'-field';
+		$tokens['class'] =  "$field_name.-field $model_type-field select-field";
     	return $this->input( $field_type, $tokens);
     }
     function input( $field_type, $tokens = array()){
@@ -148,8 +150,8 @@ class Render{
        	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be an ActiveRecord object');
   		$id = $obj->id;
 		if ( !$id) $id = 'new';
-		if ( $search_criteria) 	{	$objects = getMany( $obj->_class_name, $search_criteria);}
-	    				else	{	$objects = getAll( $obj->_class_name);}
+		if ( $search_criteria) 	{	$objects = getMany( get_class($obj), $search_criteria);}
+	    				else	{	$objects = getAll( get_class($obj));}
 	    foreach( $objects as $o){
 	    	$data[$o->id] = $o->getName();
 	    }

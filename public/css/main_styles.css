@@ -1,10 +1,22 @@
 body{
 font-family: Verdana;
 margin:0;
-background-color:#FEFAE1;
-background-position: right top;
-background-repeat: no-repeat;
-dasbackground-image: url('/public/img/bg_paint.jpg');
+background-color:#FFF6E4;
+}
+#header{
+background: #000000;
+}
+#title-bar{
+background: #0092C3;
+padding: 
+}
+#app-container{
+margin:0 auto;
+background-color:#FFF6E4;
+background-position: left top;
+background-repeat: repeat-x;
+background-image: url('/public/img/gtd_bg.jpg');
+//width:912px;
 }
 a{
 text-decoration: none;
@@ -21,9 +33,10 @@ position:relative;
 width: 500px;
 }
 h2{
-margin:0;
-display: block;
-padding: 0 5px
+color:#FFF6E4;
+display:block;
+margin:0 0 0 170px;
+padding:0 5px;
 }
 h3{
 border:0px solid #999999;
@@ -81,9 +94,10 @@ top:2px;
 }
 #side{
 float:left;
-margin-left:1%;
-margin-right:1%;
-width:12%;
+margin-left:20px;
+margin-right:0;
+margin-top:4px;
+width:145px;
 }
 #side ul{
 list-style-type: none;
@@ -99,9 +113,9 @@ margin:4px;
 padding:4px;
 }
 #application{
-margin-right:2%;
-float:right;
-width:84%
+float:left;
+margin-left:10px;
+width: 80%;
 }
 #footer{
 margin-top:10px;
@@ -148,7 +162,7 @@ padding: 0 10px;
 clear: left;
 }
 .detail-list{
-background: #DDEEEE;
+background: #daf1ff;
 -moz-border-radius-topleft:6px;
 -moz-border-radius-topright:6px;
 -moz-border-radius-bottomleft:6px;
@@ -156,6 +170,7 @@ background: #DDEEEE;
 border:0px solid #666666;
 margin:5px 0;
 padding:5px;
+//width:715px;
 width:420px;
 }
 .detail-project-hours span {
@@ -165,14 +180,17 @@ font-size: 11px;
 padding: 0 15px 0 0 ;
 }
 .basic-cell{
-display: inline;
+display:inline-block;
+margin-bottom:2px;
+vertical-align:top;
 }
 .basic-list-label{
 color:#333333;
 display:block;
 float:left;
+font-size:14px;
 font-weight:bold;
-width:170px;
+width:156px;
 }
 .basic-list-item form{
 margin: 0;
@@ -322,9 +340,13 @@ text-align:right;
 }
 /*LOGIN WIDGET */
 #login-widget{
-float:right;
+float:left;
+font-size:12px;
 font-weight:bold;
-margin:7px 24px;
+margin:4px 21px 0;
+}
+#login-widget a{
+color: #fff6e4;
 }
 /* PROJECT INFO */
 .launch-date{

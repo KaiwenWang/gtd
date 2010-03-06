@@ -4,7 +4,6 @@ class Company extends ActiveRecord {
 
 	var $datatable = "company";
 	var $name_field = "name";
-	var $_class_name = "Company";
 
 	protected $projects;
 	protected $support_contracts;

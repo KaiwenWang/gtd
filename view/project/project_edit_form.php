@@ -6,7 +6,7 @@ function projectEditForm( $p, $o = array()){
 
 	$list_items = array(
 			'Name' =>			$fs->name,
-			'Status' =>			$fs->status,
+			'Status' =>			$fs->status_id,
 			'Launch Date' =>	$fs->launch_date,
 			'Company' =>		$fs->company_id,
 			'Project Manager'=> $fs->staff_id,

@@ -22,7 +22,6 @@ function contactDetail($contact, $o){
 	if ($contact->get('is_billing_contact') == 1) {
 		$html .= '&bull; Billing Contact <br />';
 	}
-	print $contact->get('is_billing_contact');
 	if ($contact->get('is_primary_contact') == 1) {
 		$html .= '&bull; Primary Contact <br />';
 	}

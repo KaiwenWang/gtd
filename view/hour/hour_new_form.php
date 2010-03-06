@@ -19,8 +19,7 @@ function hourNewForm( $h, $o = array()){
 					'Date Completed'=> $fs->date,
 					'Staff' 		=> $fs->staff_id,
 					'Hours' 		=> $fs->hours,        
-					'Discount' 		=> $fs->discount,
-					'Basecamp ID' 	=> $fs->basecamp_id
+					'Discount' 		=> $fs->discount
 					);	
 
 	isset($o['title']) 	? $title = 'Add Hour: '.$o['title']
