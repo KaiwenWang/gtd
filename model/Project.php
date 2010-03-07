@@ -27,7 +27,7 @@ class Project extends ActiveRecord {
 							'domain_notes'  :  'textarea',
 							'contract_notes':  'textarea',
 							'other_notes'  	:  'textarea',
-							'status_id'  	:  'Status',
+							'status'  	:  'text',
 							'deposit'  		:  'float',
 							'contract_url'  :  'text',
 							'deposit_date'  :  'date',
@@ -53,6 +53,9 @@ class Project extends ActiveRecord {
 						},
 			'required' : {
 							
+						},
+			'values' : {
+					'status' : ['pre-design','launched']
 						}
 			}";
     function __construct( $id = null){

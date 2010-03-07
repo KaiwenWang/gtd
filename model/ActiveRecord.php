@@ -11,6 +11,15 @@ class ActiveRecord  extends Record {
    function getName(){
 		return $this->getData($this->name_field);
 	}
+	static function getOne( $search_criteria){
+		return getOne( get_called_class(), $search_criteria);
+	}
+	static function getMany( $search_criteria){
+		return getMany( get_called_class(), $search_criteria);
+	}
+	static function getAll(){
+		return getAll( get_called_class());
+	}
 	function getArray( $search_criteria){
 		$name = get_class($this);
 		$obj = new $name;
@@ -20,6 +29,8 @@ class ActiveRecord  extends Record {
 		$s = $this->getSchema();
 		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file.");
 		if ( !$s['fields'][$field]) bail( "db field '$field' exists in schema file, but does not have it's type set");
+//		bail($s);
+		if ( !empty($s['values']) && !empty($s['values'][$field])) return $s['values'][$field];
 		return $s['fields'][$field];
 	} 
 	function getSchema(){
@@ -27,16 +38,10 @@ class ActiveRecord  extends Record {
 		return call_user_func( array($class, '_getSchema'), $class);
 	}
 	public static function _getSchema($class){
-/*
-          return	eval(
-						'$r =& getRenderer();
-	        	    	return $r->jsonDecode( '.$class.'::$schema_json);'
-	        	    );
-       */ 
-            if ( !isset( $class::$schema)) {
-                $r =& getRenderer();
-	        $class::$schema = $r->jsonDecode( $class::$schema_json);
-            }
+		if ( !isset( $class::$schema)) {
+			$r =& getRenderer();
+			$class::$schema = $r->jsonDecode( $class::$schema_json);
+        }
 	    return $class::$schema;
 	}
 	function defaultSearchCriteria( $field_name){}

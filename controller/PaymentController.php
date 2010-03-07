@@ -8,7 +8,7 @@ class PaymentController extends PageController {
     	$search_criteria = array("sort"=>"date DESC");
     	$search_criteria = array_merge($search_criteria, $params);
 
-		$this->data->payments = getMany( 'Payment', $search_criteria);
+		$this->data->payments = Payment::getMany( $search_criteria);
 
         $this->data->new_payment= new Payment();
 		$this->data->new_payment->set(array( 
