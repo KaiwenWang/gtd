@@ -1,5 +1,4 @@
 <?php
-
 class Bandwidth extends ActiveRecord {
 
 	var $datatable = "bandwidth";
@@ -19,4 +18,3 @@ class Bandwidth extends ActiveRecord {
         parent::__construct( $id);
     }
 }
-?>

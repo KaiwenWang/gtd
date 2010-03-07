@@ -74,4 +74,3 @@ class ActiveRecord  extends Record {
 		// overwrite in subclass
 	}
 }
-?>

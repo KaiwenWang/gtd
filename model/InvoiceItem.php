@@ -1,11 +1,9 @@
 <?php
-
 class InvoiceItem extends ActiveRecord {
 
 	var $datatable = "invoice_item";
 	var $name_field = "name";
 
-    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'invoice_id'  	:  'Invoice',
@@ -19,6 +17,7 @@ class InvoiceItem extends ActiveRecord {
 							
 						}
 			}";
+
     function __construct( $id = null){
         parent::__construct( $id);
     }
@@ -26,5 +25,3 @@ class InvoiceItem extends ActiveRecord {
 		return $this->getData('amount');
 	}
 }
-
-?>

@@ -5,7 +5,6 @@ class Estimate extends ActiveRecord {
 	var $datatable = "estimate";
 	var $name_field = "description";
 
-    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'project_id'	:  'Project',
@@ -21,6 +20,7 @@ class Estimate extends ActiveRecord {
 							
 						}
 			}";
+
     function __construct( $id = null){
         parent::__construct( $id);
     }

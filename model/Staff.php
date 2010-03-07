@@ -1,11 +1,9 @@
 <?php
-
 class Staff extends ActiveRecord {
 
 	var $datatable = "staff";
 	var $name_field = "first_name";
         
-	protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name'	:  'text',
@@ -18,6 +16,7 @@ class Staff extends ActiveRecord {
 							
 						}
 			}";
+
     function __construct( $id = null){
         parent::__construct( $id);
     }
@@ -34,5 +33,3 @@ class Staff extends ActiveRecord {
 		return $this->projects;
 	}
 }
-
-?>

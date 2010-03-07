@@ -1,10 +1,10 @@
 <?php
+
 class Hour extends ActiveRecord {
 
 	var $datatable = "hour";
 	var $name_field = "description";
     
-#    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	'estimate_id' 	: 'Estimate',
 							'support_contract_id' : 'SupportContract',
@@ -58,7 +58,6 @@ class Hour extends ActiveRecord {
         }
         return $this->estimate;
     }
-
     function getStaffName(){
         $staff = $this->getStaff();
         return $staff->getName();
@@ -69,7 +68,6 @@ class Hour extends ActiveRecord {
     function makeCriteriaHourSearch($data) {
         return $this->makeCriteriaDateRange( $data );
     }
-
     function makeCriteriaSupportContract($values) {
         if(empty($values)) return;
         if(is_array($values)) {
@@ -79,13 +77,6 @@ class Hour extends ActiveRecord {
     }
     function makeCriteriaEstimate($values) {
         return $this->_makeCriteriaMultiple('estimate_id', $values);
-        /*
-        if(empty($values)) return;
-        if(is_array($values)) {
-            return "estimate_id IN (". implode(",", $values). ")";
-        }
-        return "estimate_id = " . $this->dbcon->qstr( $values );
-         */
     }
     function makeCriteriaProject($values) {
         $estimates = getMany('estimate', array('project' => $values));
@@ -101,4 +92,3 @@ class Hour extends ActiveRecord {
                 ); 
     }
 }
-?>

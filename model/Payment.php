@@ -1,11 +1,9 @@
 <?php
-
 class Payment extends ActiveRecord {
 
 	var $datatable = "payment";
 	var $name_field = "amount";
 
-    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'date'  	:  'date',
@@ -37,11 +35,12 @@ class Payment extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+    function getDate() {
+        return $this->get( 'date' );
+    }
+
     function _sort_default( &$item_set ){
         return $this->sort( $item_set, 'date', 'desc');
     }
 
-    function getDate() {
-        return $this->get( 'date' );
-    }
 }

@@ -1,15 +1,9 @@
 <?php
-
 class Project extends ActiveRecord {
 
 	var $datatable = "project";
 	var $name_field = "name";
-	var $hours;
-	var $estimates;
-	var $invoices;
-	var $company;
-	var $staff;
-        protected static $schema;
+
     protected static $schema_json = "{	
 			'fields'   : {	
 							'name'  		:  'text',
@@ -58,6 +52,7 @@ class Project extends ActiveRecord {
 					'status' : ['pre-design','launched']
 						}
 			}";
+
     function __construct( $id = null){
         parent::__construct( $id);
     }
@@ -65,14 +60,14 @@ class Project extends ActiveRecord {
         return $this->getCompanyName().': '.$this->getData('name');
     }
 	function getEstimates(){
-		if(!$this->estimates){
+		if(empty($this->estimates)){
 			$finder = new Estimate();
 			$this->estimates = $finder->find(array("project_id"=>$this->id));
 		}
 		return $this->estimates;	
 	}
 	function getInvoices(){
-		if(!$this->invoices){
+		if(empty($this->invoices)){
 			$finder = new Invoice();
 			$this->invoices = $finder->find(array("project_id"=>$this->id));
 		}
@@ -127,7 +122,7 @@ class Project extends ActiveRecord {
 		return $hours;
 	}
 	function getCompany(){
-		if(!$this->company){
+		if(empty($this->company)){
 			$this->company = new Company( $this->getData('company_id'));
 		}
 		return $this->company;	
@@ -141,7 +136,7 @@ class Project extends ActiveRecord {
 		return $company->getContacts();
 	}
 	function getStaff(){
-	   if (!$this->staff){
+	   if (empty($this->staff)){
 	       $this->staff = new Staff( $this->getData('staff_id'));
         }
         return $this->staff;

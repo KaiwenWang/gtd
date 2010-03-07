@@ -3,9 +3,7 @@ class Invoice extends ActiveRecord {
 
 	var $datatable = "invoice";
 	var $name_field = "id";
-	var $invoice_items;
-	var $company;
-    protected static $schema;
+    
     protected static $schema_json = "{	
 			'fields'   : {	
                             'company_id'    :  'Company',
@@ -24,7 +22,8 @@ class Invoice extends ActiveRecord {
 							
 						}
 			}";	
-    function __construct( $id = null){
+    
+	function __construct( $id = null){
         parent::__construct( $id);
     }
 	function isValid(){
