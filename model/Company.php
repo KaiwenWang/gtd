@@ -5,14 +5,6 @@ class Company extends ActiveRecord {
 	var $datatable = "company";
 	var $name_field = "name";
 
-	protected $projects;
-	protected $support_contracts;
-	protected $invoices;
-	protected $payments;
-	protected $contacts;
-	protected $billing_contacts;
-	protected $previous_balance;
-    protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
 								'name' 		:  'text',
@@ -38,13 +30,13 @@ class Company extends ActiveRecord {
     			}";
 
 	function getProjects(){
-		if(!$this->projects){
+		if(empty($this->projects)){
 			$this->projects= getMany('Project',array("company_id"=>$this->id));
 		}
 		return $this->projects;	
 	}
 	function getSupportContracts(){
-		if(!$this->support_contracts){
+		if(empty($this->support_contracts)){
 			$this->support_contracts = getMany('SupportContract',array("company_id"=>$this->id));
 		}
 		return $this->support_contracts;
@@ -59,13 +51,13 @@ class Company extends ActiveRecord {
 		return $this->payments;	
 	}
 	function getContacts(){
-		if(!$this->contacts){
+		if(empty($this->contacts)){
 			$this->contacts= getMany('Contact', array("company_id"=>$this->id));
 		}
 		return $this->contacts;	
 	}
 	function getBillingContacts(){
-		if(!$this->billing_contacts){
+		if(empty($this->billing_contacts)){
 			$finder = new Contact();
 			$this->billing_contacts= $finder->find(array("company_id"=>$this->id,"billable"=>1));
 		}
@@ -173,8 +165,8 @@ class Company extends ActiveRecord {
 	}
 
 	function getPreviousBalance(){
-		if(!$this->previous_balance){
-			$this->previous_balance = getOne('CompanyPreviousBalance',array('company_id'=>$this->id, 'sort'=>'date DESC'));
+		if(empty($this->previous_balance)){
+			$this->previous_balance = CompanyPreviousBalance::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
 		}
 		return $this->previous_balance;
 	}

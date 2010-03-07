@@ -4,7 +4,7 @@ class Hour extends ActiveRecord {
 	var $datatable = "hour";
 	var $name_field = "description";
     
-    protected static $schema;
+#    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	'estimate_id' 	: 'Estimate',
 							'support_contract_id' : 'SupportContract',
