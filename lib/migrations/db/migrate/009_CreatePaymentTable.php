@@ -4,7 +4,6 @@ class CreatePaymentTable extends Ruckusing_BaseMigration {
 
   public function up() {
     //drop legacy payment table
-    $this->drop_table('payment');
     $t = $this->create_table('payment');
     $t->column('date', 'date');
     $t->column('amount', 'float');
