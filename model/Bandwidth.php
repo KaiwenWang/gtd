@@ -4,6 +4,7 @@ class Bandwidth extends ActiveRecord {
 	var $datatable = "bandwidth";
 	var $name_field = "gigs_over";
 
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'support_contract_id'	:  'SupportContract',

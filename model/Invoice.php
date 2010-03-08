@@ -4,6 +4,7 @@ class Invoice extends ActiveRecord {
 	var $datatable = "invoice";
 	var $name_field = "id";
     
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
                             'company_id'    :  'Company',

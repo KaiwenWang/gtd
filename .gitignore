@@ -4,3 +4,4 @@
 *swo
 *.log
 database_config.php
+lib/db_scripts/*.sql

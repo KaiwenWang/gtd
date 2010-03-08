@@ -4,6 +4,7 @@ class Contact extends ActiveRecord {
 	var $datatable = "contact";
 	var $name_field = "first_name";
     
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name':  'text',

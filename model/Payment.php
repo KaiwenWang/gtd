@@ -4,6 +4,7 @@ class Payment extends ActiveRecord {
 	var $datatable = "payment";
 	var $name_field = "amount";
 
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'date'  	:  'date',

@@ -67,10 +67,10 @@ class HourController extends PageController {
     function create( $params){
 		$h = $this->new_hours[0];
 		$h->save();
-        $this->redirectTo(referrer(array('controller' => 'Estimate', 
+        $this->redirectTo(array('controller' => 'Estimate', 
         						'action' => 'show', 
         						'id' => $h->get('estimate_id')
-        						)));
+        						));
     }
 	function search($params){
 		$this->data = getMany( 'Hour', $params);

@@ -4,6 +4,7 @@ class Charge extends  ActiveRecord {
 	var $datatable = "charge";
 	var $name_field = "name";
     
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
     						'company_id'	:  'Company',

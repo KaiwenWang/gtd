@@ -1,13 +1,14 @@
 <?php
-
 class Estimate extends ActiveRecord {
 
 	var $datatable = "estimate";
-	var $name_field = "description";
+	var $name_field = "name";
 
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'project_id'	:  'Project',
+							'name'  	:  'text',
 							'description'  	:  'textarea',
 							'high_hours'  	:  'float',
 							'due_date'  	:  'date',

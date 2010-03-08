@@ -4,6 +4,7 @@ class Company extends ActiveRecord {
 	var $datatable = "company";
 	var $name_field = "name";
 
+    protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
 								'name' 		:  'text',
@@ -13,19 +14,18 @@ class Company extends ActiveRecord {
 								'city'  	:  'text',
 								'state'  	:  'text',
 								'zip'  		:  'int',
-								'phone'  	:  'text',
-								'other_phone'  	:  'text',
-								'billing_phone' :  'text',
-								'stasi_id'  :  'int',
 								'preamp_id' :  'int',
 								'status'  	:  'text',
-								'product'  	:  'text',
 								'bay_area'  :  'bool',
-								'balance'  	:  'float'
+								'date_started' : 'date',
+								'date_ended':  'date'
     						},
     			'required' : {
     							
-    						}
+    						},
+				'values' : {
+							'status' :{'setup':'Setup','active':'Active','rEvent':'Revent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Off Server'}
+							}
     			}";
 
 	function getProjects(){

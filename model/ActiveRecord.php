@@ -26,14 +26,13 @@ class ActiveRecord  extends Record {
 		return $obj->find( $search_criteria);
 	}
 	function getFieldType( $field){
-		$s = $this::_getSchema();
-		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file.");
+		$s = $this::_getSchema(get_class($this));
+		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file for ".get_class($this).".");
 		if ( !$s['fields'][$field]) bail( "db field '$field' exists in schema file, but does not have it's type set");
 		if ( !empty($s['values']) && !empty($s['values'][$field])) return $s['values'][$field];
 		return $s['fields'][$field];
 	} 
 	public static function _getSchema($class=''){
-		$class = get_called_class();
 		if ( !isset( $class::$schema)) {
 			$r =& getRenderer();
 			$class::$schema = $r->jsonDecode( $class::$schema_json);

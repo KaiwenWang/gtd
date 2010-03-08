@@ -6,12 +6,13 @@ function estimateNewForm( $e, $o = array()){
     $fs = $form->getFieldSetFor($e);
 
     $list_items = array(
+		'Name' => 	$fs->name,
 		'Description' => 	$fs->description,
 		'Low Estimate' =>	$fs->low_hours,
 		'High Estimate' => 	$fs->high_hours,
-		'Due Date' => 		$fs->due_date,
-		'Details' => 		$fs->notes,
-		'Project' => 		$fs->project_id
+		'Due Date' => $fs->due_date,
+		'Internal Details' => $fs->notes,
+		'Project' => $fs->project_id
 	);	
     
     $form->content = $r->view( 'basicFormContents', 

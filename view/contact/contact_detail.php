@@ -17,7 +17,7 @@ function contactDetail($contact, $o){
 	$html = '';
 	$html .= '<div>Name: '. $contact->get('first_name').' '.$contact->get('last_name'). '</div> ';
 	$html .= '<div>Email: <a href="'.$contact->get('email').'"/>'.$contact->get('email').'</a></div>';
-	$html .= '<div>notes: <a href="'.$contact->get('notes').'"/>'.$contact->get('notes').'</a></div>';
+	$html .= '<div>Phone: '.$contact->get('phone').'</div>';
 
 	if ($contact->get('is_billing_contact') == 1) {
 		$html .= '&bull; Billing Contact <br />';

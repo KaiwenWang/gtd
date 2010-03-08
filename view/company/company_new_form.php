@@ -12,8 +12,8 @@ function companyNewForm( $c, $o = array()){
 		'City'		=> $fs->city,
 		'State'		=> $fs->state,
 		'Zip'		=> $fs->zip,
-		'Phone'		=> $fs->phone,
-		'Status'	=> $fs->status
+		'Status'	=> $fs->status,
+		'Bay Area'	=> $fs->bay_area
 	);	
     
     $form->content = $r->view( 'basicFormContents', 

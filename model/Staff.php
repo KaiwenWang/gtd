@@ -4,17 +4,20 @@ class Staff extends ActiveRecord {
 	var $datatable = "staff";
 	var $name_field = "first_name";
         
+    protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
 							'first_name'	:  'text',
 							'last_name'  	:  'text',
 							'email'  		:  'text',
-							'basecamp_id'	:  'int',
 							'team'  		:  'text',
 						},
 			'required' : {
 							
-						}
+						},
+			'values'{
+					'team' : {'production':'Production','development':'Development','administration':'Administration'}
+					}
 			}";
 
     function __construct( $id = null){
