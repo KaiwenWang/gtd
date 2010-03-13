@@ -12,7 +12,7 @@ function companyShow($d){
 										)
 									);
 	
-	$hidden_forms = $r->view('jsHideable',
+	$hidden_forms = $r->view('jsMultipleButtons',
 						array(
 							'Create New Project' => $r->view( 'projectNewForm', $d->new_project),
 							'Create New Contact' => $r->view( 'contactNewForm', $d->new_contact),

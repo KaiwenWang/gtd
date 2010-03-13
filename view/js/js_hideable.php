@@ -9,8 +9,8 @@ function jsHideable( $items, $options){
 													 : $style = 'display: none;';
 		$hideable_items .= '
 			<div class="hideable-block">	
-				<a class="js-hideable-btn" href="#">
-					<b>+</b> <span class="title">'.$header.'</span>
+				<a class="js-hideable-btn button" href="#">
+					<span class="title">'.$header.'</span>
 				</a>
 				<div class="hideable-item" style="'.$style.'">
 					'.$item.'
@@ -25,4 +25,3 @@ function jsHideable( $items, $options){
 		</div>
 			';
 }
-?>
