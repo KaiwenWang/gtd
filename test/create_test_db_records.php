@@ -1,6 +1,6 @@
 <?php
 //test
-require_once('include/all_includes.php');
+require_once('boot/bootstrap.php');
 $p = new Project();
 $s = getOne( 'Staff', array('First_Name'=>'Ted'));
 $p->set( array(

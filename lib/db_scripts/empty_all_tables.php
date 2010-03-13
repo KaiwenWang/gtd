@@ -1,5 +1,5 @@
 <?php
-require_once 'include/bootstrap.php';
+require_once 'boot/bootstrap.php';
 
 // BACKUP DB TO DISC
 $path = realpath(__DIR__);

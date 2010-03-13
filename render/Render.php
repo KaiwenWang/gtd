@@ -27,7 +27,7 @@ class Render{
     	return $html;
     }
     function msg( $type, $text){
-    	$msg = $this->template('template/message.html', array( 'type'=>$type, 'message'=>$text));
+    	$msg = $this->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
 		$this->system_messages .= $msg;
     }
     function jsonEncode( $data){
@@ -74,7 +74,7 @@ class Render{
     					'form-content' => $o['content']
     					);
     	
-		return $this->template('template/form_elements/form.html', $tokens);    
+		return $this->template('templates/form_elements/form.html', $tokens);    
     }
     
     function field( $obj,$field_name,$search_criteria = array(),$new_object_index = 0){
@@ -131,7 +131,7 @@ class Render{
     	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
     	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
     	if ( isset( $tokens['value'])) $tokens['value'] = htmlspecialchars( $tokens['value']);
-    	return $this->template( 'template/form_elements/'.$field_type.'.html', $tokens);
+    	return $this->template( 'templates/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
    		if (!$o['name']) bail('A select field must have token["name"] passed to it in order to work');

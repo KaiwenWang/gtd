@@ -38,7 +38,7 @@ class FrontController {
 
         $response_template = isset($response['template']) ? $response['template'] : 'gtd_main_template';
 
-        return $r->template( 'template/' . $response_template . '.html', 
+        return $r->template( 'templates/' . $response_template . '.html', 
                             $response
                         );
     }

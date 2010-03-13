@@ -1,6 +1,6 @@
 <?php
 
-include( dirname(__FILE__) . '/../../../include/database_config.php' );
+include( dirname(__FILE__) . '/../../../boot/database_config.php' );
 
 //----------------------------
 // DATABASE CONFIGURATION
