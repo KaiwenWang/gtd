@@ -60,9 +60,19 @@ border:1px solid #99BBFF;
 display:inline-block;
 font-variant:small-caps;
 font-weight:bold;
-margin:0 4px 6px 8px;
+margin:2px 0 6px 2px;
 padding:2px 8px 2px 10px;
 color:#005599;
+cursor:pointer;
+}
+.button:hover {
+color:#0092C3;
+} 
+.button:active {
+background-color:#0092C3;
+color:#DAF1FF;
+text-shadow:0 0px 1px #ffffff;
+-moz-box-shadow:0 2px 2px rgba(33, 100, 190, 0.9);
 }
 .msg{
 width: 450px;

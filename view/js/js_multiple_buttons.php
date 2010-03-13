@@ -5,26 +5,27 @@ function jsMultipleButtons( $items, $options){
 
 	$multiple_buttons = '';
 	$target_html = '';
-
+	$id = 0;
 	foreach( $items as $header=>$item){
 		array_key_exists( $header, $open_by_default) ? $style = ''
 													 : $style = 'display: none;';
 		$multiple_buttons.= '
-				<a class="js-multiple-buttons-btn button" href="#">
+				<a data-id="'.$id.'" class="multiple-buttons-btn button"> 
 					<span class="title">'.$header.'</span>
 				</a>
 			';
 		$target_html .=' 
-					<div class="multiple-buttons-item" style="'.$style.'">
+					<div data-id="'.$id.'" class="multiple-buttons-target" style="'.$style.'">
 						'.$item.'
 					</div>
 					';				
+		$id++;
 	}
 	
 	return 	'
 		<div class="js-multiple-buttons">
 			'.$multiple_buttons.'
-			<div class="js-multiple-buttons-target">
+			<div class="multiple-buttons-targets">
 				'.$target_html.'
 			</div>
 		</div>

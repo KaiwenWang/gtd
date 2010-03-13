@@ -9,7 +9,7 @@ $.fn.initialize_Gtd = function(){
 	$('.basic-table-container',this).enable_QuickSearch();
 	$('.js-swappable-btn',this).enable_Swappable();
 	$('.js-hideable-btn',this).enable_Hideable();
-	$('.js-multiple-buttons-btn',this).enable_MultipleButtons();
+	$('.multiple-buttons-btn',this).enable_MultipleButtons();
 	$('input[name=ajax_target_id]',this).enable_Ajax();
 	$('input[name=auto_submit]',this).enable_AutoSubmit();
 
@@ -62,12 +62,12 @@ $.fn.enable_MultipleButtons= function (){
 	
 	$(this).each( function(){
 		$(this).click( function(){
-			console.log('foo');
-			item = $('.multiple-buttons-item', '.js-multiple-buttons-target');
-			if ( item.css('display') == 'none' ){
-				item.slideFadeIn(180,'easeOutCubic');
-			} else {
-				item.slideFadeOut(180,'easeInCubic');
+			item = $('[data-id=' + $(this).attr('data-id') + ']', '.multiple-buttons-targets');
+			if (item.css('display')=='none'){
+				item.siblings().hide();
+				item.show();	
+			}else{
+				item.hide();
 			}
 		})
 	});
@@ -98,11 +98,9 @@ $.fn.enable_AutoSubmit = function(){
 
 	$(this).each( function(){
 		auto_submit_input_name = '[name='+$(this).val()+']';
-		console.log(auto_submit_input_name);
     	form = $( this ).parents('form');
 		$('.submit-container',form).hide();
 		$(auto_submit_input_name,form).change(function(){
-			console.log('firing: change');
 			$(form).submit();
 		});
 	});
@@ -137,10 +135,6 @@ $.fn.enable_Ajax = function(){
 			  log('ajax request failed');
 			}
 		});
-    }
-    function log( msg){
-        $('#log').append('<li>'+msg+'</li>');
-        if ( console ) console.log(msg);
     }
     function loadView( html ){
         $(ajax_target_id).html( html );
