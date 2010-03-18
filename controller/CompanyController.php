@@ -9,7 +9,7 @@ class CompanyController extends PageController {
 		if( !empty($this->search_for_companies)) $criteria = $this->search_for_companies;
 		$criteria['sort'] = 'status, name';
 
-        $this->data->companies = getMany( 'Company', $criteria);
+        $this->data->companies = Company::getMany($criteria);
 
         $this->data->new_company = new Company();
         

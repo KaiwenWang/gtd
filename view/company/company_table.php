@@ -9,11 +9,11 @@ function companyTable( $companies, $o = array()){
 					'controller'=>'company',
 					'action'=>'index',
 					'method'=>'get',
-					'auto_submit'=>array('country'),
+					'auto_submit'=>array('org_type','country'),
 					));
 	$f=$form->getFieldSetFor( new Company());
-	$form_content = $f->org_type;
-	$form_content .= $f->country;
+	$form_content = $f->field('org_type',array('title'=>'Organization Type'));
+	$form_content .= $f->field('country',array('title'=>'Country'));
 	$form->content = $form_content; 
  
 //	$form->content = $r->classSelect( 'Company', array( 'name'=>'org_type' ));

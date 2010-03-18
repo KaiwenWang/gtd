@@ -14,16 +14,16 @@ class FieldSet {
 	function __get( $field_name) {
 		return $this->field($field_name);
 	}
-	function field( $field_name, $search_criteria = array()){
+	function field( $field_name, $options = array()){
 		$r = getRenderer();
-		
+
 		return $this->is_new_object ? $r->field( $this->obj, 
 												 $field_name,
-												 $search_criteria,
+												 $options,
 												 $this->new_object_counter)
 
 									: $r->field( $this->obj,
 												 $field_name,
-												 $search_criteria);
+												 $options);
 	}
 }

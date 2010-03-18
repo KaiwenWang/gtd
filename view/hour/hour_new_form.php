@@ -7,7 +7,7 @@ function hourNewForm( $h, $o = array()){
 
 	if( isset($o['project_id']) ){
 		$estimate_field = $fs->field( 'estimate_id', 
-									  array('project_id'=>$o['project_id'])
+									   array('project_id'=>$o['project_id'])
 									  );
 	} else {
 		$estimate_field = $fs->estimate_id;

@@ -96,6 +96,16 @@ class Render{
     					'id'	=> $field_id
     			    	);	
 
+
+		if( isset($search_criteria['select_none']) ){
+			$tokens['select_none'] = $search_criteria['select_none'];
+			unset($search_criteria['select_none']);
+		}
+
+		if( isset($search_criteria['title']) ){
+			$tokens['title'] = $search_criteria['title'];
+			unset($search_criteria['title']);
+		}
 		if ( is_array( $field_type)){
 			$data = $field_type;
 			if ( $id != 'new') $tokens['selected_value'] = $obj->getData( $field_name);
@@ -105,10 +115,7 @@ class Render{
 
 		if ( class_exists( $field_type)){
 			$class = $field_type;
-			if( isset($search_criteria['select_none']) ){
-				$tokens['select_none'] = $search_criteria['select_none'];
-				unset($search_criteria['select_none']);
-			} 
+		 
 			$search_criteria ? $objects = getMany( $class, $search_criteria)
 							 : $objects = getAll( $class);
 			if( $objects ) {
@@ -121,7 +128,6 @@ class Render{
 			$tokens['class'] =  "$field_name-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
-	
 		if ( $id != 'new') $tokens['value'] = $obj->getData( $field_name);
 		$tokens['class'] =  "$field_name-field $model_type-field $field_type-field";
     	return $this->input( $field_type, $tokens);

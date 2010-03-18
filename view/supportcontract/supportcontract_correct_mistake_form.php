@@ -6,8 +6,8 @@ function supportcontractCorrectMistakeForm( $contract, $o = array() ){
 
     $list_items = array(
     	'Company'				    => $fs->company_id,
-		'Previous Contract'			=> $fs->field( 'previous_contract_id', array('select_none'=>'None')),
-		'Replacement Contract'		=> $fs->field( 'replacement_contract_id', array('select_none'=>'None')),
+		'Previous Contract'			=> $fs->field( 'previous_contract_id', array('title'=>'None')),
+		'Replacement Contract'		=> $fs->field( 'replacement_contract_id', array('title'=>'None')),
     	'Domain Name'				=> $fs->domain_name,
     	'Tech'				        => $fs->technology,
     	'Support Hours'				=> $fs->support_hours,

@@ -11,8 +11,8 @@ class DefaultFilterCollection {
 		foreach( $record_set as $class_name => $object_set){
 			$search_criteria = array();
 			foreach( $object_set as $id => $search_request){
-				$search_criteria = array_merge( $search_criteria,
-												$search_request);
+				if($search_request) $search_criteria = array_merge( $search_criteria,
+																	$search_request);
 			}
             $class_search_name = 'search_for_'.snake_case( pluralize( $class_name ));
 			$this->controller->$class_search_name = $search_criteria;
