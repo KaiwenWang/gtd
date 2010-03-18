@@ -10,8 +10,8 @@ function supportcontractTable( $contracts, $o = array()){
     						'Pro Bono',
     						'$ Monthly',
     						'$ Hourly',
-    						'Hours Per Month',
-    						'Contrct on File');
+    						'Hours Per Month'
+    						);
     $out['rows'] =  array();
     foreach($contracts as $m){
       $out['rows'][] = array(	$r->link( 'SupportContract', array('action'=>'show','id'=>$m->id),$m->getName()),
@@ -19,9 +19,9 @@ function supportcontractTable( $contracts, $o = array()){
       							$m->getData('pro_bono'),
       							$m->getData('monthly_rate'),
       							$m->getData('hourly_rate'),
-      							$m->getData('support_hours'),
-      							$m->getData('contract_on_file') );
-    }
+      							$m->getData('support_hours')
+    							);
+	}
 
     $html = $r->view('basicTable',$out, array('title'=>'Support Contracts'));
     return $html;

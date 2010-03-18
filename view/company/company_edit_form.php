@@ -6,14 +6,14 @@ function companyEditForm( $c, $o = array()){
 
     $list_items = array(
 		'Name'		=> $fs->name,
-		'Notes'		=> $fs->notes,
+		'Status'	=> $fs->status,
 		'Street'	=> $fs->street,
 		'Street 2'	=> $fs->street_2,
 		'City'		=> $fs->city,
 		'State'		=> $fs->state,
 		'Zip'		=> $fs->zip,
-		'Status'	=> $fs->status,
-		'Bay Area'	=> $fs->bay_area
+		'Bay Area'	=> $fs->bay_area,
+		'Notes'		=> $fs->notes
 	);	
     
     $form->content = $r->view( 'basicFormContents', 

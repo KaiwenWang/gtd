@@ -14,17 +14,23 @@ class Company extends ActiveRecord {
 								'city'  	:  'text',
 								'state'  	:  'text',
 								'zip'  		:  'int',
+								'country'	:  'text',
 								'preamp_id' :  'int',
 								'status'  	:  'text',
 								'bay_area'  :  'bool',
 								'date_started' : 'date',
-								'date_ended':  'date'
+								'date_ended':  'date',
+								'org_type':'text',
+								'fax' : 'text'
     						},
-    			'required' : {
-    							
+    			'required' :{ 
+    							'name','date_started',
+								'org_type','status'
     						},
 				'values' : {
-							'status' :{'setup':'Setup','active':'Active','rEvent':'Revent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Off Server'}
+							'status' : {'setup':'Setup','active':'Active','rEvent':'rEvent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Uncontrolled Server'},
+							'org_type' : {'501c3':'501c3','other':'other'},
+							'country' : {'usa':'USA','canada':'Canada','international':'International'}
 							}
     			}";
 

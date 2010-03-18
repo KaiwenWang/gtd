@@ -1,3 +1,4 @@
+var item;
 $('document').ready(function(){
 	$('#application').initialize_Gtd();
 });
@@ -65,7 +66,9 @@ $.fn.enable_MultipleButtons= function (){
 			item = $('[data-id=' + $(this).attr('data-id') + ']', '.multiple-buttons-targets');
 			if (item.css('display')=='none'){
 				item.siblings().hide();
-				item.show();	
+				item.show( 100, function(){
+					$(':input:visible:first', item).focus();
+				});
 			}else{
 				item.hide();
 			}

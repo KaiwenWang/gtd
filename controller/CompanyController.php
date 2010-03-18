@@ -1,11 +1,16 @@
 <?php
 class CompanyController extends PageController {
  	var $before_filters = array( 'get_posted_records' => 
- 									array( 'create','update','destroy')
+ 									array( 'create','update','destroy'),
+								 'get_search_criteria'=>array('index')
  								);
     function index( $params){
-        
-        $this->data->companies = getMany( 'Company', array("sort"=>"status, name"));
+		$criteria = array();
+		if( !empty($this->search_for_companies)) $criteria = $this->search_for_companies;
+		$criteria['sort'] = 'status, name';
+
+        $this->data->companies = getMany( 'Company', $criteria);
+
         $this->data->new_company = new Company();
         
     }        
@@ -40,6 +45,14 @@ class CompanyController extends PageController {
   	}
 	function create( $params){
 		$c = $this->new_companies[0];
+    	$c->save();
+    	$this->redirectTo( array('controller'=>'Company',
+    							 'action' => 'show',
+    							 'id'=>$c->id
+    							 ));
+    }
+	function update( $params){
+		$c = $this->updated_companies[0];
     	$c->save();
     	$this->redirectTo( array('controller'=>'Company',
     							 'action' => 'show',

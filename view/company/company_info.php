@@ -1,32 +1,34 @@
 <?php
-/**
-  	companyDetail
-    
-    View that displays details on a company
-                 
-    @return html
-    @package view
-
-*/
-
 function companyInfo( $c, $o){
-    $r =& getRenderer();
 
-	$list_items = array(
-						'Name'		=> $c->get('name'),
-						'Notes'		=> $c->get('notes'),
-						'Street'	=> $c->get('street'),
-						'Street 2'	=> $c->get('street_2'),
-						'City'		=> $c->get('city'),
-						'State'		=> $c->get('state'),
-						'Zip'		=> $c->get('zip'),
-						'Phone'		=> $c->get('phone'),
-						'Status'	=> $c->get('status')
-					);
-					
-	$html = $r->view( 'basicList', $list_items);
-	
-	return $html;
-	
+	$address = $c->get('street').'<br>';
+	if ($c->get('street_2')) $address.= $c->get('street2').'<br>';
+	if ($c->get('city')) 	 $address.= $c->get('city').',';
+	$address.= $c->get('state').'<br>';
+	$address.= $c->get('zip');
+
+	$c->get('notes') ? $notes = ' 
+								<div class="notes-box">
+									<div class="notes-content">	
+										'.nl2br($c->get('notes')).'
+									</div>
+								</div>'
+					 : $notes = '';
+
+	return '
+			<div class="company-info-header">
+				<div class="status">
+					'.$c->get('status').'
+				</div>
+				<h2>
+					'.$c->get('name').'
+				</h2>
+			</div>
+			'.$notes.'	
+			<div class="address">
+				'.$address.'<br>
+				'.$c->get('phone').'
+			</div>
+			<div class="clear-both"></div>
+		';
 }
-?>

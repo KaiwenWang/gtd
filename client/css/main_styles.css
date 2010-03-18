@@ -25,18 +25,20 @@ color:#006699;
 form{
 margin: 0;
 }
-h1 {
-bottom:5px;
-margin:0;
-padding:0;
-position:relative;
-width: 500px;
+tbody{
+//font-family:monospace;
 }
-h2{
+h1 {
 color:#FFF6E4;
 display:block;
 margin:0 0 0 170px;
 padding:0 5px;
+font-size:22px;
+}
+h2{
+margin:0;
+font-size:14px;
+display:inline;
 }
 h3{
 border:0px solid #999999;
@@ -60,9 +62,13 @@ border:1px solid #99BBFF;
 display:inline-block;
 font-variant:small-caps;
 font-weight:bold;
+font-size:14px;
 margin:2px 0 6px 2px;
 padding:2px 8px 2px 10px;
 color:#005599;
+cursor:pointer;
+}
+a.little-button{
 cursor:pointer;
 }
 .button:hover {
@@ -116,10 +122,10 @@ top:2px;
 }
 #side{
 float:left;
-margin-left:20px;
+margin-left:2%;
 margin-right:0;
 margin-top:4px;
-width:145px;
+width:16%;
 }
 #side ul{
 list-style-type: none;
@@ -131,8 +137,8 @@ display:block;
 }
 #application{
 float:left;
-margin-left:10px;
-width: 80%;
+margin-left:2%;
+width: 76%;
 }
 #footer{
 margin-top:10px;
@@ -255,6 +261,33 @@ float: left;
 }
 .inline .data-cell{
 }
+.address{
+float:left;
+margin-left:38px;
+}
+.notes-box{
+clear:left;
+float:left;
+margin-top:4px;
+}
+.notes-label{
+float:left;
+margin-right:16px;
+font-weight:bold;
+}
+.notes-content{
+background-color:#FFFFFF;
+float:left;
+padding: 2px 5px 6px;
+width:396px;
+-moz-border-radius-topleft:6px;
+-moz-border-radius-topright:6px;
+-moz-border-radius-bottomleft:6px;
+-moz-border-radius-bottomright:6px;
+}
+.company-info-header{
+float:left;
+}
 /* FORMS */
 h3.basic-form-header{
 background: none;
@@ -313,7 +346,6 @@ border-bottom: 1px #dddddd solid;
 }
 /* JS-SWAPPABLE */
 .js-swappable{
-float: left;
 }
 .js-swappable-btn{ 
 display:block;
@@ -334,6 +366,7 @@ display:inline-block;
 /* JS-MULTIPLE-BUTTONS */
 .js-multiple-buttons {
 clear:left;
+width:60em;
 }
 /* LOGIN FORM */
 #login-container{
@@ -368,8 +401,17 @@ color: #fff6e4;
 margin-right: 10px;
 }
 .status{
-color: red;
-font-weight: bold;
+color:red;
+font-variant:small-caps;
+font-weight:bold;
+text-transform:capitalize;
+display:inline;
+margin-right:10px;
+margin-left:2px;
+}
+.notes-field{
+width:400px;
+height:200px;
 }
 .project-manager{
 font-weight: bold;
