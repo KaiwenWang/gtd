@@ -104,7 +104,6 @@ $.fn.enable_AutoSubmit = function(){
     	form = $( this ).parents('form');
 		$('.submit-container',form).hide();
 		$(auto_submit_input_name,form).change(function(){
-			util.log('meow');
 			$(form).submit();
 		});
 	});

@@ -73,7 +73,15 @@ class Company extends ActiveRecord {
 		$this->charges = getMany('Charge', $criteria );
 		return $this->charges;	
 	}
-
+	function getPrimaryContact(){
+		return Contact::getOne(array('company_id'=>$this->id,'is_primary_contact'=>true));
+	}
+	function getBillingContact(){
+		return Contact::getOne(array('company_id'=>$this->id,'is_billing_contact'=>true));
+	}
+	function getTechnicalContact(){
+		return Contact::getOne(array('company_id'=>$this->id,'is_technical_contact'=>true));
+	}
     function calculateChargesTotal($date_range = array()){
 
 		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);

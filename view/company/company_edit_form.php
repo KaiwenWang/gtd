@@ -7,12 +7,14 @@ function companyEditForm( $c, $o = array()){
     $list_items = array(
 		'Name'		=> $fs->name,
 		'Status'	=> $fs->status,
+		'Type'		=> $fs->org_type,
+		'Bay Area'	=> $fs->bay_area,
 		'Street'	=> $fs->street,
 		'Street 2'	=> $fs->street_2,
 		'City'		=> $fs->city,
 		'State'		=> $fs->state,
 		'Zip'		=> $fs->zip,
-		'Bay Area'	=> $fs->bay_area,
+		'Country'	=> $fs->country,
 		'Notes'		=> $fs->notes
 	);	
     

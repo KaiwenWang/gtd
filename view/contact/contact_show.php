@@ -4,7 +4,7 @@ function contactShow($d){
 	
 	return array(
            'title' => 'Viewing Details for '.$d->contact->getName(),
-           'body' => $r->view('contactDetail', $d->contact)
+           'body' => $r->view('contactEditForm', $d->contact)
             );
 }
 ?>

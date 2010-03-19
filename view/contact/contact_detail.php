@@ -1,33 +1,22 @@
 <?php
-
-/**
-  	contactDetail
-    
-    View that displays the detail page for Contacts
-   
-   $get options array:
-    -<b>contact_id</b> id of the contact that we want to see details for
-              
-    @return html
-    @package view
-
-*/
-
 function contactDetail($contact, $o){
-	$html = '';
-	$html .= '<div>Name: '. $contact->get('first_name').' '.$contact->get('last_name'). '</div> ';
-	$html .= '<div>Email: <a href="'.$contact->get('email').'"/>'.$contact->get('email').'</a></div>';
-	$html .= '<div>Phone: '.$contact->get('phone').'</div>';
+	$r = getRenderer();
 
-	if ($contact->get('is_billing_contact') == 1) {
-		$html .= '&bull; Billing Contact <br />';
-	}
-	if ($contact->get('is_primary_contact') == 1) {
-		$html .= '&bull; Primary Contact <br />';
-	}
-	if ($contact->get('is_technical_contact') == 1) {
-		$html .= '&bull;  Technical Contact <br />';
-	}
-	return $html;
+	if ($contact->get('is_technical_contact'))	$type = 'Technical Contact';
+	if ($contact->get('is_billing_contact'))	$type = 'Billing Contact';
+	if ($contact->get('is_primary_contact'))	$type = 'Primary Contact';
+
+	
+	$contact->get('fax') ? $fax = '<div>'.$contact->get('fax').'</div>'
+						 : $fax = '';
+
+	return '
+			<div class="contact-detail">	
+				<h4>'.$r->link('Contact',array('action'=>'show','id'=>$contact->id),$type).'</h4>	
+				<div>Name: '. $contact->get('first_name').' '.$contact->get('last_name'). '</div> 
+				<div>Email: <a href="'.$contact->get('email').'"/>'.$contact->get('email').'</a></div>
+				<div>Phone: '.$contact->get('phone').'</div>
+				'.$fax.'
+			</div>
+			';
 }
-?>

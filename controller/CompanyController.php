@@ -44,8 +44,14 @@ class CompanyController extends PageController {
 									  	'company_id' => $params['id'] ));
   	}
 	function create( $params){
-		$c = $this->new_companies[0];
-    	$c->save();
+		$company = $this->new_companies[0];
+    	$company->save();
+
+		if(!empty($this->new_contacts)){
+			$contact = $this->new_contacts[0];
+			$contact->set(array('company_id'=>$company->id));
+	    	$contact->save();
+		}
     	$this->redirectTo( array('controller'=>'Company',
     							 'action' => 'show',
     							 'id'=>$c->id

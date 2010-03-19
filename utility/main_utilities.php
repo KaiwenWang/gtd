@@ -62,7 +62,7 @@ function getDbcon(){
 function getOne( $class, $search_criteria = array()){
 	$finder = new $class();
 	$objects = $finder->find( $search_criteria);
-	return array_shift($objects);
+	if(is_array($objects)) return array_shift($objects);
 }
 function getMany( $class, $search_criteria = array()){
 	if(empty($search_criteria)) return getAll($class);

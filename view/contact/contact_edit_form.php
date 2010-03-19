@@ -1,7 +1,7 @@
 <?php
-function contactNewForm( $c, $o = array()){
+function contactEditForm( $c, $o = array()){
     $r =& getRenderer();
-    $form = new Form( array( 'controller'=>'Contact', 'action'=>'create'));
+    $form = new Form( array( 'controller'=>'Contact', 'action'=>'update'));
     $fs = $form->getFieldSetFor($c);
 
     $list_items = array(
@@ -18,7 +18,7 @@ function contactNewForm( $c, $o = array()){
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Add Contact')
+    							array( 'title'=>'Edit Contact')
     						  );
     
     return $form->html;

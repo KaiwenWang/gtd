@@ -137,6 +137,9 @@ class Render{
     	if ( !( isset( $tokens['attributes']) && $tokens['attributes'])) $tokens['attributes'] = $this->attr($tokens);
     	if ( !( isset( $tokens['size']) && $tokens['size'])) $tokens['size'] = 15;
     	if ( isset( $tokens['value'])) $tokens['value'] = htmlspecialchars( $tokens['value']);
+		if ( $field_type == "bool"){
+			if (!empty($tokens['value'])) $tokens['checked'] = 'CHECKED';
+		}
     	return $this->template( 'templates/form_elements/'.$field_type.'.html', $tokens);
     }
    	function select( $data, $o){
