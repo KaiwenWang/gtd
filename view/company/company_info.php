@@ -30,6 +30,7 @@ function companyInfo( $c, $o){
 					'.$c->get('name').'
 				</h2>
 			</div>
+			<div class="clear-both"></div>
 			<div class="company-contacts">
 				'.$contacts.'
 			</div>

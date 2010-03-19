@@ -7,7 +7,7 @@ function contactDetail($contact, $o){
 	if ($contact->get('is_primary_contact'))	$type = 'Primary Contact';
 
 	
-	$contact->get('fax') ? $fax = '<div>'.$contact->get('fax').'</div>'
+	$contact->get('fax') ? $fax = '<div>Fax: '.$contact->get('fax').'</div>'
 						 : $fax = '';
 
 	return '
