@@ -96,6 +96,12 @@ class SupportContract extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
+	function getStartDate(){
+		return $this->get('start_date');
+	}
+	function getEndDate(){
+		return $this->get('end_date');
+	}
 	function isValid(){
 		$valid = true;
 
@@ -123,7 +129,7 @@ class SupportContract extends ActiveRecord {
 
 		$hours = $this->getHours( array( 'date_range' => $date_range ));
 		
-		if(!$hours) return 0;
+		if(!$hours) $hours = array();
 
         //split up by month
         $billable_hours_by_month = array();
@@ -137,7 +143,6 @@ class SupportContract extends ActiveRecord {
         foreach($this->activeMonths($date_range) as $month_id) {
             if(!isset($billable_hours_by_month[$month_id])) $billable_hours_by_month[$month_id] = 0;
         }
-		
 		$total_charges = 0;
 		foreach( $billable_hours_by_month as $month => $billable_hours) {
 			$total_charges += $this->calculateMonthlyCharge( $billable_hours, $month);

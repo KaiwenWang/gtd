@@ -66,9 +66,10 @@ $.fn.enable_MultipleButtons= function (){
 			item = $('[data-id=' + $(this).attr('data-id') + ']', '.multiple-buttons-targets');
 			if (item.css('display')=='none'){
 				item.siblings().hide();
-				item.show( 100, function(){
-					$(':input:visible:first', item).focus();
-				});
+				item.show();
+				setTimeout( function(){
+						$(':input:visible:first', item).focus();
+					}, 100);
 			}else{
 				item.hide();
 			}
@@ -98,7 +99,6 @@ $.fn.enable_MultiSelect = function(){
 }
 
 $.fn.enable_AutoSubmit = function(){
-
 	$(this).each( function(){
 		auto_submit_input_name = '[name*='+$(this).val()+']';
     	form = $( this ).parents('form');

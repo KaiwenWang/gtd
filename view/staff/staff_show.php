@@ -2,7 +2,7 @@
 function staffShow($d){
 	$r = getRenderer();
 
-	$hidden_forms = $r->view( 'jsHideable' ,array(
+	$hidden_forms = $r->view( 'jsMultipleButtons' ,array(
 														
 						'Create New Project'	=> $r->view(
 													'projectNewForm', 

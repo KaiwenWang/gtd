@@ -26,7 +26,6 @@ form{
 margin: 0;
 }
 tbody{
-//font-family:monospace;
 }
 h1 {
 color:#FFF6E4;
@@ -271,6 +270,7 @@ float: left;
 float:left;
 margin-right:16px;
 margin-left: 6px;
+width:270px;
 }
 .notes-box{
 float:left;
@@ -367,7 +367,6 @@ margin-top:5px;
 margin-top:5px;
 }
 .hideable-block{
-display:inline-block;
 }
 /* JS-MULTIPLE-BUTTONS */
 .js-multiple-buttons {
@@ -381,14 +380,11 @@ margin:20px auto;
 background: #ffffff;
 }
 #login-container h2{
-background:#DDEEFF none repeat scroll 0 0;
-border:1px solid #99BBFF;
 margin:0;
 padding:4px;
 color: #000000;
 }
 #login-form{
-border:1px solid black;
 padding:20px 122px 0 0;
 text-align:right;
 }
@@ -451,4 +447,5 @@ margin-top: 6px;
 .company-contacts .contact-detail{
 float:left;
 margin-right:12px;
+margin-bottom:8px;
 }

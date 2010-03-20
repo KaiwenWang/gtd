@@ -4,7 +4,7 @@ function chargeIndex($d){
 
 	$hidden_forms = $r->view('jsHideable', array(
   						'Create New Charge' => $r->view( 'chargeNewForm', $d->new_charge)
-  						));
+  						),array('open_by_default'=>array('Create New Charge')));
 
 	$charge_table =  $r->view('chargeTable', $d->charges);
      

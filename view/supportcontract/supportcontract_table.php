@@ -6,7 +6,9 @@ function supportcontractTable( $contracts, $o = array()){
 
     $out = array();
     $out['headers'] = array('Contract Name',
-    						'Contract Status',
+    						'Status',
+    						'Start Date',
+    						'End Date',
     						'Pro Bono',
     						'$ Monthly',
     						'$ Hourly',
@@ -16,6 +18,8 @@ function supportcontractTable( $contracts, $o = array()){
     foreach($contracts as $m){
       $out['rows'][] = array(	$r->link( 'SupportContract', array('action'=>'show','id'=>$m->id),$m->getName()),
       							$m->getData('status'),
+      							$m->getData('start_date'),
+      							$m->getData('end_date'),
       							$m->getData('pro_bono'),
       							$m->getData('monthly_rate'),
       							$m->getData('hourly_rate'),

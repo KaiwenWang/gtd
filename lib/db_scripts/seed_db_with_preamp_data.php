@@ -59,7 +59,9 @@ else echo "FAILED TO CREATE STAFF RECORDS\n";
 $rows = $DB->Execute('select * from userdata where modin=66');
 
 while(!$rows->EOF){
-	
+	$status = $rows->Fields('custom16');
+	if( $status == 'rEvent' ) $status = 'active';
+
 	$company_data = array(
 		'name'=>$rows->Fields('Company'),
 		'notes'=>$rows->Fields('custom9'),
@@ -69,7 +71,7 @@ while(!$rows->EOF){
 		'state'=>$rows->Fields('State'),
 		'zip'=>$rows->Fields('Zip'),
 		'preamp_id'=>$rows->Fields('custom1'),
-		'status'=>$rows->Fields('custom16'),
+		'status'=>$status,
 		'bay_area'=>$rows->Fields('custom11'),
 		'date_started'=>$rows->Fields('custom8')
 		);
@@ -116,7 +118,7 @@ while(!$rows->EOF){
 
 	$balance_data = array(
 		'company_id' => $c->id,
-		'date' => '2010-03-01',
+		'date' => '2009-12-31',
 		'amount' => $rows->Fields('custom12')		
 	);
 
@@ -133,7 +135,7 @@ while(!$rows->EOF){
 		'monthly_rate'=>$rows->Fields('custom5'),	
 		'support_hours'=>$rows->Fields('custom7'),	
 		'hourly_rate'=>$rows->Fields('custom6'),	
-		'start_date'=>$rows->Fields('2009-12-25')
+		'start_date'=>'2009-12-25'
 	);
 
 	$contract = new SupportContract();

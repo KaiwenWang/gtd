@@ -47,6 +47,12 @@ class Invoice extends ActiveRecord {
 	function getName(){
 		return  $this->id;
 	}
+	function getStartDate(){
+		return  date('M jS, Y', strtotime($this->get('start_date')));
+	}
+	function getEndDate(){
+		return date('M jS, Y', strtotime($this->get('end_date')));
+	}
 	function getInvoiceItems(){
 		if(!$this->invoice_items){
 			$finder = new InvoiceItem();
@@ -67,8 +73,11 @@ class Invoice extends ActiveRecord {
 		return $this->get('previous_balance');
 	}
 	function getCompany(){
-		$this->company = new Company( $this->getData('company_id') );
+		if(empty($this->company)) $this->company = new Company( $this->getData('company_id') );
 		return $this->company;	
+	}
+	function getCompanyName(){
+		return $this->getCompany()->getName();
 	}
 	function execute(){
 		if( !$this->isValid() ) bail( $this->errors );
@@ -104,5 +113,12 @@ class Invoice extends ActiveRecord {
 				'amount_due'=>$amount_due
 				)
 			);
-	}  
+	} 
+	static function createFromCompany( $company, $date_range, $batch){
+		$i = new Invoice();
+		$i->setFromCompany( $company, $date_range);
+		$i->set(array('batch_id'=>$batch_id));
+		$i->save();
+		return $i;
+	} 
 }

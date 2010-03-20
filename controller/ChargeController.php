@@ -26,8 +26,7 @@ class ChargeController extends PageController {
 		$a = $this->new_charges[0];
     	$a->save();
     	$this->redirectTo( array('controller'=>'Charge',
-    							 'action' => 'show',
-    							 'id'=>$a->id
+    							 'action' => 'index'
     							 ));
     }
 
@@ -35,8 +34,7 @@ class ChargeController extends PageController {
     	$a= $this->updated_charges[0];
 		$a->save();
         $this->redirectTo(array('controller' => 'Charge', 
-        						'action' => 'show', 
-        						'id' => $a->id
+        						'action' => 'index'
         						));
     }
 

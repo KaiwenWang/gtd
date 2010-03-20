@@ -138,7 +138,6 @@ class Company extends ActiveRecord {
 
 		$total = 0;
 		foreach($contracts as $c){
-
 			$amount = $c->calculateTotal($date_range);
 			$total += $amount;
 		}

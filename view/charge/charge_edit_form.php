@@ -5,11 +5,12 @@ function chargeEditForm( $charge, $o = array(  )) {
     $fs = $form->getFieldSetFor($charge);
 
     $form_fields = array(
-    	'Name'				        => $fs->name,
-    	'Description'				=> $fs->description,
-    	'Amount'				    => $fs->amount,
-    	'Date'      				=> $fs->date,
-    	'Company'		    => $fs->company_id
+    	'Name'	        => $fs->name,
+    	'Type'	        => $fs->type,
+    	'Description'	=> $fs->description,
+    	'Amount'	    => $fs->amount,
+    	'Date'      	=> $fs->date,
+    	'Company'	    => $fs->company_id
     );
 
     $form->content = $r->view( 'basicFormContents', 

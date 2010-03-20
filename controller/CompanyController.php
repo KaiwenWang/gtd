@@ -43,6 +43,19 @@ class CompanyController extends PageController {
 		$this->data->new_contact->set(array( 
 									  	'company_id' => $params['id'] ));
   	}
+
+	function test($params){
+		$c = new Company($params['id']);
+		$con = array_shift($c->getSupportContracts());
+
+		$date_range = array('start_date'=>'2010-01-01','end_date'=>'2010-04-01');
+//		echo $con->calculateMonthlyCharge(0,'2010-02');		
+		echo count($con->activeMonths($date_range));
+		echo '<br>';
+		echo $con->calculateTotal($date_range);
+		$this->responseEnabled = false;
+	}
+
 	function create( $params){
 		$company = $this->new_companies[0];
     	$company->save();

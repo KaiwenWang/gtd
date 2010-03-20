@@ -12,6 +12,11 @@ function projectHourLoggerForm( $projects, $o = array()){
 
 	$form->content = $r->classSelect( 'Project', array( 'name'=>'project_id' ), array('active'=>'true'));
 	
-	return 	$form->html
-			.'<div id="log-hours-for-project"></div>';
+	return 	'
+			<div class="basic-form-contents">
+				<h4>Choose Project</h4>
+				'.$form->html.'
+			</div>
+			<div id="log-hours-for-project"></div>
+			';
 }
