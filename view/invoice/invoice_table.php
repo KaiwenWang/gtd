@@ -7,6 +7,7 @@ function invoiceTable( $invoices, $options = array( )) {
 								'Client',
     							'Start Date',
                                 'End Date',
+                                'Batch',
     							'Sent Date',
     							'Amount'
     							);
@@ -14,10 +15,16 @@ function invoiceTable( $invoices, $options = array( )) {
     foreach($invoices as $i){
       	$url = $i->getData('url');
 		$c = $i->getCompany();
+		if(	$batch = $i->getBatch()){
+			$batch_link = $r->link('InvoiceBatch',array('action'=>'show','id'=>$batch->id),$batch->getName());
+		} else {
+			$batch_link = '';
+		}
       	$table['rows'][] = array(	$i->id,
 								$r->link('Company', array('action' => 'show', 'id' => $c->id), $c->getName()),
       							$r->link( 'Invoice', array('action' => 'show', 'id' => $i->id ), $i->getData( 'start_date')),
       							$i->getData('end_date'),
+								$batch_link,
       							"<a href='$url' target='_blank'>" . $i->getData('sent_date') . "</a>",
       							$i->getAmountDue()
       							);

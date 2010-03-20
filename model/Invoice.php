@@ -8,6 +8,7 @@ class Invoice extends ActiveRecord {
     protected static $schema_json = "{	
 			'fields'   : {	
                             'company_id'    :  'Company',
+                            'batch_id'    	:  'InvoiceBatch',
 							'type'  		:  'text',
 							'start_date'  	:  'date',
 							'end_date'  	:  'date',
@@ -76,6 +77,9 @@ class Invoice extends ActiveRecord {
 		if(empty($this->company)) $this->company = new Company( $this->getData('company_id') );
 		return $this->company;	
 	}
+	function getBatch(){
+		if( $batch_id = $this->get('batch_id')) return new InvoiceBatch($batch_id);
+	}
 	function getCompanyName(){
 		return $this->getCompany()->getName();
 	}
@@ -114,10 +118,14 @@ class Invoice extends ActiveRecord {
 				)
 			);
 	} 
-	static function createFromCompany( $company, $date_range, $batch){
+	static function createFromCompany( $company, $batch){
 		$i = new Invoice();
+		$date_range = array(
+							'start_date'=>$batch->getStartDate(),
+							'end_date'=>$batch->getEndDate(),
+							);
 		$i->setFromCompany( $company, $date_range);
-		$i->set(array('batch_id'=>$batch_id));
+		if( $batch) $i->set(array('batch_id'=>$batch->id));
 		$i->save();
 		return $i;
 	} 

@@ -1,5 +1,4 @@
 <?php
-
 function invoiceNewForm( $invoice, $o = array() ) {
     $r = getRenderer();
     

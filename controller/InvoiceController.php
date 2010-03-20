@@ -5,6 +5,8 @@ class InvoiceController extends PageController {
     function index($params) {
 		$this->data->new_invoice = new Invoice();
         $this->data->invoices = Invoice::getAll();
+		$this->data->new_batch = new InvoiceBatch();
+		$this->data->new_batch->set(array('created_date'=>Util::date_format_from_time()));
     }
 
     function create( $params ) {

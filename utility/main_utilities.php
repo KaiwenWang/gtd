@@ -124,7 +124,8 @@ class Util {
 	function date_format($string){
 		return self::date_format_from_time( strtotime( $string ));
 	}
-	function date_format_from_time($time){
+	function date_format_from_time($time = false){
+		if( !$time ) $time = time();
 		return date('Y-m-d',$time);
 	}
     function is_a_date($date) {

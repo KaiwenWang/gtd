@@ -2,10 +2,17 @@
 function invoiceIndex($d, $o = array() ) {
     $r = getRenderer();
 
+	$hidden_forms = $r->view('jsMultipleButtons',
+							array(	
+								'Create Single Invoice' => $r->view('invoiceNewForm',$d->new_invoice),
+								'Create Quarterly Invoices' => $r->view('invoicebatchNewForm',$d->new_batch)
+								)
+							);
+
 	$invoice_table = $r->view('invoiceTable',$d->invoices);
-	$invoice_new_form = $r->view('invoiceNewForm',$d->new_invoice);
     return array( 
         'title' => 'Show Invoices', 
-        'body' =>  $invoice_new_form . $invoice_table 
+        'body' =>  	$hidden_forms
+					.$invoice_table
                 );
 }
