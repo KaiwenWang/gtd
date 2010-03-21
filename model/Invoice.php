@@ -28,6 +28,9 @@ class Invoice extends ActiveRecord {
 	function __construct( $id = null){
         parent::__construct( $id);
     }
+	function getName(){
+		return $this->getCompanyName().' '.$this->getStartDate().' '.$this->getEndDate();
+	}
 	function isValid(){
 		$valid = true;
 
@@ -44,9 +47,6 @@ class Invoice extends ActiveRecord {
 		}
 
 		if ( $valid && parent::isValid()) return true;
-	}
-	function getName(){
-		return  $this->id;
 	}
 	function getStartDate(){
 		return  date('M jS, Y', strtotime($this->get('start_date')));

@@ -5,6 +5,7 @@ $('document').ready(function(){
 
 $.fn.initialize_Gtd = function(){
 
+	$('.button',this).enable_Button();
 	$('.date-field',this).enable_DateField();
 	$('.basic-table',this).enable_TableSort();
 	$('.basic-table-container',this).enable_QuickSearch();
@@ -23,6 +24,14 @@ $.fn.slideFadeIn = function(speed, easing, callback) {
 
 $.fn.slideFadeOut = function(speed, easing, callback) {        	
 	return this.animate({opacity: 'hide', height: 'hide'}, speed, easing, callback);  
+}
+
+$.fn.enable_Button= function(){
+	$(this).each(function(){
+		$(this).hover(
+	 		function() { $(this).addClass('ui-state-hover'); },
+ 			function() { $(this).removeClass('ui-state-hover'); }
+ 			); 
 }
 
 $.fn.enable_DateField= function(){

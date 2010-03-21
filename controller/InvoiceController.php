@@ -22,5 +22,15 @@ class InvoiceController extends PageController {
         $this->data->invoice = new Invoice($params['id']);
         $this->data->company = $this->data->invoice->getCompany();
     }
+    function edit($params) {
+        if(!isset($params['id'])) bail("must haz id to show you that!");
+        $this->data->invoice = new Invoice($params['id']);
+	}
+    function update( $params ) {
+        $inv = $this->updated_invoices[0];
+        $inv->execute();
+        $inv->save();
 
+        $this->redirectTo( array( 'controller' => 'Invoice', 'action' => 'show', 'id' => $inv->id ));
+    }
 }

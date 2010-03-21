@@ -3,13 +3,16 @@ function invoiceTable( $invoices, $options = array( )) {
     if( !$invoices ) return 'There are no invoices at this time';
     $r = getRenderer();
     $table = array();
-    $table['headers'] = array(	'ID',
+    $table['headers'] = array(	
+								'ID',
 								'Client',
     							'Start Date',
                                 'End Date',
                                 'Batch',
     							'Sent Date',
-    							'Amount'
+    							'Amount',
+								'Edit',
+								'Delete'
     							);
     $table['rows'] =  array();
     foreach($invoices as $i){
@@ -20,13 +23,25 @@ function invoiceTable( $invoices, $options = array( )) {
 		} else {
 			$batch_link = '';
 		}
-      	$table['rows'][] = array(	$i->id,
+		
+		$edit_button = new Button ( array(	'controller'=>'Invoice',
+											'action'=>'edit',
+											'id'=>$i->id
+											));
+		$delete_button = new Button (array(	'controller'=>'Invoice',
+											'action'=>'destroy',
+											'id'=>$i->id
+											));
+      	$table['rows'][] = array(	
+								$i->id,
 								$r->link('Company', array('action' => 'show', 'id' => $c->id), $c->getName()),
       							$r->link( 'Invoice', array('action' => 'show', 'id' => $i->id ), $i->getData( 'start_date')),
       							$i->getData('end_date'),
 								$batch_link,
       							"<a href='$url' target='_blank'>" . $i->getData('sent_date') . "</a>",
-      							$i->getAmountDue()
+      							$i->getAmountDue(),
+								$edit_button->html,
+								$delete_button->html
       							);
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Invoices'));

@@ -1,8 +1,8 @@
 <?php
-function invoiceNewForm( $invoice, $o = array() ) {
+function invoiceEditForm( $invoice, $o = array() ) {
     $r = getRenderer();
     
-    $form = new Form( array( 'controller'=>'Invoice', 'action'=>'create'));
+    $form = new Form( array( 'controller'=>'Invoice', 'action'=>'update'));
     $fs = $form->getFieldSetFor( $invoice );
 
     $list_items = array(
