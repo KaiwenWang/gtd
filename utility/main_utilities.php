@@ -182,9 +182,13 @@ class Util {
 	function include_directory($path){
 		$d = dir( rtrim($path,'/') ); 
 		while (false!== ($filename = $d->read())) { 
+			$file_path = "$path/$filename";
 			if (substr($filename, -4) == '.php') {
-	  			require_once "$path/$filename";
- 			} 
+	  			require_once $file_path; 
+ 			}
+			if (is_dir($file_path) &&  $filename != '.' && $filename != '..'){
+				self::include_directory($file_path);
+			}
 		} 
 		$d->close(); 
 	}
