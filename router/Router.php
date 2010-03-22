@@ -58,5 +58,15 @@ class Router{
 		if (!file_exists( $path)) bail( 'requested controller "'.$this->controller.'" does not exist.');
         return $path;
     }
+
+    static function url($parameters){
+/*
+	    if( is_a( $parameters, 'ActiveRecord')){
+			$obj = $parameters;
+			$parameters = array( 'action'=>'show','id' => $obj->id );
+	    }
+*/
+    	return 'index.php?'.http_build_query($parameters);
+    }
 }
 ?>

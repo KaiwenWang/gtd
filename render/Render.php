@@ -26,9 +26,10 @@ class Render{
     	if( isset($a['name']) && $a['name']) $html .= 'name = "'.$a['name'].'" ';
     	return $html;
     }
-    function msg( $type, $text){
-    	$msg = $this->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
-		$this->system_messages .= $msg;
+    static function msg( $text, $type='good'){
+		$r = getRenderer();
+    	$msg = $r->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
+		$r->system_messages .= $msg;
     }
     function jsonEncode( $data){
     	return $this->json->encode( $data);
@@ -39,20 +40,46 @@ class Render{
     function css($stylesheet){
     	$html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';
     }
+	function objectSelect( $obj, $tokens, $search_criteria = array()){	
+       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be an ActiveRecord object');
+  		$id = $obj->id;
+		if ( !$id) $id = 'new';
+		if ( $search_criteria) 	{	$objects = getMany( get_class($obj), $search_criteria);}
+	    				else	{	$objects = getAll( get_class($obj));}
+	    foreach( $objects as $o){
+	    	$data[$o->id] = $o->getName();
+	    }
+	    if ( $id != 'new') $tokens['selected_value'] = $obj->id;
+	    return $this->select( $data, $tokens);	
+	}
+	function classSelect( $class, $tokens, $search_criteria = array()){
+		if( !class_exists($class)) bail("Class \"$class\" does not exist.");
+		if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
+	    				else	{	$objects = getAll( $class);}
+	    foreach( $objects as $o){
+	    	$data[$o->id] = $o->getName();
+	    }
+	    return $this->select( $data, $tokens);	
+	}
+
+	// Don't ever call dumpMessages, it's used by the FrontController.
+    function _dumpMessages(){
+    	return $this->system_messages;
+    }
+/* REFACTORED!  PLEASE USE NEW HOTNESS INSTEAD */
+
+	// refactored to UI:link($params,$o);
     function link( $controller, $parameters, $text = false, $o = array()){
-	    $attributes_html = $this->attr( $o);
-	    if( is_a( $parameters, 'ActiveRecord')){
-			if ( !$text) $text = $parameters->getName();
-	    }
-    	return '<a href="'.$this->url( $controller, $parameters).'" '.$attributes_html.'>'.$text.'</a>';
+		$parameters['controller'] = $controller;
+		$parameters['text'] = $text;
+		return UI::link($parameters,$o);
     }
+	// refactored to Router:url($params);
     function url( $controller, $parameters){
-	    if( is_a( $parameters, 'ActiveRecord')){
-			$obj = $parameters;
-			$parameters = array( 'action'=>'show','id' => $obj->id );
-	    }
-    	return 'index.php?controller='.$controller.'&'.http_build_query($parameters);
-    }
+    	$paramaters['controller'] = $controller;
+		return Router::url($parameters);
+	}
+	// refactored to Form and Fieldset objects
     function form( $o ){
     	if( !( $o['action'] )) {
     		bail( "r->form called without action being set");
@@ -155,36 +182,11 @@ class Render{
 	    if ( isset( $o['select_none']) && $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
 	    return "<select $attributes_html>$options_html</select>";
 	}
-	function objectSelect( $obj, $tokens, $search_criteria = array()){	
-       	if ( !is_a( $obj, 'ActiveRecord')) bail( 'r->field() requires first parameter to be an ActiveRecord object');
-  		$id = $obj->id;
-		if ( !$id) $id = 'new';
-		if ( $search_criteria) 	{	$objects = getMany( get_class($obj), $search_criteria);}
-	    				else	{	$objects = getAll( get_class($obj));}
-	    foreach( $objects as $o){
-	    	$data[$o->id] = $o->getName();
-	    }
-	    if ( $id != 'new') $tokens['selected_value'] = $obj->id;
-	    return $this->select( $data, $tokens);	
-	}
-	function classSelect( $class, $tokens, $search_criteria = array()){
-		if( !class_exists($class)) bail("Class \"$class\" does not exist.");
-		if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
-	    				else	{	$objects = getAll( $class);}
-	    foreach( $objects as $o){
-	    	$data[$o->id] = $o->getName();
-	    }
-	    return $this->select( $data, $tokens);	
-	}
 	function submit(){
 		return $this->input( 'submit');
 	}
 	function hidden( $key, $value){
 		return $this->input( 'hidden', array('name'=>$key,'value'=>$value));
 	}
-	// Don't ever call dumpMessages, it's used by the FrontController.
-    function _dumpMessages(){
-    	return $this->system_messages;
-    }
 }
 ?>

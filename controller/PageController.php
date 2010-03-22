@@ -86,9 +86,7 @@ class PageController{
 
     	if( !$o['action'])  bail('redirectTo requires param["action"] to be set');
 
-    	unset($o['controller']);
-
-    	$this->redirect_url = $r->url( $controller, $o);
+    	$this->redirect_url = Router::url( $o);
     }
     function renderResponse(){
         if ( !$this->responseEnabled ) return false;
