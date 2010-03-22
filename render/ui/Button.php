@@ -20,6 +20,9 @@ class Button extends PHP5_Accessor{
 		}
 		$this->params = $o;
 	}
+	function execute(){
+		return $this->html;
+	}
 	function getHtml(){
 		$r = getRenderer();
 		return $r->link( $this->controller,

@@ -24,11 +24,11 @@ function invoiceTable( $invoices, $options = array( )) {
 			$batch_link = '';
 		}
 		
-		$edit_button = new Button ( array(	'controller'=>'Invoice',
+		$edit_button = UI::button( array(	'controller'=>'Invoice',
 											'action'=>'edit',
 											'id'=>$i->id
 											));
-		$delete_button = new Button (array(	'controller'=>'Invoice',
+		$delete_button = UI::button( array(	'controller'=>'Invoice',
 											'action'=>'destroy',
 											'id'=>$i->id
 											));
@@ -40,8 +40,8 @@ function invoiceTable( $invoices, $options = array( )) {
 								$batch_link,
       							"<a href='$url' target='_blank'>" . $i->getData('sent_date') . "</a>",
       							$i->getAmountDue(),
-								$edit_button->html,
-								$delete_button->html
+								$edit_button,
+								$delete_button
       							);
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Invoices'));
