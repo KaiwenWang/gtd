@@ -166,7 +166,7 @@ margin-bottom: 10px;
 }
 .basic-table{
 border-collapse:collapse;
-border-bottom: 1px solid #999999;
+border: 1px solid #999999;
 width: 100%;
 }
 .basic-table th{
@@ -174,9 +174,8 @@ font-size:12px;
 font-weight:bold;
 }
 .basic-table td{
-border-left: 1px solid #999999;
-border-right: 1px solid #999999;
 padding: 4px;
+max-width:250px;
 }
 .basic-table a{
 color:#004488;
