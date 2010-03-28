@@ -14,7 +14,6 @@ class InvoiceBatchController extends PageController {
 		$batch->save();
 
 		$clients = Company::getMany( array('status'=>'active'));
-
 		foreach($clients as $c){
 			Invoice::createFromCompany( $c, $batch);
 		}

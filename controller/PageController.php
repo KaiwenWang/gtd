@@ -7,7 +7,7 @@ class PageController{
 	public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
 
 	protected $authentication_type = 'staff'; // staff, public
-    protected $filter_collection_name = 'DefaultFilterCollection';
+    protected $filter_collection_class = 'DefaultFilterCollection';
  	protected $before_filters = array();
 	protected $after_filters = array();
     protected $around_filters = array();
@@ -152,8 +152,8 @@ class PageController{
     	}
     }
     private function loadFilterCollection(){
-		require_once('controller/filter/'.$this->filter_collection_name.'.php');
-    	$this->filter_collection = new $this->filter_collection_name( $this);
+		require_once('controller/filters/'.$this->filter_collection_class.'.php');
+    	$this->filter_collection = new $this->filter_collection_class( $this);
     }
     private function template_path_for( $action){
         return '';
