@@ -42,9 +42,10 @@ class HourController extends PageController {
     function update( $params ){
     	$h = $this->updated_hours[0];
 		$h->save();
-        $this->redirectTo(array('controller' => 'Estimate', 
+		$project_id = $h->getProject()->id;
+        $this->redirectTo(array('controller' => '', 
         						'action' => 'show', 
-        						'id' => $h->get('estimate_id')
+        						'id' => $project_id 
         						));
     }
     function new_form( $params ){
@@ -67,9 +68,9 @@ class HourController extends PageController {
     function create( $params){
 		$h = $this->new_hours[0];
 		$h->save();
-        $this->redirectTo(array('controller' => 'Estimate', 
+        $this->redirectTo(array('controller' => 'Project', 
         						'action' => 'show', 
-        						'id' => $h->get('estimate_id')
+        						'id' => $h->getProject()->id
         						));
     }
 	function search($params){
