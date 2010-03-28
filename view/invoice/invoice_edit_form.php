@@ -13,7 +13,7 @@ function invoiceEditForm( $invoice, $o = array() ) {
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'New Standard Invoice')
+    							array( 'title'=>'Edit Standard Invoice')
     						  );
 		  
     

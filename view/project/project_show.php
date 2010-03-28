@@ -27,6 +27,7 @@ function projectShow($d){
 
 
 	$estimate_table = $r->view('estimateTable', $d->project->getEstimates());
+	$history_table = $r->view('historyTable', $d->project->getHistory());
 	
 
 	return	array(
@@ -35,6 +36,7 @@ function projectShow($d){
 		'body' => 	$editable_project_info
 					.$hidden_forms
 					.$estimate_table
+					.$history_table
 		);
 }
 ?>

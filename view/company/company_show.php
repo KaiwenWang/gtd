@@ -28,6 +28,7 @@ function companyShow($d){
     $charge_table  = $r->view( 'chargeTable', 	$d->company->getCharges());
     $payment_table = $r->view( 'paymentTable', 	$d->company->getPayments());
     $invoice_table = $r->view( 'invoiceTable', 	$d->company->getInvoices());
+    $history_table = $r->view( 'historyTable', 	$d->company->getHistory());
 	
 	return  array(
 		'title' => $d->company->getName(),
@@ -40,5 +41,6 @@ function companyShow($d){
 					.$charge_table
 					.$payment_table
                     .$invoice_table
+                    .$history_table
 	);	
 }
