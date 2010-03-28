@@ -20,12 +20,27 @@ class Payment extends ActiveRecord {
 						},
 			'required' : {
 							
-						}
+						},
+			'values'   : {
+				'payment_type':{'check':'Check','paypal':'Paypal','direct':'Direct Deposit','cash':'Cash','credit':'Credit'}
+						},
 			}";
 
     function getAmount(){
-            return $this->getData('amount');
+            return $this->get('amount');
     }
+    function getType(){
+            return $this->get('payment_type');
+    }
+    function getCheckNumber(){
+            return $this->get('check_number');
+    }
+    function getDate() {
+        return $this->get( 'date' );
+    }
+	function getNotes(){
+		return $this->get('notes');
+	}
     function getCompany(){
             if(empty($this->company)){
                     $this->company = new Company( $this->get('company_id'));
@@ -36,12 +51,23 @@ class Payment extends ActiveRecord {
         $company = $this->getCompany();
         return $company->getName();
 	}
-    function getDate() {
-        return $this->get( 'date' );
-    }
-
     function _sort_default( &$item_set ){
         return $this->sort( $item_set, 'date', 'desc');
     }
-
+	function getHistoryName() {
+		if( $this->getType() == 'check') {
+			return 'Payment: Check  #'. $this->getCheckNumber();
+		} else {
+			return 'Payment: '. ucwords($this->getType()); 	
+		}		
+	}
+	function getHistoryDate(){
+		return $this->getDate();
+	}
+	function getHistoryDescription(){
+		return $this->getNotes();
+	}
+	function getHistoryAmount(){
+		return $this->getAmount();
+	}
 }

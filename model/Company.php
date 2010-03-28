@@ -3,6 +3,12 @@ class Company extends ActiveRecord {
 
 	var $datatable = "company";
 	var $name_field = "name";
+	
+	var $history_types = array(
+								'Hours',
+								'Charges',
+								'Payments'
+								);
 
     protected static $schema;
     protected static $schema_json = "{	
@@ -68,10 +74,37 @@ class Company extends ActiveRecord {
 		}
 		return $this->billing_contacts;	
 	}
-	function getCharges($override_criteria = array()){
-        $criteria = array_merge(array("company_id"=>$this->id),$override_criteria);
+	function getCharges($criteria = array()){
+        $criteria = array_merge(array("company_id"=>$this->id),$criteria);
 		$this->charges = getMany('Charge', $criteria );
 		return $this->charges;	
+	}
+	function getHours($criteria = array()){
+		return array_merge(
+						$this->getProjectHours($criteria),
+						$this->getSupportHours($criteria)
+						);
+	}
+	function getProjectHours($criteria = array()){
+		$projects = $this->getProjects();
+		$this->project_hours = array();
+		if( !$projects) return $this->project_hours;
+		foreach($projects as $project){
+			$hours = $project->getHours();
+			if(!$hours) continue;
+			$this->project_hours = array_merge(	$this->project_hours, $hours);
+		}
+		return $this->project_hours;
+	}
+	function getSupportHours($criteria = array()){
+		$contracts = $this->getSupportContracts();
+		$this->support_hours = array();
+		foreach($contracts as $contract){
+			$hours	= $contract->getHours($criteria);
+			if(!$hours) continue;
+			$this->support_hours = array_merge(	$this->support_hours,$hours);
+		}
+		return $this->support_hours;
 	}
 	function getPrimaryContact(){
 		return Contact::getOne(array('company_id'=>$this->id,'is_primary_contact'=>true));
@@ -81,6 +114,13 @@ class Company extends ActiveRecord {
 	}
 	function getTechnicalContact(){
 		return Contact::getOne(array('company_id'=>$this->id,'is_technical_contact'=>true));
+	}
+	function compareHistoryDates( $a, $b){
+		$date_a = $a->getHistoryDate();
+		$date_b = $b->getHistoryDate();
+
+		if($date_a == $date_b) return 0;
+		return ($date_a < $date_b) ? -1 : 1;
 	}
     function calculateChargesTotal($date_range = array()){
 

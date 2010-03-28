@@ -5,7 +5,7 @@ class ActiveRecord  extends Record {
     protected static $schema;
 	protected static $schema_json;	
 
-    function getData( $column_name = null){
+	function getData( $column_name = null){
    		return $this->get( $column_name);
     }
    function getName(){
@@ -38,6 +38,37 @@ class ActiveRecord  extends Record {
 			$class::$schema = $r->jsonDecode( $class::$schema_json);
         }
 	    return $class::$schema;
+	}
+	function getHistory($o = array()){
+		if(!empty($o['types'])){
+			$types = array_intersect($o['types'],$this->history_types);
+			unset($o['types']);
+		} else {
+			$types = $this->history_types;
+		}
+
+		$history = array();
+		foreach( $types as $type){
+			$method_name = 'get'.$type;
+			if( !method_exists($this,$method_name)) bail('method '.get_class($this)."::$method_name not found");
+			$history_objects = $this->$method_name();
+			if(!$history_objects) continue;
+			$history = array_merge( $history, $history_objects);
+		}
+	
+		usort( $history, array($this,'compareHistoryDates'));			
+	
+		return $history;
+	}
+	function compareHistoryDates( $a, $b){
+		$date_a = $a->getHistoryDate();
+		$date_b = $b->getHistoryDate();
+
+		if($date_a == $date_b) return 0;
+		return ($date_a < $date_b) ? -1 : 1;
+	}
+	function getHistoryType(){
+		return get_class($this);
 	}
 	function defaultSearchCriteria( $field_name){}
 

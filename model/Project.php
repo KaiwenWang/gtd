@@ -4,6 +4,10 @@ class Project extends ActiveRecord {
 	var $datatable = "project";
 	var $name_field = "name";
 
+	var $history_types = array(
+								'Hours'
+								);
+
 	protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
@@ -79,6 +83,9 @@ class Project extends ActiveRecord {
     function getName(){
         return $this->getCompanyName().': '.$this->getData('name');
     }
+    function getShortName(){
+        return $this->getData('name');
+    }
 	function getEstimates(){
 		if(empty($this->estimates)){
 			$finder = new Estimate();
@@ -93,11 +100,12 @@ class Project extends ActiveRecord {
 		}
 		return $this->invoices;	
 	}
-	function getHours(){
+	function getHours($criteria = array()){
 		$estimates = $this->getEstimates();
+		if(!$estimates) return array();
 		$this->hours = array();
 		foreach($estimates as $estimate){
-			$this->hours = array_merge( $this->hours,$estimate->getHours());
+			$this->hours = array_merge( $this->hours,$estimate->getHours($criteria));
 		}
 		return $this->hours;
 	}
@@ -165,12 +173,15 @@ class Project extends ActiveRecord {
         $staff = $this->getStaff();
         return $staff->getName();
 	}
+	function getHourlyRate(){
+		return $this->get('hourly_rate');
+	}
 	function makeCriteriaActive($status){
     	return $status 	? 'status NOT LIKE "done"'
 						: 'status LIKE "done"';
 	}
 	function calculateTotal($date_range){
-		return $this->getBillableHours( $date_range ) * $this->get('hourly_rate');
+		return $this->getBillableHours( $date_range ) * $this->getHourlyRate();
 	}	
 	function destroyAssociatedRecords(){
 		if($this->getEstimates()){

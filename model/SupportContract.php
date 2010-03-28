@@ -194,7 +194,9 @@ class SupportContract extends ActiveRecord {
 
         return $included_months;
     }
-
+	function getHourlyRate(){
+		$this->get('hourly_rate');
+	}
     function calculateMonthlyCharge($hours, $month = null) {
         //compare support hours given > support hours / month
         if( $hours <= $this->get('support_hours')) { 
@@ -205,7 +207,7 @@ class SupportContract extends ActiveRecord {
         $overage = $hours - $this->get('support_hours');
 		if( $overage < 0) $overage = 0;
 
-        $amount = $overage * $this->get('hourly_rate') + $this->calculateMonthlyBaseRate($month);
+        $amount = $overage * $this->getHourlyRate() + $this->calculateMonthlyBaseRate($month);
 			
         return $amount;
     }

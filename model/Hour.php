@@ -28,6 +28,9 @@ class Hour extends ActiveRecord {
     function getName(){
         return $this->get('description');
     }
+	function getDate(){
+		return $this->get('date');
+	}
 	function getHours(){
 		$hours = $this->get('hours');
     	if (!$hours) $hours = 0;
@@ -37,11 +40,23 @@ class Hour extends ActiveRecord {
 		$hours = $this->get('discount');
 		if (!$hours) $hours = 0;
 		return $hours;
+	}
+	function getHourlyRate(){
+		// really you want to ask a project about this.  use this if you need itemized costs in a display.
+		if($this->is_project_hour()){
+			$rate = $this->getProject()->getHourlyRate();
+		}else{
+			$rate = $this->getSupportContract()->getHourlyRate();
+		}
+		return $rate;
 	} 
+	function getBillableAmount(){
+		// really you want to ask a project about this.  use this if you need itemized costs in a display.
+		return $this->getCost($this->getHourlyRate());
+	}
     function getCost( $hourly_rate ) {
 		// really you want to ask a project about this.  use this if you need itemized costs in a display.
-		if(!$cost) return 0;
-        return $this->getBillableHours * $hourly_rate;
+        return $this->getBillableHours() * $hourly_rate;
     }
 	function getBillableHours(){
 		return $this->getHours() - $this->getDiscount();		
@@ -52,19 +67,53 @@ class Hour extends ActiveRecord {
         }
         return $this->staff;
 	}
+    function getSupportContract(){
+		if( !$this->get('support_contract_id')) return;
+        if( !isset($this->support_contract)){
+            $this->support_contract = new SupportContract( $this->get('support_contract_id'));
+        }
+        return $this->support_contract;
+    }
     function getEstimate(){
-        if (!isset($this->estimate)){
+		if( !$this->is_project_hour()) return;
+        if( !isset($this->estimate)){
             $this->estimate = new Estimate( $this->get('estimate_id'));
         }
         return $this->estimate;
     }
+	function getProject(){
+		if( !$this->is_project_hour()) return;
+        if (!isset($this->project)){
+            $this->project = $this->getEstimate()->getProject();
+        }
+        return $this->project;
+	}
     function getStaffName(){
         $staff = $this->getStaff();
         return $staff->getName();
 	}
     function is_valid( ) {
     }
-
+	function is_project_hour(){
+		if($this->get('estimate_id')) return true;
+	}
+	function getHistoryDate(){
+		return $this->getDate();
+	}
+	function getHistoryName(){
+		if( $this->is_project_hour()){
+			$name = $this->getProject()->getShortName();
+		} else {
+			$name = 'Support';
+		}
+		return $name.': '.$this->getName();
+	}
+	function getHistoryDescription(){
+		return $this->getBillableHours().' hours at '.$this->getHourlyRate();
+	}
+	function getHistoryAmount(){
+		return $this->getBillableAmount();
+	}
     function makeCriteriaHourSearch($data) {
         return $this->makeCriteriaDateRange( $data );
     }
