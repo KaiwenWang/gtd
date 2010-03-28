@@ -69,6 +69,7 @@ function getMany( $class, $search_criteria = array()){
 	foreach($search_criteria as $key=>$value) if( empty($value)) unset( $search_criteria[$key]);
 	$finder = new $class();
 	$objects = $finder->find( $search_criteria);
+	if(!$objects) $objects = array();
 	return $objects;
 }
 function getAll( $class){
