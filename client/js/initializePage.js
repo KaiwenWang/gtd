@@ -31,7 +31,8 @@ $.fn.enable_Button= function(){
 		$(this).hover(
 	 		function() { $(this).addClass('ui-state-hover'); },
  			function() { $(this).removeClass('ui-state-hover'); }
- 			); 
+ 		); 
+	});
 }
 
 $.fn.enable_DateField= function(){
