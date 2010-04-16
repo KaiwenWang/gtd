@@ -30,6 +30,10 @@ class ProjectController extends PageController {
         $p->save();
     	$this->redirectTo( array('controller'=>'Project','action' => 'show','id' => $p->id));
     }
+	function new_form(){
+        $this->data= new Project();
+	    $this->data->set(array('staff_id'=>getUser()));
+	}
     function update(){
     	$p = $this->updated_projects[0];
     	$p->save();

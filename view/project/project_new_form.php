@@ -27,5 +27,8 @@ function projectNewForm( $project, $o = array()){
     							array( 'title'=>'Add Project', 'display'=>'inline')
     						  );
 
-    return $form->html;
+    return array(
+		'title' => 'New Project',
+		'body' => $form->html
+	);
 }
