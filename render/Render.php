@@ -13,7 +13,9 @@ class Render{
 	   	if( !$path) bail("<b>$view_function_name</b> cannot be found. Please add it to the View Directory.");
 	   	if( !file_exists($path)) bail("View file <b>$path</b> does not exist, or has not been added to the View Directory.");
 		require_once( $path);
-	   	return $view_function_name( $data, $options);
+	   	$response = $view_function_name( $data, $options);
+		if(empty($options['get_tokens']) && is_array($response)) return $response['body'];
+		return $response;
 	}
 	function template( $template, $tokens){
 	   $tpl = new Template( $template);
