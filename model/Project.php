@@ -56,7 +56,7 @@ class Project extends ActiveRecord {
 			'values' : {
 					'status' : {'pre_design':'Pre-Design',
 								'in_design':'In Design',
-								'in_prodution':'In Production',
+								'in_production':'In Production',
 								'post_launch_production':'Post Launch Production',
 								'done':'Done',
 								'stalled':'Stalled',

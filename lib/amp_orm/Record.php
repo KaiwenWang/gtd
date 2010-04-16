@@ -204,7 +204,11 @@ class Record extends Data {
 
         return false;
     }
-
+//	legacy get function
+	function getData($fieldname = null){
+		return $this->get($fieldname);
+	}
+//	legacy function name
     function getName() {
         if (!isset($this->name_field)) return;
         return $this->get( $this->name_field );

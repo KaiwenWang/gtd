@@ -1,14 +1,22 @@
 <?php
+/**
+\brief  Basic Model Class for GTD
+
+Extend ActiveRecord in the /model directory to create a new GTD model.
+*/
 class ActiveRecord  extends Record {
     var $name_field;
 
     protected static $schema;
 	protected static $schema_json;	
 
-	function getData( $column_name = null){
-   		return $this->get( $column_name);
-    }
-   function getName(){
+	function get($fieldname){
+		return parent::get($fieldname);
+	}
+	function set($field){
+		return parent::set($field);
+	}
+   	function getName(){
 		return $this->getData($this->name_field);
 	}
 	static function getOne( $search_criteria){
@@ -20,11 +28,6 @@ class ActiveRecord  extends Record {
 	static function getAll(){
 		return getAll( get_called_class());
 	}
-	function getArray( $search_criteria){
-		$name = get_class($this);
-		$obj = new $name;
-		return $obj->find( $search_criteria);
-	}
 	function getFieldType( $field){
 		$s = $this::_getSchema(get_class($this));
 		if ( !array_key_exists( $field, $s['fields'])) bail("db field '$field' does not exist in schema file for ".get_class($this).".");
@@ -32,7 +35,7 @@ class ActiveRecord  extends Record {
 		if ( !empty($s['values']) && !empty($s['values'][$field])) return $s['values'][$field];
 		return $s['fields'][$field];
 	} 
-	public static function _getSchema($class=''){
+	private static function _getSchema($class=''){
 		if ( !isset( $class::$schema)) {
 			$r =& getRenderer();
 			$class::$schema = $r->jsonDecode( $class::$schema_json);
@@ -87,7 +90,7 @@ class ActiveRecord  extends Record {
 		return;
 	}
 
-    function _makeCriteriaMultiple($fieldname, $values) {
+    protected function _makeCriteriaMultiple($fieldname, $values) {
         if(empty($values)) return;
         if(is_array($values)) {
             return "$fieldname IN (". implode(",", $values). ")";

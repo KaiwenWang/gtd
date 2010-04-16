@@ -115,13 +115,6 @@ class Company extends ActiveRecord {
 	function getTechnicalContact(){
 		return Contact::getOne(array('company_id'=>$this->id,'is_technical_contact'=>true));
 	}
-	function compareHistoryDates( $a, $b){
-		$date_a = $a->getHistoryDate();
-		$date_b = $b->getHistoryDate();
-
-		if($date_a == $date_b) return 0;
-		return ($date_a < $date_b) ? -1 : 1;
-	}
     function calculateChargesTotal($date_range = array()){
 
 		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
