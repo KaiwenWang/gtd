@@ -69,7 +69,8 @@ class CompanyController extends PageController {
     							 'id'=>$c->id
     							 ));
     }
-    function new_record(){
+    function new_form( $params){
+		$this->data = new Company();
     }
     function destroy(){
     }

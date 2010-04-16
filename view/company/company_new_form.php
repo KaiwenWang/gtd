@@ -23,5 +23,8 @@ function companyNewForm( $c, $o = array()){
     							array( 'title'=>'Add Client')
     						  );
     
-    return $form->html;
+    return array(
+			'title' => 'New Client',
+			'body' => $form->html
+			);
 }
