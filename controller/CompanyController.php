@@ -55,7 +55,7 @@ class CompanyController extends PageController {
 		}
     	$this->redirectTo( array('controller'=>'Company',
     							 'action' => 'show',
-    							 'id'=>$c->id
+    							 'id'=>$company->id
     							 ));
     }
 	function update( $params){
