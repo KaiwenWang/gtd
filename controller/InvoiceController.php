@@ -33,4 +33,11 @@ class InvoiceController extends PageController {
 
         $this->redirectTo( array( 'controller' => 'Invoice', 'action' => 'show', 'id' => $inv->id ));
     }
+	function destroy( $params ){
+        if(!isset($params['id'])) bail("must haz id to do that!");
+		$inv = new Invoice($params['id']);
+		$inv->destroy();
+
+        $this->redirectTo( array( 'controller' => 'Invoice', 'action' => 'index' ));
+	}
 }
