@@ -30,8 +30,8 @@ function companyTable( $companies, $o = array()){
       $link = $r->link('Company',array('action'=>'show','id'=>$c->id),$c->getName());
 
       $table['rows'][] = array( $link, 
-								$c->getData('status'), 
-								$c->getData('balance') 
+								$c->get('status'), 
+								$c->calculateBalance(array('end_date'=>Util::date_format_from_time())) 
 								);
     }
 
