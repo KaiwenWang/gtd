@@ -230,7 +230,8 @@ class Company extends ActiveRecord {
 		
 		$current_balance = $this->calculateCosts($date_range) - $this->calculatePaymentsTotal($date_range);
 		$previous_balance = $this->getPreviousBalance();
-		
+	
+		if(empty($previous_balance)) return $current_balance;	
 		return $current_balance + $previous_balance->getAmount();
 	}
 
