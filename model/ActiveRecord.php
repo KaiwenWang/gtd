@@ -19,6 +19,9 @@ class ActiveRecord  extends Record {
    	function getName(){
 		return $this->getData($this->name_field);
 	}
+	function destroy(){
+		return $this->delete();
+	}
 	static function getOne( $search_criteria){
 		return getOne( get_called_class(), $search_criteria);
 	}
