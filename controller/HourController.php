@@ -43,7 +43,7 @@ class HourController extends PageController {
     	$h = $this->updated_hours[0];
 		$h->save();
 		$project_id = $h->getProject()->id;
-        $this->redirectTo(array('controller' => '', 
+        $this->redirectTo(array('controller' => 'Hour', 
         						'action' => 'show', 
         						'id' => $project_id 
         						));

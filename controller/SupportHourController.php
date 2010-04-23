@@ -28,9 +28,9 @@ class SupportHourController extends PageController {
     function update( $params ){
     	$h = $this->updated_hours[0];
 		$h->save();
-        $this->redirectTo(array('controller' => 'SupportContract', 
+        $this->redirectTo(array('controller' => 'SupportHour', 
         						'action' => 'show', 
-        						'id' => $h->get('support_contract_id')
+        						'id' => $h->id
         						));
     }
     function new_record(){

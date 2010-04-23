@@ -8,22 +8,14 @@ function supporthourShow($d){
 	 						'.$r->view( 'supportcontractInfo', $d->support_contract).'
 						</div>';
 
-    $hour_edit_form = '	<div id="hour-edit-container">
-    				   		'.$r->view( 
-								  	'hourEditForm', 
-    				   			  	$d->hour, 
-								  	array('class'=>'clear-left')
-    				   			  	).'
-    				   	</div>';
-
 	$hidden_forms = $r->view('jsHideable',array(
 						'Log Hours'	=> $r->view(
-												'hourNewForm', 
+												'supporthourNewForm', 
 												$d->new_hour, 
 												array('support_contract_id'=>$d->support_contract->id)
 											   ),
     				   	'Edit Hour' => $r->view( 
-											  	'hourEditForm', 
+											  	'supporthourEditForm', 
     				   						  	$d->hour 
     				   			  			   )
 					), 
