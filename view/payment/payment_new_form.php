@@ -15,6 +15,7 @@ function paymentNewForm( $payment, $o = array() ){
 
     $form_fields = array(
     	'Company'	    => $fs->company_id,
+    	'Invoice ID'	    => $fs->invoice_id,
     	'Amount'	    => $fs->amount,
     	'Date'      	=> $fs->date,
         'Payment Type'  => $fs->payment_type,

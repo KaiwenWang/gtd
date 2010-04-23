@@ -13,7 +13,7 @@ class Payment extends ActiveRecord {
 							'preamp_id' :  'int',
 							'preamp_client_id'  :  'int',
 							'product'  	:  'text',
-							'invoice_id':  'Invoice',
+							'invoice_id':  'int',
 							'company_id':  'Company',
 							'notes'  	:  'textarea',
                             'check_number' : 'text'
