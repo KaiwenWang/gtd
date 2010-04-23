@@ -419,9 +419,12 @@ height:200px;
 .project-manager{
 font-weight: bold;
 }
-/* HOUR EDIT */
+/* HOUR FORMS*/
 #hour-edit-container{
 float: left;
+}
+input.description-field{
+	width: 300px;
 }
 /* SUPPORT CONRACT */
 #correct-mistake-contract-btn{

@@ -13,7 +13,7 @@ function projectShow($d){
 										)
 									);
 
-	$hidden_forms = $r->view('jsHideable',array(
+	$hidden_forms = $r->view('jsMultipleButtons',array(
 						'Create New Estimate'=> $r->view( 'estimateNewForm', 
 														  $d->new_estimate
 														),								
@@ -27,7 +27,7 @@ function projectShow($d){
 
 
 	$estimate_table = $r->view('estimateTable', $d->project->getEstimates());
-	$history_table = $r->view('historyTable', $d->project->getHistory());
+	$hour_table = $r->view('hourTable', $d->project->getHours());
 	
 
 	return	array(
@@ -36,7 +36,7 @@ function projectShow($d){
 		'body' => 	$editable_project_info
 					.$hidden_forms
 					.$estimate_table
-					.$history_table
+					.$hour_table
 		);
 }
 ?>

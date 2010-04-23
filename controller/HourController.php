@@ -35,7 +35,7 @@ class HourController extends PageController {
 								  'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
 								  ));
-								  
+		$d->projects = Project::getAll();								  
 		$d->new_estimate = new Estimate();
 		$d->new_estimate->set(array('project_id'=>$d->project->id));
     }
@@ -43,7 +43,7 @@ class HourController extends PageController {
     	$h = $this->updated_hours[0];
 		$h->save();
 		$project_id = $h->getProject()->id;
-        $this->redirectTo(array('controller' => 'Hour', 
+        $this->redirectTo(array('controller' => 'Project', 
         						'action' => 'show', 
         						'id' => $project_id 
         						));
@@ -65,6 +65,19 @@ class HourController extends PageController {
 								));
 		
     }
+	function edit_form( $params ){
+		if(!$params['project_id']) bail('required parameter "project_id" is missing.');
+		if(!$params['hour_id']) bail('required parameter "id" is missing.');
+	
+		$this->data->project = new Project( $params['project_id'] );
+
+		$this->options = array( 'project_id' => $this->data->project->id,
+							   'title' => $this->data->project->getName()
+							   );
+		
+
+		$this->data = new Hour( $params['hour_id']);
+	}
     function create( $params){
 		$h = $this->new_hours[0];
 		$h->save();
@@ -77,6 +90,15 @@ class HourController extends PageController {
 		$this->data = getMany( 'Hour', $params);
 		$this->options = $params;
 	}
-    function destroy(){
-    }
+    function destroy($params){
+		if(empty($params['id'])) bail('required param["id"] not set.');
+		$hour = new Hour($params['id']);
+		$project_id = $hour->getProject()->id;
+		$hour->destroy();
+		$this->redirectTo(array(
+							'controller'=>'Project',
+							'action'=>'show',
+							'id'=>$project_id
+							));
+	}
 }

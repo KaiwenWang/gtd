@@ -67,6 +67,10 @@ class Hour extends ActiveRecord {
         }
         return $this->staff;
 	}
+	function getType(){
+		if( $this->is_project_hour()) return 'project';
+		else return 'support';
+	}
     function getSupportContract(){
 		if( !$this->get('support_contract_id')) return;
         if( !isset($this->support_contract)){
@@ -91,6 +95,16 @@ class Hour extends ActiveRecord {
     function getStaffName(){
         $staff = $this->getStaff();
         return $staff->getName();
+	}
+	function getCompany(){
+		if( $this->is_project_hour()){
+			return $this->getProject()->getCompany();
+		} else {
+			return $this->getSupportContract()->getCompany();
+		}
+	}	
+	function getCompanyName(){
+		return $this->getCompany()->getName();
 	}
     function is_valid( ) {
     }
