@@ -453,3 +453,42 @@ float:left;
 margin-right:12px;
 margin-bottom:8px;
 }
+/* INVOICE */
+#invoice {
+display: block;
+width: 880px;
+margin-right: auto;
+margin-left: auto;
+}
+#invoice #header {
+height: 85px;
+}
+#invoice #header h1 {
+color: #FFFFFF;
+font-size: 30px;
+text-align: right;
+padding: 20px 60px 0 0;
+}
+#invoice #header img {
+float: left;
+}
+
+#invoice h2{
+font-size: 20px;
+}
+
+#invoice-footer{
+font-size: 12px;
+margin-bottom: 10px;
+}
+
+#invoice #footer-address{
+margin-bottom: 20px;
+}
+
+#banner {
+margin: 15px 0 0 0;
+}
+#banner .basic-list-item {
+text-align: right;
+}
