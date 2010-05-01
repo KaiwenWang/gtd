@@ -195,7 +195,7 @@ class SupportContract extends ActiveRecord {
         return $included_months;
     }
 	function getHourlyRate(){
-		$this->get('hourly_rate');
+		return $this->get('hourly_rate');
 	}
     function calculateMonthlyCharge($hours, $month = null) {
         //compare support hours given > support hours / month
