@@ -17,4 +17,7 @@ class CompanyPreviousBalance extends ActiveRecord{
 	function getAmount(){
 		return $this->get('amount');
 	}
+	function getDate(){
+		return $this->get('date');
+	}
 }
