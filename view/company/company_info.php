@@ -8,6 +8,9 @@ function companyInfo( $c, $o){
 	$address.= $c->get('state').'<br>';
 	$address.= $c->get('zip');
 
+	$previous_balance_amount = $c->getPreviousBalanceAmount();
+	$previous_balance_date = $c->getPreviousBalanceDate();
+
 	$c->get('notes') ? $notes = ' 
 								<div class="notes-box">
 									<div class="notes-content">	
@@ -29,6 +32,11 @@ function companyInfo( $c, $o){
 				<h2>
 					'.$c->get('name').'
 				</h2>
+			</div>
+			<div class="clear-both"></div>
+			<div class="company-previous-balance">
+				Previous Balance Amount: $ '.$previous_balance_amount.'
+				Previous Balance Date: '.$previous_balance_date.'
 			</div>
 			<div class="clear-both"></div>
 			<div class="company-contacts">
