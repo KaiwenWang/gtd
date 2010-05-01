@@ -217,9 +217,12 @@ class Company extends ActiveRecord {
 	}
 
 	function getPreviousBalanceDate(){
-		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->get('date');
+		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->getDate();
 	}
 
+	function getPreviousBalanceAmount(){
+		if( $previous_balance = $this->getPreviousBalance() ) return $previous_balance->getAmount();
+	}
 
     function calculateBalance( $date_range = array()) {
 		if( empty($date_range['end_date'])) bail('$date_range["end_date"] required');
