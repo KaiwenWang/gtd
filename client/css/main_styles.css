@@ -267,6 +267,10 @@ float: left;
 .inline .data-cell{
 }
 /* COMPANY INFO */
+.company-balance{
+font-weight:bold;
+margin-left:5px;
+}
 .address{
 float:left;
 margin-right:16px;
