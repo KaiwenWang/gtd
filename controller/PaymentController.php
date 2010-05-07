@@ -31,12 +31,11 @@ class PaymentController extends PageController {
     	$p->save();
 
     	isset($params['redirect'])	? $redirect = $params['redirect']
-									: $redirect = array('controller' => 'Company',
-    							 						'action' => 'show',
-    							 						'id' => $p->get('company_id')
-    							 						);
-
+									: $redirect = array('controller' => 'Payment',
+    							 						'action' => 'index'
+													);
     	$this->redirectTo( $redirect); 
+		Render::msg('Payment Saved');
     }
 	function update( $params){
 		$p = $this->updated_payments[0];
