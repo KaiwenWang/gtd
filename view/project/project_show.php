@@ -2,8 +2,6 @@
 function projectShow($d){
 	$r =& getRenderer();
 
-	$select_project = 		$r->view( 'jumpSelect', $d->project);
-
 
 	$editable_project_info= $r->view( 'jsSwappable',
 									  'Project Info',
@@ -29,10 +27,8 @@ function projectShow($d){
 	$estimate_table = $r->view('estimateTable', $d->project->getEstimates());
 	$hour_table = $r->view('hourTable', $d->project->getHours());
 	
-
 	return	array(
 		'title' => $d->project->getName(),
-		'controls' => $select_project,
 		'body' => 	$editable_project_info
 					.$hidden_forms
 					.$estimate_table
