@@ -42,7 +42,7 @@ class Company extends ActiveRecord {
 
 	function getProjects(){
 		if(empty($this->projects)){
-			$this->projects= getMany('Project',array("company_id"=>$this->id));
+			$this->projects= Project::getMany(array("company_id"=>$this->id));
 		}
 		return $this->projects;	
 	}
@@ -114,6 +114,12 @@ class Company extends ActiveRecord {
 	}
 	function getTechnicalContact(){
 		return Contact::getOne(array('company_id'=>$this->id,'is_technical_contact'=>true));
+	}
+	function getStatus(){
+		return $this->get('status');
+	}
+	function getPhone(){
+		return $this->get('phone');
 	}
     function calculateChargesTotal($date_range = array()){
 
