@@ -26,6 +26,10 @@ class InvoiceController extends PageController {
         if(!isset($params['id'])) bail("must haz id to show you that!");
         $this->data->invoice = new Invoice($params['id']);
 	}
+    function send($params) {
+        if(!isset($params['id'])) bail("must haz id to show you that!");
+        $this->data->invoice = new Invoice($params['id']);
+	}
     function update( $params ) {
         $inv = $this->updated_invoices[0];
         $inv->execute();
