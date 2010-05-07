@@ -53,6 +53,16 @@ class PaymentController extends PageController {
     }
     function new_record(){
     }
-    function destroy(){
+	function destroy($params){
+        $params['id'] ? $payment = new Payment($params['id']) 
+					  : bail('required parameter $params["id"] missing.');
+		$payment->destroy();
+
+    	isset($params['redirect'])	? $redirect = $params['redirect']
+									: $redirect = array('controller' => 'Payment',
+    							 						'action' => 'index'
+    							 						);
+  
+		$this->redirectTo($redirect);			
     }
 }

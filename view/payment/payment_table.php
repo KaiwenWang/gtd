@@ -5,15 +5,20 @@ function paymentTable( $payments, $o = array()){
 	if ( !$payments) return '';
 
     $table = array();
-    $table['headers'] = array('Date','Client','Amount');
+    $table['headers'] = array('Date','Invoice ID','Client','Amount','Edit','Delete');
     $table['rows'] =  array();
     $total_payments = 0;
     $r = getRenderer(  );
-    foreach($payments as $m){
-        $total_payments += $m->getAmount( );
-        $table['rows'][] = array( $r->link( 'Payment', array('action' => 'show', 'id' => $m->id), $m->getData('date')), 
-                                $r->link( 'Company', array( 'action' => 'show', 'id'=>$m->getCompany()->id ), $m->getCompanyName() ), 
-                                '$ ' . number_format( $m->getAmount(), 2) );
+    foreach($payments as $p){
+        $total_payments += $p->getAmount( );
+		$table['rows'][] = array( 
+								UI::link( array('controller'=>'Payment','action' => 'show', 'id' => $p->id, 'text'=>$p->getData('date'))), 
+								UI::link( array( 'text'=>$p->getInvoiceId(),'controller'=>'Invoice','action'=>'show','id'=>$p->getInvoiceId())),
+                                UI::link( array( 'controller'=>'Company','action' => 'show', 'id'=>$p->getCompany()->id, 'text'=>$p->getCompanyName())), 
+								'$ ' . number_format( $p->getAmount(), 2),
+								UI::button(array('controller'=>'Payment','action'=>'show','id'=>$p->id)),
+								UI::button(array('controller'=>'Payment','action'=>'destroy','id'=>$p->id)),
+								);
     }
 
     $payment_table = $r->view('basicTable', $table, array( 'title' => 'Payments' ));
