@@ -6,6 +6,7 @@ class FrontController {
     private $ajax_request = false;
     
     function __construct(){
+		session_start();
         $this->router = Router::singleton();
         $this->page = $this->getPageController();
         if( isset($this->router->params['ajax_target_id'])) $this->ajax_request = true;
