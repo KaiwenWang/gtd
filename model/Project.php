@@ -68,7 +68,7 @@ class Project extends ActiveRecord {
 										'paid_final':'Paid Final',
 										'shakeable':'Shakeable',
 										'withheld':'Some Withheld'},
-					'server' : {'sadie':'Sadie',
+					'server' : {
 								'grace':'Grace',
 								'jacqui':'Jacqui',
 								'huang':'Huang',
@@ -85,7 +85,10 @@ class Project extends ActiveRecord {
     }
     function getShortName(){
         return $this->getData('name');
-    }
+	}
+	function getServer(){
+		return $this->get('server');
+	}
 	function getEstimates(){
 		if(empty($this->estimates)){
 			$finder = new Estimate();

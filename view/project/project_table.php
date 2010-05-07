@@ -7,6 +7,7 @@ function projectTable( $projects, $o = array()){
     $table['headers'] = array(	'ID',
     							'Project Name',
     							'Status',
+    							'Server',
     							'Project Manager',
     							'Launch Date',
     							'Billing Status',
@@ -16,11 +17,12 @@ function projectTable( $projects, $o = array()){
     foreach($projects as $p){
       $table['rows'][] = array(	$p->id,
       							$r->link( 'Project', array('action'=>'show','id'=>$p->id), $p->getName()),
-      							$p->getData('status'),
+      							$p->get('status'),
+      							$p->getServer(),
       							$p->getStaffName(),
-      							$p->getData('launch_date'),
-      							$p->getData('billing_status'),
-      							$p->getData('cost')
+      							$p->get('launch_date'),
+      							$p->get('billing_status'),
+      							$p->get('cost')
       							);
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Projects'));
