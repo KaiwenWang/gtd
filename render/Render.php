@@ -31,7 +31,7 @@ class Render{
     static function msg( $text, $type='good'){
 		$r = getRenderer();
     	$msg = $r->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
-		$r->system_messages .= $msg;
+		$_SESSION['gtd_msg'] .= $msg;
     }
     function jsonEncode( $data){
     	return $this->json->encode( $data);
@@ -65,8 +65,11 @@ class Render{
 	}
 
 	// Don't ever call dumpMessages, it's used by the FrontController.
-    function _dumpMessages(){
-    	return $this->system_messages;
+	function _dumpMessages(){
+		if(empty($_SESSION['gtd_msg'])) return;
+		$msg = $_SESSION['gtd_msg'];
+		unset($_SESSION['gtd_msg']);
+		return $msg;
     }
 /* REFACTORED!  PLEASE USE NEW HOTNESS INSTEAD */
 

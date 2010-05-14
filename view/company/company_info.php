@@ -1,5 +1,7 @@
 <?php
 function companyInfo( $c, $o){
+	if(get_class($c) != 'Company') bail('companyInfo requires a Company object');
+
 	$r = getRenderer();
 
 	$address = $c->get('street').'<br>';
@@ -8,8 +10,7 @@ function companyInfo( $c, $o){
 	$address.= $c->get('state').'<br>';
 	$address.= $c->get('zip');
 
-	$previous_balance_amount = $c->getPreviousBalanceAmount();
-	$previous_balance_date = $c->getPreviousBalanceDate();
+	$balance = $c->calculateBalance(array('end_date'=>Util::date_format_from_time()));
 
 	$c->get('notes') ? $notes = ' 
 								<div class="notes-box">
@@ -27,16 +28,15 @@ function companyInfo( $c, $o){
 	return '
 			<div class="company-info-header">
 				<div class="status">
-					'.$c->get('status').'
+					'.$c->getStatus().'
 				</div>
 				<h2>
-					'.$c->get('name').'
+					'.$c->getName().'
 				</h2>
 			</div>
 			<div class="clear-both"></div>
-			<div class="company-previous-balance">
-				Previous Balance Amount: $ '.$previous_balance_amount.'
-				Previous Balance Date: '.$previous_balance_date.'
+			<div class="company-balance">
+				Current Balance: $ '.$balance.'
 			</div>
 			<div class="clear-both"></div>
 			<div class="company-contacts">
@@ -47,7 +47,7 @@ function companyInfo( $c, $o){
 					Address
 				</h4>
 				'.$address.'<br>
-				'.$c->get('phone').'
+				'.$c->getPhone().'
 			</div>
 			'.$notes.'	
 			<div class="clear-both"></div>

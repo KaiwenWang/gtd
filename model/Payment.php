@@ -41,6 +41,9 @@ class Payment extends ActiveRecord {
 	function getNotes(){
 		return $this->get('notes');
 	}
+	function getInvoiceId() {
+		return $this->get('invoice_id');
+	}
     function getCompany(){
             if(empty($this->company)){
                     $this->company = new Company( $this->get('company_id'));

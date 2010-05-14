@@ -4,7 +4,7 @@ function companyShow($d){
 	
 	$company_selector = $r->view( 'jumpSelect', $d->company );
 	
-	$editable_project_info = $r->view('jsSwappable',
+	$editable_company_info = $r->view('jsSwappable',
 									  'Company Info',
 					 				   array(
 						 				$r->view( 'companyInfo', $d->company),
@@ -33,7 +33,7 @@ function companyShow($d){
 	return  array(
 		'title' => $d->company->getName(),
 		'controls' => $company_selector,
-		'body' =>   $editable_project_info
+		'body' =>   $editable_company_info
 					.$hidden_forms
 					.$project_table
 					.$contract_table
