@@ -10,8 +10,14 @@ class ActiveRecord  extends Record {
     protected static $schema;
 	protected static $schema_json;	
 
-	function get($fieldname = null){
-		return parent::get($fieldname);
+	function get($field = null){
+		$s = $this::_getSchema(get_class($this));
+		if ( !empty($s['values']) && !empty($s['values'][$field])) return $s['values'][$field][parent::get($field)];
+		return parent::get($field);
+	}
+	// get raw value from db
+	function getData($field = null){
+		return parent::get($field);
 	}
 	function set($field){
 		return parent::set($field);
