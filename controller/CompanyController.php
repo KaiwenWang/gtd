@@ -1,8 +1,7 @@
 <?php
 class CompanyController extends PageController {
- 	var $before_filters = array( 'get_posted_records' => 
- 									array( 'create','update','destroy'),
-								 'get_search_criteria'=>array('index')
+ 	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'),
+								 'get_search_criteria'=> array('index')
  								);
     function index( $params){
 		$criteria = array();
@@ -12,6 +11,9 @@ class CompanyController extends PageController {
         $this->data->companies = Company::getMany($criteria);
 
         $this->data->new_company = new Company();
+
+		$this->data->search_company = new Company();
+        $this->data->search_company->set($criteria); 
         
     }        
 	function show($params){

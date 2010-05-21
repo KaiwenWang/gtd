@@ -8,7 +8,7 @@ function companyIndex($d){
         									)
         							);
         							
-        $company_table_html = $r->view('companyTable', $d->companies, array('id'=>'company'));
+        $company_table_html = $r->view('companyTable', $d->companies, array('id'=>'company','search_company'=>$d->search_company));
 
         return 	array(
                         'title'=>'Listing All Clients',

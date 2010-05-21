@@ -1,24 +1,23 @@
 <?php
 function companyTable( $companies, $o = array()){
-	if(!$companies) return;
 
     $r =& getRenderer();
 
-
-	$form = new Form( array(
-					'controller'=>'company',
-					'action'=>'index',
-					'method'=>'get',
-					'auto_submit'=>array('org_type','country'),
-					));
-	$f=$form->getFieldSetFor( new Company());
-	$form_content = $f->field('org_type',array('title'=>'Organization Type'));
-	$form_content .= $f->field('country',array('title'=>'Country'));
-	$form->content = $form_content; 
- 
-//	$form->content = $r->classSelect( 'Company', array( 'name'=>'org_type' ));
-
-	$search_form = $form->html;
+	$search_form = '';
+	if( !empty($o['search_company']) && is_a( $o['search_company'], 'Company')){
+		$form = new Form( array(
+						'controller'=>'company',
+						'action'=>'index',
+						'method'=>'get',
+						'auto_submit'=>array('org_type','country','status'),
+						));
+		$f=$form->getFieldSetFor( $o['search_company']);
+		$form_content = $f->field('org_type',array('title'=>'Organization Type'));
+		$form_content .= $f->field('country',array('title'=>'Country'));
+		$form_content .= $f->field('status',array('title'=>'Status'));
+		$form->content = $form_content; 
+		$search_form = $form->html;
+	}
 	
     $table = array();
 

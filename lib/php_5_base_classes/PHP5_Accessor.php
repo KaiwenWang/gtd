@@ -18,4 +18,3 @@ class PHP5_Accessor {
 		return $this->$key;
 	}
 }
-?>

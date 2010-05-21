@@ -12,7 +12,6 @@ class SupportContractController extends PageController {
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
 										'staff_id' => getUser(),
-										'date' => date('Y-m-d'),
 										'date' => date('Y-m-d')
 										));
 	}
@@ -70,14 +69,12 @@ class SupportContractController extends PageController {
 	function update(){
         $contract = $this->updated_support_contracts[0];
         $contract->save();
-    	$this->redirectTo( array('controller'=>'Company','action' => 'show', 'id' => $contract->get('company_id')
-));
+    	$this->redirectTo( array('controller'=>'Company','action' => 'show', 'id' => $contract->get('company_id')));
     }
 	function create(){
         $contract = $this->new_support_contracts[0];
         $contract->save();
-    	$this->redirectTo( array('controller'=>'Company','action' => 'show', 'id' => $contract->get('company_id')
-));
+    	$this->redirectTo( array('controller'=>'Company','action' => 'show', 'id' => $contract->get('company_id')));
     }
 	function cancel( $params ){
 		$d = $this->data;
