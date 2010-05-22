@@ -139,8 +139,12 @@ class Util {
 
     function start_of_month($date) {
         $start_date = strtotime($date);
+        $start_day = date('j', $start_date);
         $start_month = date('m', $start_date);
-        $start_year = date('Y', $start_date);
+		$start_year = date('Y', $start_date);
+
+		if( $start_day >= 28 ) $start_month = $start_month + 1;
+
         return mktime( 0, 0, 0, $start_month, 1, $start_year );
     }
 
@@ -198,6 +202,3 @@ class Util {
 #		echo $msg;
 	}
 }
-
-
-?>
