@@ -19,10 +19,13 @@ function staffShow($d){
 					));
 
     $project_table = $r->view( 'projectTable', $d->staff->getProjects());
+    $hour_table = $r->view( 'hourTable', $d->staff->getHours());
+
 
     return  array(	'title'=>$d->staff->getName().'land',
                     'controls'=>$r->view( 'jumpSelect', $d->staff),
                     'body'=> $hidden_forms
                     		.$project_table
+							.$hour_table
                     );
 }

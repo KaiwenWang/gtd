@@ -239,21 +239,19 @@ class Company extends ActiveRecord {
 		
 		$current_balance = $this->calculateCosts($date_range) - $this->calculatePaymentsTotal($date_range);
 		$previous_balance = $this->getPreviousBalance();
-	
+
+		### tests fail because of this! margot	
 		if(empty($previous_balance)) return $current_balance;	
-		return $current_balance + $previous_balance->getAmount();
+		$total_balance = ($current_balance + $previous_balance->getAmount());
+		return $total_balance;
 	}
 
 	function updateDateRangeWithPreviousBalanceDate( $date_range ){
 
 		if( !isset($date_range['start_date'])){
-
 			$date_range['start_date'] = $this->getPreviousBalanceDate();
-
 		} elseif ( $date_range['start_date'] < $this->getPreviousBalanceDate() ){
-
 			$date_range['start_date'] = $this->getPreviousBalanceDate();
-
 		}
 
 		if ( isset($date_range['end_date']) && $date_range['end_date'] <= $this->getPreviousBalanceDate() ){

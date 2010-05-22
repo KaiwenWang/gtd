@@ -32,7 +32,12 @@ class Staff extends ActiveRecord {
 		if(empty($this->projects)){
 			$this->projects = getMany( 'Project', array("staff_id"=>$this->id));
 		}
-
 		return $this->projects;
+	}
+	function getHours(){
+		if(empty($this->hours)){
+			$this->hours = getMany( 'Hour', array("staff_id"=>$this->id));
+		}
+		return $this->hours;
 	}
 }
