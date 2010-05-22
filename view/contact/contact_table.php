@@ -19,13 +19,21 @@ function contactTable( $contacts, $o = array()){
     $table = array();
     $table['headers'] = array(	'Contact',
     							'Client',
-    							'Email');
+								'Email',
+								'Type',
+								'Edit',
+								'Delete');
     $table['rows'] =  array();
     foreach($contacts as $contact){
-      $company = $contact->getCompany();
-      $table['rows'][] = array( $r->link( 'Contact', array( 'action'=>'show', 'id'=>$contact->id), $contact->getName()),
+		$company = $contact->getCompany();
+		$edit_button = UI::button( array( 'controller'=>'Contact', 'action'=>'show','id'=>$contact->id));
+		$delete_button = UI::button( array( 'controller'=>'Contact', 'action'=>'destroy','id'=>$contact->id));
+
+
+		$table['rows'][] = array( $r->link( 'Contact', array( 'action'=>'show', 'id'=>$contact->id), $contact->getName()),
       						  $r->link( 'Company', array( 'action'=>'show', 'id'=>$company->id), $company->getName()),
-      						  '<a href="'.$contact->getData( 'email').'"/>'.$contact->getData('email').'</a>'
+							  '<a href="'.$contact->getData( 'email').'"/>'.$contact->getData('email').'</a>',
+							  $contact->getContactType(),$edit_button, $delete_button
       						  );
     }
     $html = $r->view( 'basicTable', $table, array('title'=>'Contacts'));

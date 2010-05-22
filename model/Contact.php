@@ -47,5 +47,18 @@ class Contact extends ActiveRecord {
 		}
 		return $this->company;	
 	}
+	function getContactType(){
+		$contact_type = '';
+		if ($this->getData('is_billing_contact') == 1) {
+			$contact_type .= 'Billing ';
+		}
+		if ($this->getData('is_primary_contact') == 1) {
+			$contact_type .= 'Primary ';
+		}
+		if ($this->getData('is_technical_contact') == 1) {
+			$contact_type .= 'Technical';
+		}
+		return $contact_type;
+	}
 
 }

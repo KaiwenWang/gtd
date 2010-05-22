@@ -28,5 +28,14 @@ class ContactController extends PageController {
     							 'id'=>$c->getCompany()->id
     							 ));
     }
+	function destroy( $params){
+		if(empty($params['id'])) bail('required param["id"] not set.');
+		$contact = new Contact($params['id']);
+		$contact->destroy();
+		$this->redirectTo(array(
+							'controller'=>'Contact',
+							'action'=>'index'
+							));
+    }
 }
 ?>
