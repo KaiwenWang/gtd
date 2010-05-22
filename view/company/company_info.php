@@ -27,27 +27,28 @@ function companyInfo( $c, $o){
 
 	return '
 			<div class="company-info-header">
-				<div class="status">
-					'.$c->getStatus().'
-				</div>
+				<div class="company-info">
 				<h2>
 					'.$c->getName().'
 				</h2>
-			</div>
-			<div class="clear-both"></div>
 			<div class="company-balance">
 				Current Balance: $ '.$balance.'
 			</div>
 			<div class="clear-both"></div>
-			<div class="company-contacts">
-				'.$contacts.'
-			</div>
+
+					</div>
+			<div class="clear-both"></div>
 			<div class="address">
-				<h4>
-					Address
-				</h4>
 				'.$address.'<br>
 				'.$c->getPhone().'
+			</div>
+			<div class="clear-both"></div>
+			<div class="status">
+					'.$c->getStatus().'
+			</div>
+			</div>
+			<div class="company-contacts">
+				'.$contacts.'
 			</div>
 			'.$notes.'	
 			<div class="clear-both"></div>

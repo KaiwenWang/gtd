@@ -17,7 +17,7 @@ function contactTable( $contacts, $o = array()){
 	if( !$contacts) return '';
     $r =& getRenderer();
     $table = array();
-    $table['headers'] = array(	'Contact',
+    $table['headers'] = array(	'Name',
     							'Client',
 								'Email',
 								'Type',
