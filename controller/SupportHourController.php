@@ -36,7 +36,7 @@ class SupportHourController extends PageController {
     function new_record(){
     }
     function create( $params){
-		$h = $this->new_hours[0];
+    	$h = $this->new_hours[0];
 		$h->save();
 
 		isset($params['redirect']) 	? $redirect = $params['redirect']
@@ -48,6 +48,20 @@ class SupportHourController extends PageController {
 
         $this->redirectTo($redirect);
     }
-    function destroy(){
+    function destroy($params){
+		if ( !$params['id']) bail('Required $params["id"] not present.');
+		$h = new Hour($params['id']);
+		$support_contract_id = $h->get('support_contract_id');
+		$h->destroy();
+	
+		isset($params['redirect']) 	? $redirect = $params['redirect']
+									: $redirect = array(
+													'controller'=>'SupportContract',
+        											'action' => 'show', 
+        											'id' => $support_contract_id
+                            						);
+
+        $this->redirectTo($redirect);
+
     }
 }

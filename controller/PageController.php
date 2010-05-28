@@ -102,7 +102,7 @@ class PageController{
 		if ($this->display_options['view']) $view_name = $this->display_options['view'];
 		
         if( !$this->render_partial ) $this->options['get_tokens'] = true;	
-
+		
 		$response = $r->view( $view_name, $this->data, $this->options );
 
 		if(!is_array($response) && !$this->render_partial) $response = array('body'=>$response);
