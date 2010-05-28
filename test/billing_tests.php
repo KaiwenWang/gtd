@@ -62,6 +62,11 @@ class testBilling extends UnitTestCase {
 		$h->set(array('description'=>'Test','support_contract_id'=>$sc->id,'date'=>'2010-02-20','hours'=>'2.5'));
 		$h->save();
 
+		# date range is 3 months at 50$ = 150 + 2 at 120 = 240 extra hours (2.5 - .5 support) = total 390 
+		$date_range = array('start_date'=>'2010-01-01', 'end_date'=>'2010-03-31');
+		$support_total = $sc->calculateTotal($date_range);
+		$this->assertEqual($support_total, 390);
+
 		## clean up
 		$sc->destroyAssociatedRecords();
 		$sc->delete();
@@ -322,7 +327,32 @@ class testBilling extends UnitTestCase {
 		$cp->destroyAssociatedRecords();
 		$cp->delete();
 	}
+	function testGetBillableHours(){
+		# with discount
+		$e = new Estimate();
+		$e->set(array('name'=>'i am a test!'));	
+		$e->save();
+		
+		# gimme yo hours!
+		$ho = new Hour();
+		$ho->set(array('description'=>'did some stuff','date'=>'2010-02-25','hours'=>'2.75','estimate_id'=>$e->id,'discount'=>'1'));
+		$ho->save();
 
+	    # gimme yo hours!
+		$ho2 = new Hour();
+		$ho2->set(array('description'=>'did some more stuff','date'=>'2010-02-26','hours'=>'3','estimate_id'=>$e->id,'discount'=>'1'));
+		$ho2->save();
+
+		# 1.75 + 2 = 3.75
+
+		$date_range = array('start_date'=>'2010-01-01','end_date'=>'2010-03-01');
+		$billable_hours = $e->getBillableHours($date_range);
+		$this->assertEqual($billable_hours,3.75);
+
+		#destroy!!!!!
+		$e->destroyAssociatedRecords();
+		$e->delete();
+	}
 	function testCalculatePaymentsTotalWithDateRanges(){
 		$cp = new Company();
 		$cp->set(array('name'=>'Test Company','status'=>'active'));
@@ -366,6 +396,7 @@ class testBilling extends UnitTestCase {
 		$cp->destroyAssociatedRecords();
 		$cp->delete();
 	}
+
 
 	function testCalculateProjectTotals(){
 		$cp = new Company();
