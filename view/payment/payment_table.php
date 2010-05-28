@@ -9,10 +9,11 @@ function paymentTable( $payments, $o = array()){
 						'controller'=>'payment',
 						'action'=>'index',
 						'method'=>'get',
-						'auto_submit'=>array('payment_type')
+						'auto_submit'=>array('payment_type','company_id')
 						));
 
 		$form->content = $form->getFieldSetFor( $o['search_payment'] )->field('payment_type',array('title'=>'Payment Type'));
+		$form->content .= $form->getFieldSetFor( $o['search_payment'] )->field('company_id',array('title'=>'Client'));
 		$search_form = $form->html;
 	}
 
