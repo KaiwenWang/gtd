@@ -16,6 +16,7 @@ class PageController{
     private $current_action;
     private $response_html;
     private $responseEnabled = true;
+    private $redirectEnabled = true;
     private $render_partial = false;
     
     function __construct(){
@@ -62,7 +63,7 @@ class PageController{
    		$this->executeFilterSequence('after_filters');
   		$this->executeFilterSequence('around_filters');
 
-		$this->redirect();
+		if($this->isResponseEnabled()) $this->redirect();
     }
     private function redirect(){
     	if( isset( $this->redirect_url) && $this->redirect_url){
@@ -110,13 +111,21 @@ class PageController{
     }
     function disableResponse( ) {
         $this->responseEnabled = false;
-
     }
     function enableResponse( ) {
         $this->responseEnabled = true;
     }
     function isResponseEnabled( ) {
         $this->responseEnabled;
+    }
+    function disableRedirect( ) {
+        $this->redirectEnabled = false;
+    }
+    function enableRedirect( ) {
+        $this->redirectEnabled = true;
+    }
+    function isRedirectEnabled( ) {
+        $this->redirectEnabled;
     }
     function loadFilters(){
         $this->loadFilterCollection( );

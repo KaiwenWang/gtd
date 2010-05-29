@@ -267,7 +267,7 @@ class testBilling extends UnitTestCase {
 		$cp->save();
 		
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-01-21'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-01-21'));
 		$pb->save();
 
 		# Charge in date range but before previous balance
@@ -301,7 +301,7 @@ class testBilling extends UnitTestCase {
 		$cp->save();
 		
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-01-21'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-01-21'));
 		$pb->save();
 
 		# Charge in date range but before previous balance
@@ -360,7 +360,7 @@ class testBilling extends UnitTestCase {
 			
 		# Previous Balance removes anything in 2010-01 
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-01-31'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-01-31'));
 		$pb->save();
 
 		# Payment always out of  range
@@ -444,7 +444,7 @@ class testBilling extends UnitTestCase {
 			
 		# But wait what if Previous Balance removes anything in 2010-01 
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-01-31'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-01-31'));
 		$pb->save();
 
 		# Date Range with Previous Balance:  Get all the hours for a project based on date range but with previous balance and calculate cost
@@ -469,7 +469,7 @@ class testBilling extends UnitTestCase {
 		$cp->save();
 	
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-02-01'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-02-01'));
 		$pb->save();
 
 		######### Support
@@ -586,9 +586,9 @@ class testBilling extends UnitTestCase {
 		$cp->save();
 	
 		$pb = new CompanyPreviousBalance();
-		$pb->set(array( 'company_id'=>$cp->id, 'balance'=>600.25, 'date'=>'2010-01-30'));
+		$pb->set(array( 'company_id'=>$cp->id, 'amount'=>600.25, 'date'=>'2010-01-30'));
 		$pb->save();
-
+		$this->assertWithinMargin($pb->getAmount(),'600.25','.01');
 		######### Support
 		$sc = new SupportContract();
 		$sc->set(array('company_id'=>$cp->id,'domain_name'=>'Test','start_date'=>'2010-01-01','end_date'=>'2010-04-30','hourly_rate'=>'120','support_hours'=>'.5','monthly_rate'=>'50'));

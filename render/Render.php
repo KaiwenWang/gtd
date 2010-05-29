@@ -29,10 +29,11 @@ class Render{
     	return $html;
     }
     static function msg( $text, $type='good'){
-		$r = getRenderer();
-    	$msg = $r->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
-		$_SESSION['gtd_msg'] .= $msg;
-    }
+        $r = getRenderer();
+        $msg = $r->template('templates/message.html', array( 'type'=>$type, 'message'=>$text));
+        if(empty($_SESSION['gtd_msg'])) $_SESSION['gtd_msg'] = ''; 
+        $_SESSION['gtd_msg'] .= $msg;
+    } 
     function jsonEncode( $data){
     	return $this->json->encode( $data);
     }

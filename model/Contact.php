@@ -60,5 +60,7 @@ class Contact extends ActiveRecord {
 		}
 		return $contact_type;
 	}
-
+	function getEmail(){
+		return $this->get('email');
+	}
 }

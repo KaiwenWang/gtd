@@ -122,12 +122,15 @@ function pluralize( $word ) {
 }
 
 class Util {
-	function date_format($string){
+	function date_format($string = false){
 		return self::date_format_from_time( strtotime( $string ));
 	}
 	function date_format_from_time($time = false){
 		if( !$time ) $time = time();
 		return date('Y-m-d',$time);
+	}
+	function pretty_date($date){
+		return date('m/d/Y',strtotime($date));
 	}
     function is_a_date($date) {
         $null_dates = array(

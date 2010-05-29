@@ -69,10 +69,20 @@ class Company extends ActiveRecord {
 	}
 	function getBillingContacts(){
 		if(empty($this->billing_contacts)){
-			$finder = new Contact();
-			$this->billing_contacts= $finder->find(array("company_id"=>$this->id,"billable"=>1));
+			$this->billing_contacts= Contact::getMany(array("company_id"=>$this->id,"is_billing_contact"=>1));
 		}
 		return $this->billing_contacts;	
+	}
+	function getBillingEmailAddress(){
+		$contacts = $this->getBillingContacts();
+		if( !empty($contacts) ) {
+			$email = '';
+			foreach( $contacts as $contact) $email .= $contact->getEmail().',';
+			$email = rtrim($email,',');
+		} else {
+			$email = $this->getPrimaryContact()->getEmail();
+		}
+		return $email;
 	}
 	function getCharges($criteria = array()){
         $criteria = array_merge(array("company_id"=>$this->id),$criteria);
@@ -216,10 +226,10 @@ class Company extends ActiveRecord {
 	}
 
 	function getPreviousBalance(){
-		if(empty($this->previous_balance)){
-			$this->previous_balance = CompanyPreviousBalance::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
-		}
-		return $this->previous_balance;
+	//	if(empty($this->previous_balance)){
+	return	$this->previous_balance = CompanyPreviousBalance::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
+	//	}
+	//	return $this->previous_balance;
 	}
 
 	function getPreviousBalanceDate(){

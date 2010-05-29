@@ -7,3 +7,5 @@ define( 'SUPPORT_CONTRACT_STATUS_ACTIVE', 'Active');
 define( 'SUPPORT_CONTRACT_STATUS_CLOSED', 'closed');
 define( 'SUPPORT_CONTRACT_STATUS_CANCELLED', 'cancelled');
 
+// Invocing
+define('BILLING_EMAIL_ADDRESS','billing@radicaldesigns.org');

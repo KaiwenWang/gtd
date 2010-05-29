@@ -22,7 +22,10 @@ class Invoice extends ActiveRecord {
 						},
 			'required' : {
 							
-						}
+						},
+			'values' : {
+				'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'}
+			}
 			}";	
     
 	function __construct( $id = null){
@@ -117,7 +120,11 @@ class Invoice extends ActiveRecord {
 				'amount_due'=>$amount_due
 				)
 			);
-	} 
+	}
+	function getBillingEmailAddress(){
+		return $this->getCompany()->getBillingEmailAddress();
+	}
+
 	static function createFromCompany( $company, $batch){
 		$i = new Invoice();
 		$date_range = array(

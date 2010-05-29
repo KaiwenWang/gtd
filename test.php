@@ -2,7 +2,7 @@
 isset($_GET['test'])	? $test_suite = $_GET['test']
 			: $test_suite = 'all';
 
-if ($test_suite == 'php'){
+if ($test_suite == 'phpinfo'){
   phpinfo();
   exit;
 }
@@ -30,6 +30,9 @@ switch ($test_suite){
 		break;
 	case 'billing':
 		$test->addTestFile('test/billing_tests.php');
+		break;
+	case 'invoicing':
+		$test->addTestFile('test/invoicing_tests.php');
 		break;
 	case 'all':
 		$test->addTestFile('test/model_tests.php');
