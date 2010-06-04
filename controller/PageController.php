@@ -63,7 +63,7 @@ class PageController{
    		$this->executeFilterSequence('after_filters');
   		$this->executeFilterSequence('around_filters');
 
-		if($this->isResponseEnabled()) $this->redirect();
+		if($this->isRedirectEnabled()) $this->redirect();
     }
     private function redirect(){
     	if( isset( $this->redirect_url) && $this->redirect_url){
@@ -90,7 +90,7 @@ class PageController{
     	$this->redirect_url = Router::url( $o);
     }
     function renderResponse(){
-        if ( !$this->responseEnabled ) return false;
+        if ( !$this->isResponseEnabled() ) return false;
 
         $r = getRenderer();
         
@@ -116,7 +116,7 @@ class PageController{
         $this->responseEnabled = true;
     }
     function isResponseEnabled( ) {
-        $this->responseEnabled;
+        return $this->responseEnabled;
     }
     function disableRedirect( ) {
         $this->redirectEnabled = false;
@@ -125,7 +125,7 @@ class PageController{
         $this->redirectEnabled = true;
     }
     function isRedirectEnabled( ) {
-        $this->redirectEnabled;
+        return $this->redirectEnabled;
     }
     function loadFilters(){
         $this->loadFilterCollection( );
