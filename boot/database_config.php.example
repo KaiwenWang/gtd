@@ -1,5 +1,11 @@
 <?php
+# database configuration 
 define('DB_USER', 'gtd');
 define('DB_HOST', 'localhost');
 define('DB_PASS', '');
 define('DB_NAME', 'gtd');
+
+# testing configuration: set to true only on development systems and set email address that all invoice tests will be sent to
+#define('TEST_MODE', 'true');
+#define('BILLING_TEST_TO_EMAIL_ADDRESS', 'margot@radicaldesigns.org');
+
