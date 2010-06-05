@@ -12,8 +12,13 @@ function invoiceShow($d, $o = array() ) {
 		);
 
     $client = $d->company->getName();  
+	$billing_contact_emails = $d->company->getBillingEmailAddress();
+    $send_button = UI::button( array(   'controller'=>'Invoice',
+                                        'action'=>'email',
+                                        'id'=>$d->invoice->getData('id')
+                                )); 
 
-    $items = array(
+	$items = array(
         'Items for Period'  => $invoice_period,
         'Previous Balance'  => "$ " . number_format( $d->invoice->getPreviousBalance(), 2), 
         'New Charges'       => "$ " . number_format( $d->invoice->getNewCosts(), 2 ),
@@ -24,6 +29,8 @@ function invoiceShow($d, $o = array() ) {
     $summary = '
 		<div id="banner">'.$r->view('basicList', $banner).'</div>
 		<h2 id="invoice-client">'.$client.'</h2>
+		<div id="billing-contact">Billing Contact Email: '.$billing_contact_emails.'</div>
+		<div id="billing-send-invoice">'.$send_button.'</div>
         <div id="invoice-summary">
 			'.$r->view('basicList', $items ).'
 		</div>';
