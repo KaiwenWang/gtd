@@ -35,9 +35,12 @@ function invoiceEmail($d, $o = array() ) {
 			Or you can call us at 415-738-0456 
 		</div>';
 
+	$history = $r->view( 'historyTable', $d->company->getHistory( ));
+
     return array( 
         'template' => 'invoice',
         'title' => 'Show Invoice', 
-		'body' =>   $summary
+		'body' =>   $summary,
+		'history' => $history
                 );
 }

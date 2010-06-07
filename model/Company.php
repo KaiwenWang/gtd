@@ -82,7 +82,7 @@ class Company extends ActiveRecord {
 		} else {
 			$email = $this->getPrimaryContact()->getEmail();
 		}
-		if( TEST_MODE == true) {
+		if( TEST_MODE === true) {
 			$email = BILLING_TEST_TO_EMAIL_ADDRESS;
 		}
 		return $email;
