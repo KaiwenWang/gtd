@@ -15,7 +15,7 @@ function hourShow($d){
 
     $hour_edit_form = '<div id="hour-edit-container">
     				   '.$r->view( 'hourEditForm', 
-    				   			  $d->hour, array('class'=>'clear-left')
+    				   			  $d->hour, array('project_id'=>$d->project->id,'class'=>'clear-left')
     				   			  ).'
     				   	</div>';
 	$hidden_forms = $r->view('jsMultipleButtons',array(

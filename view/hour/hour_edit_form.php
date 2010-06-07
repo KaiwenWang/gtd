@@ -1,17 +1,14 @@
 <?php
-function hourEditForm( $h, $o = array()){
+function hourEditForm( $h, $o){
     $r = getRenderer();
-    
+	$options = $o;
     $form = new Form( array( 'controller'=>'Hour', 'action'=>'update'));
     $fs = $form->getFieldSetFor( $h );
-
-	if( isset($o['project_id']) ){
+	$project_id = $options['project_id'];
 		$estimate_field = $fs->field( 'estimate_id', 
-									  array('project_id'=>$o['project_id'])
+									  array('project_id'=>$project_id)
 								  	);
-	} else {
-		$estimate_field = $fs->estimate_id;
-	}
+	//	$estimate_field = $fs->estimate_id;
 
     $list_items = array(
     	'Estimate' 		=> $estimate_field,
