@@ -72,7 +72,7 @@ class Project extends ActiveRecord {
 								'grace':'Grace',
 								'jacqui':'Jacqui',
 								'huang':'Huang',
-								'private_slice':'Provate Slice',
+								'private_slice':'Private Slice',
 								'not_hosted':'Not Hosted'}
 						}
 			}";
