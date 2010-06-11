@@ -73,11 +73,18 @@ class Company extends ActiveRecord {
 		}
 		return $this->billing_contacts;	
 	}
+	function getPrimaryContactName(){
+		$primarycontacts = $this->getPrimaryContact(); 
+		if (!empty($primarycontacts)) {
+			$name = $this->getPrimaryContact()->getName();
+		}
+		return $name;
+	}
 	function getBillingEmailAddress(){
 		$billingcontacts = $this->getBillingContacts();
 		$primarycontacts = $this->getPrimaryContact(); 
+		$email = '';
 		if( !empty($billingcontacts) ) {
-			$email = '';
 			foreach( $billingcontacts as $contact) $email .= $contact->getEmail().',';
 			$email = rtrim($email,',');
 		} elseif (!empty($primarycontacts)) {
