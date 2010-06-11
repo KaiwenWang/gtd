@@ -6,7 +6,7 @@ function invoiceIndex($d, $o = array() ) {
 							array(	
 								'Create Single Invoice' => $r->view('invoiceNewForm',$d->new_invoice),
 								'Create Quarterly Invoices' => $r->view('invoicebatchNewForm',$d->new_batch),
-								'Create Stand Alone Invoice' => $r->view('invoiceStandNewForm',$d->new_invoice)
+								'Create Stand Alone Invoice' => $r->view('invoiceStandNewForm',$d->new_stand_invoice)
 								)
 							);
 
