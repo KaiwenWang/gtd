@@ -26,6 +26,12 @@ function invoiceTable( $invoices, $options = array( )) {
 			$batch_link = '';
 		}
 		
+		if ($i->getData('type') == 'dated'){
+			$invoice_date = $i->getData('end_date');
+		} else {
+			$invoice_date = $i->getData('date');
+		}
+
 		$edit_button = UI::button( array(	'controller'=>'Invoice',
 											'action'=>'edit',
 											'id'=>$i->id
@@ -43,7 +49,7 @@ function invoiceTable( $invoices, $options = array( )) {
 								$i->id,
 								"<input type=\"checkbox\" id=\"invoice-email-".$i->id."\" name=\"invoice-email-".$i->id."\">",
 								$r->link('Company', array('action' => 'show', 'id' => $c->id), $c->getName()),
-      							$r->link( 'Invoice', array('action' => 'show', 'id' => $i->id ), $i->getData( 'start_date')),
+      							$r->link( 'Invoice', array('action' => 'show', 'id' => $i->id ), $invoice_date),
       							$i->getData('end_date'),
 								$batch_link,
 								$email_button,

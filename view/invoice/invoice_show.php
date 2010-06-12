@@ -2,12 +2,18 @@
 function invoiceShow($d, $o = array() ) {
     $r = getRenderer();
 
+	if ($d->invoice->getData('type') == 'dated'){
+		$invoice_date = $d->invoice->getEndDate();
+	} else {
+		$invoice_date = $d->invoice->getDate();
+	}
+
     $invoice_period = $d->invoice->getStartDate() 
 		      . " through " 
 		      . $d->invoice->getEndDate();
 
     $banner = array(
-		'Invoice Date'      => $d->invoice->getEndDate(),
+		'Invoice Date'      => $invoice_date, 
 		'Invoice Number'      => "#" . $d->invoice->getData('id')
 		);
 

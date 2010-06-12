@@ -2,16 +2,21 @@
 function invoiceEmail($d, $o = array() ) {
     $r = getRenderer();
 
+	if ($d->invoice->getData('type') == 'dated'){
+		$invoice_date = $d->invoice->getEndDate();
+	} else {
+		$invoice_date = $d->invoice->getDate();
+	}
+
     $invoice_period = $d->invoice->getStartDate() 
 		      . " through " 
 		      . $d->invoice->getEndDate();
-
    
     $client = $d->company->getName();  
 
     $summary = '
 		<div id="banner">
-		<b>Invoice Date</b> ' .  $d->invoice->getEndDate() . '<br />
+		<b>Invoice Date</b> ' .  $invoice_date . '<br />
 		<b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
 		</div>
 		<h2 id="invoice-client">Your New Radical Designs Invoice: '.$client.'</h2>

@@ -19,7 +19,8 @@ class Invoice extends ActiveRecord {
 							'new_costs'  		:  'float',
 							'amount_due'	:  'float',
 							'new_payments' :  'float',
-							'details'      : 'textarea'
+							'details'      : 'textarea',
+							'date'         : 'date'
 						},
 			'required' : {
 							
@@ -63,6 +64,11 @@ class Invoice extends ActiveRecord {
 	function getEndDate(){
 		return date('M jS, Y', strtotime($this->get('end_date')));
 	}
+
+	function getDate(){
+		return date('M jS, Y', strtotime($this->get('date')));
+	}
+
 	function getInvoiceItems(){
 		if(!$this->invoice_items){
 			$finder = new InvoiceItem();
