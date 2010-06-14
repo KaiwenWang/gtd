@@ -6,6 +6,7 @@ class Button extends PHP5_Accessor{
 						'edit'=>'ui-icon-wrench',
 						'show'=>'ui-icon-search',
 						'destroy'=>'ui-icon-trash',
+						'email'=>'ui-icon-mail-closed',
 						'create'=>'ui-icon-circle-plus'
 						);
 

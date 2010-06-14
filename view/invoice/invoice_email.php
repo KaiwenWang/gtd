@@ -2,26 +2,41 @@
 function invoiceEmail($d, $o = array() ) {
     $r = getRenderer();
 
+	if ($d->invoice->getData('type') == 'dated'){
+		$invoice_date = $d->invoice->getEndDate();
+	} else {
+		$invoice_date = $d->invoice->getDate();
+	}
+
     $invoice_period = $d->invoice->getStartDate() 
 		      . " through " 
 		      . $d->invoice->getEndDate();
-
    
     $client = $d->company->getName();  
 
     $summary = '
 		<div id="banner">
-		<b>Invoice Date</b> ' .  $d->invoice->getEndDate() . '<br />
+		<b>Invoice Date</b> ' .  $invoice_date . '<br />
 		<b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
 		</div>
 		<h2 id="invoice-client">Your New Radical Designs Invoice: '.$client.'</h2>
-        <div id="invoice-summary">
+		<div id="invoice-summary">';
+
+	if ($d->invoice->getData('type') == 'dated'){
+		$summary .= '
 		<b>Invoice for Period '. $invoice_period .'</b><br /><br /> 
         <b>Starting Balance on ' . $d->invoice->getStartDate() . ':</b><br /> $ ' . number_format( $d->invoice->getPreviousBalance(), 2).'<br /><br /> 
         <b>New Charges in Period:</b><br />  $ ' . number_format( $d->invoice->getNewCosts(), 2 ) .'<br /><br />
-        <b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />
+		<b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />';
+	}
+
+	if ($d->invoice->getData('details')){
+	     $summary .= '<div id="details"><strong>Details</strong>: '.$d->invoice->getData('details').'</div>';
+	}  
+	
+	$summary .= '
         <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
-	<!--	<div>View charges and detailed history online at <a href=""> http://???</a></div> -->
+		<!-- <div>View charges and detailed history online at <a href=""> http://???</a></div> -->
 		<hr>
 		<h4>Payment Information</h4>
 				<strong>Send checks to: </strong>Radical Designs<br />
@@ -41,6 +56,5 @@ function invoiceEmail($d, $o = array() ) {
         'template' => 'invoice',
         'title' => 'Show Invoice', 
 		'body' =>   $summary,
-		'history' => $history
                 );
 }

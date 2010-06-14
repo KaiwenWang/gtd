@@ -509,3 +509,16 @@ margin: 15px 0 0 0;
 #banner .basic-list-item {
 text-align: right;
 }
+
+#all-inv{
+color:#FFFFFF;
+display:block;
+font-size:13px;
+margin-right:61px;
+text-align:right;
+}
+
+#details{
+font-size: 14px;
+padding: 5px 10px;
+}

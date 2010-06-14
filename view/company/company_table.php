@@ -21,14 +21,16 @@ function companyTable( $companies, $o = array()){
 	
     $table = array();
 
-    $table['headers'] = array('Client','Status','Balance');
+    $table['headers'] = array('Client','Primary Contact','Status','Balance');
 
     $table['rows'] =  array();
 
     foreach($companies as $c){
       $link = $r->link('Company',array('action'=>'show','id'=>$c->id),$c->getName());
+      $contact_link = $r->link('Contact',array('action'=>'show','id'=>$c->getPrimaryContact()->id),$c->getPrimaryContactName());
 
-      $table['rows'][] = array( $link, 
+	  $table['rows'][] = array( $link, 
+								$contact_link,
 								$c->get('status'), 
 								$c->calculateBalance(array('end_date'=>Util::date_format_from_time())) 
 								);
