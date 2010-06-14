@@ -295,7 +295,7 @@ background-color:#FFFFFF;
 float:left;
 font-size: 12px;
 padding: 2px 5px 6px;
-width:750px;
+width:450px;
 -moz-border-radius-topleft:6px;
 -moz-border-radius-topright:6px;
 -moz-border-radius-bottomleft:6px;
@@ -462,7 +462,8 @@ margin-top: 6px;
 font-size: 12px;
 }
 .company-contacts .contact-detail{
-float:left;
+float: left;
+width: 250px;
 margin: 0 15px;
 margin-bottom:8px;
 }

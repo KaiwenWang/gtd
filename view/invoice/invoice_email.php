@@ -21,7 +21,7 @@ function invoiceEmail($d, $o = array() ) {
         <b>New Charges in Period:</b><br />  $ ' . number_format( $d->invoice->getNewCosts(), 2 ) .'<br /><br />
         <b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />
         <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
-		<div>View charges and detailed history online at <a href=""> http://???</a></div>
+	<!--	<div>View charges and detailed history online at <a href=""> http://???</a></div> -->
 		<hr>
 		<h4>Payment Information</h4>
 				<strong>Send checks to: </strong>Radical Designs<br />
