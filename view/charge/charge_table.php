@@ -6,7 +6,8 @@ function chargeTable( $charges, $o = array()){
 
     $table = array();
     $table['headers'] = array('Date',
-                            'Item Name',
+                            'Name',
+							'Type',	
                             'Company',
     						'Amount');
     $table['rows'] =  array();
@@ -14,8 +15,10 @@ function chargeTable( $charges, $o = array()){
     foreach($charges as $m){
         $total_charges += $m->getData( 'amount' );
         $company = $m->getCompany(  );
-        $table['rows'][] = array(	strftime( '%b %e, %Y', strtotime( $m->get( 'date' ) ) ),
-                                $r->link( 'charge', array('action'=>'show','id'=>$m->id),$m->getName()),
+        $table['rows'][] = array(	$m->get( 'date' )  ,
+								$m->getName(),
+								$m->getType(),
+                                #$r->link( 'charge', array('action'=>'show','id'=>$m->id),$m->getName()),
                                 $r->link( 'Company', array( 'action'=>'show' ,'id'=>$company->id), $company->getName( )  ),
       							'$ ' . number_format( $m->get('amount'), 2 ) );
     }
