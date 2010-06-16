@@ -16,6 +16,7 @@ function invoiceEmail($d, $o = array() ) {
 
     $summary = '
 		<div id="banner">
+		<img src="http://radicaldesigns.org/img/original/rd-invoice-header.gif">
 		<b>Invoice Date</b> ' .  $invoice_date . '<br />
 		<b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
 		</div>
