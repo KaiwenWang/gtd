@@ -303,8 +303,11 @@ width:450px;
 }
 .company-info-header{
 float:left;
-width: 390px;
 margin-left:5px;
+}
+.company-info{
+float:left;
+width:300px;
 }
 /* FORMS */
 h3.basic-form-header{
@@ -364,6 +367,7 @@ border-bottom: 1px #dddddd solid;
 }
 /* JS-SWAPPABLE */
 .js-swappable{
+width:629px;
 }
 .js-swappable-btn{ 
 display:block;
