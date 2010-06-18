@@ -22,9 +22,17 @@ class Form extends PHP5_Accessor{
 						
 		isset($o['method'])	? $this->method = $o['method']
 							: $this->method = 'post';
+
+		if(!empty($o['disable_submit_btn'])) $this->disableSubmitBtn();
+
 		unset($o['action'],$o['method'],$o['class'],$o['id'],$o['controller']);
 		$this->preset_fields = $o;	
 	}
+	
+	function disableSubmitBtn(){
+		$this->does_submit_button_exist = true;
+	}
+
 	function getSubmitBtn(){
 
 		$this->does_submit_button_exist = true;
