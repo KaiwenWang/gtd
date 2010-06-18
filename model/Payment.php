@@ -73,4 +73,36 @@ class Payment extends ActiveRecord {
 	function getHistoryAmount(){
 		return $this->getAmount();
 	}
+	function getBillingEmailAddress(){
+		return $this->getCompany()->getBillingEmailAddress();
+	}
+	function getBillingName(){
+		return $this->getCompany()->getBillingContactName();
+	}
+	function sendEmail() {
+        if(!isset($this->id)) bail("must haz id to do that!");
+
+		$d = new PHP5_Accessor();
+
+        $d->payment = $this;
+		$d->company = $this->getCompany();
+		
+		$r = getRenderer();
+		$content = $r->view('paymentReceiptEmail', $d);
+
+		$email_address = $this->getBillingEmailAddress();
+		$subject = 'Radical Designs Payment Receipt ' . Util::pretty_date($this->get('end_date')); 
+
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+
+		$email_sent = mail($email_address,$subject,$content, $headers);
+
+		if( $email_sent ){
+			Render::msg('Email Sent');
+		} else {
+			Render::msg('Email Failed To Send','bad');
+		}
+	}
 }

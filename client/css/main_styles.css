@@ -7,12 +7,14 @@ background-color:#FFF6E4;
 background: #000000;
 }
 #title-bar{
-background: #0092C3;
-padding: 
+background: #990000;
 }
 #title-bar h1 {
 margin-left: 330px;
 padding: 10px 0 4px;
+}
+#title-bar.test-warning{
+background: #0092C3;
 }
 #app-container{
 margin:0 auto;
