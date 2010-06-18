@@ -166,4 +166,36 @@ class Invoice extends ActiveRecord {
 		$i->save();
 		return $i;
 	} 
+	function sendEmail() {
+        if(!isset($this->id)) bail("must haz id to do that!");
+		trigger_error('Invoice #'.$this->id.' preparing to send email');
+
+		$d = new PHP5_Accessor();
+
+        $d->invoice = $this;
+		$d->company = $this->getCompany();
+		
+		$r = getRenderer();
+		$content = $r->view('invoiceEmail', $d);
+
+		$email_address = $this->getBillingEmailAddress();
+		$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
+
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+
+		$email_sent = mail($email_address,$subject,$content, $headers);
+
+		if( $email_sent ){
+			$this->set(array('sent_date'=>Util::date_format(),'status'=>'sent'));
+			Render::msg('Email Sent');
+		} else {
+			$this->set(array('status'=>'failed'));
+			Render::msg('Email Failed To Send','bad');
+		}
+
+		$this->save();
+
+	}
 }
