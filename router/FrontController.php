@@ -31,10 +31,14 @@ class FrontController {
 
         $r = getRenderer();
 
+		Util::isTestMode()	? $test_warning_class_name = 'test-warning'
+							: $test_warning_class_name = '';
+
         $response =  array_merge( $response,
                                    array( 
         							 'msg'=>$r->_dumpMessages(),
-        							 'login'=>$this->renderLoginWidget()
+									 'login'=>$this->renderLoginWidget(),
+									 'test-warning'=> $test_warning_class_name
         	    				));
 
         $response_template = isset($response['template']) ? $response['template'] : 'gtd_main_template';
