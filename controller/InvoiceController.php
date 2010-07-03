@@ -1,10 +1,21 @@
 <?php
 class InvoiceController extends PageController {
- 	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
+	var $before_filters = array( 'get_posted_records' => array('create','update','destroy'),
+								 'get_search_criteria'=> array('index')
+															);
 
     function index($params) {
+		$search_criteria = array("sort"=>"date DESC");
+		if( !empty($this->search_for_invoices)) $search_criteria = array_merge($search_criteria, $this->search_for_invoices);
+
+		$this->data->invoices = Invoice::getMany( $search_criteria);
+
+        $this->data->search_invoice= new Invoice();
+        $this->data->search_invoice->set($search_criteria);
+
 		$this->data->new_invoice = new Invoice();
-        $this->data->invoices = Invoice::getAll();
+		$this->data->new_stand_invoice = new Invoice();
+
 		$this->data->new_batch = new InvoiceBatch();
 		$this->data->new_batch->set(array('created_date'=>Util::date_format_from_time()));
     }
@@ -27,35 +38,17 @@ class InvoiceController extends PageController {
         $this->data->invoice = new Invoice($params['id']);
 	}
     function email($params) {
-        if(!isset($params['id'])) bail("must haz id to show you that!");
-        $invoice = new Invoice($params['id']);
-
-        $this->data->invoice = $invoice;
-		$this->data->company = $invoice->getCompany();
-
-		$r = getRenderer();
-		$content = $r->view('invoiceEmail', $this->data);
-
-		$email_address = $invoice->getBillingEmailAddress();
-		$subject = 'Radical Designs Invoice ' . Util::pretty_date($invoice->get('end_date')); 
-
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
-
-		$email_sent = mail($email_address,$subject,$content, $headers);
-
-		if( $email_sent ){
-			$invoice->set(array('sent_date'=>Util::date_format(),'status'=>'sent'));
-			Render::msg('Email Sent');
-		} else {
-			$invoice->set(array('status'=>'failed'));
-			Render::msg('Email Failed To Send','bad');
+		$i = New Invoice($params['id']);	
+		$i->sendEmail();
+    	$this->redirectTo(array('controller'=>'Invoice','action'=>'index'));
+	}
+	function batch_email($params) {
+        if(!isset($params['table-rows'])) bail("must haz id's to do that!");
+		foreach ($params['table-rows'] as $id) {
+			$i = new Invoice($id);
+			$i->sendEmail();
 		}
-
-		$invoice->save();
-
-		$this->redirectTo(array('controller'=>'Invoice','action'=>'index'));
+    	$this->redirectTo(array('controller'=>'Invoice','action'=>'index'));
 	}
     function update( $params ) {
         $inv = $this->updated_invoices[0];

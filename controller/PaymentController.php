@@ -28,10 +28,19 @@ class PaymentController extends PageController {
 										'date' => date('Y-m-d'),
 									  	'company_id' => $this->data->company->id ));
     }
+	function email( $params ) {
+		$p = new Payment($params['id']);
+		$p->sendEmail();
+		isset($params['redirect'])	? $redirect = $params['redirect']
+									: $redirect = array('controller' => 'Payment',
+    							 						'action' => 'index'
+													);
+    	$this->redirectTo( $redirect); 
+	}
 	function create( $params){
 		$p = $this->new_payments[0];
-
     	$p->save();
+		$p->sendEmail();
 
     	isset($params['redirect'])	? $redirect = $params['redirect']
 									: $redirect = array('controller' => 'Payment',

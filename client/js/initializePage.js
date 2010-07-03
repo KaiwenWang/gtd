@@ -14,6 +14,7 @@ $.fn.initialize_Gtd = function(){
 	$('.multiple-buttons-btn',this).enable_MultipleButtons();
 	$('input[name=ajax_target_id]',this).enable_Ajax();
 	$('input[name*=auto_submit]',this).enable_AutoSubmit();
+	$('.check-all',this).enable_SelectAll();
 
 	return this;
 }
@@ -111,11 +112,19 @@ $.fn.enable_MultiSelect = function(){
 $.fn.enable_AutoSubmit = function(){
 	$(this).each( function(){
 		auto_submit_input_name = '[name*='+$(this).val()+']';
-    	form = $( this ).parents('form');
+
+		form = $( this ).parent('form');
+
 		$('.submit-container',form).hide();
 		$(auto_submit_input_name,form).change(function(){
 			$(form).submit();
 		});
+	});
+}
+
+$.fn.enable_SelectAll = function(){
+	$(this).click( function(){
+		$('.check-row').attr('checked', $(this).attr('checked'))
 	});
 }
 

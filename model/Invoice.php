@@ -18,7 +18,9 @@ class Invoice extends ActiveRecord {
 							'previous_balance'	:  'float',
 							'new_costs'  		:  'float',
 							'amount_due'	:  'float',
-							'new_payments' :  'float'
+							'new_payments' :  'float',
+							'details'      : 'textarea',
+							'date'         : 'date'
 						},
 			'required' : {
 							
@@ -34,6 +36,9 @@ class Invoice extends ActiveRecord {
 	function getName(){
 		return $this->getCompanyName().' '.$this->getStartDate().' '.$this->getEndDate();
 	}
+	function getType(){
+		return $this->getData('type');
+	}
 	function isValid(){
 		$valid = true;
 
@@ -41,12 +46,14 @@ class Invoice extends ActiveRecord {
 			$this->errors[] = 'company_id must be set';
 			$valid = false;
 		}
-		if( !$this->getData('start_date')){
-			$this->errors[] = 'start_date must be set';
-			$valid = false;
-		}
-		if( !$this->getData('end_date')){
-			 $this->errors[] =  'end_date must be set';
+		if( !$this->getData('amount_due')) {
+			if( !$this->getData('start_date')){
+				$this->errors[] = 'start_date must be set';
+				$valid = false;
+			}
+			if( !$this->getData('end_date')){
+				 $this->errors[] =  'end_date must be set';
+			}		
 		}
 
 		if ( $valid && parent::isValid()) return true;
@@ -57,6 +64,11 @@ class Invoice extends ActiveRecord {
 	function getEndDate(){
 		return date('M jS, Y', strtotime($this->get('end_date')));
 	}
+
+	function getDate(){
+		return date('M jS, Y', strtotime($this->get('date')));
+	}
+
 	function getInvoiceItems(){
 		if(!$this->invoice_items){
 			$finder = new InvoiceItem();
@@ -88,13 +100,31 @@ class Invoice extends ActiveRecord {
 	}
 	function execute(){
 		if( !$this->isValid() ) bail( $this->errors );
-		
-		$this->setFromCompany( 	$this->getCompany(), 
+		if (!$this->get('amount_due')) {	
+			$this->setFromCompany( 	$this->getCompany(), 
 								array(
 									'start_date' => $this->get('start_date'),
 									'end_date' 	 =>	$this->get('end_date')
 									)
 								);
+		} else {
+			$this->setFromAmountDue( 	$this->getCompany(), 
+									$this->get('amount_due')
+								);
+
+		}
+	}
+	function setFromAmountDue( $company, $amount_due){
+		if(!is_a( $company, 'Company')) bail('setFromAmountDue requires first param to be a Company object');
+
+		$this->company = $company;
+
+		$this->set(array(
+				'company_id'=>$this->company->id,
+				'type'=>'stand_alone',
+				'amount_due'=>$amount_due
+				)
+			);
 	}
 	function setFromCompany( $company, $date_range){
 		if(!is_a( $company, 'Company')) bail('setFromCompany requires first param to be a Company object');
@@ -111,7 +141,7 @@ class Invoice extends ActiveRecord {
 
 		$this->set(array(
 				'company_id'=>$this->company->id,
-				'type'=>'stand_alone',
+				'type'=>'dated',
 				'start_date'=>$date_range['start_date'],
 				'end_date'=>$date_range['end_date'],
 				'previous_balance'=>$previous_balance,
@@ -136,4 +166,36 @@ class Invoice extends ActiveRecord {
 		$i->save();
 		return $i;
 	} 
+	function sendEmail() {
+        if(!isset($this->id)) bail("must haz id to do that!");
+		trigger_error('Invoice #'.$this->id.' preparing to send email');
+
+		$d = new PHP5_Accessor();
+
+        $d->invoice = $this;
+		$d->company = $this->getCompany();
+		
+		$r = getRenderer();
+		$content = $r->view('invoiceEmail', $d);
+
+		$email_address = $this->getBillingEmailAddress();
+		$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
+
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+
+		$email_sent = mail($email_address,$subject,$content, $headers);
+
+		if( $email_sent ){
+			$this->set(array('sent_date'=>Util::date_format(),'status'=>'sent'));
+			Render::msg('Email Sent');
+		} else {
+			$this->set(array('status'=>'failed'));
+			Render::msg('Email Failed To Send','bad');
+		}
+
+		$this->save();
+
+	}
 }

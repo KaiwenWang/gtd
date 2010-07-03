@@ -204,4 +204,8 @@ class Util {
 		trigger_error( "GTD LOGGER:: " . strip_tags($msg) );
 #		echo $msg;
 	}
+
+	function isTestMode(){
+		if( defined('TEST_MODE')) return TEST_MODE;
+	}
 }

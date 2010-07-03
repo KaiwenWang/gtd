@@ -29,7 +29,10 @@ class ChargeController extends PageController {
     							 'action' => 'index'
     							 ));
     }
-
+	function edit($params) {
+        if(!isset($params['id'])) bail("must haz id to show you that!");
+        $this->data->charge = new Charge($params['id']);
+	}
     function update( $params ){
     	$a= $this->updated_charges[0];
 		$a->save();
@@ -38,7 +41,12 @@ class ChargeController extends PageController {
         						));
     }
 
-    function destroy( ) {
-        
+    function destroy( $params ) {
+		if(!isset($params['id'])) bail("must haz id to do that!");
+		$inv = new Charge($params['id']);
+		$inv->destroy();
+
+        $this->redirectTo( array( 'controller' => 'Charge', 'action' => 'index' ));
+       
     }
 }
