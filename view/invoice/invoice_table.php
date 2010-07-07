@@ -33,6 +33,7 @@ function invoiceTable( $invoices, $o = array( )) {
     							);
     $table['rows'] =  array();
     foreach($invoices as $i){
+        $total_invoices += $i->getAmountDue( );
       	$url = $i->getData('url');
 		$c = $i->getCompany();
 		if(	$batch = $i->getBatch()){
@@ -74,12 +75,13 @@ function invoiceTable( $invoices, $o = array( )) {
 								$delete_button
       							);
 	}
+	$total_invoices = $r->view('basicMessage', 'Total Invoices: $ '.number_format( $total_invoices, 2));
 
     $bulk_email_btn = '<input type="submit" value="send bulk email" style="display:inline" />';
 	$select_all_box = '<input class="check-all" name="check-all" type="checkbox"/> Select All '.$bulk_email_btn;
     $table = $r->view( 'basicTable', $table, array('title'=>'Invoices','search'=>$select_all_box . $search_form));
 	$form = new Form(array('controller'=>'Invoice','action'=>'batch_email', 'disable_submit_btn'=>true));
 	$form->content = $table;
-    return $form->html;
+    return $total_invoices . $form->html;
 }
 ?>
