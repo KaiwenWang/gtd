@@ -278,14 +278,13 @@ font-weight:bold;
 font-size: 12px;
 }
 .address{
-float:left;
 margin: 7px 16px 5px 0;
 width:270px;
 font-size: 14px;
 }
 .notes-box{
 float:left;
-margin:4px 20px 4px 30px;
+margin:4px 20px 4px 10px;
 }
 .notes-label{
 float:left;
@@ -369,7 +368,7 @@ border-bottom: 1px #dddddd solid;
 }
 /* JS-SWAPPABLE */
 .js-swappable{
-width:629px;
+width:	1055px;
 }
 .js-swappable-btn{ 
 display:block;
