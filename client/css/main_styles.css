@@ -48,10 +48,9 @@ h3{
 border:0px solid #999999;
 border-bottom: none;
 color:#000;
-display:inline;
 font-size:16px;
 margin:0;
-padding:0 5px 0 0;
+padding:0 5px 5px 0;
 position:relative;
 top:1px;
 }
@@ -503,7 +502,9 @@ margin-bottom: 10px;
 #invoice #footer-address{
 margin-bottom: 20px;
 }
-
+#invoice-search {
+margin-bottom: 6px;
+}
 #banner {
 margin: 15px 0 0 0;
 }

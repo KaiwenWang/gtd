@@ -129,7 +129,10 @@ class Render{
     					'id'	=> $field_id
     			    	);	
 
-
+		if( isset($search_criteria['name'])){
+			$tokens['name'] = $search_criteria['name'];
+			unset($search_criteria['name']);
+		}
 		if( isset($search_criteria['selected_value']) ){
 			$tokens['selected_value'] = $search_criteria['selected_value'];
 			unset($search_criteria['selected_value']);

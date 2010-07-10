@@ -6,7 +6,7 @@ function chargeIndex($d){
   						'Create New Charge' => $r->view( 'chargeNewForm', $d->new_charge)
   						),array('open_by_default'=>array('Create New Charge')));
 
-	$charge_table =  $r->view('chargeTable', $d->charges);
+	$charge_table =  $r->view('chargeSearch', $d->charges);
      
 	return array(
 			'title' => 'Charge',

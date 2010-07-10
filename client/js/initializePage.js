@@ -8,7 +8,7 @@ $.fn.initialize_Gtd = function(){
 	$('.button',this).enable_Button();
 	$('.date-field',this).enable_DateField();
 	$('.basic-table',this).enable_TableSort();
-	$('.basic-table-container',this).enable_QuickSearch();
+//	$('.basic-table-container',this).enable_QuickSearch();
 	$('.js-swappable-btn',this).enable_Swappable();
 	$('.js-hideable-btn',this).enable_Hideable();
 	$('.multiple-buttons-btn',this).enable_MultipleButtons();
@@ -129,26 +129,29 @@ $.fn.enable_SelectAll = function(){
 }
 
 $.fn.enable_Ajax = function(){
-	var selector = this;
-	var ajax_target_id = '#'+$(this).val();
- 
-	initializeSubmitButtons( );
 
-	function initializeSubmitButtons( ){
+	$(this).each( function( index, value){
+		var selector = this;
+		var ajax_target_id = '#'+$(this).val();
+ 
+		initializeSubmitButtons( selector, ajax_target_id);
+	});
+
+	function initializeSubmitButtons( selector, ajax_target_id){
             $( selector ).parents('form').submit( function(){
 			form = this;
-			getGraphData();
+			getGraphData(ajax_target_id);
 			return false;
 		});
 	}
-    function getGraphData(){
+    function getGraphData( ajax_target_id ){
 		showLoaderGraphic();
 		$.ajax({
 			type: 'GET',
 			url: 'index.php',
 			data: serializeFormData(),
 			success: function(JSONtext){
-				loadView(JSONtext);
+				loadView( ajax_target_id, JSONtext);
 //				initializeSubmitButtons();
 				$( ajax_target_id ).initialize_Gtd();
 			},
@@ -158,8 +161,10 @@ $.fn.enable_Ajax = function(){
 			}
 		});
     }
-    function loadView( html ){
-        $(ajax_target_id).html( html );
+    function loadView( ajax_target_id, html ){
+		console.log('LOADING VIEW: ' + ajax_target_id);
+		console.log(html);
+		$(ajax_target_id).html( html );
         hideLoaderGraphic();
     }
     function serializeFormData() {

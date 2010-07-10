@@ -99,13 +99,13 @@ class ActiveRecord  extends Record {
 		return;
 	}
 
-    protected function _makeCriteriaMultiple($fieldname, $values) {
+    function _makeCriteriaMultiple($fieldname, $values) {
         if(empty($values)) return;
         if(is_array($values)) {
             return "$fieldname IN (". implode(",", $values). ")";
         }
-        return "$fieldnamme = " . $this->dbcon->qstr( $values );
-    }
+        return "$fieldname = " . $this->dbcon->qstr( $values );
+	}
 
     function isValid() {
         //stub

@@ -6,9 +6,10 @@ class HourController extends PageController {
         $d = $this->data;
         $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 180 ));
         $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
-                                'sort' => 'date DESC');
+								'sort' => 'date DESC');
         $hour_query = array_merge($default_query, $this->search_params('hour_search'));
-        $d->hours = getMany( 'Hour',$hour_query); 
+
+		$d->hours = getMany( 'Hour',$hour_query); 
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array( 'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
@@ -85,11 +86,13 @@ class HourController extends PageController {
         						'action' => 'show', 
         						'id' => $h->getProject()->id
         						));
-    }
+	}
+
 	function search($params){
-		$this->data = getMany( 'Hour', $params);
+		$this->data = Hour::getMany(  $params);
 		$this->options = $params;
 	}
+
     function destroy($params){
 		if(empty($params['id'])) bail('required param["id"] not set.');
 		$hour = new Hour($params['id']);

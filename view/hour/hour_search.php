@@ -4,8 +4,8 @@ function hourSearch( $hours, $o = array()){
 
     $start_date = isset($o['hour_search']['start_date']) ? $o['hour_search']['start_date'] : '';
     $end_date 	= isset($o['hour_search']['end_date']) ? $o['hour_search']['end_date'] : '';
+    $company_id = isset($o['company']) ? $o['company'] : '';
 	unset($o['hour_search']);
-
 	
 	$search_form = new Form( array_merge(
 								array(	'method'=>'get',
@@ -28,21 +28,24 @@ function hourSearch( $hours, $o = array()){
 										'value'=>$end_date,
 										'id'=>'hour_search_end'
 										)).'
-        </div>
+		</div>
         <div class="search-input">
+			'.$r->classSelect( 'Company', 
+								array('name'=>'company',
+										'id'=>'hour_search_company_id',
+										'selected_value'=>$company_id
+									)
+								).'
+		</div>
+		<div class="search-input">
 			'.$search_form->submitBtn.'
 		</div>
 		';
 
-	if($hours){
-		$hours_table = $r->view('hourTable',
-								$hours,
-								array( 'search' => $search_form->html )
-								);
-	}else{
-		$hours_table = '<h3>No hours matched your search</h3>'
-						.$search_form->html;
-	} 
+	$hours_table = $r->view('hourTable',
+							$hours,
+							array( 'search' => $search_form->html )
+							);
 
 	return '<div id="'.$o['ajax_target_id'].'" class="hour-search clear-left">
 				'.$hours_table.'
