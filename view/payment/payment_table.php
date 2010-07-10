@@ -6,7 +6,7 @@ function paymentTable( $payments, $o = array()){
 	$search_form = '';
 	if( !empty($o['search_payment']) && is_a( $o['search_payment'], 'Payment')){
 		$form = new Form( array(
-						'controller'=>'payment',
+						'controller'=>'Payment',
 						'action'=>'index',
 						'method'=>'get',
 						'auto_submit'=>array('payment_type','company_id')

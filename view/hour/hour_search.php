@@ -10,11 +10,24 @@ function hourSearch( $hours, $o = array()){
 	$search_form = new Form( array_merge(
 								array(	'method'=>'get',
 										'controller'=>'Hour',
-										'action'=>'search'),
+										'action'=>'search',
+										'ajax_target_id'=>'hour_table',
+										'auto_submit'=>array('company','hour_search[start_date]','hour_search[end_date]' )
+									),
 								$o
 							));
 
     $search_form->content = '
+		<div class="search-input">
+			'.$r->classSelect( 'Company', 
+								array('name'=>'company',
+										'id'=>'hour_search_company_id',
+										'title'=>'Client',
+										'selected_value'=>$company_id
+									)
+								).'
+		</div>
+
         <div class="search-input">
         	<label for="hour_search_start">Start Date</label>
 			'.$r->input( 'date', array(	'name'=>'hour_search[start_date]',
@@ -29,18 +42,7 @@ function hourSearch( $hours, $o = array()){
 										'id'=>'hour_search_end'
 										)).'
 		</div>
-        <div class="search-input">
-			'.$r->classSelect( 'Company', 
-								array('name'=>'company',
-										'id'=>'hour_search_company_id',
-										'selected_value'=>$company_id
-									)
-								).'
-		</div>
-		<div class="search-input">
-			'.$search_form->submitBtn.'
-		</div>
-		';
+       	';
 
 	$hours_table = $r->view('hourTable',
 							$hours,

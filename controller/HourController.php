@@ -89,6 +89,7 @@ class HourController extends PageController {
 	}
 
 	function search($params){
+		$params['sort'] = 'date DESC'; 
 		$this->data = Hour::getMany(  $params);
 		$this->options = $params;
 	}

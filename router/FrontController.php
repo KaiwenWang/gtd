@@ -34,13 +34,16 @@ class FrontController {
 		Util::isTestMode()	? $test_warning_class_name = 'test-warning'
 							: $test_warning_class_name = '';
 
-        $response =  array_merge( $response,
+		$layout = $r->view('applicationLayout',array(),array('get_tokens'=>true));
+		if( !is_array($layout)) $layout = array();
+
+		$response =  array_merge( $layout,
+								  $response,	
                                    array( 
         							 'msg'=>$r->_dumpMessages(),
 									 'login'=>$this->renderLoginWidget(),
 									 'test-warning'=> $test_warning_class_name
         	    				));
-
         $response_template = isset($response['template']) ? $response['template'] : 'gtd_main_template';
 
         return $r->template( 'templates/' . $response_template . '.html', 

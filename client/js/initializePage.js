@@ -1,6 +1,6 @@
 var item;
 $('document').ready(function(){
-	$('#application').initialize_Gtd();
+	$('#app-container').initialize_Gtd();
 });
 
 $.fn.initialize_Gtd = function(){
