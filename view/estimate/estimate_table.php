@@ -6,9 +6,8 @@ function estimateTable( $estimates, $o = array()){
     $table = array();
     $table['headers'] = array(	'ID',
     							'Description',
-								'Due By',
-    							'Low Estimate',
-    							'High Estimate',
+    							'Low',
+    							'High',
     							'Total Hours',
     							'Billable Hours',
     							'Notes',
@@ -18,7 +17,6 @@ function estimateTable( $estimates, $o = array()){
     foreach($estimates as $e){
       $table['rows'][] = array(	$e->id,
       							$r->link( 'Estimate', array('action'=>'show','id'=>$e->id), $e->getName()),
-      							$e->getData('due_date'),
       							$e->getLowEstimate(),
       							$e->getHighEstimate(),
       							$e->getTotalHours(),
