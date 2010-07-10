@@ -111,9 +111,9 @@ $.fn.enable_MultiSelect = function(){
 
 $.fn.enable_AutoSubmit = function(){
 	$(this).each( function(){
-		auto_submit_input_name = '[name*='+$(this).val()+']';
+		var auto_submit_input_name = '[name*='+$(this).val()+']';
 
-		form = $( this ).parent('form');
+		var form = $( this ).parent('form');
 
 		$('.submit-container',form).hide();
 		$(auto_submit_input_name,form).change(function(){
