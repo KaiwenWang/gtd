@@ -25,7 +25,7 @@ class EstimateController extends PageController {
     }
     function update( $params ){
     	foreach( $this->updated_estimates as $e) $e->save();
-	    $this->redirectTo( array('action' => 'show','id'=>$e->id));
+    	$this->redirectTo( array('controller'=>'Project','action' => 'show','id'=>$e->get('project_id')));
     }
     function create( $params){
     	$e = $this->new_estimates[0];
