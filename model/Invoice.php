@@ -168,7 +168,7 @@ class Invoice extends ActiveRecord {
 	} 
 	function sendEmail() {
         if(!isset($this->id)) bail("must haz id to do that!");
-		trigger_error('Invoice #'.$this->id.' preparing to send email');
+		//trigger_error('Invoice #'.$this->id.' preparing to send email');
 
 		$d = new PHP5_Accessor();
 
@@ -176,16 +176,26 @@ class Invoice extends ActiveRecord {
 		$d->company = $this->getCompany();
 		
 		$r = getRenderer();
-		$content = $r->view('invoiceEmail', $d);
+		$htmlcontent = $r->view('invoiceEmail', $d);
+		$plaincontent = $r->view('invoiceEmailPlain', $d);
 
 		$email_address = $this->getBillingEmailAddress();
 		$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
 
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+		$boundary = "nextPart";
+		$headers = 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+		$headers .= 'MIME-Version: 1.0' . "\r\n";
+		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\r\n";
 
-		$email_sent = mail($email_address,$subject,$content, $headers);
+		$headers .= "\n--$boundary\n"; // beginning \n added to separate previous content
+		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$headers .= $plaincontent;
+
+		$headers .= "\n--$boundary\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= $htmlcontent;
+
+		$email_sent = mail($email_address,$subject,"",$headers);
 
 		if( $email_sent ){
 			$this->set(array('sent_date'=>Util::date_format(),'status'=>'sent'));
