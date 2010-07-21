@@ -162,8 +162,8 @@ $.fn.enable_Ajax = function(){
 		});
     }
     function loadView( ajax_target_id, html ){
-		console.log('LOADING VIEW: ' + ajax_target_id);
-		console.log(html);
+		//console.log('LOADING VIEW: ' + ajax_target_id);
+		//console.log(html);
 		$(ajax_target_id).html( html );
         hideLoaderGraphic();
     }
