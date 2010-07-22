@@ -5,6 +5,7 @@ function hourSearch( $hours, $o = array()){
     $start_date = isset($o['hour_search']['start_date']) ? $o['hour_search']['start_date'] : '';
     $end_date 	= isset($o['hour_search']['end_date']) ? $o['hour_search']['end_date'] : '';
     $company_id = isset($o['company']) ? $o['company'] : '';
+    $staff_name = isset($o['staff']) ? $o['staff'] : '';
 	unset($o['hour_search']);
 	
 	$search_form = new Form( array_merge(
@@ -12,7 +13,7 @@ function hourSearch( $hours, $o = array()){
 										'controller'=>'Hour',
 										'action'=>'search',
 										'ajax_target_id'=>'hour_table',
-										'auto_submit'=>array('company','hour_search[start_date]','hour_search[end_date]' )
+										'auto_submit'=>array('company','hour_search[start_date]','hour_search[end_date]','staff' )
 									),
 								$o
 							));
@@ -42,6 +43,14 @@ function hourSearch( $hours, $o = array()){
 										'id'=>'hour_search_end'
 										)).'
 		</div>
+		'.$r->classSelect( 'Staff', 
+								array('name'=>'staff_id',
+										'id'=>'hour_search_staff_id',
+										'title'=>'Staff',
+										'selected_value'=>$staff_name
+									)
+								).'
+
        	';
 
 	$hours_table = $r->view('hourTable',
