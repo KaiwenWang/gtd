@@ -27,9 +27,10 @@ class SupportContract extends ActiveRecord {
 						},
 			'required' : {
 							
-						}
+						},
 			'values'   : {
-						'status' :	{'active':'Active', 'cancelled':'Cancelled'}
+				'status' :	{'active':'Active', 
+							'cancelled':'Cancelled'}
 						}
 			}";
     function __construct( $id = null){
