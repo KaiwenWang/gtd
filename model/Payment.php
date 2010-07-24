@@ -81,7 +81,7 @@ class Payment extends ActiveRecord {
 	}
 	function sendEmail() {
         if(!isset($this->id)) bail("must haz id to do that!");
-
+		
 		$d = new PHP5_Accessor();
 
         $d->payment = $this;
