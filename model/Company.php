@@ -80,6 +80,20 @@ class Company extends ActiveRecord {
 		}
 		return $name;
 	}
+	function getBillingContactName(){
+		$billingcontacts = $this->getBillingContact(); 
+		if (!empty($billingcontacts)) {
+			$name = $this->getbillingContact()->getName();
+		}
+		return $name;
+	}
+	function getBillingPhone(){
+		$billingcontacts = $this->getBillingContact(); 
+		if (!empty($billingcontacts)) {
+			$name = $this->getbillingContact()->getPhone();
+		}
+		return $name;
+	}
 	function getBillingEmailAddress(){
 		$billingcontacts = $this->getBillingContacts();
 		$primarycontacts = $this->getPrimaryContact(); 

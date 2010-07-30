@@ -1,7 +1,7 @@
 <?php
 class CompanyController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'),
-								 'get_search_criteria'=> array('index')
+								 'get_search_criteria'=> array('index','kneecaps')
  								);
     function index( $params){
 		$criteria = array();
@@ -73,6 +73,16 @@ class CompanyController extends PageController {
     }
     function new_form( $params){
 		$this->data = new Company();
+    }
+	function kneecaps( $params){
+		$criteria = array();
+		if( !empty($this->search_for_companies)) $criteria = $this->search_for_companies;
+		$criteria['sort'] = 'status, name';
+        $this->data->companies = Company::getMany($criteria);
+
+		$this->data->search_company = new Company();
+        $this->data->search_company->set($criteria); 
+        
     }
     function destroy(){
     }
