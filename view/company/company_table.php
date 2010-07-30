@@ -6,7 +6,7 @@ function companyTable( $companies, $o = array()){
 	$search_form = '';
 	if( !empty($o['search_company']) && is_a( $o['search_company'], 'Company')){
 		$form = new Form( array(
-						'controller'=>'company',
+						'controller'=>'Company',
 						'action'=>'index',
 						'method'=>'get',
 						'auto_submit'=>array('org_type','country','status'),
