@@ -88,6 +88,9 @@ class SupportContractController extends PageController {
 			$d->set_end_date_to_todays_date = true;
 		}
 	}
+	function new_form(){
+        $this->data= new SupportContract();
+	}
 	function process_cancellation(){
 		$contract = $this->updated_support_contracts[0];
 		$contract->set(array(

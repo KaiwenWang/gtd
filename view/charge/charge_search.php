@@ -3,7 +3,6 @@
 function chargeSearch($charges, $o) {
 	$r = getRenderer();
 	
-	
 	$type = isset($o['type']) ? $o['type'] : '';
 	$company_id = isset($o['company_id']) ? $o['company_id'] : '';
 	$start_date = isset($o['date_range']['start_date']) ? $o['date_range']['start_date'] : '';

@@ -48,9 +48,9 @@ h3{
 border:0px solid #999999;
 border-bottom: none;
 color:#000;
-font-size:16px;
+font-size:13px;
 margin:0;
-padding:0 5px 5px 0;
+padding:0 5px 8px 0;
 position:relative;
 top:1px;
 }
@@ -295,7 +295,7 @@ background-color:#FFFFFF;
 float:left;
 font-size: 12px;
 padding: 2px 5px 6px;
-width:450px;
+width:650px;
 -moz-border-radius-topleft:6px;
 -moz-border-radius-topright:6px;
 -moz-border-radius-bottomleft:6px;
@@ -312,8 +312,9 @@ width:300px;
 /* FORMS */
 h3.basic-form-header{
 background: none;
-font-size: 10px;
+font-size: 14px;
 margin: 10px 0 0 5px;
+color: #005588;
 }
 .basic-form-contents{
 margin-left: 20px;

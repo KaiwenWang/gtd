@@ -14,8 +14,8 @@ function companyShow($d){
 	
 	$hidden_forms = $r->view('jsMultipleButtons',
 						array(
-							'Create New Project' => $r->view( 'projectNewForm', $d->new_project),
 							'Create New Contact' => $r->view( 'contactNewForm', $d->new_contact),
+							'Create New Project' => $r->view( 'projectNewForm', $d->new_project),
                             'Add Charge' 		 => $r->view( 'chargeNewForm', $d->new_charge),
                             'Add Payment' 		 => $r->view( 'paymentNewForm', $d->new_payment),
                             'Create Standard Invoice' => $r->view( 'invoiceNewForm', $d->new_invoice)
@@ -35,9 +35,9 @@ function companyShow($d){
 		'controls' => $company_selector,
 		'body' =>   $editable_company_info
 					.$hidden_forms
-					.$project_table
-					.$contract_table
 					.$contact_table
+					.$contract_table
+					.$project_table
 					.$charge_table
 					.$payment_table
                     .$invoice_table
