@@ -26,7 +26,8 @@ class Invoice extends ActiveRecord {
 							
 						},
 			'values' : {
-				'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'}
+				'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'},
+				'type' : {'stand_alone':'Stand Alone','dated':'Date Range'}
 			}
 			}";	
     

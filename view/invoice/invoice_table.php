@@ -87,7 +87,7 @@ function invoiceTable( $invoices, $o = array( )) {
       	$table['rows'][] = array(	
 								$i->id,
 								"<input class=\"check-row\" type=\"checkbox\" id=\"row-".$i->id."\" name=\"table-rows[".$i->id."]\" value=\"".$i->id."\">",
-								$r->link('Company', array('action' => 'show', 'id' => $c->id), $c->getName()),
+								$r->link('Invoice', array('action' => 'show', 'id' => $i->id), $c->getName()),
       							$r->link( 'Invoice', array('action' => 'show', 'id' => $i->id ), $invoice_date),
       							$i->getData('end_date'),
 								$batch_link,
