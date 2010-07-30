@@ -21,7 +21,7 @@ function paymentNewForm( $payment, $o = array() ){
         'Payment Type'  => $fs->payment_type,
         'Check No.'     => $fs->check_number,
 		'Notes'			=> $fs->notes,
-		'Don\'t Send Reciept' => '<input type="checkbox" value="noemail" name="noemail" id="noemail">' 
+		'Don\'t Send Reciept' => '<input type="checkbox" value="1" name="noemail" id="noemail">' 
     	);
     $form->content = $r->view( 'basicFormContents', 
     							$form_fields, 

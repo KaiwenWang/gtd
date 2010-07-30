@@ -59,7 +59,11 @@ class PaymentController extends PageController {
 	function create( $params){
 		$p = $this->new_payments[0];
     	$p->save();
-		$p->sendEmail();
+		if ($params['noemail'] == 1) {
+			Render::msg('No Email Sent');
+		} else {
+			$p->sendEmail();
+		}
 
     	isset($params['redirect'])	? $redirect = $params['redirect']
 									: $redirect = array('controller' => 'Payment',
