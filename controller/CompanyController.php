@@ -76,5 +76,4 @@ class CompanyController extends PageController {
     }
     function destroy(){
     }
-
 }

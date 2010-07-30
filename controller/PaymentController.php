@@ -1,13 +1,14 @@
 <?php
 class PaymentController extends PageController {
  	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'),
-								 'get_search_criteria'=> array('index')
+								 'get_search_criteria'=> array('index','search')
                                 );
 
     function index( $params){
     	$search_criteria = array("sort"=>"date DESC");
-		if( !empty($this->search_for_payments)) $search_criteria = array_merge($search_criteria, $this->search_for_payments);
-
+		if( !empty($this->search_for_payments)){ 
+			$search_criteria = array_merge($search_criteria, $this->search_for_payments);
+		}	
 		$this->data->payments = Payment::getMany( $search_criteria);
 
         $this->data->search_payment= new Payment();
@@ -28,6 +29,24 @@ class PaymentController extends PageController {
 										'date' => date('Y-m-d'),
 									  	'company_id' => $this->data->company->id ));
     }
+	function search($params) {
+		$this->options = array();
+
+		$search_criteria = array('sort'=>'date DESC');
+		if($this->search_for_payments){
+			$search_criteria = array_merge($search_criteria,$this->search_for_payments);
+		}
+		if($params['date_range']){
+			$search_criteria['date_range'] = $params['date_range'];
+			$this->options['date_range'] = $params['date_range'];
+		}
+
+		$search_payment= new Payment();
+        $search_payment->set($search_criteria);
+		$this->options['search_payment'] = $search_payment;
+
+		$this->data = Payment::getMany($search_criteria);
+	}
 	function email( $params ) {
 		$p = new Payment($params['id']);
 		$p->sendEmail();
