@@ -142,6 +142,12 @@ class Company extends ActiveRecord {
 	function getPhone(){
 		return $this->get('phone');
 	}
+	function getLastPaymentDate() {
+		$payment = Payment::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
+		if($payment){
+			return $payment->getDate(); 
+		}	
+	}
     function calculateChargesTotal($date_range = array()){
 
 		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
