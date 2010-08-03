@@ -451,9 +451,11 @@ margin-left:10px;
 #update-contract-btn{
 float:right;
 margin-bottom:5px;
+display: none;
 }
 #cancel-contract-btn{
 float:right;
+display: none;
 clear:right;
 }
 /* TOTALS */
