@@ -99,7 +99,7 @@ class Company extends ActiveRecord {
 		$primarycontacts = $this->getPrimaryContact(); 
 		$email = '';
 		if( !empty($billingcontacts) ) {
-			foreach( $billingcontacts as $contact) $email .= $contact->getEmail().',';
+			foreach( $billingcontacts as $contact) $email .= $contact->getEmail().', ';
 			$email = rtrim($email,',');
 		} elseif (!empty($primarycontacts)) {
 			$email = $this->getPrimaryContact()->getEmail();
