@@ -40,7 +40,10 @@ class ChargeController extends PageController {
         						'action' => 'index'
         						));
     }
-
+	function search($params) {
+		$this->data = Charge::getMany( $params );
+		$this->options = $params;
+	}
     function destroy( $params ) {
 		if(!isset($params['id'])) bail("must haz id to do that!");
 		$inv = new Charge($params['id']);

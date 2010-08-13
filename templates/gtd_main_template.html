@@ -22,9 +22,30 @@
 		
 		<div id="app-container">
 			<div id="header">
-				<img src="/client/img/radicaldesigns_banner_02.gif"/>
-				<img src="/client/img/radicaldesigns_banner_03.gif"/>
-			</div>
+				<img src="/client/img/radicaldesigns_banner_02.gif" style="height:30px"/>
+<!--				<img src="/client/img/radicaldesigns_banner_03.gif" style="height:34px"/>-->
+
+<style>
+	.santa-quote{
+	color:white;
+	display:block;
+	font-size:14px;
+	left:142px;
+	margin-bottom:4px;
+	position:absolute;
+	top:6px;
+}
+#santa-slide{
+display:inline;
+}
+#santa-slide a{
+color:white;
+}
+</style>
+<span class="santa-quote">//  
+<script type="text/javascript" src="http://www.radicaldesigns.org/badge_widget.php?id=41&cache=0"></script>
+</span>
+</div>
 			
         	<div id="title-bar" class="[[test-warning]]">
        			[[login]]
@@ -34,6 +55,7 @@
 
 	        <div id ="side">
 				<h3>Project Management</h3>
+				[[client_quicksearch]]
 	            <ul>
 	                <li><h4>Find</h4></li>
 	                <li><a class="button" href="index.php?controller=Hour">Hours</a></li>
@@ -44,14 +66,19 @@
 	                <li><h4>Create</h4></li>
 	                <li><a class="button" href="index.php?controller=Company&action=new_form">New Client</a></li>
 	                <li><a class="button" href="index.php?controller=Project&action=new_form">New Project</a></li>
+
+	                <li><a class="button" href="index.php?controller=SupportContract&action=new_form">New Support Contract</a></li>
 	                <li><a class="button" href="index.php?controller=Hour">Log Hours</a></li>
 	
 	            </ul>   
-				<h3>Billing</h3>
+				<h4>Billing</h4>
 	            <ul>
 	                <li><a class="button" href="index.php?controller=Payment">Payments</a></li>
 					<li><a class="button" href="index.php?controller=Charge">Charges</a></li>
 					<li><a class="button" href="index.php?controller=Invoice">Invoices</a></li>
+					<li><a class="button" href="index.php?controller=Company&action=kneecaps">Kneecaps</a></li>
+
+
 
 	            </ul>
 	        </div>  

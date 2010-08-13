@@ -21,6 +21,7 @@ function basicTable( $table, $o = array()){
 // TITLE	
 	if( $o['title']) $html .= '<h3 class="basic-table-header">'.$o['title'].'</h3>';
 
+	/*
 // QUICKSEARCH
 	$html .= '
 				<div class="quicksearch">
@@ -28,7 +29,9 @@ function basicTable( $table, $o = array()){
 						<input type="text" class="qs-input" name="qs-input" />
 					</form>
 				</div>
-			';
+				';
+	 */
+
 // SEARCH
 	if( isset( $o['search'] ) && $o['search']) $html .= '<div class="basic-table-search">'.$o['search'].'</div>';
 

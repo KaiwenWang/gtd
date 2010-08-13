@@ -14,7 +14,7 @@ function paymentIndex($d){
 	return array(
 	       	'title'	=> 'Payments',
             'body'	=> $hidden_forms
-                       . $r->view('paymentTable', $d->payments, array('id'=>'payments', 'search_payment' => $d->search_payment))
+                       . $r->view('paymentSearch', $d->payments, array('id'=>'payments', 'search_payment' => $d->search_payment))
 	       );
 }
 ?>

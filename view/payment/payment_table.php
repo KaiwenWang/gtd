@@ -2,22 +2,6 @@
 function paymentTable( $payments, $o = array()){
     $r = getRenderer();
 
-	// CREATE SEARCH FORM
-	$search_form = '';
-	if( !empty($o['search_payment']) && is_a( $o['search_payment'], 'Payment')){
-		$form = new Form( array(
-						'controller'=>'payment',
-						'action'=>'index',
-						'method'=>'get',
-						'auto_submit'=>array('payment_type','company_id')
-						));
-
-		$fs = $form->getFieldSetFor( $o['search_payment'] );
-		$form->content = $fs->field('payment_type',array('title'=>'Payment Type'));
-		$form->content .= $fs->field('company_id',array('title'=>'Client'));
-		$search_form = $form->html;
-	}
-
     $table = array();
     $table['headers'] = array('Date','Invoice ID','Client','Amount','Type','Edit','Delete');
     $table['rows'] =  array();
@@ -36,11 +20,13 @@ function paymentTable( $payments, $o = array()){
 								);
     }
 
-    $payment_table = $r->view('basicTable', $table, array( 'title' => 'Payments', 'search' => $search_form));
+    $payment_table = $r->view('basicTable', $table, array_merge(array( 'title' => 'Payments'), $o));
 
     $total_payments = $r->view('basicMessage', 'Total payments: $ '.number_format( $total_payments, 2));
 
-    return 	$total_payments
-			.$payment_table;
+	return 	'<div id="payments-table">'
+			.$total_payments
+			.$payment_table
+			.'</div>';
 }
 ?>

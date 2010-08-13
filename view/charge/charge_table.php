@@ -2,8 +2,6 @@
 function chargeTable( $charges, $o = array()){
     $r =& getRenderer();
 	
-	if(!$charges) return $r->view('basicMessage','There are no charges at this time.');
-
     $table = array();
     $table['headers'] = array('Date',
                             'Name',
@@ -36,7 +34,7 @@ function chargeTable( $charges, $o = array()){
 								$delete_button	);
     }
 
-    $charges_table = $r->view('basicTable',$table, array_merge(array('title'=>'Charges'), $o));
+    $charges_table = $r->view('basicTable',$table, array_merge(array('title'=>'Charges','id'=>'charges-table'), $o));
     $total = $r->view('basicMessage','Total charges: $ ' . number_format( $total_charges, 2));
 
     return 	$total

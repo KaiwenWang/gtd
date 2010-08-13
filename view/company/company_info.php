@@ -34,10 +34,8 @@ function companyInfo( $c, $o){
 			<div class="company-balance">
 				Current Balance: $ '.$balance.'
 			</div>
-			<div class="clear-both"></div>
 
 					</div>
-			<div class="clear-both"></div>
 			<div class="address">
 				'.$address.'<br>
 				'.$c->getPhone().'

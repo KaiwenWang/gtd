@@ -23,7 +23,7 @@ function supporthourShow($d){
 					);
 
 
-    $hour_table = $r->view('supporthourTable', $d->support_contract->getHours(), array('title'=>'Hours for '.$d->support_contract->getName()));
+    $hour_table = $r->view('supporthourTable', $d->support_hours, array('title'=>'Hours for '.$d->support_contract->getName()));
 
 
     return array(   'title' 	=> $title,

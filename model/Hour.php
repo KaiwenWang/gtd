@@ -132,26 +132,38 @@ class Hour extends ActiveRecord {
         return $this->makeCriteriaDateRange( $data );
     }
     function makeCriteriaSupportContract($values) {
-        if(empty($values)) return;
-        if(is_array($values)) {
-            return "support_contract_id IN (". implode(",", $values). ")";
-        }
-        return "support_contract = " . $this->dbcon->qstr( $values );
-    }
+        return $this->_makeCriteriaMultiple('support_contract_id', $values);
+	}
+
     function makeCriteriaEstimate($values) {
         return $this->_makeCriteriaMultiple('estimate_id', $values);
     }
     function makeCriteriaProject($values) {
-        $estimates = getMany('estimate', array('project' => $values));
-        return $this->makeCriteriaEstimate( 
+		$estimates = array();
+		foreach( $values as $value){
+			$estimates[] =  Estimate::getMany( array('project' => $value));
+		}	
+		return $this->makeCriteriaEstimate( 
                     array_map( function( $item ) { return $item->id; }, $estimates)
                 ); 
     }
     function makeCriteriaCompany($value) {
-        $projects = getMany('project', array('company_id' => $value));
-		if(!$projects) return false;
-        return $this->makeCriteriaProject( 
-                    array_map( function( $item ) { return $item->id; }, $projects)
-                ); 
-    }
+		$sql = '';
+
+		$projects = Project::getMany( array('company_id' => $value));
+		if( $projects){
+			$project_ids = array();
+			$sql .= $this->makeCriteriaProject( 
+					    array_map( function( $item ) { return $item->id; }, $projects)
+					);
+		}
+
+		$support_contracts = SupportContract::getMany(array('company_id' => $value));
+		if( $support_contracts ){
+			$sql .= $this->makeCriteriaSupportContract( 
+					    array_map( function( $item ) { return $item->id; }, $support_contracts)
+		 			);
+		}
+		return $sql;
+	}
 }

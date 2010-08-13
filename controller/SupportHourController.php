@@ -4,7 +4,7 @@ class SupportHourController extends PageController {
 	
     function index( $params ){
         $d = $this->data;
-        $d->support_hours = getMany( 'SupportHour', array('sort' => 'id DESC'));
+        $d->support_hours = getMany( 'SupportHour', array('sort' => 'date DESC'));
 		$d->new_support_hour = new SupportHour();
 		$d->new_support_hour->set( array( 'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
@@ -15,12 +15,14 @@ class SupportHourController extends PageController {
 		if ( !$params['id']) bail('Required $params["id"] not present.');
 
     	$d = $this->data;
+		
 
         $d->hour = new Hour( $params['id']);
 	    $d->support_contract = new SupportContract( $d->hour->get('support_contract_id'));
+		$d->support_hours = Hour::getMany(  array('support_contract_id' => $d->support_contract->id,'sort' => 'date DESC'));
 
 		$d->new_hour = new Hour();
-		$d->new_hour->set( array( 'support_contract_id'=>$params['id'],
+		$d->new_hour->set( array( 'support_contract_id'=>$d->support_contract->id,
 								  'staff_id'=>getUser(),
 								  'date'=>date('Y-m-d')
 								  ));

@@ -48,10 +48,9 @@ h3{
 border:0px solid #999999;
 border-bottom: none;
 color:#000;
-display:inline;
-font-size:16px;
+font-size:13px;
 margin:0;
-padding:0 5px 0 0;
+padding:0 5px 8px 0;
 position:relative;
 top:1px;
 }
@@ -278,14 +277,13 @@ font-weight:bold;
 font-size: 12px;
 }
 .address{
-float:left;
 margin: 7px 16px 5px 0;
 width:270px;
 font-size: 14px;
 }
 .notes-box{
 float:left;
-margin:4px 20px 4px 30px;
+margin:4px 20px 4px 10px;
 }
 .notes-label{
 float:left;
@@ -297,7 +295,7 @@ background-color:#FFFFFF;
 float:left;
 font-size: 12px;
 padding: 2px 5px 6px;
-width:750px;
+width:650px;
 -moz-border-radius-topleft:6px;
 -moz-border-radius-topright:6px;
 -moz-border-radius-bottomleft:6px;
@@ -305,14 +303,18 @@ width:750px;
 }
 .company-info-header{
 float:left;
-width: 390px;
 margin-left:5px;
+}
+.company-info{
+float:left;
+width:300px;
 }
 /* FORMS */
 h3.basic-form-header{
 background: none;
-font-size: 10px;
+font-size: 14px;
 margin: 10px 0 0 5px;
+color: #005588;
 }
 .basic-form-contents{
 margin-left: 20px;
@@ -356,6 +358,7 @@ border-bottom: 1px #dddddd solid;
 }
 .basic-table-search{ 
     display: inline-block;
+	margin-bottom: 6px;
 }
 .search-input { 
     display: inline;
@@ -366,6 +369,7 @@ border-bottom: 1px #dddddd solid;
 }
 /* JS-SWAPPABLE */
 .js-swappable{
+width:	100%;
 }
 .js-swappable-btn{ 
 display:block;
@@ -447,9 +451,11 @@ margin-left:10px;
 #update-contract-btn{
 float:right;
 margin-bottom:5px;
+display: none;
 }
 #cancel-contract-btn{
 float:right;
+display: none;
 clear:right;
 }
 /* TOTALS */
@@ -464,7 +470,8 @@ margin-top: 6px;
 font-size: 12px;
 }
 .company-contacts .contact-detail{
-float:left;
+float: left;
+width: 250px;
 margin: 0 15px;
 margin-bottom:8px;
 }
@@ -503,7 +510,6 @@ margin-bottom: 10px;
 #invoice #footer-address{
 margin-bottom: 20px;
 }
-
 #banner {
 margin: 15px 0 0 0;
 }

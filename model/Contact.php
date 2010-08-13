@@ -63,4 +63,7 @@ class Contact extends ActiveRecord {
 	function getEmail(){
 		return $this->get('email');
 	}
+	function getPhone(){
+		return $this->get('phone');
+	}
 }

@@ -80,12 +80,26 @@ class Company extends ActiveRecord {
 		}
 		return $name;
 	}
+	function getBillingContactName(){
+		$billingcontacts = $this->getBillingContact(); 
+		if (!empty($billingcontacts)) {
+			$name = $this->getbillingContact()->getName();
+		}
+		return $name;
+	}
+	function getBillingPhone(){
+		$billingcontacts = $this->getBillingContact(); 
+		if (!empty($billingcontacts)) {
+			$name = $this->getbillingContact()->getPhone();
+		}
+		return $name;
+	}
 	function getBillingEmailAddress(){
 		$billingcontacts = $this->getBillingContacts();
 		$primarycontacts = $this->getPrimaryContact(); 
 		$email = '';
 		if( !empty($billingcontacts) ) {
-			foreach( $billingcontacts as $contact) $email .= $contact->getEmail().',';
+			foreach( $billingcontacts as $contact) $email .= $contact->getEmail().', ';
 			$email = rtrim($email,',');
 		} elseif (!empty($primarycontacts)) {
 			$email = $this->getPrimaryContact()->getEmail();
@@ -141,6 +155,12 @@ class Company extends ActiveRecord {
 	}
 	function getPhone(){
 		return $this->get('phone');
+	}
+	function getLastPaymentDate() {
+		$payment = Payment::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
+		if($payment){
+			return $payment->getDate(); 
+		}	
 	}
     function calculateChargesTotal($date_range = array()){
 

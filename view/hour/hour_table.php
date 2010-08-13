@@ -1,7 +1,6 @@
 <?php
 function hourTable( $hours, $o = array() ){
     $r = getRenderer();
-    if(!$hours) return false;
 
     $table['headers'] = array('Date','Client', 'Description','Staff','Hours','Billable','Type','Edit','Delete');
     $table['rows'] =  array();

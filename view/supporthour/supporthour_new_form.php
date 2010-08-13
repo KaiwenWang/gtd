@@ -6,7 +6,7 @@ function supporthourNewForm( $h, $o = array()){
     $fs = $form->getFieldSetFor( $h );
 
     $list_items = array(
-    	'Support Contract' => $fs->support_contract_id,
+    	'Support Contract' => $fs->field('support_contract_id',array('status'=>'active')),
        	'Description' 	=> $fs->description,
         'Date Completed'=> $fs->date,
         'Staff' 		=> $fs->staff_id,
