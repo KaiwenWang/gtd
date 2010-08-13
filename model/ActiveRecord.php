@@ -77,7 +77,7 @@ class ActiveRecord  extends Record {
 		$date_b = $b->getHistoryDate();
 
 		if($date_a == $date_b) return 0;
-		return ($date_a < $date_b) ? -1 : 1;
+		return ($date_a > $date_b) ? -1 : 1;
 	}
 	function getHistoryType(){
 		return get_class($this);
@@ -99,7 +99,22 @@ class ActiveRecord  extends Record {
 		return;
 	}
 
-    function _makeCriteriaMultiple($fieldname, $values) {
+	function makeCriteriaCurrentMonth($date_field){
+		if( !$date_field || $date_field === true) $date_field = 'date';
+		
+		$start_date = Util::date_format_from_time(Util::start_of_current_month());
+		$end_date = Util::date_format_from_time(Util::end_of_current_month());
+		
+		$criteria = array(
+					'field_name'=>$date_field,
+					'start_date'=>$start_date,
+					'end_date'=>$end_date
+					);
+		
+		return $this->makeCriteriaDateRange( $criteria );
+	}
+
+    protected function _makeCriteriaMultiple($fieldname, $values) {
         if(empty($values)) return;
         if(is_array($values)) {
             return "$fieldname IN (". implode(",", $values). ")";
