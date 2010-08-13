@@ -129,6 +129,9 @@ class Util {
 		if( !$time ) $time = time();
 		return date('Y-m-d',$time);
 	}
+	function current_date(){
+		return self::date_format_from_time( time());
+	}
 	function pretty_date($date){
 		return date('m/d/Y',strtotime($date));
 	}
@@ -142,15 +145,37 @@ class Util {
 
     function start_of_month($date) {
         $start_date = strtotime($date);
-        $start_day = date('j', $start_date);
         $start_month = date('m', $start_date);
 		$start_year = date('Y', $start_date);
 
+        $start_day = date('j', $start_date);
 		if( $start_day >= 28 ) $start_month = $start_month + 1;
 
         return mktime( 0, 0, 0, $start_month, 1, $start_year );
     }
 
+    function end_of_month($date) {
+        $timestamp = strtotime($date);
+        $one_month_later = strtotime("+1 month", $timestamp);
+        $start_of_month = Util::start_of_month(date('Y-m-d', $one_month_later));
+        $end_of_month = strtotime("-1 day", $start_of_month);
+        return $end_of_month; 
+    }
+
+	function start_of_current_month(){
+        $start_date = strtotime();
+        $start_month = date('m', $start_date);
+		$start_year = date('Y', $start_date);
+
+        return mktime( 0, 0, 0, $start_month, 1, $start_year );
+
+	}
+	function end_of_current_month(){
+        $start_of_month = Util::start_of_current_month();
+        $one_month_later = strtotime("+1 month", $start_of_month);
+        $end_of_month = strtotime("-1 day", $one_month_later);
+        return $end_of_month; 
+	}
     function percent_of_month_from_start($date) {
         $day_of_month = date('j', strtotime($date));
 
