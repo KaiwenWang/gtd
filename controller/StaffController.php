@@ -9,7 +9,16 @@ class StaffController extends PageController {
 
 		$this->data->active_projects = getMany('Project',array('active'=>true));
 
-        $this->data->staff = new Staff($params['id']);
+        $staff = new Staff($params['id']);
+        $this->data->staff = $staff; 
+
+		$hours_criteria = array('current_month'=>true);
+		$this->data->hours_this_month = $staff->getHoursTotal($hours_criteria);
+		$this->data->billable_hours_this_month = $staff->getBillableHoursTotal($hours_criteria);
+
+		$hours_criteria = array('current_week'=>true);
+		$this->data->hours_this_week = $staff->getHoursTotal($hours_criteria);
+		$this->data->billable_hours_this_week = $staff->getBillableHoursTotal($hours_criteria);
 
 		$this->data->new_project = new Project();
 		$this->data->new_project->set(array(

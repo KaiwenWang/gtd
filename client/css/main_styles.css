@@ -532,3 +532,8 @@ padding: 5px 10px;
 #invoice-summary .basic-list-label {
 width: 228px;
 }
+.hours-month, .hours-week {
+margin: 0 10px 10px 10px;
+float: left;
+width: 300px;
+}

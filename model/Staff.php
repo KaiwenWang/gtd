@@ -34,10 +34,27 @@ class Staff extends ActiveRecord {
 		}
 		return $this->projects;
 	}
-	function getHours(){
-		if(empty($this->hours)){
-			$this->hours = getMany( 'Hour', array("staff_id"=>$this->id));
-		}
+	function getHours( $criteria = array() ){
+		$criteria = array_merge( $criteria, array('staff_id'=>$this->id));
+		$this->hours = getMany( 'Hour', $criteria);
 		return $this->hours;
+	}
+	function getHoursTotal( $criteria = array(), $options = array() ){
+		$hours = $this->getHours($criteria);
+
+		if( !empty($options['billable_only'])){
+			$get_hour_function = 'getBillableHours';
+		} else {
+			$get_hour_function = 'getHours';
+		}
+
+		$total = 0;
+		foreach( $hours as $h ){
+			$total += $h->$get_hour_function();
+		}
+		return $total;
+	}
+	function getBillableHoursTotal( $criteria = array(), $options = array() ){
+		return $this->getHoursTotal( $criteria, array_merge($options,array('billable_only'=>true)));
 	}
 }
