@@ -104,7 +104,7 @@ class ActiveRecord  extends Record {
 		
 		$start_date = Util::date_format_from_time(Util::start_of_current_month());
 		$end_date = Util::date_format_from_time(Util::end_of_current_month());
-		
+
 		$criteria = array(
 					'field_name'=>$date_field,
 					'start_date'=>$start_date,
@@ -113,6 +113,22 @@ class ActiveRecord  extends Record {
 		
 		return $this->makeCriteriaDateRange( $criteria );
 	}
+
+	function makeCriteriaCurrentWeek($date_field){
+		if( !$date_field || $date_field === true) $date_field = 'date';
+		
+		$start_date = Util::date_format_from_time(Util::start_of_current_week());
+		$end_date = Util::date_format_from_time(Util::end_of_current_week());
+
+		$criteria = array(
+					'field_name'=>$date_field,
+					'start_date'=>$start_date,
+					'end_date'=>$end_date
+					);
+
+		return $this->makeCriteriaDateRange( $criteria );
+	}
+
 
     protected function _makeCriteriaMultiple($fieldname, $values) {
         if(empty($values)) return;

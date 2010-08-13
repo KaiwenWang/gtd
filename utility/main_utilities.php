@@ -149,6 +149,7 @@ class Util {
 		$start_year = date('Y', $start_date);
 
         $start_day = date('j', $start_date);
+        $last_day_of_month = date('t', $start_date);
 		if( $start_day >= 28 ) $start_month = $start_month + 1;
 
         return mktime( 0, 0, 0, $start_month, 1, $start_year );
@@ -163,7 +164,7 @@ class Util {
     }
 
 	function start_of_current_month(){
-        $start_date = strtotime();
+        $start_date = time();
         $start_month = date('m', $start_date);
 		$start_year = date('Y', $start_date);
 
@@ -175,6 +176,12 @@ class Util {
         $one_month_later = strtotime("+1 month", $start_of_month);
         $end_of_month = strtotime("-1 day", $one_month_later);
         return $end_of_month; 
+	}
+	function start_of_current_week(){
+		return strtotime('last sunday');
+	}
+	function end_of_current_week(){
+		return strtotime('next sunday');	
 	}
     function percent_of_month_from_start($date) {
         $day_of_month = date('j', strtotime($date));
@@ -226,8 +233,7 @@ class Util {
 		$d->close(); 
 	}
 	function log($msg){
-		trigger_error( "GTD LOGGER:: " . strip_tags($msg) );
-#		echo $msg;
+		trigger_error( "GTD LOGGER:: " . strip_tags($msg) . "     <br/>\n" );
 	}
 
 	function isTestMode(){
