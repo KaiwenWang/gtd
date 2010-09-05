@@ -192,4 +192,3 @@ class PageController{
     	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
     }
 }
-?>

@@ -1,9 +1,33 @@
 <?php
 class StaffController extends PageController {
+ 	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'));
 
-    function index(){
+	function index(){
         $this->data->staff = getAll( 'Staff');
-    }
+	}
+
+	function update($params){
+		$staff = $this->updated_staffs[0];
+		if(!$staff->get('password')){
+			Render::msg('Password cannot be blank','bad');
+			$this->redirectTo( array_merge( $params, array(
+									 'controller'=>'Staff',
+									 'action'=>'edit',
+									 'id'=>$staff->id
+									 )));
+			return;
+		}
+		if($params['set_password'] == true){
+			Render::msg('Password Changed');
+			$staff->encrypt_password();
+		}
+		$staff->save();
+		$this->redirectTo( array('controller'=>'Staff',
+								 'action'=>'show',
+								 'id'=>$company->id
+								 ));
+	}
+
     function show( $params = array()){
 		if( !$params['id']) bail('can has Staff id? kthx');
 
@@ -34,4 +58,3 @@ class StaffController extends PageController {
 							);
     }
 }
-?>

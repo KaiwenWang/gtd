@@ -8,17 +8,18 @@ function authenticateLogin($d){
 							)
 					);
 
-	$form->content = $r->classSelect( 'Staff', array('name'=>'id'));
-
-	$html = '
+	$form->content = '
 			<div id="login-container" class="detail-list">
-				<h2>Choose your Character:</h2>
-				'.$form->html.'
+				<h2>User Name</h2>
+				<input type="text" name="username" />
+				<h2>Password</h2>
+				<input type="password" name="password" />
+				<input type="hidden" name="auth_type" value="staff" />
 			</div>
 			';
-
+	
 	return array(	'title'=>'Staff Login',
 					'controls'=>'',
-					'body'=>$html
+					'body'=>$form->html
 				);
 }

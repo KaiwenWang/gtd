@@ -1,5 +1,5 @@
 <?php
-class Staff extends ActiveRecord {
+class Staff extends User {
 
 	var $datatable = "staff";
 	var $name_field = "first_name";
@@ -11,6 +11,8 @@ class Staff extends ActiveRecord {
 							'last_name'  	:  'text',
 							'email'  		:  'text',
 							'team'  		:  'text',
+							'username'  	:  'text',
+							'password'  	:  'text'
 						},
 			'required' : {
 							
@@ -27,6 +29,9 @@ class Staff extends ActiveRecord {
 		$name = $this->getData('first_name');
 		if( $this->getData('last_name')) $name .= ' '.$this->getData('last_name');
 		return $name;
+	}
+	function getUserType(){
+		return 'staff';
 	}
 	function getProjects(){
 		if(empty($this->projects)){

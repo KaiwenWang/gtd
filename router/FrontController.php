@@ -61,18 +61,23 @@ class FrontController {
    	}
    	
    	private function authenticate(){
-   		$auth_type = $this->page->getAuthenticationType();
-   		
-   		if ( $auth_type == 'public') return true;
+   		$this->auth_type = $this->page->getAuthenticationType();
+			
+   		if ( $this->auth_type == 'public') return true;
    		if ( !Session::sessionExists()) return false;
-   		if ( $auth_type == Session::getUserType()) return true;
+		
+		$user_type = Session::getUserType();
+		
+		if( $user_type == 'staff') return true;
+   		if ( $this->auth_type == Session::getUserType()) return true;
+
 		return false;
    	}
    	
-   	private function renderLoginScreen(){
+   	private function renderLoginScreen( ){
 		require_once('controller/AuthenticateController.php');
 		$login = new AuthenticateController();
-		return $login->execute('login');
+		return $login->execute('login', $this->router->params( ));
    	}
    	
     private function renderLoginWidget(){
