@@ -24,6 +24,9 @@ background-repeat: repeat-x;
 background-image: url('/client/img/gtd_bg.jpg');
 //width:912px;
 }
+#client-app-container {
+background-color:#fefaea;
+}
 a{
 text-decoration: none;
 color:#006699;
