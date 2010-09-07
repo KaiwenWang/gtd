@@ -1,5 +1,5 @@
 <?php
-function companyInfo( $c, $o){
+function clientCompanyInfo( $c, $o){
 	if(get_class($c) != 'Company') bail('companyInfo requires a Company object');
 
 	$r = getRenderer();
@@ -12,14 +12,6 @@ function companyInfo( $c, $o){
 
 	$balance = $c->calculateBalance(array('end_date'=>Util::date_format_from_time()));
 
-	$c->get('notes') ? $notes = ' 
-								<div class="notes-box">
-									<div class="notes-content">	
-										'.nl2br($c->get('notes')).'
-									</div>
-								</div>'
-					 : $notes = '';
-
 	$contacts = '';
 	if($primary = $c->getPrimaryContact()) $contacts.= $r->view('contactDetail',$primary);
 	if($billing = $c->getBillingContact()) $contacts.= $r->view('contactDetail',$billing);
@@ -29,9 +21,8 @@ function companyInfo( $c, $o){
 			<div class="company-info-header">
 				<div class="company-info">
 				<h2>
-					'.$c->getName().' 
+					'.$c->getName().'
 				</h2>
-			<div class="detail"><a href="index.php?controller=Client&id='.$c->get('id').'">(client view)</a></div>
 			<div class="company-balance">
 				Current Balance: $ '.$balance.'
 			</div>
@@ -42,7 +33,7 @@ function companyInfo( $c, $o){
 				'.$c->getPhone().'
 			</div>
 			<div class="clear-both"></div>
-			<div class="status">
+			<div class="status">Account Status: 
 					'.$c->getStatus().'
 			</div>
 			</div>
