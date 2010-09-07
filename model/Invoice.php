@@ -188,15 +188,14 @@ class Invoice extends ActiveRecord {
 		}
 		$boundary = "nextPart";
 		$headers = 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
-		$headers .= 'MIME-Version: 1.0' . "\r\n";
-		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\r\n";
-
-		$headers .= "\n--$boundary\n"; // beginning \n added to separate previous content
+		$headers .= "MIME-Version: 1.0\r\n";
+		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\r\n\r\n";
+		$headers .= "This is a MIME encoded message.\r\n\r\n"; 
+		$headers .= "\r\n--$boundary\r\n"; // beginning \n added to separate previous content
 		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
 		$headers .= $plaincontent;
-
-		$headers .= "\n--$boundary\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= "\r\n--$boundary\r\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 		$headers .= $htmlcontent;
 
 		$email_sent = mail($email_address,$subject,"",$headers);
