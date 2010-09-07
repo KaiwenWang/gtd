@@ -83,7 +83,7 @@ function invoiceTable( $invoices, $o = array( )) {
 											'action'=>'email',
 											'id'=>$i->id
 											));
-      	
+
       	$table['rows'][] = array(	
 								$i->id,
 								"<input class=\"check-row\" type=\"checkbox\" id=\"row-".$i->id."\" name=\"table-rows[".$i->id."]\" value=\"".$i->id."\">",
@@ -93,7 +93,7 @@ function invoiceTable( $invoices, $o = array( )) {
 								$batch_link,
 								$email_button,
       							"<a href='$url' target='_blank'>" . $i->getData('sent_date') . "</a>",
-      							$i->getAmountDue(),
+								"<span>$</span>" . $i->getAmountDue(),
 								$edit_button,
 								$delete_button
       							);
