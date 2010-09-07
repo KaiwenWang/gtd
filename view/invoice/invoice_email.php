@@ -41,16 +41,14 @@ function invoiceEmail($d, $o = array() ) {
         <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
 		<!-- <div>View charges and detailed history online at <a href=""> http://???</a></div> -->
 		<hr>
-		<h4>Payment Information</h4>';
+		<h4>Payment Methods</h4>';
 	if ($d->invoice->getAmountDue() < 1000) {
-		$summary .= '<strong><a href="'.$pay_online.'">Pay this amount online</a></strong><br /><br />';
+		$summary .= 'Radical Designs accepts credit/debit cards and bank account transfers via PayPal for payments under $1000. <strong><a href="'.$pay_online.'">Pay your balance online</a></strong><br /><br />';
 	}
 	$summary .= '<strong>Send checks to: </strong>Radical Designs<br />
 				1370 Mission St, 4th Floor<br />
-				San Francisco, CA 94103<br /><br />
-			<b>Payment Methods: </b>&nbsp;&nbsp;Radical Designs accepts checks, or
-			credit/debit cards and bank account transfers via <a href="http://paypal.com">PayPal</a> for payments under $1000.  Click above to pay your current balance online, or mail a check to the address above.  Make your check
-			payable to "Radical Designs". <br />
+				San Francisco, CA 94103<br />
+				Make checks payable to "Radical Designs". <br /><br />
 			For questions about your contract or bill please email <a href="mailto:billing@radicaldesigns.org">billing@radicaldesigns.org</a><br>
 			For questions about support please email <a href="mailto:help@radicaldesigns.org">help@radicaldesigns.org</a><br>
 			Or you can call us at 415-738-0456 
