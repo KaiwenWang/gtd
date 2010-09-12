@@ -10,7 +10,6 @@ class PaymentController extends PageController {
       $search_criteria = array_merge($search_criteria, $this->search_for_payments);
     }	
     $this->data->payments = Payment::getMany( $search_criteria);
-
 		if( !empty($params['spokes'])){
       $spokes_data = $this->data->payments;
 
@@ -18,11 +17,14 @@ class PaymentController extends PageController {
 		  foreach( $spokes_data as $data_item ){
 		    $rows[] = $data_item->to_spokes();
 		  }
+		  
 		  $json = new Services_JSON();		  
       $this->response = array('body'=>$json->encode( $rows ));
+      
       if(!empty($params['callback'])){
         $this->response['body'] = $params['callback'].'( '.$this->response['body'].' )';  
       }
+      
       return;
 		}
 
