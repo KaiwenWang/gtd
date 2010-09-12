@@ -1,54 +1,57 @@
 <?php
 class FrontController {
 
-    private $router;
-    private $page;
-    private $ajax_request = false;
+  private $router;
+  private $page;
+  private $ajax_request = false;
     
-    function __construct(){
+  function __construct(){
 		session_start();
-        $this->router = Router::singleton();
-        $this->page = $this->getPageController();
-        if( isset($this->router->params['ajax_target_id'])) $this->ajax_request = true;
-    }
+    $this->router = Router::singleton();
+    $this->page = $this->getPageController();
+    if( isset($this->router->params['ajax_target_id'])) $this->ajax_request = true;
+    if( isset($this->router->params['spokes'])) $this->ajax_request = true;    
+  }
     
-    function execute(){
+  function execute(){
 
-        $this->authenticate() ?	$response = $this->page->execute( $this->router->action, 
-                           		               					  $this->router->params( ))
-                              :	$response = $this->renderLoginScreen();
+    $this->authenticate() ?	$response = $this->page->execute( $this->router->action, 
+                                                              $this->router->params( ))
+                          :	$response = $this->renderLoginScreen();
 
-		if( $this->ajax_request) return $response['body'];
+		if( $this->ajax_request ) return $response['body'];
 
-        return $this->templatedResponse($response);
-    }
+    return $this->templatedResponse($response);
+  }
     
-    function templatedResponse($response){
+  function templatedResponse($response){
 
-        if(isset($response['template']) && !$response['template']) {
-            return $response['body'];
-        }
+    if(isset($response['template']) && !$response['template']) {
+      return $response['body'];
+    }
 
-        $r = getRenderer();
+    $r = getRenderer();
 
-		Util::isTestMode()	? $test_warning_class_name = 'test-warning'
-							: $test_warning_class_name = '';
+    Util::isTestMode()	? $test_warning_class_name = 'test-warning'
+                        : $test_warning_class_name = '';
 
-		$layout = $r->view('applicationLayout',array(),array('get_tokens'=>true));
-		if( !is_array($layout)) $layout = array();
+    $layout = $r->view('applicationLayout',array(),array('get_tokens'=>true));
+    if( !is_array($layout)) $layout = array();
 
-		$response =  array_merge( $layout,
-								  $response,	
-                                   array( 
-        							 'msg'=>$r->_dumpMessages(),
-									 'login'=>$this->renderLoginWidget(),
-									 'test-warning'=> $test_warning_class_name
-        	    				));
-        $response_template = isset($response['template']) ? $response['template'] : 'gtd_main_template';
+    $response =  array_merge( $layout,
+                              $response,	
+                              array( 
+                                'msg'=>$r->_dumpMessages(),
+                                'login'=>$this->renderLoginWidget(),
+                                'test-warning'=> $test_warning_class_name
+                              ));
 
-        return $r->template( 'templates/' . $response_template . '.html', 
-                            $response
-                        );
+    $response_template = isset($response['template']) ? $response['template']
+                                                      : 'gtd_main_template';
+
+    return $r->template( 'templates/' . $response_template . '.html', 
+                          $response
+                       );
     }
     
    	private function getPageController(){

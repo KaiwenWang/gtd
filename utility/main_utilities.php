@@ -135,42 +135,41 @@ class Util {
 	function pretty_date($date){
 		return date('m/d/Y',strtotime($date));
 	}
-    function is_a_date($date) {
-        $null_dates = array(
-            'mysql' => '0000-00-00',
-            'unix' => '1969-12-31',
-            'preamp' => '00-00-0000');
-        return !(in_array($date, $null_dates) || !$date || $date < 0);
-    }
-
-    function start_of_month($date) {
-        $start_date = strtotime($date);
-        $start_month = date('m', $start_date);
-		$start_year = date('Y', $start_date);
-
-        $start_day = date('j', $start_date);
-        $last_day_of_month = date('t', $start_date);
-		if( $start_day >= 28 ) $start_month = $start_month + 1;
-
-        return mktime( 0, 0, 0, $start_month, 1, $start_year );
-    }
-
-    function end_of_month($date) {
-        $timestamp = strtotime($date);
-        $one_month_later = strtotime("+1 month", $timestamp);
-        $start_of_month = Util::start_of_month(date('Y-m-d', $one_month_later));
-        $end_of_month = strtotime("-1 day", $start_of_month);
-        return $end_of_month; 
-    }
-
+  function is_a_date($date) {
+    $null_dates = array(
+        'mysql' => '0000-00-00',
+        'unix' => '1969-12-31',
+        'preamp' => '00-00-0000');
+    return !(in_array($date, $null_dates) || !$date || $date < 0);
+  }
+  
+  function start_of_month($date) {
+    $start_date = strtotime($date);
+    $start_month = date('m', $start_date);
+    $start_year = date('Y', $start_date);
+    $start_day = date('j', $start_date);
+    $last_day_of_month = date('t', $start_date);
+  	if( $start_day >= 28 ) $start_month = $start_month + 1;
+  
+    return mktime( 0, 0, 0, $start_month, 1, $start_year );
+  }
+  
+  function end_of_month($date) {
+    $timestamp = strtotime($date);
+    $one_month_later = strtotime("+1 month", $timestamp);
+    $start_of_month = Util::start_of_month(date('Y-m-d', $one_month_later));
+    $end_of_month = strtotime("-1 day", $start_of_month);
+    return $end_of_month; 
+  }
+  
 	function start_of_current_month(){
-        $start_date = time();
-        $start_month = date('m', $start_date);
+    $start_date = time();
+    $start_month = date('m', $start_date);
 		$start_year = date('Y', $start_date);
 
-        return mktime( 0, 0, 0, $start_month, 1, $start_year );
-
+    return mktime( 0, 0, 0, $start_month, 1, $start_year );
 	}
+	
 	function end_of_current_month(){
         $start_of_month = Util::start_of_current_month();
         $one_month_later = strtotime("+1 month", $start_of_month);

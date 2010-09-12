@@ -111,9 +111,17 @@ class Hour extends ActiveRecord {
 	function is_project_hour(){
 		if($this->get('estimate_id')) return true;
 	}
-	function getHistoryDate(){
-		return $this->getDate();
-	}
+	
+  function to_spokes(){
+    $date = Util::start_of_month($this->getDate());
+    $javascript_timestamp = $date*1000;
+    return( array( 'date'=>$javascript_timestamp, 'value'=>$this->getBillableHours()));
+  }
+	
+  function getHistoryDate(){
+    return $this->getDate();
+  }
+	
 	function getHistoryName(){
 		if( $this->is_project_hour()){
 			$name = $this->getProject()->getShortName();
@@ -122,18 +130,22 @@ class Hour extends ActiveRecord {
 		}
 		return $name.': '.$this->getName();
 	}
+	
 	function getHistoryDescription(){
 		return $this->getBillableHours().' hours at '.$this->getHourlyRate();
 	}
+	
 	function getHistoryAmount(){
 		return $this->getBillableAmount();
 	}
-    function makeCriteriaHourSearch($data) {
-        return $this->makeCriteriaDateRange( $data );
-    }
-    function makeCriteriaSupportContract($values) {
-        return $this->_makeCriteriaMultiple('support_contract_id', $values);
-	}
+	
+  function makeCriteriaHourSearch($data) {
+    return $this->makeCriteriaDateRange( $data );
+  }
+
+  function makeCriteriaSupportContract($values) {
+    return $this->_makeCriteriaMultiple('support_contract_id', $values);
+  }
 
     function makeCriteriaEstimate($values) {
         return $this->_makeCriteriaMultiple('estimate_id', $values);
