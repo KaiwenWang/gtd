@@ -9,7 +9,7 @@ class HourController extends PageController {
 								'sort' => 'date DESC');
     $hour_query = array_merge($default_query, $this->search_params('hour_search'));
 
-		$d->hours = getMany( 'Hour',$hour_query); 
+		$d->hours = getMany( 'Hour', $hour_query); 
 		
 		if( !empty($params['spokes'])){
 

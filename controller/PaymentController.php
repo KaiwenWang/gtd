@@ -4,31 +4,48 @@ class PaymentController extends PageController {
 								 'get_search_criteria'=> array('index','search')
                                 );
 
-    function index( $params){
-    	$search_criteria = array("sort"=>"date DESC");
-		if( !empty($this->search_for_payments)){ 
-			$search_criteria = array_merge($search_criteria, $this->search_for_payments);
-		}	
-		$this->data->payments = Payment::getMany( $search_criteria);
+  function index( $params){
+    $search_criteria = array("sort"=>"date DESC");
+    if( !empty($this->search_for_payments)){ 
+      $search_criteria = array_merge($search_criteria, $this->search_for_payments);
+    }	
+    $this->data->payments = Payment::getMany( $search_criteria);
 
-        $this->data->search_payment= new Payment();
-        $this->data->search_payment->set($search_criteria);
+		if( !empty($params['spokes'])){
+      $spokes_data = $this->data->payments;
 
-		$this->data->new_payment= new Payment();
-		$this->data->new_payment->set(array( 
-										'date' => date('Y-m-d') ));
-    }        
-    function show($params) {
-        $params['id'] ? $this->data->payment = new Payment($params['id']) 
+      $rows = array();
+		  foreach( $spokes_data as $data_item ){
+		    $rows[] = $data_item->to_spokes();
+		  }
+		  $json = new Services_JSON();		  
+      $this->response = array('body'=>$json->encode( $rows ));
+      if(!empty($params['callback'])){
+        $this->response['body'] = $params['callback'].'( '.$this->response['body'].' )';  
+      }
+      return;
+		}
+
+    $this->data->search_payment= new Payment();
+    $this->data->search_payment->set($search_criteria);
+
+    $this->data->new_payment= new Payment();
+    $this->data->new_payment->set(array( 'date' => date('Y-m-d') ));
+  }
+            
+  function show($params) {
+    $params['id'] ? $this->data->payment = new Payment($params['id']) 
 					  : Bail('required parameter $params["id"] missing.');
 
-        $this->data->company= $this->data->payment->getCompany();
+    $this->data->company= $this->data->payment->getCompany();
 
-        $this->data->new_payment= new Payment();
+    $this->data->new_payment= new Payment();
 		$this->data->new_payment->set(array( 
-										'date' => date('Y-m-d'),
-									  	'company_id' => $this->data->company->id ));
-    }
+                                    'date' => date('Y-m-d'),
+                                    'company_id' => $this->data->company->id )
+                                    );
+  }
+  
 	function search($params) {
 		$this->options = array();
 

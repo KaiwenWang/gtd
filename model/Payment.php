@@ -79,6 +79,13 @@ class Payment extends ActiveRecord {
 	function getBillingName(){
 		return $this->getCompany()->getBillingContactName();
 	}
+	
+  function to_spokes(){
+    $date = Util::start_of_month($this->getDate());
+    $javascript_timestamp = $date*1000;
+    return( array( 'date'=>$javascript_timestamp, 'value'=>$this->getAmount()));
+  }
+	
 	function sendEmail() {
         if(!isset($this->id)) bail("must haz id to do that!");
 		
