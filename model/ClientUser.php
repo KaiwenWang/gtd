@@ -31,7 +31,7 @@ class ClientUser extends User{
 	}
 
 	function getCompany(){
-		return Company::getOne($this->get('company_id'));
+		return new Company($this->get('company_id'));
 	}
 		
 	function getCompanyName(){
