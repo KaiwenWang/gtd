@@ -15,6 +15,7 @@ function authenticateLogin($d){
 				<h2>Password</h2>
 				<input type="password" name="password" />
 				<input type="hidden" name="auth_type" value="staff" />
+				<p>'.$form->submitBtn.'</p>
 			</div>
 			';
 	

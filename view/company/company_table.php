@@ -1,7 +1,7 @@
 <?php
 function companyTable( $companies, $o = array()){
 
-    $r =& getRenderer();
+    $r = getRenderer();
 
 	$search_form = '';
 	if( !empty($o['search_company']) && is_a( $o['search_company'], 'Company')){

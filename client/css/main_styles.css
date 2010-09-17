@@ -396,9 +396,10 @@ width:60em;
 }
 /* LOGIN FORM */
 #login-container{
-width:400px;
+background:none repeat scroll 0 0 #FFFFFF;
 margin:20px auto;
-background: #ffffff;
+padding-left:20px;
+width:200px;
 }
 #login-container h2{
 margin:0;
@@ -406,8 +407,7 @@ padding:4px;
 color: #000000;
 }
 #login-form{
-padding:20px 122px 0 0;
-text-align:right;
+padding:20px 20px 0 0;
 }
 /*LOGIN WIDGET */
 #login-widget{

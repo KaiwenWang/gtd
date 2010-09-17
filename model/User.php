@@ -5,8 +5,20 @@ abstract class User extends ActiveRecord{
         parent::__construct( $id);
     }
 
+	function getName() {
+		return $this->get('first_name').' '.$this->get('last_name');
+	}
+	function getFirstName(){
+		return $this->get('first_name');
+	}
+	function getLastName(){
+		return $this->get('last_name');
+	}
+	function getEmail(){
+		return $this->get('email');
+	}
 	function getUsername() {
-		return $this->get('username');
+		return $this->get('email');
 	}
 
 	function getPassword(){
@@ -14,7 +26,7 @@ abstract class User extends ActiveRecord{
 	}
 
 	function setUsername( $username ){
-		$this->set(array('username'=>$username));
+		$this->set(array('email'=>$username));
 	}
 
 	function setPassword( $password ){

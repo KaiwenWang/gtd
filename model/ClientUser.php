@@ -1,7 +1,7 @@
 <?php
-class Client extends User{
+class ClientUser extends User{
 
-	var $datatable = "client";
+	var $datatable = "client_user";
 	var $name_field = "first_name";
         
     protected static $schema;
@@ -9,8 +9,8 @@ class Client extends User{
 			'fields'   : {	
 							'first_name'	:  'text',
 							'last_name'  	:  'text',
-							'email'  		:  'text',
 							'company_id'	:  'Company',
+							'email'			:  'text',
 							'username'  	:  'text',
 							'password'  	:  'text'
 						},
@@ -25,8 +25,16 @@ class Client extends User{
 	function __construct( $id = null){
         parent::__construct( $id);
     }
-	
+		
 	function getUserType(){
 		return 'client';
+	}
+
+	function getCompany(){
+		return Company::getOne($this->get('company_id'));
+	}
+		
+	function getCompanyName(){
+		return $this->getCompany()->getName();
 	}
 }

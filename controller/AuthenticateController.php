@@ -6,19 +6,21 @@ class AuthenticateController extends PageController {
 	function login($params){
 
 	}
+
 	function widget(){
 		if (getUser()){
 			$this->data->user = new Staff(getUser());
 			$this->data->is_logged_in = true;
 		}
 	}
+
 	function create_session($params){
 		$username = $params['username'];
 		$password = sha1($params['password']);
 		$auth_type = $params['auth_type'];
 		$user_class = class_case($auth_type);
 
-		$user = $user_class::getOne(array('username'=>$username,'password'=>$password));
+		$user = $user_class::getOne(array('email'=>$username,'password'=>$password));
 		if( $user ){
 			Session::startSession( $user->id, $user->getUserType());
 			$this->redirectTo( array('controller'=>$user_class,'action'=>'show','id'=>$user->id));
