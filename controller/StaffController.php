@@ -8,23 +8,14 @@ class StaffController extends PageController {
 
 	function update($params){
 		$staff = $this->updated_staffs[0];
-		if(!$staff->get('password')){
-			Render::msg('Password cannot be blank','bad');
-			$this->redirectTo( array_merge( $params, array(
-									 'controller'=>'Staff',
-									 'action'=>'edit',
-									 'id'=>$staff->id
-									 )));
-			return;
-		}
-		if($params['set_password'] == true){
+		if( !empty($params['new_password'])){
 			Render::msg('Password Changed');
-			$staff->encrypt_password();
+			$staff->setPassword($params['new_password']);
 		}
 		$staff->save();
 		$this->redirectTo( array('controller'=>'Staff',
 								 'action'=>'show',
-								 'id'=>$company->id
+								 'id'=>$staff->id
 								 ));
 	}
 

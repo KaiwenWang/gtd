@@ -15,6 +15,10 @@ function staffShow($d){
 						'Log Support Hour'	=> $r->view(
 													'supporthourNewForm', 
 													$d->new_support_hour
+												),
+						'Edit My Shit'	=> $r->view(
+													'staffEditForm', 
+													$d->staff
 												)
 					));
 
