@@ -194,7 +194,7 @@ class Invoice extends ActiveRecord {
 		$headers .= "\r\n--$boundary\r\n"; // beginning \n added to separate previous content
 		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
 		$headers .= $plaincontent;
-		$headers .= "\r\n--$boundary\r\n";
+		$headers .= "\r\n\r\n--$boundary\r\n";
 		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 		$headers .= $htmlcontent;
 

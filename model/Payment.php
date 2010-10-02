@@ -95,16 +95,25 @@ class Payment extends ActiveRecord {
 		$d->company = $this->getCompany();
 		
 		$r = getRenderer();
-		$content = $r->view('paymentReceiptEmail', $d);
+		$htmlcontent = $r->view('paymentReceiptEmail', $d);
+		$plaincontent = $r->view('paymentReceiptEmailPlain', $d);
 
 		$email_address = $this->getBillingEmailAddress();
 		$subject = 'Radical Designs Payment Receipt ' . Util::pretty_date($this->get('date')); 
 
-		$headers  = 'MIME-Version: 1.0' . "\r\n";
-		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-		$headers .= 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+		$boundary = "nextPart";
+		$headers = 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
+		$headers .= "MIME-Version: 1.0\r\n";
+		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\r\n\r\n";
+		$headers .= "This is a MIME encoded message.\r\n\r\n"; 
+		$headers .= "\r\n--$boundary\r\n"; // beginning \n added to separate previous content
+		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$headers .= $plaincontent;
+		$headers .= "\r\n\r\n--$boundary\r\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= $htmlcontent;
 
-		$email_sent = mail($email_address,$subject,$content, $headers);
+		$email_sent = mail($email_address,$subject,"", $headers);
 
 		if( $email_sent ){
 			Render::msg('Email Sent');
