@@ -22,7 +22,7 @@ background-color:#FFF6E4;
 background-position: left top;
 background-repeat: repeat-x;
 background-image: url('/client/img/gtd_bg.jpg');
-//width:912px;
+/*//width:912px;*/
 }
 #client-app-container {
 background-color:#fefaea;
@@ -405,9 +405,6 @@ width:200px;
 margin:0;
 padding:4px;
 color: #000000;
-}
-#login-form{
-padding:20px 20px 0 0;
 }
 /*LOGIN WIDGET */
 #login-widget{
