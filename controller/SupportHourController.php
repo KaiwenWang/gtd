@@ -7,7 +7,7 @@ class SupportHourController extends PageController {
         $d = $this->data;
         $d->support_hours = getMany( 'SupportHour', array('sort' => 'date DESC'));
 		$d->new_support_hour = new SupportHour();
-		$d->new_support_hour->set( array( 'staff_id'=>getUser(),
+		$d->new_support_hour->set( array( 'staff_id'=>Session::getUserId(),
 								  'date'=>date('Y-m-d')
 								  ));
     
@@ -24,7 +24,7 @@ class SupportHourController extends PageController {
 
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array( 'support_contract_id'=>$d->support_contract->id,
-								  'staff_id'=>getUser(),
+								  'staff_id'=>Session::getUserId(),
 								  'date'=>date('Y-m-d')
 								  ));
     }

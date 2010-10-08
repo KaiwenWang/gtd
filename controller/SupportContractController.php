@@ -12,7 +12,7 @@ class SupportContractController extends PageController {
 
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
-										'staff_id' => getUser(),
+										'staff_id' => Session::getUserId(),
 										'date' => date('Y-m-d')
 										));
 	}
@@ -22,7 +22,7 @@ class SupportContractController extends PageController {
 		
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
-										'staff_id' => getUser(),
+										'staff_id' => Session::getUserId(),
 										'date' => date('Y-m-d'),
 									  	'support_contract_id' => $params['id'] )
 										);

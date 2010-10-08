@@ -29,7 +29,7 @@ class Session {
 		return $_SESSION['user_type'];
 	}
 	static function sessionExists() {
-		if($_SESSION['user_id']) {
+		if(!empty($_SESSION['user_id'])) {
 			return true;
 		} else {
 			return false;

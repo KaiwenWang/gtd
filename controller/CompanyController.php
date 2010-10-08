@@ -22,7 +22,7 @@ class CompanyController extends PageController {
 						: bail('no company selected');
 
     	$p = new Project();
-		$user_id = getUser();	
+		$user_id = Session::getUserId();	
 		$p->set( array(	'company_id'=>$params['id'],
 						'staff_id'=>$user_id
 					  ));

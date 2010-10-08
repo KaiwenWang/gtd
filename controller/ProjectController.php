@@ -11,7 +11,7 @@ class ProjectController extends PageController {
         $d->projects = getMany( 'Project', array('sort' => 'status DESC, launch_date'));
 
         $d->new_project = new Project();
-	    $d->new_project->set(array('staff_id'=>getUser()));
+	    $d->new_project->set(array('staff_id'=>Session::getUserId()));
 	}
 	function show( $params){
 		$params['id']	? $this->data->project = new Project( $params['id'])
@@ -22,7 +22,7 @@ class ProjectController extends PageController {
 
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
-										'staff_id'=>getUser(),
+										'staff_id'=>Session::getUserId(),
 										'date'=>date('Y-m-d')
 										));
 	}
@@ -33,7 +33,7 @@ class ProjectController extends PageController {
     }
 	function new_form(){
         $this->data= new Project();
-	    $this->data->set(array('staff_id'=>getUser()));
+	    $this->data->set(array('staff_id'=>Session::getUserId()));
 	}
     function update(){
     	$p = $this->updated_projects[0];

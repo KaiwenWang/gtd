@@ -30,13 +30,13 @@ class HourController extends PageController {
 		
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array(
-                        'staff_id'=>getUser(),
+                        'staff_id'=>Session::getUserId(),
                         'date'=>date('Y-m-d')
                         ));
                         
 		$d->new_support_hour = new Hour();
     $d->new_support_hour->set( array( 
-                                'staff_id'=>getUser(),
+                                'staff_id'=>Session::getUserId(),
                                 'date'=>date('Y-m-d')
                                 ));
   }
@@ -53,7 +53,7 @@ class HourController extends PageController {
     $d->new_hour = new Hour();
     $d->new_hour->set( array( 
                         'estimate_id'=>$params['id'],
-		      						  'staff_id'=>getUser(),
+		      						  'staff_id'=>Session::getUserId(),
       								  'date'=>date('Y-m-d')
 			     					  ));
 			     					  
@@ -85,7 +85,7 @@ class HourController extends PageController {
 
 		$this->data = new Hour();
 		$this->data->set(array( 
-								'staff_id'=>getUser(),
+								'staff_id'=>Session::getUserId(),
 								'date'=>date('Y-m-d')
 								));
 		

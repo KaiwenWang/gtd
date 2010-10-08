@@ -38,13 +38,13 @@ class StaffController extends PageController {
 
 		$this->data->new_project = new Project();
 		$this->data->new_project->set(array(
-								'staff_id'=>getUser()
+								'staff_id'=>Session::getUserId()
 								)
 							);
 
 		$this->data->new_support_hour = new Hour();
 		$this->data->new_support_hour->set(array(
-								'staff_id'=>getUser(),
+								'staff_id'=>Session::getUserId(),
 								'date'=>date('Y-m-d')
 								)
 							);

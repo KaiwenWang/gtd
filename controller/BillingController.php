@@ -1,5 +1,5 @@
 <?php
-class CompanyController extends PageController {
+class BillingController extends PageController {
 	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => 
  									array( 'create','update','destroy')
