@@ -1,5 +1,6 @@
 <?php
 class SupportContractController extends PageController {
+	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => array('process_cancellation','process_renewal','create','update','destroy') );
     
 	function index( $params ){

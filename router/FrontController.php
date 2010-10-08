@@ -14,9 +14,13 @@ class FrontController {
   }
     
 	function execute(){
-		$this->authenticate()
-			? $response = $this->page->execute( $this->router->action, $this->router->params( ))
-			: $response = $this->renderLoginScreen();
+		if($this->authenticate()) {
+			$response = $this->page->execute( $this->router->action, $this->router->params( ));
+		} else {
+			header("Location: index.php?controller=Authenticate&action=login");
+			exit();
+			//$response = $this->renderLoginScreen();
+		}
 
 		if($this->ajax_request) return $response['body'];
 

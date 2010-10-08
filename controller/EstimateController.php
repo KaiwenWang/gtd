@@ -1,5 +1,6 @@
 <?php
 class EstimateController extends PageController {
+	public $template = 'gtd_main_template';
  	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
  	
     function show( $params){
