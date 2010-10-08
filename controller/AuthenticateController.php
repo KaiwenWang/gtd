@@ -2,6 +2,7 @@
 class AuthenticateController extends PageController {
 	
 	protected $authentication_type = 'public';
+	public $template = 'gtd_login';
 	
 	function login($params){
 

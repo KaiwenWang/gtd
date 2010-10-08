@@ -6,8 +6,9 @@ class PageController{
   public $options = array();
   public $display_options = array( 'controller'=>'', 'action'=>'', 'view'=>'');
   public $response;
+	public $template = 'gtd_main_template';
   
-  protected $authentication_type = 'staff'; // staff, public
+	protected $authentication_type = 'staff'; // staff, public
   protected $filter_collection_class = 'DefaultFilterCollection';
   protected $before_filters = array();
   protected $after_filters = array();
