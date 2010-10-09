@@ -35,7 +35,8 @@ function invoiceEmail($d, $o = array() ) {
 	     $summary .= '<div id="details"><strong>Details</strong>: '.$d->invoice->getData('details').'</div>';
 	}  
 
-	$pay_online = 'https://www.paypal.com/cgi-bin/webscr?amount=' . number_format( $d->invoice->getAmountDue(), 2) . '&no_shipping=1&image_url=https%3A//radicaldesigns.rdsecure.org/img/original/rd-invoice-header.gif&return=http%3A//radicaldesigns.org&item_name=Internet+Hosting&business=billing%40radicaldesigns.org&invoice=' .  $d->invoice->getData('id') .'&cmd=_xclick&no_note=1';	
+//	$pay_online = 'https://www.paypal.com/cgi-bin/webscr?amount=' . number_format( $d->invoice->getAmountDue(), 2) . '&no_shipping=1&image_url=https%3A//radicaldesigns.rdsecure.org/img/original/rd-invoice-header.gif&return=http%3A//radicaldesigns.org&item_name=Internet+Hosting&business=billing%40radicaldesigns.org&invoice=' .  $d->invoice->getData('id') .'&cmd=_xclick&no_note=1';	
+	$pay_online = 'https://payments.rdsecure.org/payments';
 
 	$summary .= '
         <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
@@ -53,6 +54,19 @@ function invoiceEmail($d, $o = array() ) {
 			For questions about support please email <a href="mailto:help@radicaldesigns.org">help@radicaldesigns.org</a><br>
 			Or you can call us at 415-738-0456 
 		</div>';
+
+	//temporary message for new status
+	$summary .= '<hr><h4>*Important Special Message*</h4>Radical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In the last year we decided to reorganize as a worker cooperative. 
+		<br /><br />
+		As a practical matter this will have no impact on your services with us but it will mean some minor adjustments to our billing and tax information. 
+		<br /><br />
+		<strong>For your tax records we will be issuing a new W-9 with our new FEIN for the last quarter of 2010. The first three quarters will be under the old W-9/ FEIN number. </strong>
+		<br /><br />
+			In addition to re-organizing as a worker coop we are are excited to integrate credit card billing as an option for your payments. Simply follow the link below to in order to pay by card. 
+		<br /><br />
+			Best regards,
+		<br /><br />
+		Radical Designs Cooperative	';
 
 	$history = $r->view( 'historyTable', $d->company->getHistory( ));
 
