@@ -13,13 +13,16 @@ class FrontController {
     if( isset($this->router->params['spokes'])) $this->ajax_request = true;    
   }
     
-  function execute(){
+	function execute(){
+		if($this->authenticate()) {
+			$response = $this->page->execute( $this->router->action, $this->router->params( ));
+		} else {
+			header("Location: index.php?controller=Authenticate&action=login");
+			exit();
+			//$response = $this->renderLoginScreen();
+		}
 
-    $this->authenticate() ?	$response = $this->page->execute( $this->router->action, 
-                                                              $this->router->params( ))
-                          :	$response = $this->renderLoginScreen();
-
-		if( $this->ajax_request ) return $response['body'];
+		if($this->ajax_request) return $response['body'];
 
     return $this->templatedResponse($response);
   }
@@ -46,18 +49,20 @@ class FrontController {
                                 'test-warning'=> $test_warning_class_name
                               ));
 
-    $response_template = isset($response['template']) ? $response['template']
-                                                      : 'gtd_main_template';
+		$response_template = isset($response['template'])
+			? $response['template']
+			: $this->page->template; //: 'gtd_main_template';
 
     return $r->template( 'templates/' . $response_template . '.html', 
                           $response
                        );
     }
     
-   	private function getPageController(){
+		private function getPageController(){
    		require_once( $this->router->controller_path( ));
-        return class_exists($this->router->controller)	? new $this->router->controller( )
-        												: bail("Requested controller <b>{$this->router->controller}</b> does not exist, but controller path <b>{$this->router->controller_path()}</b> <i>does</i> exist.  Maybe the controller name is misspelled?");
+			return class_exists($this->router->controller)
+				? new $this->router->controller( )
+				: bail("Requested controller <b>{$this->router->controller}</b> does not exist, but controller path <b>{$this->router->controller_path()}</b> <i>does</i> exist.  Maybe the controller name is misspelled?");
    	}
    	
    	private function authenticate(){
@@ -66,23 +71,23 @@ class FrontController {
    		if ( $this->auth_type == 'public') return true;
    		if ( !Session::sessionExists()) return false;
 		
-		$user_type = Session::getUserType();
+			$user_type = Session::getUserType();
 		
-		if( $user_type == 'staff') return true;
-   		if ( $this->auth_type == Session::getUserType()) return true;
+			if( $user_type == 'staff') return true;
+		 	if ( $this->auth_type == Session::getUserType()) return true;
 
-		return false;
+			return false;
    	}
    	
    	private function renderLoginScreen( ){
-		require_once('controller/AuthenticateController.php');
-		$login = new AuthenticateController();
-		return $login->execute('login', $this->router->params( ));
+			require_once('controller/AuthenticateController.php');
+			$login = new AuthenticateController();
+			return $login->execute('login', $this->router->params( ));
    	}
    	
     private function renderLoginWidget(){
-		require_once('controller/AuthenticateController.php');
-		$login = new AuthenticateController();
-		return $login->execute('widget', array( 'partial'=>true ));    	
+			require_once('controller/AuthenticateController.php');
+			$login = new AuthenticateController();
+			return $login->execute('widget', array( 'partial'=>true ));    	
     }
 }

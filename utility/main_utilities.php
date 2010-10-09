@@ -53,9 +53,6 @@ function &getRenderer(){
 	if( $render === null) $render = new Render();
 	return $render;
 }
-function getUser(){
-	return Session::getUser();
-}
 function getDbcon(){
     return AMP::getDbcon();
 }

@@ -1,29 +1,39 @@
 <?php
 class Session {
-
-	static $user_id;
-	static $user_type;
-	
 	static function startSession( $user_id, $user_type){
-		$_SESSION['gtd_user'] = $user_id;
-		$_SESSION['gtd_user_type'] = $user_type;
-		self::$user_id = $user_id;
-		self::$user_type = $user_type;
+		$_SESSION['user_id'] = $user_id;
+		$_SESSION['user_type'] = $user_type;
 	}
 	static function endSession( ){
 		session_destroy();
 	}
+	static function getUserId(){
+		return $_SESSION['user_id'];
+	}
 	static function getUser(){
 		if( !self::sessionExists() ) return false;
-		return self::$user_id	? self::$user_id
-								: $_SESSION['gtd_user'];
+
+		$user_type = self::getUserType();
+		switch($user_type) {
+			case 'staff':
+				$class_name = 'Staff';
+				break;
+			case 'client':
+				$class_name = 'ClientUser';
+				break;
+		}
+		$user = new $class_name(self::getUserId());
+		return $user;
 	}
 	static function getUserType(){
-		return self::$user_type	? self::$user_type
-								: $_SESSION['gtd_user_type'];
+		return $_SESSION['user_type'];
 	}
-	static function sessionExists( ) {
-		if ( isset($_SESSION['gtd_user']) || self::$user_type) return true;
+	static function sessionExists() {
+		if(!empty($_SESSION['user_id'])) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 ?>

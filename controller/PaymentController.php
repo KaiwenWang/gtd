@@ -1,5 +1,6 @@
 <?php
 class PaymentController extends PageController {
+	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'),
 								 'get_search_criteria'=> array('index','search')
                                 );

@@ -1,5 +1,6 @@
 <?php
 class EstimateController extends PageController {
+	public $template = 'gtd_main_template';
  	protected $before_filters = array( 'get_posted_records' => array('create','update','destroy'));
  	
     function show( $params){
@@ -12,7 +13,7 @@ class EstimateController extends PageController {
 
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array( 'estimate_id'=>$params['id'],
-								  'staff_id'=>getUser(),
+								  'staff_id'=>Session::getUserId(),
 								  'date'=>date('Y-m-d')
 								  ));
 

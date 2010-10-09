@@ -157,15 +157,17 @@ class Render{
 		if ( class_exists( $field_type)){
 			$class = $field_type;
 		 
-			$search_criteria ? $objects = getMany( $class, $search_criteria)
-							 : $objects = getAll( $class);
+			$search_criteria ? $objects = $class::getMany( $search_criteria)
+							 : $objects = $class::getAll();
 			if( $objects ) {
 				foreach( $objects as $o) $data[$o->id] = $o->getName();
 			} else {
 				$data = array();
 			}
+			if ( $obj->get($field_name)){
+				$tokens['selected_value'] = $obj->get( $field_name);
+			}
 
-			if ( $obj->get($field_name)) $tokens['selected_value'] = $obj->get( $field_name);
 			$tokens['class'] =  "$field_name-field $model_type-field select-field";
 			return $this->select( $data, $tokens);
 		}
@@ -187,7 +189,7 @@ class Render{
    		if (!$o['name']) bail('A select field must have token["name"] passed to it in order to work');
 	    $attributes_html = $this->attr( $o);
 	    $options_html = '';
-	    if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.htmlspecialchars($o['title']).'</option>';
+		if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.htmlspecialchars($o['title']).'</option>';
 	    foreach( $data as $value => $description){
 	        if ( isset( $o['selected_value']) && $value == $o['selected_value']){	$selected = 'selected="selected"';}
 			else{	$selected = '';}

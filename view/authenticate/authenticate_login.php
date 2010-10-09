@@ -11,10 +11,9 @@ function authenticateLogin($d){
 	$form->content = '
 			<div id="login-container" class="detail-list">
 				<h2>Email</h2>
-				<input type="text" name="email" />
+				<input type="text" name="email" value="'.$d->email.'" />
 				<h2>Password</h2>
 				<input type="password" name="password" />
-				<input type="hidden" name="auth_type" value="staff" />
 				<p>'.$form->submitBtn.'</p>
 			</div>
 			';

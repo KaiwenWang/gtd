@@ -46,7 +46,7 @@ class Record extends Data {
 	}
     function setSource( $sourcename ) {
         parent::setSource( $sourcename );
-        $this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
+		$this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
 	  	if(!is_array($this->_itemdata_keys)) bail('This model has no collumns in the database. Check to see if you ran the latest migrations, and make sure you set the correct datatable name on the model');
         $this->_allowed_keys = $this->_itemdata_keys;
     }
@@ -192,16 +192,17 @@ class Record extends Data {
     }
     
     function set( $fields){
-        if(!$this->itemdata) $this->itemdata= array();
+		if(!$this->itemdata) $this->itemdata= array();
         $this->itemdata = array_merge( $this->itemdata, AMP::array_filter_by_keys( $this->_allowed_keys, $fields));
-#        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
+		#        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
         if (isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];
     }
 
     function get( $fieldname = null ) {
         if (!isset($fieldname)) return $this->itemdata;
-        if (isset($this->itemdata[$fieldname])) return $this->itemdata[$fieldname];
-
+		if (isset($this->itemdata[$fieldname])){
+			return $this->itemdata[$fieldname];
+		}
         return false;
     }
 //	legacy get function

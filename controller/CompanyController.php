@@ -1,5 +1,6 @@
 <?php
 class CompanyController extends PageController {
+	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'),
 								 'get_search_criteria'=> array('index','kneecaps')
  								);
@@ -21,7 +22,7 @@ class CompanyController extends PageController {
 						: bail('no company selected');
 
     	$p = new Project();
-		$user_id = getUser();	
+		$user_id = Session::getUserId();	
 		$p->set( array(	'company_id'=>$params['id'],
 						'staff_id'=>$user_id
 					  ));

@@ -8,6 +8,7 @@ require_once('boot/database_config.php');
 require_once('lib_includes.php');
 require_once( 'utility/main_utilities.php');
 require_once('model/ActiveRecord.php');
+require_once('model/User.php');
 Util::include_directory('model');
 Util::include_directory('render');
 Util::include_directory('router');

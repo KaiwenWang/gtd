@@ -1,5 +1,6 @@
 <?php
 class StaffController extends PageController {
+	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => array( 'create','update','destroy'));
 
 	function index(){
@@ -37,13 +38,13 @@ class StaffController extends PageController {
 
 		$this->data->new_project = new Project();
 		$this->data->new_project->set(array(
-								'staff_id'=>getUser()
+								'staff_id'=>Session::getUserId()
 								)
 							);
 
 		$this->data->new_support_hour = new Hour();
 		$this->data->new_support_hour->set(array(
-								'staff_id'=>getUser(),
+								'staff_id'=>Session::getUserId(),
 								'date'=>date('Y-m-d')
 								)
 							);

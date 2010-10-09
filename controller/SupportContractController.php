@@ -1,5 +1,6 @@
 <?php
 class SupportContractController extends PageController {
+	public $template = 'gtd_main_template';
  	var $before_filters = array( 'get_posted_records' => array('process_cancellation','process_renewal','create','update','destroy') );
     
 	function index( $params ){
@@ -11,7 +12,7 @@ class SupportContractController extends PageController {
 
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
-										'staff_id' => getUser(),
+										'staff_id' => Session::getUserId(),
 										'date' => date('Y-m-d')
 										));
 	}
@@ -21,7 +22,7 @@ class SupportContractController extends PageController {
 		
 		$this->data->new_hour = new Hour();
 		$this->data->new_hour->set(array( 
-										'staff_id' => getUser(),
+										'staff_id' => Session::getUserId(),
 										'date' => date('Y-m-d'),
 									  	'support_contract_id' => $params['id'] )
 										);

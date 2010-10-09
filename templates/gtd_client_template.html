@@ -1,64 +1,63 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-    <title>Radical Designs Client Billing Information Portal</title>
-    <link rel="Stylesheet" href="client/css/main_styles.css" type="text/css" />
-    <link rel="Stylesheet" href="client/css/jquery-ui.css" type="text/css" />
-    <link rel="Stylesheet" href="client/css/tablesorter-themes/blue/style.css" type="text/css" />
-	<!-- Load Libraries -->
- 	<script type="text/javascript" src="client/js/lib/jquery-1.4.2.min.js"></script>
- 	<script type="text/javascript" src="client/js/lib/jquery-ui-1.8.custom.min.js"></script>
- 	<script type="text/javascript" src="client/js/lib/jquery-easing.js"></script>
-	<script type="text/javascript" src="client/js/lib/tablesorter/jquery.tablesorter.min.js"></script>
- 	<script type="text/javascript" src="client/js/lib/quicksearch.js"></script>
- 	<script type="text/javascript" src="client/js/lib/quicksilver.js"></script>
-	<!-- Load and Run GTD -->
- 	<script type="text/javascript" src="client/js/utilities.js"></script>
- 	<script type="text/javascript" src="client/js/initializePage.js"></script>
-    </head>
-    <body>
+  <head>
+		<title>Radical Designs Client Billing Information Portal</title>
+		<link rel="Stylesheet" href="client/css/main_styles.css" type="text/css" />
+		<link rel="Stylesheet" href="client/css/jquery-ui.css" type="text/css" />
+		<link rel="Stylesheet" href="client/css/tablesorter-themes/blue/style.css" type="text/css" />
+		<!-- Load Libraries -->
+		<script type="text/javascript" src="client/js/lib/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="client/js/lib/jquery-ui-1.8.custom.min.js"></script>
+		<script type="text/javascript" src="client/js/lib/jquery-easing.js"></script>
+		<script type="text/javascript" src="client/js/lib/tablesorter/jquery.tablesorter.min.js"></script>
+		<script type="text/javascript" src="client/js/lib/quicksearch.js"></script>
+		<script type="text/javascript" src="client/js/lib/quicksilver.js"></script>
+		<!-- Load and Run GTD -->
+		<script type="text/javascript" src="client/js/utilities.js"></script>
+		<script type="text/javascript" src="client/js/initializePage.js"></script>
+	</head>
 
-        <div id="scroll-wheel-corrector"></div>
+  <body>
+    <div id="scroll-wheel-corrector"></div>
 		
 		<div id="client-app-container">
 			<div id="header">
 				<img src="/client/img/radicaldesigns_banner_02.gif"/>
-<img src="/client/img/radicaldesigns_banner_03.gif" />
-</div>
-			
-        	<div id="title-bar" class="[[test-warning]]">
-       			[[login]]
+				<img src="/client/img/radicaldesigns_banner_03.gif" />
+			</div>
+
+     	<div id="title-bar" class="[[test-warning]]">
+   			[[login]]
 				<h1>[[title]]</h1>
 				<div class="clear-left"></div>
 			</div>
 
-	        <div id ="side">
-	            <ul>
-	                <li><a class="button" href="index.php?controller=Client">Invoices and Payments</a></li>
-
-	                <li><a class="button" href="index.php?controller=Hour">Detailed History</a></li>
-	                <li><a class="button" href="index.php?controller=Project">Projects and Estimates</a></li>
-	                <li><a class="button" href="index.php?controller=SupportContract">Hosting and Support Contracts</a></li>
-	                <li><a class="button" href="index.php?controller=SupportContract">Pay Online</a></li>
+      <div id ="side">
+	      <ul>
+		      <li><a class="button" href="index.php?controller=Client&action=invoices">Invoices and Payments</a></li>
+					<li><a class="button" href="index.php?controller=Client&action=history">Detailed History</a></li>
+					<li><a class="button" href="index.php?controller=Client&action=projects">Projects and Estimates</a></li>
+					<li><a class="button" href="index.php?controller=Client&action=contracts">Hosting and Support Contracts</a></li>
+					<li><a class="button" href="index.php?controller=Client&action=pay">Pay Online</a></li>
 				</ul> 
-	        </div>  
+      </div>  
+
+      <div id ="msg-container" align="center">
+	     	[[msg]]
+      </div>             
 	
-	        <div id ="msg-container" align="center">
-	        	[[msg]]
-	        </div>             
-	
-	        <div id="application">
+      <div id="application">
 				<div id="log"></div>
 				<div id="content-controls">[[controls]]</div>	
 
 				<div class="standard-view-container">
 					[[body]]
 				</div>
-	        </div>
-	
-	        <div id="footer"></div>
+      </div>
+
+			<div id="footer"></div>
 		</div>
-<br><br>
-    </body>
+		<br><br>
+  </body>
 </html>
 
