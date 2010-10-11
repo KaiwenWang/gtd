@@ -44,7 +44,7 @@ function invoiceEmail($d, $o = array() ) {
 		<hr>
 		<h4>Payment Methods</h4>';
 	if ($d->invoice->getAmountDue() < 1000) {
-		$summary .= 'Radical Designs accepts credit/debit cards and bank account transfers via PayPal for payments under $1000. <strong><a href="'.$pay_online.'">Pay your balance online</a></strong><br /><br />';
+		$summary .= 'Radical Designs accepts credit/debit cards online for payments under $1000. <strong><a href="'.$pay_online.'">Pay your balance online</a></strong><br /><br />';
 	}
 	$summary .= '<strong>Send checks to: </strong>Radical Designs<br />
 				1370 Mission St, 4th Floor<br />
@@ -56,7 +56,7 @@ function invoiceEmail($d, $o = array() ) {
 		</div>';
 
 	//temporary message for new status
-	$summary .= '<hr><h4>*Important Special Message*</h4>Radical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In the last year we decided to reorganize as a worker cooperative. 
+	$summary .= '<hr><h4>*Important Special Message*</h4>Radical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In order to bring the company in-line with our values Radical Designs recently reorganized as a worker cooperative. 
 		<br /><br />
 		As a practical matter this will have no impact on your services with us but it will mean some minor adjustments to our billing and tax information. 
 		<br /><br />
