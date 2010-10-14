@@ -62,7 +62,7 @@ function invoiceEmail($d, $o = array() ) {
 		<br /><br />
 		<strong>For your tax records we will be issuing a new W-9 with our new FEIN for the last quarter of 2010. The first three quarters will be under the old W-9/ FEIN number. </strong>
 		<br /><br />
-			In addition to re-organizing as a worker coop we are are excited to integrate credit card billing as an option for your payments. Simply follow the link below to in order to pay by card. 
+			In addition to re-organizing as a worker coop we are are excited to integrate credit card billing as an option for your payments. If your balance is less than $1000, simply follow the link above by your balance to in order to pay by card. 
 		<br /><br />
 			Best regards,
 		<br /><br />
