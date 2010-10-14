@@ -4,7 +4,7 @@ function invoiceTable( $invoices, $o = array( )) {
 
 	// CREATE SEARCH FORM
 	$search_form = '';
-	$form = new Form(
+/*	$form = new Form(
 				array( 
 					'controller'=>'Invoice',
 					'action'=>'show',
@@ -19,7 +19,7 @@ function invoiceTable( $invoices, $o = array( )) {
 			</div>
 			';
 		$search_form .= $form->html;
-
+ 
 	if( !empty($o['search_invoice']) && is_a( $o['search_invoice'], 'Invoice')){
 		$form = new Form( array(
 						'controller'=>'Invoice',
@@ -36,10 +36,10 @@ function invoiceTable( $invoices, $o = array( )) {
 		$form->content .= ' <label>Sent Date</label> ';
 		$form->content .= $fs->field('sent_date',array('title'=>'Sent Date'));
 		$form->content .= $form->getSubmitBtn();
-		$search_form .= $form->html;
+ 		$search_form .= $form->html;
 
 	}
-
+ */
     $table = array();
     $table['headers'] = array(	
 								'ID',
