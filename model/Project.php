@@ -103,6 +103,15 @@ class Project extends ActiveRecord {
 		}
 		return $this->invoices;	
 	}
+	function getFirstHour() {
+		$first_hours = array();
+		$estimates = $this->getEstimates();
+		foreach($estimates as $estimate) {
+			$first_hours[] = $estimate->getFirstHour();
+		}
+		usort($first_hours, array("Hour", "compareByDate"));
+		return $first_hours[0];
+	}
 	function getHours($criteria = array()){
 		$estimates = $this->getEstimates();
 		if(!$estimates) return array();

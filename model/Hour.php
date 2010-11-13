@@ -24,7 +24,12 @@ class Hour extends ActiveRecord {
 	
     function __construct( $id = null){
         parent::__construct( $id);
-    }
+	}
+
+	static function compareByDate($a, $b) {
+		return strcmp($a->date, $b->date);
+	}
+
     function getName(){
         return $this->get('description');
     }
@@ -147,35 +152,47 @@ class Hour extends ActiveRecord {
     return $this->_makeCriteriaMultiple('support_contract_id', $values);
   }
 
-    function makeCriteriaEstimate($values) {
-        return $this->_makeCriteriaMultiple('estimate_id', $values);
-    }
-    function makeCriteriaProject($values) {
-		$estimates = array();
-		foreach( $values as $value){
-			$estimates[] =  Estimate::getMany( array('project' => $value));
-		}	
-		return $this->makeCriteriaEstimate( 
-                    array_map( function( $item ) { return $item->id; }, $estimates)
-                ); 
-    }
-    function makeCriteriaCompany($value) {
-		$sql = '';
+  function makeCriteriaEstimate($values) {
+	if( !empty($values)){
+	  return $this->_makeCriteriaMultiple('estimate_id', $values);
+	}
+  }
+
+  function makeCriteriaProject($values) {
+	$estimates = array();
+	foreach( $values as $value){
+	  $project_estimates =  Estimate::getMany( array('project' => $value));
+      if(!empty($project_estimates)){
+		$estimates = array_merge($estimates, $project_estimates);
+	  }
+	}	
+	return $this->makeCriteriaEstimate( 
+      array_map( function( $item ) { return $item->id; }, $estimates)
+    ); 
+  }
+
+  function makeCriteriaCompanyId($value) {
+	return $this->makeCriteriaCompany($value);
+  }
+
+  function makeCriteriaCompany($value) {
+		$sql = array();
 
 		$projects = Project::getMany( array('company_id' => $value));
 		if( $projects){
 			$project_ids = array();
-			$sql .= $this->makeCriteriaProject( 
+			$sql[] = $this->makeCriteriaProject( 
 					    array_map( function( $item ) { return $item->id; }, $projects)
 					);
 		}
 
 		$support_contracts = SupportContract::getMany(array('company_id' => $value));
 		if( $support_contracts ){
-			$sql .= $this->makeCriteriaSupportContract( 
+			$sql[] = $this->makeCriteriaSupportContract( 
 					    array_map( function( $item ) { return $item->id; }, $support_contracts)
 		 			);
 		}
-		return $sql;
+		
+		return '( '.implode(' or ', $sql).' ) ';
 	}
 }

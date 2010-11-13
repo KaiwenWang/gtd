@@ -1,6 +1,8 @@
 <?php
 function companyShow($d){
 	$r = getRenderer();
+
+	$active_months = nl2br(print_r($d->company->getActiveMonths(), true));
 	
 	$company_selector = $r->view( 'jumpSelect', $d->company );
 	
@@ -33,7 +35,8 @@ function companyShow($d){
 	return  array(
 		'title' => $d->company->getName(),
 		'controls' => $company_selector,
-		'body' =>   $editable_company_info
+		'body' =>   $active_months
+		            .$editable_company_info
 					.$hidden_forms
 					.$contact_table
 					.$contract_table

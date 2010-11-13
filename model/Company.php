@@ -141,6 +141,30 @@ class Company extends ActiveRecord {
 		}
 		return $this->support_hours;
 	}
+	function getFirstHour() {
+	}
+	function getActiveMonths() {
+		
+		$first_hour = Hour::getOne(array('company_id'=>$this->id, 'sort'=>'date ASC'));
+		$first_support_contract = SupportContract::getOne(array('company_id'=>$this->id, 'sort'=>'start_date ASC'));
+
+		$earliest_date = '';
+		if($first_hour->date > $first_support_contract->start_date) {
+			$earliest_date = $first_support_contract->start_date;
+		} else {
+			$earliest_date = $first_hour->date;
+		}
+
+		$active_months = array();
+		$earliest_ts = strtotime($earliest_date);
+		$timestamp = $earliest_ts;
+		while($timestamp < time()) {
+			$active_months[] = date("Y-m", $timestamp);
+			$timestamp = strtotime("+1 month", $timestamp);
+		}
+
+		return $active_months;
+	}
 	function getPrimaryContact(){
 		return Contact::getOne(array('company_id'=>$this->id,'is_primary_contact'=>true));
 	}

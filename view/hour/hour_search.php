@@ -58,7 +58,7 @@ function hourSearch( $hours, $o = array()){
 							array( 'search' => $search_form->html )
 							);
 
-	return '<div id="'.$o['ajax_target_id'].'" class="hour-search clear-left">
+	return ' <div id="'.$o['ajax_target_id'].'" class="hour-search clear-left">
 				'.$hours_table.'
 			</div>';
 }

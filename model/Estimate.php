@@ -30,6 +30,10 @@ class Estimate extends ActiveRecord {
 		$this->hours = Hour::getMany($criteria);
 		return $this->hours;	
 	}	
+	function getFirstHour() {
+		$criteria = array('estimate_id'=>$this->id, 'sort'=>'date ASC');
+        return getOne('Hour',$criteria);
+	}
 	function getTotalHours(){
 		$hours = $this->getHours();
 		$total_hours = 0;

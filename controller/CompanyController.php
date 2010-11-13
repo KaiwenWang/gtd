@@ -83,7 +83,6 @@ class CompanyController extends PageController {
 
 		$this->data->search_company = new Company();
         $this->data->search_company->set($criteria); 
-        
     }
     function destroy(){
     }

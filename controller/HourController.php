@@ -5,27 +5,27 @@ class HourController extends PageController {
 	
   function index( $params ){
     $d = $this->data;
-    $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 180 ));
+    $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
     $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
 								'sort' => 'date DESC');
     $hour_query = array_merge($default_query, $this->search_params('hour_search'));
 
-		$d->hours = getMany( 'Hour', $hour_query); 
+	$d->hours = getMany( 'Hour', $hour_query); 
 		
 		if( !empty($params['spokes'])){
 
-      $rows = array();
+	      $rows = array();
 		  foreach( $d->hours as $hour ){
 		    $rows[] = $hour->to_spokes();
 		  }
 
 		  $json = new Services_JSON();		  
-      $this->response = array('body'=>$json->encode( $rows ));
+		  $this->response = array('body'=>$json->encode( $rows ));
       
-      if(!empty($params['callback'])){
-        $this->response['body'] = $params['callback'].'( '.$this->response['body'].' )';  
-      }
-      return;
+		  if(!empty($params['callback'])){
+            $this->response['body'] = $params['callback'].'( '.$this->response['body'].' )';  
+		  }
+          return;
 		}
 		
 		$d->new_hour = new Hour();
@@ -115,8 +115,23 @@ class HourController extends PageController {
 	}
 
 	function search($params){
-		$params['sort'] = 'date DESC'; 
-		$this->data = Hour::getMany(  $params);
+		$a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
+		$default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
+								'sort' => 'date DESC');
+		$c = array_merge($default_query, $this->search_params('hour_search'));
+		if(isset($params['sort'])){  
+			$c['sort'] = $params['sort'];
+		}
+		
+
+		if(!empty($params['company'])){  
+			$c['company'] = $params['company'];
+		}
+		
+		if(!empty($params['staff_id'])){  
+			$c['staff_id'] = $params['staff_id'];
+		}
+		$this->data = Hour::getMany($c);
 		$this->options = $params;
 	}
 
