@@ -51,7 +51,7 @@ class SupportContract extends ActiveRecord {
 	}
     function getHours( $criteria = array()){
 		$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
-        $this->hours = getMany('Hour',$criteria);
+        $this->hours = Hour::getMany($criteria);
         return $this->hours;
     }
 	function getFirstHour() {

@@ -27,7 +27,7 @@ class Hour extends ActiveRecord {
 	}
 
 	static function compareByDate($a, $b) {
-		return strcmp($a->date, $b->date);
+		return strcmp($a->getDate(), $b->getDate());
 	}
 
     function getName(){
@@ -170,7 +170,6 @@ class Hour extends ActiveRecord {
       array_map( function( $item ) { return $item->id; }, $estimates)
     ); 
   }
-
   function makeCriteriaCompanyId($value) {
 	return $this->makeCriteriaCompany($value);
   }

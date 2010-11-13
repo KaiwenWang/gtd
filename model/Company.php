@@ -142,25 +142,32 @@ class Company extends ActiveRecord {
 		return $this->support_hours;
 	}
 	function getFirstHour() {
+		$first_hours = array();
+
+		$projects = $this->getProjects();
+		foreach($projects as $project) {
+			$h = $project->getFirstHour();
+			if(is_a($h, 'Hour')) { $first_hours[] = $h; }
+		}
+		$support_contracts = $this->getSupportContracts();
+		foreach($support_contracts as $support_contract) {
+			$h = $support_contract->getFirstHour();
+			if(is_a($h, 'Hour')) { $first_hours[] = $h; }
+		}
+		
+		usort($first_hours, array("Hour", "compareByDate"));
+		return $first_hours[0];
 	}
 	function getActiveMonths() {
-		
-		$first_hour = Hour::getOne(array('company_id'=>$this->id, 'sort'=>'date ASC'));
-		$first_support_contract = SupportContract::getOne(array('company_id'=>$this->id, 'sort'=>'start_date ASC'));
+		// get the earliest timestamp
+		$earliest_ts = strtotime($this->getFirstHour()->getDate());
 
-		$earliest_date = '';
-		if($first_hour->date > $first_support_contract->start_date) {
-			$earliest_date = $first_support_contract->start_date;
-		} else {
-			$earliest_date = $first_hour->date;
-		}
-
+		// add all months from the earliest to the current to the array
 		$active_months = array();
-		$earliest_ts = strtotime($earliest_date);
-		$timestamp = $earliest_ts;
-		while($timestamp < time()) {
-			$active_months[] = date("Y-m", $timestamp);
-			$timestamp = strtotime("+1 month", $timestamp);
+		$ts = $earliest_ts;
+		while($ts < time()) {
+			$active_months[] = date("Y-m", $ts);
+			$ts = strtotime("+1 month", $ts);
 		}
 
 		return $active_months;
