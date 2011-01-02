@@ -160,7 +160,9 @@ class Company extends ActiveRecord {
 	}
 	function getActiveMonths() {
 		// get the earliest timestamp
-		$earliest_ts = strtotime($this->getFirstHour()->getDate());
+		$first_hour = $this->getFirstHour();
+		if(!$first_hour) return array();
+		$earliest_ts = strtotime($first_hour->getDate());
 
 		// add all months from the earliest to the current to the array
 		$active_months = array();
