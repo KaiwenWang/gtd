@@ -18,10 +18,10 @@ background: #0092C3;
 }
 #app-container{
 margin:0 auto;
-background-color:#FFF6E4;
+background-color:#fbfaf1;
 background-position: left top;
 background-repeat: repeat-x;
-background-image: url('/client/img/gtd_bg.jpg');
+/*background-image: url('/client/img/gtd_bg.jpg'); */
 /*//width:912px;*/
 }
 #client-app-container {
@@ -71,7 +71,7 @@ a.button{
 -moz-border-radius:4px;
 -moz-box-shadow:0 2px 3px rgba(66, 140, 240, 0.9);
 background-color:rgba(255, 255, 255, 0.95);
-border:1px solid #99BBFF;
+/*border:1px solid #99BBFF;*/
 display:inline-block;
 font-variant:small-caps;
 font-weight:bold;
@@ -429,6 +429,10 @@ font-weight:bold;
 text-transform:capitalize;
 margin-right:10px;
 margin-left:2px;
+
+}
+.status-label {
+float: left;
 }
 .notes-field{
 width:400px;

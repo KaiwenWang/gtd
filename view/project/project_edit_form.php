@@ -11,8 +11,11 @@ function projectEditForm( $p, $o = array()){
 			'Company' =>		$fs->company_id,
 			'Project Manager'=> $fs->staff_id,
 			'Designer'=>		$fs->desinger,
+			'Domain'=> $fs->domain_notes,
+			'Initial Estimated Cost'=> $fs->cost,
 			'Hour Cap'=>		$fs->hour_cap,
 			'Hourly Rate'=>		$fs->hourly_rate,
+			'Billing Status'=> $fs->billing_status,
             'Server' =>         $fs->server
 			);
 			

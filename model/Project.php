@@ -60,6 +60,7 @@ class Project extends ActiveRecord {
 								'post_launch_production':'Post Launch Production',
 								'done':'Done',
 								'stalled':'Stalled',
+								'cancelled':'Cancelled',
 								'frozen':'Frozen in Carbonite'},
 					'billing_status' : {'no_invoice_sent':'No Invoice Sent',
 										'sent_deposit':'Sent Depost',

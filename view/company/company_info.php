@@ -42,10 +42,13 @@ function companyInfo( $c, $o){
 				'.$c->getPhone().'
 			</div>
 			<div class="clear-both"></div>
+			<div class="address">
+					Client Since: '.$c->getData('date_started').'
+			</div>
 			<div class="status">
 					'.$c->getStatus().'
 			</div>
-			</div>
+						</div>
 			<div class="company-contacts">
 				'.$contacts.'
 			</div>
