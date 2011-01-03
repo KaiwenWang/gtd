@@ -181,7 +181,7 @@ class Invoice extends ActiveRecord {
 		$plaincontent = $r->view('invoiceEmailPlain', $d);
 
 		$email_address = $this->getBillingEmailAddress();
-		if ($this->get('type') == 'dated') {
+		if ($this->getType() == 'dated') {
 			$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
 		} else {
 			$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('date')); 
