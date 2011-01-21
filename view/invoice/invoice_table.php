@@ -66,7 +66,7 @@ function invoiceTable( $invoices, $o = array( )) {
 		}
 		
 		if ($i->getData('type') == 'dated'){
-			$invoice_date = $i->getData('end_date');
+			$invoice_date = $i->getData('start_date');
 		} else {
 			$invoice_date = $i->getData('date');
 		}
