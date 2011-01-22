@@ -51,7 +51,7 @@ class SupportContract extends ActiveRecord {
 	}
     function getHours( $criteria = array()){
 		$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
-        $this->hours = Hour::getMany($criteria);
+		$this->hours = Hour::getMany($criteria);
         return $this->hours;
     }
 	function getFirstHour() {
@@ -135,22 +135,25 @@ class SupportContract extends ActiveRecord {
 		$hours = $this->getHours( array( 'date_range' => $date_range ));
 		
 		if(!$hours) $hours = array();
-
+		
         //split up by month
-        $billable_hours_by_month = array();
+		$billable_hours_by_month = array();
 		foreach( $hours as $hour){
-            $month = date('Ym', strtotime($hour->get('date')));
+			$month = date('Ym', strtotime($hour->get('date')));
             if(!isset($billable_hours_by_month[$month])) $billable_hours_by_month[$month] = 0;
             $billable_hours_by_month[$month] += $hour->getBillableHours();
-        }
+		}
 
 		// add all of the months in this date range with a monthly fee but no hours logged
         foreach($this->activeMonths($date_range) as $month_id) {
             if(!isset($billable_hours_by_month[$month_id])) $billable_hours_by_month[$month_id] = 0;
         }
 		$total_charges = 0;
+		$active_months = $this->activeMonths($date_range);
 		foreach( $billable_hours_by_month as $month => $billable_hours) {
-			$total_charges += $this->calculateMonthlyCharge( $billable_hours, $month);
+			if(in_array($month, $active_months)) {
+				$total_charges += $this->calculateMonthlyCharge( $billable_hours, $month);
+			}
         }
 
 		return $total_charges; 
