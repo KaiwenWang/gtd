@@ -67,8 +67,8 @@ class SupportContract extends ActiveRecord {
         }
         return $total_hours;
     }
-    function getBillableHours(){
-        $hours = $this->getHours();
+    function getBillableHours($criteria = array()){
+        $hours = $this->getHours($criteria);
         $billable_hours = 0;
         if( !$hours ) return $billable_hours;
         foreach ($hours as $hour){
@@ -158,8 +158,15 @@ class SupportContract extends ActiveRecord {
 
 		return $total_charges; 
     }
+	
+	function getActiveMonths(){
+		if(!$this->active_months){
+			$this->active_months = $this->activeMonths(array(),false);
+		}
+		return $this->active_months;
+	}
 
-    function activeMonths( $date_range = array() ) {
+    function activeMonths( $date_range = array(), $legacy_format = true ) {
 	
 		// if there is no requested start date,
 		// or the contract start date is later than the requested start date, 
@@ -197,7 +204,8 @@ class SupportContract extends ActiveRecord {
 		// loop over the requested months and make an array of their unique "month-id's"
         $included_months = array();
 		for( $time = $start_date; $time < $end_date; $time = strtotime('+1 month', $time)){
-            $included_months[] = date('Ym', $time);
+			if($legacy_format) $included_months[] = date('Ym', $time);
+			else $included_months[] = date('Y-m', $time);
         }
 
         return $included_months;
@@ -205,24 +213,28 @@ class SupportContract extends ActiveRecord {
 	function getHourlyRate(){
 		return $this->get('hourly_rate');
 	}
-    function calculateMonthlyCharge($hours, $month = null) {
-        //compare support hours given > support hours / month
-        if( $hours <= $this->get('support_hours')) { 
-            $amount = $this->calculateMonthlyBaseRate($month);
+    function calculateMonthlyCharge($hours, $month = null, $legacy_month = true) {
+        return $this->calculateMonthlyOverage($hours,$month,$legacy_month) + $this->calculateMonthlyBaseRate($month,$legacy_month);
+	}
+
+	function calculateMonthlyOverage($hours, $month = null, $legacy_month=true){
+		//yo ask ted!
+	    //compare support hours given > support hours / month
+        /*if( $hours <= $this->get('support_hours')) { 
+            $amount = $this->calculateMonthlyBaseRate($month,$legacy_month);
             return $amount;
-        }
+		}*/
 
         $overage = $hours - $this->get('support_hours');
 		if( $overage < 0) $overage = 0;
+		
+		return $overage * $this->getHourlyRate();
+	}	
 
-        $amount = $overage * $this->getHourlyRate() + $this->calculateMonthlyBaseRate($month);
-			
-        return $amount;
-    }
-
-    function calculateMonthlyBaseRate($month = null) {
+    function calculateMonthlyBaseRate($month = null, $legacy_month = true) {
         if(!$month) bail('calculateMonthlyBaseRate called without a valid month'); 
-        
+		if(!$legacy_month) $month = str_replace('-','',$month);
+
         $start_date = $this->get('start_date');
         $start_month = Util::is_a_date($start_date) ? date('Ym', strtotime($start_date)) : false;
 

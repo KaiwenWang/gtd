@@ -134,6 +134,9 @@ class Util {
 		if( !$time ) $time = time();
 		return date('Y-m-d',$time);
 	}
+	function month_format($date){
+		return date('Y-m',strtotime($date));
+	}
 	function current_date(){
 		return self::date_format_from_time( time());
 	}

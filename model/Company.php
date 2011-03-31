@@ -46,10 +46,9 @@ class Company extends ActiveRecord {
 		}
 		return $this->projects;	
 	}
-	function getSupportContracts(){
-		if(empty($this->support_contracts)){
-			$this->support_contracts = getMany('SupportContract',array("company_id"=>$this->id));
-		}
+	function getSupportContracts($criteria = array()){
+		$criteria = array_merge(array("company_id"=>$this->id), $criteria);
+		$this->support_contracts = getMany('SupportContract', $criteria);
 		return $this->support_contracts;
 	}
 	function getInvoices(){
@@ -111,9 +110,22 @@ class Company extends ActiveRecord {
 	}
 	function getCharges($criteria = array()){
         $criteria = array_merge(array("company_id"=>$this->id),$criteria);
-		$this->charges = getMany('Charge', $criteria );
+		$this->charges = Charge::getMany($criteria );
 		return $this->charges;	
 	}
+
+	function getChargesByMonth($criteria = array()){
+        $criteria = array_merge(array("company_id"=>$this->id),$criteria);
+		$this->charges = Charge::getMany($criteria );
+		$months = array();
+		foreach($this->charges as $charge){
+			$month = Util::month_format($charge->getDate());
+			if(!$months[$month]) { $months[$month] = array(); }
+			array_push($months[$month], $charge); 
+		}
+		return $months; 
+	}
+
 	function getHours($criteria = array()){
 		return array_merge(
 						$this->getProjectHours($criteria),
@@ -257,7 +269,94 @@ class Company extends ActiveRecord {
 
         return $total;
     }
+	// returns array('Contract Name'=>array('hosting'=>50,'billable_hours'=>1.5))
+	function calculateSupportLineItems($active_months){
+		$data = array();
+		$support_contracts = $this->getSupportContracts();
+		if(!$support_contracts) return;
 
+		foreach($active_months as $active_month) {
+			$data[$active_month] = array();
+			$monthly_total = 0;
+			// support contracts
+			$support_contracts_output = '';
+			$support_contracts = $this->getSupportContracts();
+			foreach($support_contracts as $support_contract) {
+				if(!in_array($active_month,$support_contract->getActiveMonths())){
+					continue;
+				};
+				$monthly_rate = $support_contract->calculateMonthlyBaseRate($active_month);
+				$hourly_rate = $support_contract->get('hourly_rate');
+
+				// get all the hours
+				$number_of_hours = $support_contract->getBillableHours( array( 
+					'date_range' => array(
+						'start_date' => $active_month.'-01', // first day of the month
+						'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+					)
+				));
+				$data[$active_month]['name'] = $support_contract->get('domain_name');
+				$data[$active_month]['hosting'] = $support_contract->calculateMonthlyBaseRate($active_month, false);
+				$data[$active_month]['support_hours'] = $support_contract->get('support_hours');
+				$data[$active_month]['support_hours_used'] = $number_of_hours;
+				$data[$active_month]['support_cost'] = $support_contract->calculateMonthlyOverage($number_of_hours,$active_month,false);
+			}
+		}
+		return $data;
+	}
+	function calculateProjectLineItems($active_months){
+		$data = array();
+		
+		$projects = $this->getProjects();
+		if(!$projects) return;
+
+		foreach($active_months as $active_month) {
+			$data[$active_month] = array();
+			$monthly_total = 0;
+			// projects 
+			$project_output = '';
+			$projects = $this->getProjects();
+			foreach($projects as $project) {
+				//if(!in_array($active_month,$project->getActiveMonths())){
+				//	continue;
+				//};
+				$hourly_rate = $project->getHourlyRate();
+				// get all the hours
+				$number_of_hours = $project->getBillableHours( array( 
+					'date_range' => array(
+						'start_date' => $active_month.'-01', // first day of the month
+						'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+					)
+				));
+				$data[$active_month]['name'] = $project->getName();
+				$data[$active_month]['project_hours'] = $number_of_hours;
+				$data[$active_month]['project_hours_rate'] = $hourly_rate;
+				$data[$active_month]['project_total'] = $project->calculateTotal( array( 
+						'date_range' => array(
+							'start_date' => $active_month.'-01', // first day of the month
+							'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+					)
+				));
+			}
+		}
+		return $data;
+	}
+	function calculateChargeLineItems($active_months){
+		$data = array();
+		$charges_by_month = $this->getChargesByMonth();
+		foreach($active_months as $active_month) {
+			if(!$charges_by_month[$active_month]) continue;
+			$data[$active_month] = array();
+			foreach ($charges_by_month[$active_month] as $charge) {
+				$line_item = array();
+				$line_item['name'] = $charge->get('name');
+				$line_item['date'] = $charge->getDate();
+				$line_item['amount'] = $charge->getAmount();
+				array_push($data[$active_month],$line_item);
+			}
+		}
+		return $data;
+	}
     function calculateProjectsTotal( $date_range = array() ) {
 		$date_range = $this->updateDateRangeWithPreviousBalanceDate($date_range);
 

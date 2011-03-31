@@ -29,10 +29,29 @@ function companyShow($d){
     $payment_table = $r->view( 'paymentTable', 	$d->company->getPayments());
     $invoice_table = $r->view( 'invoiceTable', 	$d->company->getInvoices());
 	$history_table = $r->view( 'historyTable', 	$d->company->getHistory());
+	$monthly_history = $r->view( 'companyLineItems', array(
+														'company'=>$d->company,
+														'months'=>$d->company->getActiveMonths()));
 
+	return  array(
+		'title' => $d->company->getName(),
+		'controls' => $company_selector,
+		'body' =>  $editable_company_info
+					.$hidden_forms
+					.$contact_table
+					.$contract_table
+					.$project_table
+					.$charge_table
+					.$payment_table
+                    .$invoice_table
+					.$history_table
+					.$monthly_history
+	);	
 
+/*
 	// monthly history
 	$active_months = $d->company->getActiveMonths();
+
 	$monthly_history = '';
 	foreach($active_months as $active_month) {
 		$monthly_total = 0;
@@ -84,7 +103,7 @@ function companyShow($d){
 			$hourly_rate = $project->get('hourly_rate');
 
 			// get all the hours
-			$hours = $project->getHours( array( 
+			$hours = $project->getBillableHours( array( 
 				'date_range' => array(
 					'start_date' => $active_month.'-01', // first day of the month
 					'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
@@ -93,7 +112,7 @@ function companyShow($d){
 
 			// add them up
 			$number_of_hours = 0;
-			foreach($hours as $hour) { $number_of_hours += $hour->getHours(); }
+			foreach($hours as $hour) { $number_of_hours += $hour->getBillableHours(); }
 
 			// calculate the total
 			$hours_total = $number_of_hours * $hourly_rate;
@@ -125,19 +144,5 @@ function companyShow($d){
 		$monthly_history .= "  </table>";
 		$monthly_history .= "</fieldset>";
 	}
-	
-	return  array(
-		'title' => $d->company->getName(),
-		'controls' => $company_selector,
-		'body' =>  $editable_company_info
-					.$hidden_forms
-					.$contact_table
-					.$contract_table
-					.$project_table
-					.$charge_table
-					.$payment_table
-                    .$invoice_table
-					.$history_table
-					.$monthly_history
-	);	
+ */	
 }
