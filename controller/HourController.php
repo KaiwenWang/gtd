@@ -5,28 +5,13 @@ class HourController extends PageController {
 	
   function index( $params ){
     $d = $this->data;
+
     $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
     $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
 								'sort' => 'date DESC');
     $hour_query = array_merge($default_query, $this->search_params('hour_search'));
 
-	$d->hours = getMany( 'Hour', $hour_query); 
-		
-		if( !empty($params['spokes'])){
-
-	      $rows = array();
-		  foreach( $d->hours as $hour ){
-		    $rows[] = $hour->to_spokes();
-		  }
-
-		  $json = new Services_JSON();		  
-		  $this->response = array('body'=>$json->encode( $rows ));
-      
-		  if(!empty($params['callback'])){
-            $this->response['body'] = $params['callback'].'( '.$this->response['body'].' )';  
-		  }
-          return;
-		}
+    $d->hours = getMany( 'Hour', $hour_query);
 		
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array(
