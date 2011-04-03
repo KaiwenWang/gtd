@@ -34,8 +34,7 @@ function invoiceEmail($d, $o = array() ) {
 	if ($d->invoice->getData('details')){
 	     $summary .= '<div id="details"><strong>Details</strong>: '.$d->invoice->getData('details').'</div>';
 	}  
-
-//	$pay_online = 'https://www.paypal.com/cgi-bin/webscr?amount=' . number_format( $d->invoice->getAmountDue(), 2) . '&no_shipping=1&image_url=https%3A//radicaldesigns.rdsecure.org/img/original/rd-invoice-header.gif&return=http%3A//radicaldesigns.org&item_name=Internet+Hosting&business=billing%40radicaldesigns.org&invoice=' .  $d->invoice->getData('id') .'&cmd=_xclick&no_note=1';	
+	
 	$pay_online = 'https://payments.rdsecure.org/payments';
 
 	$summary .= '
@@ -71,8 +70,8 @@ function invoiceEmail($d, $o = array() ) {
 	$history = $r->view( 'historyTable', $d->company->getHistory( ));
 
     return array( 
-        'template' => 'invoice',
-        'title' => 'Show Invoice', 
-		'body' =>   $summary,
-                );
+      'template' => 'invoice',
+      'title' => 'Show Invoice', 
+		  'body' =>   $summary,
+    );
 }
