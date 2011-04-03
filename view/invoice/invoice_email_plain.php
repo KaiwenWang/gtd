@@ -44,8 +44,8 @@ function invoiceEmailPlain($d, $o = array() ) {
 		Radical Designs Cooperative	";
 
 	return array( 
-        'template' => 'invoice',
-        'title' => 'Show Invoice', 
-		'body' =>   $summary,
-                );
+    'template' => 'invoice',
+    'title' => 'Show Invoice', 
+    'body' =>   $summary,
+  );
 }
