@@ -7,43 +7,48 @@ class Staff extends User {
     protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
-							'first_name'	:  'text',
-							'last_name'  	:  'text',
-							'email'  		:  'text',
-							'team'  		:  'text',
-							'username'  	:  'text',
-							'password'  	:  'text'
-						},
+				'first_name'	:  'text',
+				'last_name'  	:  'text',
+				'email'  		  :  'text',
+				'team'  		  :  'text',
+				'username'  	:  'text',
+				'password'  	:  'text'
+			},
 			'required' : {
 							
-						},
+      },
 			'values'{
-					'team' : {'production':'Production','development':'Development','administration':'Administration'}
-					}
-			}";
+        'team' : {'production':'Production','development':'Development','administration':'Administration'}
+      }
+		}";
 
-    function __construct( $id = null){
-        parent::__construct( $id);
-    }
+  function __construct( $id = null){
+      parent::__construct( $id);
+  }
+  
 	function getName(){
 		$name = $this->getData('first_name');
 		if( $this->getData('last_name')) $name .= ' '.$this->getData('last_name');
 		return $name;
 	}
+	
 	function getUserType(){
 		return 'staff';
 	}
+	
 	function getProjects(){
 		if(empty($this->projects)){
 			$this->projects = getMany( 'Project', array("staff_id"=>$this->id));
 		}
 		return $this->projects;
 	}
+	
 	function getHours( $criteria = array() ){
 		$criteria = array_merge( $criteria, array('staff_id'=>$this->id));
 		$this->hours = getMany( 'Hour', $criteria);
 		return $this->hours;
 	}
+	
 	function getHoursTotal( $criteria = array(), $options = array() ){
 		$hours = $this->getHours($criteria);
 
@@ -59,6 +64,7 @@ class Staff extends User {
 		}
 		return $total;
 	}
+	
 	function getBillableHoursTotal( $criteria = array(), $options = array() ){
 		return $this->getHoursTotal( $criteria, array_merge($options,array('billable_only'=>true)));
 	}

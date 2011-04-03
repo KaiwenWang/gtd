@@ -45,7 +45,7 @@ class Estimate extends ActiveRecord {
 	}
 	function getBillableHours( $date_range = array()){
 		$date_range	? $criteria = array( 'date_range' => $date_range)
-					: $criteria = array();	
+                : $criteria = array();	
 		
 		$hours = $this->getHours( $criteria );
 
