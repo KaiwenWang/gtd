@@ -29,13 +29,11 @@ function companyLineItems($d){
 			$monthly_history .= '<td>'.$charge_line_item['date'].'</td>';
 			$monthly_history .= '<td><strong>'.$charge_line_item['amount'].'</strong></td></tr>';
 		}
-		foreach($project_line_items as $month => $project_line_item){
+		foreach($project_line_items[$active_month] as $project_line_item){
 			// $monthly_history .= draw line item display
-			if($month == $active_month) {
-				$monthly_history .= '<tr><td>Project: '.$project_line_item['name'].'</td>';
-				$monthly_history .= '<td>'.$project_line_item['project_hours'].' at '.$project_line_item['project_hours_rate'].'</td>';
-				$monthly_history .= '<td><strong>'.$project_line_item['project_total'].'</strong><td></tr>';
-			}
+			$monthly_history .= '<tr><td>Project: '.$project_line_item['name'].'</td>';
+			$monthly_history .= '<td>'.$project_line_item['project_hours'].' at '.$project_line_item['project_hours_rate'].'</td>';
+			$monthly_history .= '<td><strong>'.$project_line_item['project_total'].'</strong><td></tr>';
 		}
 	};
 
