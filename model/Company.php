@@ -295,11 +295,13 @@ class Company extends ActiveRecord {
 						'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
 					)
 				));
-				$data[$active_month]['name'] = $support_contract->get('domain_name');
-				$data[$active_month]['hosting'] = $support_contract->calculateMonthlyBaseRate($active_month, false);
-				$data[$active_month]['support_hours'] = $support_contract->get('support_hours');
-				$data[$active_month]['support_hours_used'] = $number_of_hours;
-				$data[$active_month]['support_cost'] = $support_contract->calculateMonthlyOverage($number_of_hours,$active_month,false);
+				$item = array();
+        $item['name'] = $support_contract->get('domain_name');
+        $item['hosting'] = $support_contract->calculateMonthlyBaseRate($active_month, false);
+        $item['support_hours'] = $support_contract->get('support_hours');
+        $item['support_hours_used'] = $number_of_hours;
+        $item['support_cost'] = $support_contract->calculateMonthlyOverage($number_of_hours,$active_month,false);
+        $data[$active_month][] = $item;
 			}
 		}
 		return $data;
@@ -323,21 +325,20 @@ class Company extends ActiveRecord {
 				$hourly_rate = $project->getHourlyRate();
 				// get all the hours
 				$number_of_hours = $project->getBillableHours( array( 
-					'date_range' => array(
-						'start_date' => $active_month.'-01', // first day of the month
-						'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
-					)
+					'start_date' => $active_month.'-01', // first day of the month
+					'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
 				));
-				$data[$active_month]['name'] = $project->getName();
-				$data[$active_month]['project_hours'] = $number_of_hours;
-				$data[$active_month]['project_hours_rate'] = $hourly_rate;
-				$data[$active_month]['project_total'] = $project->calculateTotal( array( 
-						'date_range' => array(
-							'start_date' => $active_month.'-01', // first day of the month
-							'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
-					)
+				$item = array();
+        $item['name'] = $project->getName();
+        $item['project_hours'] = $number_of_hours;
+        $item['project_hours_rate'] = $hourly_rate;
+        $item['project_total'] = $project->calculateTotal( array( 
+				'start_date' => $active_month.'-01', // first day of the month
+				'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
 				));
+        $data[$active_month][] = $item;
 			}
+
 		}
 		return $data;
 	}
@@ -352,7 +353,7 @@ class Company extends ActiveRecord {
 				$line_item['name'] = $charge->get('name');
 				$line_item['date'] = $charge->getDate();
 				$line_item['amount'] = $charge->getAmount();
-				array_push($data[$active_month],$line_item);
+				$data[$active_month][] = $line_item;
 			}
 		}
 		return $data;
