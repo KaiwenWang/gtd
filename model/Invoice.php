@@ -173,7 +173,7 @@ class Invoice extends ActiveRecord {
 
 		$d = new PHP5_Accessor();
 
-        $d->invoice = $this;
+    $d->invoice = $this;
 		$d->company = $this->getCompany();
 		
 		$r = getRenderer();
@@ -187,15 +187,15 @@ class Invoice extends ActiveRecord {
 			$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('date')); 
 		}
 		$boundary = "nextPart";
-		$headers = 'From: ' . BILLING_EMAIL_ADDRESS."\r\n";
-		$headers .= "MIME-Version: 1.0\r\n";
-		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\r\n\r\n";
-		$headers .= "This is a MIME encoded message.\r\n\r\n"; 
-		$headers .= "\r\n--$boundary\r\n"; // beginning \n added to separate previous content
-		$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$headers = 'From: ' . BILLING_EMAIL_ADDRESS."\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Type: multipart/alternative; boundary = $boundary\n\n";
+		$headers .= "This is a MIME encoded message.\n\n"; 
+		$headers .= "\n--$boundary\n"; // beginning \n added to separate previous content
+		$headers .= "Content-type: text/plain; charset=iso-8859-1\n";
 		$headers .= $plaincontent;
-		$headers .= "\r\n\r\n--$boundary\r\n";
-		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+		$headers .= "\n\n--$boundary\n";
+		$headers .= "Content-type: text/html; charset=iso-8859-1\n";
 		$headers .= $htmlcontent;
 
 		$email_sent = mail($email_address,$subject,"",$headers);
