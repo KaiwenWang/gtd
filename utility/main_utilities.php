@@ -163,13 +163,24 @@ class Util {
   }
   
   function end_of_month($date) {
-    $timestamp = strtotime($date);
-    $one_month_later = strtotime("+1 month", $timestamp);
-    $start_of_month = Util::start_of_month(date('Y-m-d', $one_month_later));
-    $end_of_month = strtotime("-1 day", $start_of_month);
-    return $end_of_month; 
+    $start_date = strtotime($date);
+    $start_month = date('m', $start_date);
+    $start_year = date('Y', $start_date);
+    $last_day_of_month = date('t', $start_date);
+    $time = mktime( 0, 0, 0, $start_month, $last_day_of_month, $start_year );
+	return $time;
   }
-  
+  function month_range($start_date,$end_date){
+	$first_month =  Util::start_of_month($start_date);
+	$last_month = Util::end_of_month($end_date);
+	$time = $first_month;
+	$active_months = array();
+	while($time < $last_month){
+      $active_months[] = date("Y-m", $time);
+      $time = strtotime("+1 month", $time);
+	}
+	return $active_months;
+  } 
 	function start_of_current_month(){
     $start_date = time();
     $start_month = date('m', $start_date);
