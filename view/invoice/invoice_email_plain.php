@@ -30,8 +30,16 @@ function invoiceEmailPlain($d, $o = array() ) {
 		$summary .= "Radical Designs accepts online payments at https://payments.rdsecure.org/payments for amounts less than $1000.\n\n";
 	}
 	$summary .= "Send checks to:\n Radical Designs\n 1370 Mission St, 4th Floor\n San Francisco, CA 94103. \n Make your check payable to Radical Designs. \n For questions about your contract or bill please email billing@radicaldesigns.org\n For questions about support please email help@radicaldesigns.org\n Or you can call us at 415-738-0456"; 
+
+	$summary .= $r->view( 'companyLineItemsPlain', array(
+								'company'=>$d->company,
+								'months'=>Util::month_range(
+							  $d->invoice->getStartDate(),
+							  $d->invoice->getEndDate()
+			            )));
+
 	//temporary message for new status
-	$summary .= "*Important Special Message*\nRadical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In order to bring the company in-line with our values Radical Designs recently reorganized as a worker cooperative. 
+/*	$summary .= "*Important Special Message*\nRadical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In order to bring the company in-line with our values Radical Designs recently reorganized as a worker cooperative. 
 		\n\n
 		As a practical matter this will have no impact on your services with us but it will mean some minor adjustments to our billing and tax information. 
 		\n\n
@@ -42,10 +50,10 @@ function invoiceEmailPlain($d, $o = array() ) {
 			Best regards,
 		\n\n		
 		Radical Designs Cooperative	";
-
+ */
 	return array( 
     'template' => 'invoice',
     'title' => 'Show Invoice', 
-    'body' =>   $summary,
+    'body' =>   $summary
   );
 }

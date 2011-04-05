@@ -52,12 +52,17 @@ function invoiceShow($d, $o = array() ) {
 		$r->view('basicList', $items ).'
 		</div>';
 
-    $history = $r->view( 'historyTable', $d->company->getHistory( ));
+	$history = $r->view( 'companyLineItems', array(
+		                  'company'=>$d->company,
+						  'months'=>Util::month_range(
+							  $d->invoice->getStartDate(),
+							  $d->invoice->getEndDate()
+			            )));
 
     return array( 
         'template' => 'invoice',
         'title' => 'Show Invoice', 
 		'body' =>   $summary,
-		'history' => $history
-                );
+		'history'=>	$history
+         );
 }
