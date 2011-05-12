@@ -10,7 +10,8 @@ class FrontController {
     $this->router = Router::singleton();
     $this->page = $this->getPageController();
     if( isset($this->router->params['ajax_target_id'])) $this->ajax_request = true;
-    if( isset($this->router->params['spokes'])) $this->ajax_request = true;    
+    if( isset($this->router->params['spokes'])) $this->ajax_request = true;
+    if( isset($this->router->params['ajax'])) $this->ajax_request = true;    
   }
     
 	function execute(){
