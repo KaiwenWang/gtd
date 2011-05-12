@@ -26,7 +26,10 @@ class Estimate extends ActiveRecord {
         parent::__construct( $id);
     }
 	function getHours( $search_criteria = array() ){
-		$criteria = array_merge( array('estimate_id'=>$this->id),$search_criteria);
+		$criteria = array_merge( array('estimate_id'=>$this->id),
+		              $search_criteria,
+		              array('sort'=>'date DESC')
+		            );
 		$this->hours = Hour::getMany($criteria);
 		return $this->hours;	
 	}	
