@@ -160,7 +160,7 @@ class SupportContract extends ActiveRecord {
     }
 	
 	function getActiveMonths(){
-		if(!$this->active_months){
+		if(empty($this->active_months)){
 			$this->active_months = $this->activeMonths(array(),false);
 		}
 		return $this->active_months;
