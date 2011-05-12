@@ -11,21 +11,25 @@ function companyLineItems($d){
 		$monthly_history .= '<table cellpadding="3" cellspacing="0" width="80%" style="margin: 5px 0; font-size: 11px; border: 1px solid grey; ">';
 		//if(!isset($support_line_items[$active_month])) $support_line_items[$active_month] = 0;
 		if(!isset($charge_line_items[$active_month])) $charge_line_items[$active_month] = 0;
-		foreach($support_line_items[$active_month] as $support_line_item){
-  		$monthly_history .= '<tr><td>Monthly Support: '.$support_line_item['name'].'</td>';
-  		$monthly_history .= '<td></td>';
-  		$monthly_history .= '<td align="right"><strong>&#36;'.number_format($support_line_item['hosting'],2).'</strong><td></tr>';
-  		$monthly_history .= '<tr><td>Support Hours: '.$support_line_item['name'].'</td>';
-  		$monthly_history .= '<td>('.$support_line_item['support_hours'].' included, ';
-  		$monthly_history .= ' '.$support_line_item['support_hours_used'].' used)</td>';
-  		$monthly_history .= '<td align="right"><strong>&#36;'.number_format($support_line_item['support_cost'], 2).'</strong><td></tr>';
-		}
-		foreach($charge_line_items[$active_month] as $charge_line_item){
-			// $monthly_history .= draw line item display
-			$monthly_history .= '<tr><td>Charge: '.$charge_line_item['name'].'</td>';
-			$monthly_history .= '<td>'.$charge_line_item['date'].'</td>';
-			$monthly_history .= '<td align="right"><strong>&#36;'.number_format($charge_line_item['amount'],2).'</strong></td></tr>';
-		}
+    if(!empty($support_line_items[$active_month])){
+  		foreach($support_line_items[$active_month] as $support_line_item){
+    		$monthly_history .= '<tr><td>Monthly Support: '.$support_line_item['name'].'</td>';
+    		$monthly_history .= '<td></td>';
+    		$monthly_history .= '<td align="right"><strong>&#36;'.number_format($support_line_item['hosting'],2).'</strong><td></tr>';
+    		$monthly_history .= '<tr><td>Support Hours: '.$support_line_item['name'].'</td>';
+    		$monthly_history .= '<td>('.$support_line_item['support_hours'].' included, ';
+    		$monthly_history .= ' '.$support_line_item['support_hours_used'].' used)</td>';
+    		$monthly_history .= '<td align="right"><strong>&#36;'.number_format($support_line_item['support_cost'], 2).'</strong><td></tr>';
+  		}
+    }
+    if(!empty($charge_line_items[$active_month])){ 
+  		foreach($charge_line_items[$active_month] as $charge_line_item){
+  			// $monthly_history .= draw line item display
+  			$monthly_history .= '<tr><td>Charge: '.$charge_line_item['name'].'</td>';
+  			$monthly_history .= '<td>'.$charge_line_item['date'].'</td>';
+  			$monthly_history .= '<td align="right"><strong>&#36;'.number_format($charge_line_item['amount'],2).'</strong></td></tr>';
+  		}
+    }
 		foreach($project_line_items[$active_month] as $project_line_item){
 			// $monthly_history .= draw line item display
 			if(!$project_line_item['project_hours']) continue;

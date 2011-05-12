@@ -120,7 +120,9 @@ class Company extends ActiveRecord {
 		$months = array();
 		foreach($this->charges as $charge){
 			$month = Util::month_format($charge->getDate());
-			if(!$months[$month]) { $months[$month] = array(); }
+			if(empty($months[$month])){
+			 $months[$month] = array(); 
+		  }
 			array_push($months[$month], $charge); 
 		}
 		return $months; 
@@ -346,7 +348,9 @@ class Company extends ActiveRecord {
 		$data = array();
 		$charges_by_month = $this->getChargesByMonth();
 		foreach($active_months as $active_month) {
-			if(!$charges_by_month[$active_month]) continue;
+			if(empty($charges_by_month[$active_month])){
+			 continue;
+		  }
 			$data[$active_month] = array();
 			foreach ($charges_by_month[$active_month] as $charge) {
 				$line_item = array();
