@@ -19,7 +19,6 @@ class FrontController {
 		} else {
 			header("Location: index.php?controller=Authenticate&action=login");
 			exit();
-			//$response = $this->renderLoginScreen();
 		}
 
 		if($this->ajax_request) return $response['body'];

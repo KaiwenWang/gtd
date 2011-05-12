@@ -4,57 +4,23 @@ function invoiceTable( $invoices, $o = array( )) {
 
 	// CREATE SEARCH FORM
 	$search_form = '';
-/*	$form = new Form(
-				array( 
-					'controller'=>'Invoice',
-					'action'=>'show',
-					'method'=>'get'
-					)
-		);
-	$form->content = '
-			<div>
-			<label>Invoice Id</label>
-			<input type="text" name="id">
-			'.$form->getSubmitBtn().'
-			</div>
-			';
-		$search_form .= $form->html;
- 
-	if( !empty($o['search_invoice']) && is_a( $o['search_invoice'], 'Invoice')){
-		$form = new Form( array(
-						'controller'=>'Invoice',
-						'action'=>'index',
-						'method'=>'get',
-						'id'=>'invoice-search',
-						'auto_submit'=>array('company_id')
-						));
-		
-		$fs = $form->getFieldSetFor( $o['search_invoice'] );
-		$form->content = $fs->field('company_id',array('title'=>'Client'));
-		$form->content .= ' <label>Amount</label> ';
-		$form->content .= $fs->field('amount_due',array('title'=>'Amount'));
-		$form->content .= ' <label>Sent Date</label> ';
-		$form->content .= $fs->field('sent_date',array('title'=>'Sent Date'));
-		$form->content .= $form->getSubmitBtn();
- 		$search_form .= $form->html;
 
-	}
- */
     $table = array();
     $table['headers'] = array(	
 								'ID',
 								'Add',
 								'Client',
-    							'Start Date',
-                                'End Date',
-                                'Batch',
+    						'Start Date',
+                'End Date',
+                'Batch',
 								'Send',
-    							'Sent Date',
-    							'Amount',
+                'Sent Date',
+                'Amount',
 								'Edit',
 								'Delete'
     							);
     $table['rows'] =  array();
+    $total_invoices = 0;
     foreach($invoices as $i){
         $total_invoices += $i->getAmountDue( );
       	$url = $i->getData('url');

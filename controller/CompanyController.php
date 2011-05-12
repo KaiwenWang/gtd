@@ -21,8 +21,9 @@ class CompanyController extends PageController {
 		$params['id']	? $this->data->company = new Company( $params['id'])
 						: bail('no company selected');
 
-    	$p = new Project();
-		$user_id = Session::getUserId();	
+		$user_id = Session::getUserId();
+    
+    $p = new Project();	
 		$p->set( array(	'company_id'=>$params['id'],
 						'staff_id'=>$user_id
 					  ));
