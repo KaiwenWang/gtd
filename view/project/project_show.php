@@ -29,7 +29,7 @@ function projectShow($d){
 	
 	return	array(
 		'title' => $d->project->getName(),
-		'body' => 	$editable_project_info
+		'body' => $editable_project_info
 					.$hidden_forms
 					.$estimate_table
 					.$hour_table

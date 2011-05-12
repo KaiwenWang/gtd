@@ -15,8 +15,10 @@ function hourShow($d){
 
     $hour_edit_form = '<div id="hour-edit-container">
     				   '.$r->view( 'hourEditForm', 
-    				   			  $d->hour, array('project_id'=>$d->project->id,'class'=>'clear-left')
-    				   			  ).'
+    				   			  $d->hour, 
+    				   			  array('project_id'=>$d->project->id,
+    				   			        'class'=>'clear-left')
+    				    ).'
     				   	</div>';
 	$hidden_forms = $r->view('jsMultipleButtons',array(
 						'Create New Estimate'=> $r->view(	
@@ -28,11 +30,11 @@ function hourShow($d){
 												'hourNewForm', 
 												$d->new_hour, 
 												array('project_id'=>$d->project->id)
-											   ),
+										  ),
     				   	'Edit Hour' => $r->view( 
 											  	'projectHourEditor', 
-    				   						  	array('projects'=> $d->projects, 'hour'=>$d->hour) 
-    				   			  			   )
+    				   						 array('project_id'=> $d->project->id, 'hour'=>$d->hour) 
+    				   			      )
 					), 
 					array('open_by_default'=> array('Edit Hour'))
 					);

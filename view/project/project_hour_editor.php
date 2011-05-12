@@ -1,8 +1,8 @@
 <?php
 function projectHourEditor( $data, $o = array()){
-	$projects = $data['projects'];
 	$hour = $data['hour'];
-
+  $project_id = $data['project_id'];
+  
 	$r = getRenderer();
 
 	$form = new Form( array(
@@ -17,11 +17,12 @@ function projectHourEditor( $data, $o = array()){
 	$form->content = $r->classSelect( 'Project',
 									   array( 'name'=>'project_id',
 											  'select_none'=>'Choose Project',
-											  'selected_value' => $hour->getProject()->id
-											  ),
-									   array('active'=>'true'));
+											  'selected_value' => $project_id
+											  )
+										  );
 
-	$hour_edit_form = $r->view('hourEditForm',$hour);
+	$hour_edit_form = $r->view('hourEditForm',$hour, array('project_id'=>$project_id));
+	
 	return 	'
 			<div class="basic-form-contents">
 				<h4>Choose Project</h4>
