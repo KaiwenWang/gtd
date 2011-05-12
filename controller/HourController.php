@@ -6,13 +6,16 @@ class HourController extends PageController {
   function index( $params ){
     $d = $this->data;
 
-    $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
-    $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
-								'sort' => 'date DESC');
-    $hour_query = array_merge($default_query, $this->search_params('hour_search'));
-
-    $d->hours = getMany( 'Hour', $hour_query);
-		
+    if($this->search_params('hour_search')){
+      $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
+      $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
+  								'sort' => 'date DESC');
+      $hour_query = array_merge($default_query, $this->search_params('hour_search'));
+  
+      $d->hours = getMany( 'Hour', $hour_query);
+		} else {
+      $d->hours = array();		
+		}
 		$d->new_hour = new Hour();
 		$d->new_hour->set( array(
                         'staff_id'=>Session::getUserId(),
