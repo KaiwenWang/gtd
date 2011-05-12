@@ -3,6 +3,9 @@ font-family: Verdana;
 margin:0;
 background-color:#FFF6E4;
 }
+table{
+background: #ffffff;
+}
 #header{
 background: #000000;
 }
