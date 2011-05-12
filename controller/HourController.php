@@ -1,7 +1,8 @@
 <?php
 class HourController extends PageController {
 	public $template = 'gtd_main_template';
- 	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
+ 	var $before_filters = array( 'get_posted_records' => 
+ 	                              array('create','update','destroy') );
 	
   function index( $params ){
     $d = $this->data;
@@ -84,7 +85,7 @@ class HourController extends PageController {
 		if(!$params['hour_id']) bail('required parameter "id" is missing.');
 	
 		$this->data->project = new Project( $params['project_id'] );
-
+		
 		$this->options = array( 'project_id' => $this->data->project->id,
 							   'title' => $this->data->project->getName()
 							   );

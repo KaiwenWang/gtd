@@ -58,7 +58,7 @@ class Render{
 	function classSelect( $class, $tokens, $search_criteria = array()){
 		if( !class_exists($class)) bail("Class \"$class\" does not exist.");
 		if ( $search_criteria) 	{	$objects = getMany( $class, $search_criteria);}
-	    				else	{	$objects = getAll( $class);}
+    else {	$objects = getAll( $class);}
 	    foreach( $objects as $o){
 	    	$data[$o->id] = $o->getName();
 	    }
@@ -191,9 +191,14 @@ class Render{
 	    $options_html = '';
 		if ( isset( $o['title']) && $o['title']) $options_html .= '<option value="">'.htmlspecialchars($o['title']).'</option>';
 	    foreach( $data as $value => $description){
-	        if ( isset( $o['selected_value']) && $value == $o['selected_value']){	$selected = 'selected="selected"';}
-			else{	$selected = '';}
-	        $options_html .= '<option '.$selected.' value="'.$value.'">'.htmlspecialchars( $description).'</option>';
+        if ( isset( $o['selected_value']) && ($value == $o['selected_value'])){	
+          $selected = 'selected="selected"';}
+        else{	
+          $selected = '';
+        }
+        $options_html .= '<option '.$selected.' value="'.$value.'">'
+                            .htmlspecialchars( $description)
+                         .'</option>';
 	    }
 	    if ( isset( $o['select_none']) && $o['select_none']) $options_html = '<option value="">'.$o['select_none'].'</option>'.$options_html;
 	    return "<select $attributes_html>$options_html</select>";

@@ -27,7 +27,15 @@ function companyTable( $companies, $o = array()){
 
     foreach($companies as $c){
       $link = $r->link('Company',array('action'=>'show','id'=>$c->id),$c->getName());
-      $contact_link = $r->link('Contact',array('action'=>'show','id'=>$c->getPrimaryContact()->id),$c->getPrimaryContactName());
+      if($c->getPrimaryContact()){
+        $contact_link = $r->link('Contact',array(
+                          'action'=>'show',
+                          'id'=>$c->getPrimaryContact()->id
+                        ),
+                        $c->getPrimaryContactName());
+      } else {
+        $contact_link = '';
+      }
 
 	  $table['rows'][] = array( $link, 
 								$contact_link,
