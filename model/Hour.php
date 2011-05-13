@@ -10,6 +10,7 @@ class Hour extends ActiveRecord {
       'estimate_id'  : 'Estimate',
 			'support_contract_id' : 'SupportContract',
 			'staff_id'     : 'Staff',
+			'pair_id'     : 'Staff',
 			'description'  : 'text',
 			'date' 			: 'date',
 			'hours' 		: 'float',
@@ -32,6 +33,31 @@ class Hour extends ActiveRecord {
 		return strcmp($a->getDate(), $b->getDate());
 	}
 
+  function updateOrCreateWithPair(){
+    if(!$this->get('pair_id')){
+      $this->save();
+      return;
+    }
+    $this->save();
+    $pair = $this->getPairHour();
+    $pair->set(array(
+                'hours'=>$this->get('hours'),
+                'staff_id'=>$this->get('pair_id'),
+                'estimate_id'=>$this->get('estimate_id'),
+                'support_contract_id' => $this->get('support_contract_id'),
+                'description' => $this->get('description'),
+                'date' => $this->get('date'),
+                'discount' => $this->get('discount')
+              ));
+    $pair->save();
+  }
+  
+  function getPairHour(){
+    $this->pair_hour = new Hour($this->get('pair_hour_id'));
+    $this->pair_hour->set(array('pair_id'=>$this->get('staff_id')));
+    return $this->pair_hour;
+  }
+  
   function getName(){
       return $this->get('description');
   }
@@ -79,6 +105,13 @@ class Hour extends ActiveRecord {
 	function getStaff(){
 	   if (!isset($this->staff)){
 	       $this->staff = new Staff( $this->get('staff_id'));
+        }
+        return $this->staff;
+	}
+
+	function getPair(){
+	   if (!isset($this->staff)){
+	       $this->staff = new Staff( $this->get('pair_id'));
         }
         return $this->staff;
 	}

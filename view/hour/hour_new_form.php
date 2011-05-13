@@ -18,6 +18,7 @@ function hourNewForm( $h, $o = array()){
 					'Description' 	=> $fs->description,
 					'Date Completed'=> $fs->date,
 					'Staff' 		=> $fs->staff_id,
+      		'Pair' 		=> $fs->field('pair_id',array('select_none'=>'Not Paired')),
 					'Hours' 		=> $fs->hours,        
 					'Discount' 		=> $fs->discount
 					);	
