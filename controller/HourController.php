@@ -56,14 +56,17 @@ class HourController extends PageController {
     $h = $this->updated_hours[0];
     $h->updateOrCreateWithPair();
 		$project_id = $h->getProject()->id;
-        $this->redirectTo(array('controller' => 'Project', 
-        						'action' => 'show', 
-        						'id' => $project_id 
-        						));
+    $this->redirectTo(array(
+      'controller' => 'Project', 
+			'action' => 'show', 
+			'id' => $project_id 
+		));
   }
     
   function new_form( $params ){
-		if(!$params['project_id']) bail('required parameter "project_id" is missing.');
+		if(!$params['project_id']){
+		  bail('required parameter "project_id" is missing.');
+		}
 	
 		$project = new Project( $params['project_id'] );
 
