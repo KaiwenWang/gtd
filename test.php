@@ -21,6 +21,7 @@ $test = &new TestSuite( $test_suite.' tests' );
 switch ($test_suite){
 	case 'model':
 		$test->addTestFile('test/model_tests.php');
+		$test->addTestFile('test/hour_tests.php');		
 		break;
 	case 'form':
 		$test->addTestFile('test/form_tests.php');
@@ -36,6 +37,7 @@ switch ($test_suite){
 		break;
 	case 'all':
 		$test->addTestFile('test/model_tests.php');
+		$test->addTestFile('test/hour_tests.php');		
 		$test->addTestFile('test/form_tests.php');
 		$test->addTestFile('test/controller_tests.php');
 		$test->addTestFile('test/billing_tests.php');
