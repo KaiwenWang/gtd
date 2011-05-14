@@ -123,6 +123,11 @@ class Project extends ActiveRecord {
 		foreach($estimates as $estimate){
 			$this->hours = array_merge( $this->hours,$estimate->getHours($criteria));
 		}
+		
+		uasort($this->hours, function($a,$b){
+		  return strtotime($a->get('date')) < strtotime($b->get('date')) ? 1 : -1;
+		});
+		
 		return $this->hours;
 	}
 	function getTotalHours(){
