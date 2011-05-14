@@ -20,7 +20,9 @@ function hourShow($d){
     				   			        'class'=>'clear-left')
     				    ).'
     				   	</div>';
-	$hidden_forms = $r->view('jsMultipleButtons',array(
+	$hidden_forms = $r->view(
+	         
+	         'jsMultipleButtons',array(
 						'Create New Estimate'=> $r->view(	
 													 	 'estimateNewForm', 
 														 $d->new_estimate

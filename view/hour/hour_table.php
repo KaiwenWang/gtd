@@ -2,7 +2,18 @@
 function hourTable( $hours, $o = array() ){
     $r = getRenderer();
 
-    $table['headers'] = array('Date','Client', 'Description','Staff','Hours','Billable','Type','Edit','Delete');
+    $table['headers'] = array(
+      'Date',
+      'Client',
+      'Description',
+      'Staff',
+      'Hours',
+      'Billable',
+      'Type',
+      'Edit',
+      'Delete'
+    );
+    
     $table['rows'] =  array();
     
     $total_hours = 0;
@@ -22,13 +33,17 @@ function hourTable( $hours, $o = array() ){
 
 		$company_link = UI::link(array('text'=>$h->getCompanyName(),'controller'=>'Company','action'=>'show','id'=>$h->getCompany()->id));
 
+    $name = $h->getStaffName();
+    if($h->getPairName()){
+      $name.' and '.$h->getPairName();
+    }
 		$table['rows'][] = array(	
 							$h->getData('date'),
 							$company_link,
 							$description,
-							$h->getStaffName(),
-						    $h->getHours(),
-						    $h->getBillableHours(),
+							$name,
+						  $h->getHours(),
+						  $h->getBillableHours(),
 							$h->getType(),
 							$edit_button,
 							UI::button( array('controller'=>'Hour','action'=>'destroy','id'=>$h->id))
