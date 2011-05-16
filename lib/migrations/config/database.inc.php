@@ -24,13 +24,13 @@ $ruckusing_db_config = array(
       'user'      => 'root',
       'password'  => ''
   ),  
-  'production'    => array(
-      'type'      => 'mysql',
-      'host'      => 'localhost',
-      'port'      => 0,
-      'database'  => 'prod_php_migrator',
-      'user'      => 'root',
-      'password'  => ''
+  'development' => array(
+     'type'      => 'mysql',
+     'host'      => 'localhost',
+     'port'      => 3306,
+     'database'  => DB_NAME,
+     'user'      => DB_USER,
+     'password'  => DB_PASS
   )
   
 );
