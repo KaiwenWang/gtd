@@ -15,8 +15,15 @@ $.fn.initialize_Gtd = function(){
 	$('input[name=ajax_target_id]',this).enable_Ajax();
 	$('input[name*=auto_submit]',this).enable_AutoSubmit();
 	$('.check-all',this).enable_SelectAll();
-
+  
+  $('.rd-graph').enable_Graphs();
 	return this;
+}
+
+$.fn.enable_Graphs= function(){
+  $(this).each(function(){
+    new RdGraph({element:this});
+  });
 }
 
 $.fn.slideFadeIn = function(speed, easing, callback) {

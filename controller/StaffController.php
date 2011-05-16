@@ -48,5 +48,11 @@ class StaffController extends PageController {
 								'date'=>date('Y-m-d')
 								)
 							);
+    $this->data->graph = Array(
+      'staff' => $staff->id,
+      'call' => 'overview'
+      );
+
     }
+    
 }

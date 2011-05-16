@@ -42,11 +42,16 @@ function staffShow($d){
 
     $hour_table = $r->view( 'hourTable', $d->staff->getHours());
 
-    return  array(	'title'=>$d->staff->getName().'land',
-                    'controls'=>$r->view( 'jumpSelect', $d->staff),
-                    'body'=> $hidden_forms
-							.$hours_summary
-                    		.$project_table
-							.$hour_table
-                    );
+    $highchart_graph = "<div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div>";
+
+    return  array(	
+      'title'=>$d->staff->getName().'land',
+      'controls'=>$r->view( 'jumpSelect', $d->staff),
+      'body'=> $hidden_forms
+      .$hours_summary
+      .$highchart_graph
+      .$bookmark_table
+      .$project_table
+      .$hour_table
+    );
 }
