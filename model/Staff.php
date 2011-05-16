@@ -13,6 +13,7 @@ class Staff extends User {
 				'team'  		  :  'text',
 				'username'  	:  'text',
 				'password'  	:  'text'
+				'permalink'  	:  'text'
 			},
 			'required' : {
 							
@@ -43,8 +44,15 @@ class Staff extends User {
 		return $this->projects;
 	}
 	
+	function getBookmarks(){
+		if(empty($this->bookmarks)){
+			$this->bookmarks = getMany( 'Bookmark', array("staff_id"=>$this->id));
+		}
+		return $this->bookmarks;
+	}
+
 	function getHours( $criteria = array() ){
-		$criteria = array_merge( $criteria, array('staff_id'=>$this->id));
+		$criteria = array_merge( $criteria, array('staff_id'=>$this->id, 'sort'=>'date desc'));
 		$this->hours = getMany( 'Hour', $criteria);
 		return $this->hours;
 	}
@@ -68,4 +76,8 @@ class Staff extends User {
 	function getBillableHoursTotal( $criteria = array(), $options = array() ){
 		return $this->getHoursTotal( $criteria, array_merge($options,array('billable_only'=>true)));
 	}
+
+  function getPermalink(){
+    return $this->get('permalink'); 
+  }
 }
