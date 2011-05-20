@@ -1,6 +1,7 @@
 var item;
 $('document').ready(function(){
 	$('#app-container').initialize_Gtd();
+  $('.rd-graph').enable_Graphs();
 });
 
 $.fn.initialize_Gtd = function(){
@@ -16,7 +17,6 @@ $.fn.initialize_Gtd = function(){
 	$('input[name*=auto_submit]',this).enable_AutoSubmit();
 	$('.check-all',this).enable_SelectAll();
   
-  $('.rd-graph').enable_Graphs();
 	return this;
 }
 
