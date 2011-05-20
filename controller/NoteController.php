@@ -30,7 +30,7 @@ class NoteController extends PageController {
     							 ));
     }
 	function new_form(){
-        $this->data= new Note();
+			$this->data= new Note();
 	    $this->data->set(array('staff_id'=>Session::getUserId()));
 	}
 	function destroy( $params){

@@ -9,4 +9,15 @@ class BookmarkController extends PageController {
   function index( $params){
       $this->data->notes = getAll( 'Bookmark');
   }
+
+	function new_form($params){
+		$this->data->bookmark = new Bookmark();
+		$this->data->bookmark->set(array('staff_id'=>Session::getUserId(), 'source'=>$params['source']));
+	}
+
+	function create($params){
+		$b = $this->new_bookmarks[0];
+		$b->save();
+		$this->redirectTo( array('controller'=>'Staff','action'=>'show','id'=>$b->get('staff_id')) );
+	}
 }

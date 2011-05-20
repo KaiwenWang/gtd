@@ -168,7 +168,7 @@ class Company extends ActiveRecord {
 			$h = $support_contract->getFirstHour();
 			if(is_a($h, 'Hour')) { $first_hours[] = $h; }
 		}
-		
+		if(!$first_hours) return;	
 		usort($first_hours, array("Hour", "compareByDate"));
 		return $first_hours[0];
 	}
