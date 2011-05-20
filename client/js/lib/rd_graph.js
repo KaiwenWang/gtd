@@ -23,7 +23,7 @@ RdGraph.prototype.update_display = function(){
 
 RdGraph.prototype.fetch_data = function(callback){
   $.ajax({
-    url: '/index.php?controller=graph&ajax=true&action=' + this.call + '&id=' + this.staff,
+    url: '/index.php?controller=Graph&ajax=true&action=' + this.call + '&id=' + this.staff,
     data: this.params,
     success: function(data){
       callback(data);
