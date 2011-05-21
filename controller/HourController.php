@@ -54,6 +54,7 @@ class HourController extends PageController {
 
   function update( $params ){
     $h = $this->updated_hours[0];
+		//$h->discount_if_internal_project();
     $h->updateOrCreateWithPair();
 		$project_id = $h->getProject()->id;
     $this->redirectTo(array(

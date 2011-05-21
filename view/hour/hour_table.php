@@ -1,25 +1,32 @@
 <?php
 function hourTable( $hours, $o = array() ){
-    $r = getRenderer();
+	$r = getRenderer();
 
-    $table['headers'] = array(
-      'Date',
-      'Client',
-      'Description',
-      'Staff',
-      'Hours',
-      'Billable',
-      'Type',
-      'Edit',
-      'Delete'
-    );
-    
-    $table['rows'] =  array();
-    
-    $total_hours = 0;
-    $billable_hours = 0;
-    
+	$table['headers'] = array(
+		'Date',
+		'Client',
+		'Description',
+		'Staff',
+		'Hours',
+		'Billable',
+		'Type',
+		'Edit',
+		'Delete'
+	);
+	
+	$table['rows'] =  array();
+	
+	$total_hours = 0;
+	$billable_hours = 0;
+  
+	$hours_to_skip = array();
+
 	foreach($hours as $h){
+
+		if(!empty($hours_to_skip[$h->id])){
+			continue;
+		}
+
 		$total_hours += $h->getHours();
 		$billable_hours += $h->getBillableHours();
 
@@ -37,23 +44,35 @@ function hourTable( $hours, $o = array() ){
     if($h->getPairName()){
       $name.' and '.$h->getPairName();
     }
+
+		$logged = 	$h->getHours();
+		$billable	= $h->getBillableHours();
+		$type = 	$h->getType();
+		
+		if($h->is_pair()){
+			$name = $h->getPairName();
+			$logged = $logged * 2;
+			$billable = $billable *2;
+			$hours_to_skip[$h->get('pair_hour_id')] = true;
+		}
+
 		$table['rows'][] = array(	
-							$h->getData('date'),
-							$company_link,
-							$description,
-							$name,
-						  $h->getHours(),
-						  $h->getBillableHours(),
-							$h->getType(),
-							$edit_button,
-							UI::button( array('controller'=>'Hour','action'=>'destroy','id'=>$h->id))
-							);
-    }
+			$h->getData('date'),
+			$company_link,
+			$description,
+			$name,
+			$logged,
+			$billable,
+			$type,
+			$edit_button,
+			UI::button( array('controller'=>'Hour','action'=>'destroy','id'=>$h->id))
+		);
+  }
 	
 	$o['title'] = 'Hours';
 	$o['id'] = 'hour_table';
     
-    $hours_table = $r->view( 'basicTable', $table, $o); 
+  $hours_table = $r->view( 'basicTable', $table, $o); 
     
 	$totals = '
 				<div class="totals-data totals-hours">
@@ -65,5 +84,5 @@ function hourTable( $hours, $o = array() ){
 				';
 
 	return	$totals
-			.$hours_table;
+					.$hours_table;
 }
