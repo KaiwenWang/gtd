@@ -13,8 +13,8 @@ background: #000000;
 background: #990000;
 }
 #title-bar h1 {
-margin-left: 330px;
 padding: 10px 0 4px;
+float:left;
 }
 #title-bar.test-warning{
 background: #0092C3;
@@ -548,8 +548,10 @@ width: 300px;
 font-size: 10px;
 }
 #bookmark-link {
-  display: inline;
-  float: left;
+  float: right;
+}
+#bookmark-link img{
+height:40px;
 }
 h1#title {
   padding-bottom: 10px;
@@ -560,4 +562,30 @@ h1#title {
 	cursor: pointer;
 	font-size: 13px;
 	padding-right: 10px;
+}
+#bookmark-form-box{
+background: url('/client/img/bookmark_form_bg.png') 0 0 no-repeat;
+position: absolute;
+right: 24px;
+top: 58px;
+width: 410px;
+height: 200px;
+padding-top:40px;
+z-index: 20;
+}
+#bookmark-form-box .basic-list-label {
+	color: #ddd;
+	width: 100px;
+}
+
+#bookmark-form-box input.description-field{
+	width: auto;
+}
+#bookmark-form{
+margin-left: 20px;
+}
+#bookmark-close{
+    left: 13px;
+    position: absolute;
+    top: 32px;
 }

@@ -38,7 +38,6 @@ function staffShow($d){
 					'. $billable_hours_this_week .'
 				</div>
 				<div class="clear-both"></div></div>';
-    $bookmark_table = $r->view( 'bookmarkTable', $d->staff->getBookmarks());
     $project_table = $r->view( 'projectTable', $d->staff->getProjects());
 
     $hour_table = $r->view( 'hourTable', $d->staff->getHours());
@@ -51,7 +50,6 @@ function staffShow($d){
       'body'=> $hidden_forms
       .$hours_summary
       .$highchart_graph
-      .$bookmark_table
       .$project_table
       .$hour_table
     );

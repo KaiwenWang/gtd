@@ -60,16 +60,30 @@ class Hour extends ActiveRecord {
     $this->set(array('pair_hour_id'=>$pair->id,'pair_name'=> $pair->getStaffName()));
     $this->save();
   }
-  
+
+	function is_pair(){
+		if($this->get('pair_hour_id')) return true;
+	}
+
   function getPairName(){
-    return $this->get('pair_name');
+    return $this->getStaffName().' and '.$this->get('pair_name');
   }
     
   function getPairHour(){
     $this->pair_hour = new Hour($this->get('pair_hour_id'));
     return $this->pair_hour;
   }
-  
+
+	function discountIfInternalProject(){
+		$project = $this->getProject();
+		if($project && $project->is_internal()) {
+			$this->set(array('discount'=>$this->getHours()));
+		}
+	}
+	function save(){
+		$this->discountIfInternalProject();	
+		parent::save();
+	}
   function getName(){
       return $this->get('description');
   }

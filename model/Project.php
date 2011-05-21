@@ -198,6 +198,10 @@ class Project extends ActiveRecord {
 	function getHourlyRate(){
 		return $this->get('hourly_rate');
 	}
+	function is_internal(){
+		return $this->get('internal');
+	}
+
 	function makeCriteriaActive($status){
     	return $status 	? 'status NOT LIKE "done"'
 						: 'status LIKE "done"';

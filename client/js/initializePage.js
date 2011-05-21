@@ -16,8 +16,28 @@ $.fn.initialize_Gtd = function(){
 	$('input[name=ajax_target_id]',this).enable_Ajax();
 	$('input[name*=auto_submit]',this).enable_AutoSubmit();
 	$('.check-all',this).enable_SelectAll();
-  
+	$('#bookmark-link').enable_Bookmark();
+  $('.rd-graph').enable_Graphs();
 	return this;
+}
+
+$.fn.enable_Bookmark= function(){
+	$('#bookmark-close').click(function(){
+		$('#bookmark-form-box').fadeOut(200);
+	});
+	$(this).click(function(){
+		var url = window.location.href;
+		var title = $('h1#title').text();
+		$.ajax({
+			method: 'get',
+			url:'index.php',
+			data:{controller:'Bookmark',action:'new_form',ajax:true,description:title,source:url},
+			success: function(data){
+				$('#bookmark-form').html(data);
+				$('#bookmark-form-box').fadeIn(200);
+			}
+		});		
+	});
 }
 
 $.fn.enable_Graphs= function(){

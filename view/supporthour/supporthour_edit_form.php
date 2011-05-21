@@ -9,9 +9,10 @@ function supporthourEditForm( $h, $o = array()){
     	'Support Contract' => $fs->support_contract_id,
        	'Description' 	=> $fs->description,
         'Date Completed'=> $fs->date,
-        'Staff' 		=> $fs->staff_id,
-        'Hours' 		=> $fs->hours,        
-        'Discount' 		=> $fs->discount
+        'Staff'			=> $fs->staff_id,
+				'Pair'			=> $fs->pair_id,
+        'Hours'			=> $fs->hours,        
+        'Discount'	=> $fs->discount
     );	
     
     $form->content = $r->view( 'basicFormContents', 
