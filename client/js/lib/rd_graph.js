@@ -1,15 +1,39 @@
 var dates;
 var dates_sequential = []
+var months = [
+	'January',
+	'February',
+	'March',
+	'April',
+	'May',
+	'June',
+	'July',
+	'August',
+	'September',
+	'October',
+	'November',
+	'December'
+	];
 
 function RdGraph(o){
   this.element = o.element;
+	this.control = $('#' + o.element.id + '_control').get()[0];
   this.get_params_from_element();
-  this.update_display();
+	this.range = 1;
+	this.months_ago = 0;
+	this.end_date = '';
+	this.update_display();
+	this.create_control();
 }
 
 RdGraph.prototype.get_params_from_element = function(){
   this.call = $(this.element).attr('data-call');
   this.staff = $(this.element).attr('data-staff');
+}
+
+RdGraph.prototype.set_date_range = function(start_date, end_date){
+	this.start_date = start_date;
+	this.end_date = end_date;
 }
 
 RdGraph.prototype.update_display = function(){
@@ -21,9 +45,45 @@ RdGraph.prototype.update_display = function(){
   });
 };
 
+RdGraph.prototype.create_control = function(){
+	var parent_class = this;
+	var span_range_1m = document.createElement("span");
+	span_range_1m.className = "range_1m";
+	$(span_range_1m).click(function(){
+			parent_class.range = 1;
+			parent_class.update_display();
+	});
+	var span_range_3m = document.createElement("span");
+	span_range_3m.className = "range_3m";
+	$(span_range_3m).click(function(){
+			parent_class.range = 3;
+			parent_class.update_display();
+	});
+	var span_range_6m = document.createElement("span");
+	span_range_6m.className = "range_6m";
+	$(span_range_6m).click(function(){
+			parent_class.range = 6;
+			parent_class.update_display();
+	});
+	var span_range_1y = document.createElement("span");
+	span_range_1y.className = "range_1y";
+	$(span_range_1y).click(function(){
+			parent_class.range = 12;
+			parent_class.update_display();
+	});
+	span_range_1m.appendChild(document.createTextNode("1m"));
+	span_range_3m.appendChild(document.createTextNode("3m"));
+	span_range_6m.appendChild(document.createTextNode("6m"));
+	span_range_1y.appendChild(document.createTextNode("1y"))
+	this.control.appendChild(span_range_1m);
+	this.control.appendChild(span_range_3m);
+	this.control.appendChild(span_range_6m);
+	this.control.appendChild(span_range_1y);
+}
+
 RdGraph.prototype.fetch_data = function(callback){
   $.ajax({
-    url: '/index.php?controller=Graph&ajax=true&action=' + this.call + '&id=' + this.staff,
+    url: '/index.php?controller=Graph&ajax=true&action=' + this.call + '&id=' + this.staff + '&range=' + this.range  + '&months_ago=' + this.months_ago,
     data: this.params,
     success: function(data){
       callback(data);
@@ -35,17 +95,18 @@ RdGraph.prototype.fetch_data = function(callback){
 };
 
 RdGraph.prototype.date_format = function(date){
-  var retval = date.getFullYear();
-  retval += "-";
-  retval += (date.getMonth() + 1) < 10 ? "0" : "";
-  retval += date.getMonth() + 1;
-  retval += "-";
-  retval += (date.getDate()) < 10 ? "0" : "";
-  retval += date.getDate();
-  return retval;
+	var retval = date.getFullYear();
+	retval += "-";
+	retval += (date.getMonth() + 1) < 10 ? "0" : "";
+	retval += date.getMonth() + 1;
+	retval += "-";
+	retval += (date.getDate()) < 10 ? "0" : "";
+	retval += date.getDate();
+	return retval;
 }
 
 RdGraph.prototype.parse_data = function(){
+	dates_sequential = [];
   var cumulative_dates = []
   var min_date = new Date('2050');
   var max_value = 0;
@@ -68,8 +129,28 @@ RdGraph.prototype.parse_data = function(){
       max_value = hours;
     cumulative_dates[this.dates[date].date] = {'hours': hours, 'discount': discount};
   }
-  for(var cur_date = min_date; cur_date <= new Date(); cur_date = new Date(cur_date.getTime() + 86400000)){
-    var date = this.date_format(cur_date);
+	var day_microseconds = 86400000;
+	var addend;
+	switch(this.range){
+		case 1:
+			addend = day_microseconds;
+			break;
+		case 3:
+		case 6:
+			addend = day_microseconds * 7;
+			break;
+		case 12:
+			addend = 	day_microseconds * 30;
+			break;
+	}
+	var cur_date = min_date;
+  while(cur_date <= new Date()){
+		var date;
+		if(this.range == 12){
+			date = months[cur_date.getMonth()] + " " + cur_date.getFullYear();
+		} else {
+	    date = this.date_format(cur_date);
+		}
     var hours;
     var discount;
     if(cumulative_dates[this.date_format(cur_date)] == undefined){
@@ -80,12 +161,18 @@ RdGraph.prototype.parse_data = function(){
       discount = cumulative_dates[this.date_format(cur_date)].discount;
     }
     var weekend;
-    if(cur_date.getDay() == 6 || cur_date.getDay() == 0){
+    if((cur_date.getDay() == 6 || cur_date.getDay() == 0) && this.range == 1){
       weekend = max_value;
     } else {
       weekend = 0;
     }
     dates_sequential[dates_sequential.length] = {'date' : date, 'hours' : hours, 'discount' : discount, 'weekend' : weekend};
+		if(this.range == 12){
+			tmp_date = new Date(cur_date.getTime() + addend);
+			cur_date = new Date(tmp_date.getFullYear(), tmp_date.getMonth(), 15);
+		} else {
+			cur_date = new Date(cur_date.getTime() + addend);
+		}
   }
 }
 
@@ -101,67 +188,70 @@ RdGraph.prototype.create_display = function(){
   var parent_class = this;
   var chart;
   $(document).ready(function() {
-     chart = new Highcharts.Chart({
-        chart: {
-           renderTo: parent_class.element.id,
-           defaultSeriesType: 'area'
-        },
-        title: {
-           text: 'Hours logged over the last week'
-        },
-        xAxis: {
-          labels: {
-            rotation: -45,
-            align: 'right'
-          },
-          categories: parent_class.create_array_from_index('date'),
-          tickmarkPlacement: 'on',
-          title: {
-             enabled: false
-          }
-          },
-        yAxis: {
-          title: {
-            text: 'Hours'
-          },
-          labels: {
-            formatter: function(){
-              return this.value;
-            }
-          }
-        },
-        tooltip: {
-           formatter: function(){
-              return this.x + ': '+ this.y + ' hours';
-           }
-        },
-        plotOptions: {
-           area: {
-              stacking: 'normal',
-              lineColor: '#666666',
-              lineWidth: 1,
-              marker: {
-                 lineWidth: 1,
-                 lineColor: '#666666'
-              }
-           }
-        },
-        series: [{
-          name: 'Billable',
-          data: parent_class.create_array_from_index('hours')
-        },
-        {
-          name: 'Unbillable',
-          data: parent_class.create_array_from_index('discount')
-        },
-        {
-          type: 'column',
-          name: 'Weekends',
-          data: parent_class.create_array_from_index('weekend')
-        }]
-     });
+		var series_data = [{
+				name: 'Billable',
+				data: parent_class.create_array_from_index('hours')
+			},
+			{
+				name: 'Unbillable',
+				data: parent_class.create_array_from_index('discount')
+			}];
+		if(parent_class.range == 1){
+			series_data.push({
+				type: 'column',
+				name: 'Weekends',
+				data: parent_class.create_array_from_index('weekend')
+			});
+		}
+		var options = {
+			chart: {
+				 renderTo: parent_class.element.id,
+				 defaultSeriesType: 'area'
+			},
+			title: {
+				 text: 'Hours logged vs. time'
+			},
+			xAxis: {
+				labels: {
+					rotation: -45,
+					align: 'right'
+				},
+				categories: parent_class.create_array_from_index('date'),
+				tickmarkPlacement: 'on',
+				title: {
+					 enabled: false
+				}
+				},
+			yAxis: {
+				title: {
+					text: 'Hours'
+				},
+				labels: {
+					formatter: function(){
+						return this.value;
+					}
+				}
+			},
+			tooltip: {
+				 formatter: function(){
+						return this.x + ': '+ this.y + ' hours';
+				 }
+			},
+			plotOptions: {
+				 area: {
+						stacking: 'normal',
+						lineColor: '#666666',
+						lineWidth: 1,
+						marker: {
+							 lineWidth: 1,
+							 lineColor: '#666666'
+						}
+				 }
+			},
+			series: series_data
+		}
+    chart = new Highcharts.Chart(options);
   });
-
 };
 
 // <div class="rd-graph" data-type="hours" data-staff="13" data-start="01-01-2011" data-end="01-02-2011"></div>
