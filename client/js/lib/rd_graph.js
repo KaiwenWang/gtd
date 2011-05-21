@@ -21,7 +21,6 @@ function RdGraph(o){
   this.get_params_from_element();
 	this.range = 1;
 	this.months_ago = 0;
-	this.end_date = '';
 	this.update_display();
 	this.create_control();
 }
@@ -29,11 +28,6 @@ function RdGraph(o){
 RdGraph.prototype.get_params_from_element = function(){
   this.call = $(this.element).attr('data-call');
   this.staff = $(this.element).attr('data-staff');
-}
-
-RdGraph.prototype.set_date_range = function(start_date, end_date){
-	this.start_date = start_date;
-	this.end_date = end_date;
 }
 
 RdGraph.prototype.update_display = function(){

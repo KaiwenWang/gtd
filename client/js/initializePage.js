@@ -17,7 +17,6 @@ $.fn.initialize_Gtd = function(){
 	$('input[name*=auto_submit]',this).enable_AutoSubmit();
 	$('.check-all',this).enable_SelectAll();
 	$('#bookmark-link').enable_Bookmark();
-  $('.rd-graph').enable_Graphs();
 	return this;
 }
 
