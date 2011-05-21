@@ -27,10 +27,11 @@ $.fn.enable_Bookmark= function(){
 	});
 	$(this).click(function(){
 		var url = window.location.href;
+		var title = $('h1#title').text();
 		$.ajax({
 			method: 'get',
 			url:'index.php',
-			data:{controller:'Bookmark',action:'new_form',ajax:true,source:url},
+			data:{controller:'Bookmark',action:'new_form',ajax:true,description:title,source:url},
 			success: function(data){
 				$('#bookmark-form').html(data);
 				$('#bookmark-form-box').fadeIn(200);

@@ -12,7 +12,7 @@ class BookmarkController extends PageController {
 
 	function new_form($params){
 		$this->data->bookmark = new Bookmark();
-		$this->data->bookmark->set(array('staff_id'=>Session::getUserId(), 'source'=>$params['source']));
+		$this->data->bookmark->set(array('staff_id'=>Session::getUserId(), 'source'=>$params['source'], 'description'=>$params['description']));
 	}
 
 	function create($params){
