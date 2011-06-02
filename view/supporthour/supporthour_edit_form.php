@@ -8,11 +8,11 @@ function supporthourEditForm( $h, $o = array()){
     $list_items = array(
     	'Support Contract' => $fs->support_contract_id,
        	'Description' 	=> $fs->description,
-        'Date Completed'=> $fs->date,
         'Staff'			=> $fs->staff_id,
-				'Pair'			=> $fs->pair_id,
+     	'Pair' 		=> $fs->field('pair_id',array('select_none'=>'Not Paired')),
         'Hours'			=> $fs->hours,        
-        'Discount'	=> $fs->discount
+        'Discount'	=> $fs->discount,
+        'Date Completed'=> $fs->date
     );	
     
     $form->content = $r->view( 'basicFormContents', 
