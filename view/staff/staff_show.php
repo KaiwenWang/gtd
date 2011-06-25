@@ -42,7 +42,9 @@ function staffShow($d){
 
     $hour_table = $r->view( 'hourTable', $d->staff->getHours());
 
-    $highchart_graph = "<div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div><div id='rd-graph_control'></div>";
+		$highchart_graph = "<div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div>
+			<div id='rd-graph_navigate'></div>
+			<div id='rd-graph_control'></div>";
 
     return  array(	
       'title'=>$d->staff->getName().'land',

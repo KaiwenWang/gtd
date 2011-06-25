@@ -557,11 +557,14 @@ h1#title {
   padding-bottom: 10px;
   display: inline;
 }
-#rd-graph_control span{
+#rd-graph_control span, #rd-graph_navigate span{
 	color: #004488;
 	cursor: pointer;
 	font-size: 13px;
 	padding-right: 10px;
+}
+#rd-graph_navigate{
+	float: right;
 }
 #bookmark-form-box{
 background: url('/client/img/bookmark_form_bg.png') 0 0 no-repeat;

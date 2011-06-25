@@ -1,5 +1,3 @@
-var dates;
-var dates_sequential = []
 var months = [
 	'January',
 	'February',
@@ -18,9 +16,11 @@ var months = [
 function RdGraph(o){
   this.element = o.element;
 	this.control = $('#' + o.element.id + '_control').get()[0];
+	this.navigation_elem = $('#' + o.element.id + '_navigate').get()[0];
   this.get_params_from_element();
 	this.range = 1;
-	this.months_ago = 0;
+	this.navigation = -1;
+	this.create_navigation();
 	this.update_display();
 	this.create_control();
 }
@@ -33,7 +33,10 @@ RdGraph.prototype.get_params_from_element = function(){
 RdGraph.prototype.update_display = function(){
   var parent_class = this;
   this.fetch_data(function(data){
-    parent_class.dates = JSON.parse(data);
+    var raw_data = JSON.parse(data);
+		parent_class.dates = raw_data.dates;
+		parent_class.min_date = raw_data.start_date;
+		parent_class.max_date = raw_data.end_date;
     parent_class.parse_data();
     parent_class.create_display();
   });
@@ -44,26 +47,34 @@ RdGraph.prototype.create_control = function(){
 	var span_range_1m = document.createElement("span");
 	span_range_1m.className = "range_1m";
 	$(span_range_1m).click(function(){
-			parent_class.range = 1;
-			parent_class.update_display();
+		parent_class.range = 1;
+		parent_class.navigation = -1;
+		parent_class.create_navigation();
+		parent_class.update_display();
 	});
 	var span_range_3m = document.createElement("span");
 	span_range_3m.className = "range_3m";
 	$(span_range_3m).click(function(){
-			parent_class.range = 3;
-			parent_class.update_display();
+		parent_class.range = 3;
+		parent_class.navigation = -1;
+		parent_class.create_navigation();
+		parent_class.update_display();
 	});
 	var span_range_6m = document.createElement("span");
 	span_range_6m.className = "range_6m";
 	$(span_range_6m).click(function(){
-			parent_class.range = 6;
-			parent_class.update_display();
+		parent_class.range = 6;
+		parent_class.navigation = -1;
+		parent_class.create_navigation();
+		parent_class.update_display();
 	});
 	var span_range_1y = document.createElement("span");
 	span_range_1y.className = "range_1y";
 	$(span_range_1y).click(function(){
-			parent_class.range = 12;
-			parent_class.update_display();
+		parent_class.range = 12;
+		parent_class.navigation = -1;
+		parent_class.create_navigation();
+		parent_class.update_display();
 	});
 	span_range_1m.appendChild(document.createTextNode("1m"));
 	span_range_3m.appendChild(document.createTextNode("3m"));
@@ -75,9 +86,45 @@ RdGraph.prototype.create_control = function(){
 	this.control.appendChild(span_range_1y);
 }
 
+RdGraph.prototype.create_navigation = function(){
+	var parent_class = this;
+	$(this.navigation_elem).html("");
+	var span_navigate_back = document.createElement("span");
+	span_navigate_back.className = "navigate_back";
+	$(span_navigate_back).click(function(){
+		parent_class.navigation = parent_class.navigation - 1;
+		parent_class.create_navigation();
+		parent_class.update_display();
+	});
+	span_navigate_back.appendChild(document.createTextNode("back"));
+	this.navigation_elem.appendChild(span_navigate_back);
+	if(parent_class.navigation != -1){
+		var span_navigate_forward = document.createElement("span");
+		span_navigate_forward.className = "navigate_forward";
+		$(span_navigate_forward).click(function(){
+			parent_class.navigation = parent_class.navigation + 1;
+			parent_class.create_navigation();
+			parent_class.update_display();
+		});
+		span_navigate_forward.appendChild(document.createTextNode("forward"));
+		this.navigation_elem.appendChild(span_navigate_forward);
+	}
+	if(parent_class.navigation < -2){
+		var span_navigate_last = document.createElement("span");
+		span_navigate_last.className = "navigate_last";
+		$(span_navigate_last).click(function(){
+			parent_class.navigation = -1;
+			parent_class.create_navigation();
+			parent_class.update_display();
+		});
+		span_navigate_last.appendChild(document.createTextNode("last"))
+		this.navigation_elem.appendChild(span_navigate_last);
+	}
+}
+
 RdGraph.prototype.fetch_data = function(callback){
   $.ajax({
-    url: '/index.php?controller=Graph&ajax=true&action=' + this.call + '&id=' + this.staff + '&range=' + this.range  + '&months_ago=' + this.months_ago,
+    url: '/index.php?controller=Graph&ajax=true&action=' + this.call + '&id=' + this.staff + '&range=' + this.range  + '&navigation=' + this.navigation,
     data: this.params,
     success: function(data){
       callback(data);
@@ -101,15 +148,12 @@ RdGraph.prototype.date_format = function(date){
 
 RdGraph.prototype.parse_data = function(){
 	dates_sequential = [];
-  var cumulative_dates = []
-  var min_date = new Date('2050');
+  var cumulative_dates = [];
   var max_value = 0;
   for(date in this.dates){
     var this_date = new Date(this.dates[date].date);
     // convert for timezone offset
     this_date = new Date(this_date.getTime() + this_date.getTimezoneOffset() * 60000);
-    if(this_date < min_date)
-      min_date = this_date;
     var hours;
     var discount;
     if(cumulative_dates[this.dates[date].date] != undefined){
@@ -137,8 +181,11 @@ RdGraph.prototype.parse_data = function(){
 			addend = 	day_microseconds * 30;
 			break;
 	}
-	var cur_date = min_date;
-  while(cur_date <= new Date()){
+	var cur_date = new Date(this.min_date);
+	cur_date =  new Date(cur_date.getTime() + cur_date.getTimezoneOffset() * 60000);
+	var max_date = new Date(this.max_date);
+	max_date = new Date(max_date.getTime() + max_date.getTimezoneOffset() * 60000);
+  while(cur_date <= max_date){
 		var date;
 		if(this.range == 12){
 			date = months[cur_date.getMonth()] + " " + cur_date.getFullYear();
