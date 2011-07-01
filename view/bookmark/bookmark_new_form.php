@@ -1,18 +1,14 @@
 <?php
 function bookmarkNewForm($d, $o = array()){
-	$r =& getRenderer();
-	$form = new Form( array( 'controller'=>'Bookmark', 'action'=>'create'));
-	$fs = $form->getFieldSetFor($d->bookmark);
+  $r =& getRenderer();
+  $form = new Form( array( 'controller'=>'Bookmark', 'action'=>'create'));
+  $fs = $form->getFieldSetFor($d->bookmark);
 
-	$list_items = array(
-		'Staff' => $fs->staff_id,
-		'Source' => $fs->source,
-		'Description' => $fs->description
-	);
-
-	$form->content = $r->view( 'basicFormContents',
-		$list_items,
-		array('title'=>'Bookmark This Page')
-	);
-	return $form->html;
+  $html = '<h3 class="basic-form-header">Bookmark This Page</h3>'; 
+  $html .= $fs->field('staff_id',array('field_type'=>'hidden'));
+  $html .= $fs->field('source',array('field_type'=>'hidden'));
+  $html .= $fs->description;
+  $html .= $form->getSubmitBtn();
+  $form->content = $html; 
+  return $form->html;
 }

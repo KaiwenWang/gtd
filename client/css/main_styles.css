@@ -572,7 +572,8 @@ position: absolute;
 right: 24px;
 top: 58px;
 width: 410px;
-height: 200px;
+height: 90px;
+border-radius: 8px;
 padding-top:40px;
 z-index: 20;
 }
@@ -591,4 +592,17 @@ margin-left: 20px;
     left: 13px;
     position: absolute;
     top: 32px;
+}
+.destroy-bookmark-container {
+  float: left;
+}
+#bookmark-list .button {
+width: 242px;
+float: left;
+}
+#bookmark-list .destroy-bookmark-container .button {
+width: 20px;
+}
+.clear {
+  clear: both;
 }
