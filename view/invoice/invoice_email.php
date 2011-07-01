@@ -32,7 +32,7 @@ function invoiceEmail($d, $o = array() ) {
 	}
 
 	if ($d->invoice->getData('details')){
-	  $summary .= '<div id="details"><strong>Details</strong>: '.$d->invoice->getData('details').'</div>';
+	  $summary .= '<div id="details"><strong>Details</strong>: '.nl2br($d->invoice->getData('details')).'</div>';
 	}  
 	
 	$pay_online = 'https://payments.rdsecure.org/payments';
