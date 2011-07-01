@@ -14,7 +14,9 @@ function applicationLayout(){
  	if ( Session::sessionExists()) {
 			$bookmarks = Session::getUser()->getBookmarks();
 			$bookmark_list = $r->view('bookmarkTable', $bookmarks);
-			}
+        } else {
+          $bookmark_list = '';
+        }
 	return array(
 		'client_quicksearch'=> $client_search_form,
 		'bookmark' => $bookmark_widget,
