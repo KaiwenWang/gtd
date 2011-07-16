@@ -597,11 +597,14 @@ margin-left: 20px;
   float: left;
 }
 #bookmark-list .button {
-width: 242px;
+width: 74%;
 float: left;
 }
 #bookmark-list .destroy-bookmark-container .button {
-width: 20px;
+width: 10px;
+}
+#bookmark-list .destroy-bookmark-container a.button {
+	padding: 2px 8px 2px 4px;
 }
 .clear {
   clear: both;
