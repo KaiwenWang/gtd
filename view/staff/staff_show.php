@@ -38,11 +38,12 @@ function staffShow($d){
 					'. $billable_hours_this_week .'
 				</div>
 				<div class="clear-both"></div></div>';
-    $project_table = $r->view( 'projectTable', $d->staff->getProjects());
 
-    $hour_table = $r->view( 'hourTable', $d->staff->getHours());
+	$hour_table = $r->view('hourSearch',
+							$d->staff->getHours()
+							);
 
-		$highchart_graph = "<div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div>
+	$highchart_graph = "<div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div>
 			<div id='rd-graph_navigate'></div>
 			<div id='rd-graph_control'></div>";
 
@@ -52,7 +53,6 @@ function staffShow($d){
       'body'=> $hidden_forms
       .$hours_summary
       .$highchart_graph
-      .$project_table
       .$hour_table
     );
 }
