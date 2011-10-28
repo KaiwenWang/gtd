@@ -2,6 +2,20 @@ var item;
 $('document').ready(function(){
   $('#app-container').initialize_Gtd();
   $('.rd-graph').enable_Graphs();
+  
+  //hide/toggle hours
+  $('#company-show #hour-table .basic-table').hide();
+  $('#company-show #hour-table h3').click(function(){
+    $('#company-show #hour-table .basic-table').toggle();
+  });
+  
+  //hide/toggle notes
+  $('#company-show #note-table .basic-table').hide();
+  $('#company-show #note-table h3').click(function(){
+    $('#company-show #note-table .basic-table').toggle();
+  });
+    
+    
 });
 
 $.fn.initialize_Gtd = function(){

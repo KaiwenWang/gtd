@@ -69,8 +69,8 @@ function hourTable( $hours, $o = array() ){
 		);
   }
 	
-	$o['title'] = 'Hours';
-	$o['id'] = 'hour_table';
+	$o['title'] = 'Hours' . ' <a class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-s"></span></a>';
+	$o['id'] = 'hour-table';
     
   $hours_table = $r->view( 'basicTable', $table, $o); 
     

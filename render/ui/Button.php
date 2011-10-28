@@ -7,7 +7,8 @@ class Button extends PHP5_Accessor{
 						'show'=>'ui-icon-search',
 						'destroy'=>'ui-icon-trash',
 						'email'=>'ui-icon-mail-closed',
-						'create'=>'ui-icon-circle-plus'
+						'create'=>'ui-icon-circle-plus',
+						'open'=>'ui-icon-triangle-1-s'
 						);
 
 	function __construct( $o = array()){
@@ -26,7 +27,7 @@ class Button extends PHP5_Accessor{
 	}
 	function getHtml(){
 		$r = getRenderer();
-		return $r->link( $this->controller,
+			return $r->link( $this->controller,
 						 $this->params,
 						 $this->icon,
 						 array('class'=>'button ui-state-default ui-corner-all')
