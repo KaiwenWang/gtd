@@ -33,7 +33,8 @@ class CompanyController extends PageController {
 		$this->data->new_note = new Note();
 		$this->data->new_note->set(array( 
 										'date' => date('Y-m-d'),
-									  	'company_id' => $params['id'] ));
+										'staff_id'=>Session::getUserId(),
+									 	'company_id' => $params['id'] ));
 
 		$this->data->new_charge = new Charge();
 		$this->data->new_charge->set(array( 
