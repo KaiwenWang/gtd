@@ -7,10 +7,11 @@ class NoteController extends PageController {
   
   function index( $params){
     $this->data->notes = getAll( 'Note');
+    $this->data->note = new note();
   }
 
   function show( $params){
-    if( !$params['id'] )  $bail('required param["id"] not set');
+    if( !$params['id'] )  bail('required param["id"] not set');
     $this->data->note = new note($params['id']);
   }
   function update( $params){

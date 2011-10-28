@@ -5,16 +5,16 @@ function noteNewForm( $n, $o = array()){
     $fs = $form->getFieldSetFor($n);
 
     $list_items = array(
-		'Company'	=> $fs->company_id,
-		'Staff'	=> $fs->staff_id,
-		'Name' => $fs->name,
-		'Details' => $fs->description,
-		'Date'=> $fs->date
-	);	
+  		'Company'	=> $fs->company_id,
+  		'Staff'	=> $fs->staff_id,
+  		'Name' => $fs->name,
+  		'Details' => $fs->description,
+  		'Date'=> $fs->date
+  	);	
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Add Note')
+    							array( 'title'=>'Add New Note')
     						  );
     
     return $form->html;

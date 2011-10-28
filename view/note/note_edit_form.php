@@ -14,7 +14,7 @@ function noteEditForm( $n, $o = array()){
 	);   
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'Edit Contact')
+    							array( 'title'=>'Edit Note')
     						  );
     
     return $form->html;

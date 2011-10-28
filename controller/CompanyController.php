@@ -28,6 +28,12 @@ class CompanyController extends PageController {
 						'staff_id'=>$user_id
 					  ));
 		$this->data->new_project = $p;
+		
+		
+		$this->data->new_note = new Note();
+		$this->data->new_note->set(array( 
+										'date' => date('Y-m-d'),
+									  	'company_id' => $params['id'] ));
 
 		$this->data->new_charge = new Charge();
 		$this->data->new_charge->set(array( 
