@@ -1,111 +1,114 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-    <head>
-    <title>Ape Planet</title>
-    <link rel="Stylesheet" href="client/css/main_styles.css" type="text/css" />
-    <link rel="Stylesheet" href="client/css/jquery-ui.css" type="text/css" />
-    <link rel="Stylesheet" href="client/css/tablesorter-themes/blue/style.css" type="text/css" />
-	<!-- Load Libraries -->
- 	<script type="text/javascript" src="client/js/lib/jquery-1.4.2.min.js"></script>
- 	<script type="text/javascript" src="client/js/lib/jquery-ui-1.8.custom.min.js"></script>
+<head>
+  <title>Ape Planet</title>
+  <link rel="Stylesheet" href="client/css/main_styles.css" type="text/css" />
+  <link rel="Stylesheet" href="client/css/jquery-ui.css" type="text/css" />
+  <link rel="Stylesheet" href="client/css/tablesorter-themes/blue/style.css" type="text/css" />
+  <!-- Load Libraries -->
+  <script type="text/javascript" src="client/js/lib/jquery-1.4.2.min.js"></script>
+  <script type="text/javascript" src="client/js/lib/jquery-ui-1.8.custom.min.js"></script>
   <script type="text/javascript" src="client/js/lib/highcharts.js"></script>
- 	<script type="text/javascript" src="client/js/lib/jquery-easing.js"></script>
-	<script type="text/javascript" src="client/js/lib/tablesorter/jquery.tablesorter.min.js"></script>
- 	<script type="text/javascript" src="client/js/lib/quicksearch.js"></script>
-	<script type="text/javascript" src="client/js/lib/quicksilver.js"></script>
-	<script type="text/javascript" src="client/js/lib/date.js"></script>
-	<!-- Load and Run GTD -->
- 	<script type="text/javascript" src="client/js/utilities.js"></script>
-	<script type="text/javascript" src="client/js/lib/rd_graph.js"></script>
- 	<script type="text/javascript" src="client/js/initializePage.js"></script>
-    </head>
-    <body>
+  <script type="text/javascript" src="client/js/lib/jquery-easing.js"></script>
+  <script type="text/javascript" src="client/js/lib/tablesorter/jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="client/js/lib/quicksearch.js"></script>
+  <script type="text/javascript" src="client/js/lib/quicksilver.js"></script>
+  <script type="text/javascript" src="client/js/lib/date.js"></script>
+  <!-- Load and Run GTD -->
+  <script type="text/javascript" src="client/js/utilities.js"></script>
+  <script type="text/javascript" src="client/js/lib/rd_graph.js"></script>
+  <script type="text/javascript" src="client/js/initializePage.js"></script>
+</head>
+<body>
 
-        <div id="scroll-wheel-corrector"></div>
-		
-		<div id="app-container">
-			<div id="header">
-				<img src="/client/img/radicaldesigns_banner_02.gif" style="height:30px"/>
-<!--				<img src="/client/img/radicaldesigns_banner_03.gif" style="height:34px"/>-->
+  <div id="screen-cover"></div>
+  <div id="scroll-wheel-corrector"></div>
+    
+  <div id="app-container">
+    <div id="header">
+      <img src="/client/img/radicaldesigns_banner_02.gif" style="height:30px"/>
 
-<style>
-	.santa-quote{
-	color:white;
-	display:block;
-	font-size:14px;
-	left:142px;
-	margin-bottom:4px;
-	position:absolute;
-	top:6px;
-}
-#santa-slide{
-display:inline;
-}
-#santa-slide a{
-color:white;
-}
-</style>
-<span class="santa-quote">//  
-<script type="text/javascript" src="http://www.radicaldesigns.org/badge_widget.php?id=41&cache=0"></script>
-</span>
-</div>
-			
-       <div id="title-bar" class="[[test-warning]]">
-				[[login]]
-				<h1 id='title'>[[title]] </h1>
-        [[bookmark]]
-				<div class="clear-left"></div>
-			</div>
+      <style>
+        .santa-quote{
+        color:white;
+        display:block;
+        font-size:14px;
+        left:142px;
+        margin-bottom:4px;
+        position:absolute;
+        top:6px;
+      }
+      #santa-slide{
+      display:inline;
+      }
+      #santa-slide a{
+      color:white;
+      }
+      </style>
+      <span class="santa-quote">//  
+        <script type="text/javascript" src="http://www.radicaldesigns.org/badge_widget.php?id=41&cache=0"></script>
+      </span>
+    </div>
 
-	        <div id ="side">
-				<h3>Project Management</h3>
-				[[client_quicksearch]]
-				[[bookmark_list]]
-	            <ul>
-	                <li><h4>Find</h4></li>
-	                <li><a class="button" href="index.php?controller=Hour">Hours</a></li>
-	                <li><a class="button" href="index.php?controller=Company">Clients</a></li>
-	                <li><a class="button" href="index.php?controller=Project">Projects</a></li>
-	                <li><a class="button" href="index.php?controller=SupportContract">Support Contracts</a></li>
-	                <li><a class="button" href="index.php?controller=Staff">Staff</a></li>
-	                <li><a class="button" href="index.php?controller=ClientUser">Client Users</a></li>
-	                <li><h4>Create</h4></li>
-	                <li><a class="button" href="index.php?controller=Note&action=new_form">New Note</a></li>
-	                <li><a class="button" href="index.php?controller=Company&action=new_form">New Client</a></li>
-	                <li><a class="button" href="index.php?controller=Project&action=new_form">New Project</a></li>
+     <div id="title-bar" class="[[test-warning]]">
+      [[login]]
+      <h1 id='title'>[[title]] </h1>
+      [[bookmark]]
+      <div class="clear-left"></div>
+    </div>
 
-	                <li><a class="button" href="index.php?controller=SupportContract&action=new_form">New Support Contract</a></li>
-	                <li><a class="button" href="index.php?controller=Hour">Log Hours</a></li>
-	
-	            </ul>   
-				<h4>Billing</h4>
-	            <ul>
-	                <li><a class="button" href="index.php?controller=Payment">Payments</a></li>
-					<li><a class="button" href="index.php?controller=Charge">Charges</a></li>
-					<li><a class="button" href="index.php?controller=Invoice">Invoices</a></li>
-					<li><a class="button" href="index.php?controller=Company&action=kneecaps">Kneecaps</a></li>
+    <div id ="side">
+      [[client_quicksearch]]
+      <div class="flyout">
+        <h4 class="sidebar-button">Find</h4>
+        <ul class="flyout-menu">
+          <li><a class="menu-item" href="index.php?controller=Hour">Hours</a></li>
+          <li><a class="menu-item" href="index.php?controller=Company">Clients</a></li>
+          <li><a class="menu-item" href="index.php?controller=Project">Projects</a></li>
+          <li><a class="menu-item" href="index.php?controller=SupportContract">Support Contracts</a></li>
+          <li><a class="menu-item" href="index.php?controller=Staff">Staff</a></li>
+          <li><a class="menu-item" href="index.php?controller=ClientUser">Client Users</a></li>
+        </ul>
+      </div>
+      <div class="flyout">
+        <h4 class="sidebar-button">Create</h4>
+        <ul class="flyout-menu">
+          <li><a class="menu-item" href="index.php?controller=Note&action=new_form">New Note</a></li>
+          <li><a class="menu-item" href="index.php?controller=Company&action=new_form">New Client</a></li>
+          <li><a class="menu-item" href="index.php?controller=Project&action=new_form">New Project</a></li>
+          <li><a class="menu-item" href="index.php?controller=SupportContract&action=new_form">New Support Contract</a></li>
+          <li><a class="menu-item" href="index.php?controller=Hour">Log Hours</a></li>
+        </ul>   
+      </div>
+      <div class="flyout">
+        <h4 class="sidebar-button">Billing</h4>
+        <ul class="flyout-menu">
+          <li><a class="menu-item" href="index.php?controller=Payment">Payments</a></li>
+          <li><a class="menu-item" href="index.php?controller=Charge">Charges</a></li>
+          <li><a class="menu-item" href="index.php?controller=Invoice">Invoices</a></li>
+          <li><a class="menu-item" href="index.php?controller=Company&action=kneecaps">Kneecaps</a></li>
+        </ul>
+      </div>
+      <br>
+      [[bookmark_list]]
+    </div>  
 
+    <div id ="msg-container" align="center">
+      [[msg]]
+    </div>             
 
+        <div id="application">
+      <div id="log"></div>
+      <div id="content-controls">[[controls]]</div> 
 
-	            </ul>
-	        </div>  
-	
-	        <div id ="msg-container" align="center">
-	        	[[msg]]
-	        </div>             
-	
-	        <div id="application">
-				<div id="log"></div>
-				<div id="content-controls">[[controls]]</div>	
+      <div class="standard-view-container">
+        [[body]]
+      </div>
+        </div>
 
-				<div class="standard-view-container">
-					[[body]]
-				</div>
-	        </div>
-	
-	        <div id="footer"></div>
-		</div>
+        <div id="footer"></div>
+  </div>
 <br><br>
-    </body>
+</body>
 </html>
 

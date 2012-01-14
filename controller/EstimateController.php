@@ -22,7 +22,7 @@ class EstimateController extends PageController {
 		
 		$d->estimates = $d->project->getEstimates();
 
-		$d->hours = getMany('Hour', array('estimate_id'=>$params['id']));
+		$d->hours = getMany('Hour', array('estimate_id'=>$params['id'], 'sort'=>'date DESC'));
     }
     function update( $params ){
     	foreach( $this->updated_estimates as $e) $e->save();

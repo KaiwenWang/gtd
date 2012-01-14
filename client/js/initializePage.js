@@ -14,12 +14,11 @@ $('document').ready(function(){
   $('#company-show #note-table h3').click(function(){
     $('#company-show #note-table .basic-table').toggle();
   });
-    
-    
+
 });
 
 $.fn.initialize_Gtd = function(){
-  $('.button',this).enable_Button();
+  $('table .button',this).enable_Button();
   $('.date-field',this).enable_DateField();
   $('.basic-table',this).enable_TableSort();
   //  $('.basic-table-container',this).enable_QuickSearch();
@@ -30,7 +29,26 @@ $.fn.initialize_Gtd = function(){
   $('input[name*=auto_submit]',this).enable_AutoSubmit();
   $('.check-all',this).enable_SelectAll();
   $('#bookmark-link').enable_Bookmark();
+  $('.flyout').enable_SidebarMenu();
   return this;
+}
+
+
+$.fn.enable_SidebarMenu = function(){
+  $('.sidebar-button',this).click(function(){
+    var menu = $(this).next('.flyout-menu');
+    var bg = $('#screen-cover');
+    
+    $('.flyout-menu').hide();
+    menu.show();
+    bg.show();
+
+    var click_handler = $(bg).click(function(){
+      $(bg).hide();
+      $(menu).hide();
+      $(bg).unbind('click', click_handler);
+    });
+  });
 }
 
 $.fn.enable_Bookmark= function(){
