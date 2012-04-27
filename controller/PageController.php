@@ -85,6 +85,11 @@ class PageController{
     bail('php redirect is stupid.');
   }
   
+  protected function redirectBack( $o = array()){
+    if(empty($_SERVER['HTTP_REFERER'])) bail('Tried to redirect back to previous page, but there was\'t one.');
+    $this->redirect_url = $_SERVER['HTTP_REFERER']; 
+  }
+
   protected function redirectTo( $o = array()){
     $r = getRenderer();
 
