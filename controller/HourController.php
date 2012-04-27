@@ -57,11 +57,9 @@ class HourController extends PageController {
 		//$h->discount_if_internal_project();
     $h->updateOrCreateWithPair();
 		$project_id = $h->getProject()->id;
-    $this->redirectTo(array(
-      'controller' => 'Project', 
-			'action' => 'show', 
-			'id' => $project_id 
-		));
+    
+    isset($params['redirect'])  ? $this->redirectTo($params['redirect'])
+                                : $this->redirectBack();
   }
     
   function new_form( $params ){
@@ -101,42 +99,40 @@ class HourController extends PageController {
   function create( $params){
 		$h = $this->new_hours[0];
     $h->updateOrCreateWithPair();
-    $this->redirectTo(array('controller' => 'Project', 
-    						'action' => 'show', 
-    						'id' => $h->getProject()->id
-    						));
-	}
+                
+    isset($params['redirect'])  ? $this->redirectTo($params['redirect'])
+                                : $this->redirectBack();       
+  }
 
-	function search($params){
-		$a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
-		$default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
-								'sort' => 'date DESC');
-		$c = array_merge($default_query, $this->search_params('hour_search'));
-		if(isset($params['sort'])){  
-			$c['sort'] = $params['sort'];
-		}
+  function search($params){
+    $a_year_ago = date('Y-m-d', time() - ( 60 * 60 * 24 * 365 ));
+    $default_query = array( 'hour_search' => array('start_date' => $a_year_ago), 
+                            'sort' => 'date DESC');
+    $c = array_merge($default_query, $this->search_params('hour_search'));
+    if(isset($params['sort'])){  
+      $c['sort'] = $params['sort'];
+    }
 		
-
-		if(!empty($params['company'])){  
-			$c['company'] = $params['company'];
-		}
+    if(!empty($params['company'])){  
+      $c['company'] = $params['company'];
+    }
 		
-		if(!empty($params['staff_id'])){  
-			$c['staff_id'] = $params['staff_id'];
-		}
-		$this->data = Hour::getMany($c);
-		$this->options = $params;
-	}
+    if(!empty($params['staff_id'])){  
+      $c['staff_id'] = $params['staff_id'];
+    }
+    $this->data = Hour::getMany($c);
+    $this->options = $params;
+  }
 
   function destroy($params){
-		if(empty($params['id'])) bail('required param["id"] not set.');
-		$hour = new Hour($params['id']);
-		$project_id = $hour->getProject()->id;
-		$hour->destroy();
-		$this->redirectTo(array(
-							'controller'=>'Project',
-							'action'=>'show',
-							'id'=>$project_id
-							));
-	}
+    if(empty($params['id'])) bail('required param["id"] not set.');
+    $hour = new Hour($params['id']);
+    $project_id = $hour->getProject()->id;
+    $hour->destroy();
+    $this->redirectTo(array(
+      'controller'=>'Project',
+      'action'=>'show',
+      'id'=>$project_id
+    ));
+  }
 }
