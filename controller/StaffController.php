@@ -27,6 +27,7 @@ class StaffController extends PageController {
 
     $staff = new Staff($params['id']);
     $this->data->staff = $staff; 
+    $this->data->staff_hours = $staff->getHours(); 
 
     $hours_criteria = array('current_month'=>true);
     $this->data->hours_this_month = $staff->getHoursTotal($hours_criteria);
