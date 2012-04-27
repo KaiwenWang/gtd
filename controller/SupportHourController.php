@@ -29,30 +29,30 @@ class SupportHourController extends PageController {
 	}
 
   function update( $params ){
-  	$h = $this->updated_hours[0];
-		$h->updateOrCreateWithPair();
-    $this->redirectTo(array('controller' => 'SupportHour', 
-														'action' => 'show', 
-														'id' => $h->id
-													 ));
+    $h = $this->updated_hours[0];
+    $h->updateOrCreateWithPair();
+    $this->redirectTo(array(
+      'controller' => 'SupportHour', 
+      'action' => 'show', 
+      'id' => $h->id
+    ));
   }
 	
-	function new_record(){
+  function new_record(){
   }
 
   function create( $params){
-  	$h = $this->new_hours[0];
-		$h->updateOrCreateWithPair();
+    $h = $this->new_hours[0];
+    $h->updateOrCreateWithPair();
 		
-		isset($params['redirect']) 	? $redirect = $params['redirect']
-																: $redirect = array(
-																		'controller'=>'SupportContract',
-																		'action' => 'show', 
-																		'id' => $h->get('support_contract_id')
-                           				);
-
+    isset($params['redirect']) 	? $redirect = $params['redirect']
+                                : $redirect = array(
+                                    'controller'=>'SupportContract',
+                                    'action' => 'show', 
+                                    'id' => $h->get('support_contract_id')
+                                  );
     $this->redirectTo($redirect);
-	}
+  }
 
   function destroy($params){
 		if ( !$params['id']) bail('Required $params["id"] not present.');
