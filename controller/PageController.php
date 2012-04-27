@@ -89,13 +89,11 @@ class PageController{
     $r = getRenderer();
 
     if(isset($o['url']) && $o['url'] ) {
-        $this->redirect_url = $o['url'];
-        return;
+      $this->redirect_url = $o['url'];
+      return;
     }
 
-    $o['controller']	? $controller = $o['controller']
-                      : bail('redirectTo requires param["controller"] to be set');
-
+    if( !$o['controller'])  bail('redirectTo requires param["controller"] to be set');
     if( !$o['action'])  bail('redirectTo requires param["action"] to be set');
 
     $this->redirect_url = Router::url( $o);
