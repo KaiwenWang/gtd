@@ -133,26 +133,26 @@ function pluralize( $word ) {
 }
 
 class Util {
-	function date_format($string = false){
-		return self::date_format_from_time( strtotime( $string ));
-	}
-	
-	function date_format_from_time($time = false){
-		if( !$time ) $time = time();
-		return date('Y-m-d',$time);
-	}
-	
-	function month_format($date){
-		return date('Y-m',strtotime($date));
-	}
-	
-	function current_date(){
-		return self::date_format_from_time( time());
-	}
-	
-	function pretty_date($date){
-		return date('m/d/Y',strtotime($date));
-	}
+  function date_format($string = false){
+          return self::date_format_from_time( strtotime( $string ));
+  }
+  
+  function date_format_from_time($time = false){
+          if( !$time ) $time = time();
+          return date('Y-m-d',$time);
+  }
+  
+  function month_format($date){
+          return date('Y-m',strtotime($date));
+  }
+  
+  function current_date(){
+          return self::date_format_from_time( time());
+  }
+  
+  function pretty_date($date){
+          return date('m/d/Y',strtotime($date));
+  }
 	
   function is_a_date($date) {
     $null_dates = array(
@@ -194,28 +194,36 @@ class Util {
   	return $active_months;
   }
   
-	function start_of_current_month(){
+  function start_of_current_month(){
     $start_date = time();
     $start_month = date('m', $start_date);
-		$start_year = date('Y', $start_date);
+    $start_year = date('Y', $start_date);
 
     return mktime( 0, 0, 0, $start_month, 1, $start_year );
-	}
+  }
 	
-	function end_of_current_month(){
-        $start_of_month = Util::start_of_current_month();
-        $one_month_later = strtotime("+1 month", $start_of_month);
-        $end_of_month = strtotime("-1 day", $one_month_later);
-        return $end_of_month; 
-	}
+  function end_of_current_month(){
+    $start_of_month = Util::start_of_current_month();
+    $one_month_later = strtotime("+1 month", $start_of_month);
+    $end_of_month = strtotime("-1 day", $one_month_later);
+    return $end_of_month; 
+  }
+
+  function start_date_of_current_month(){
+    return self::date_format_from_time(self::start_of_current_month());
+  }
+
+  function end_date_of_current_month(){
+    return self::date_format_from_time(self::end_of_current_month());
+  }
+
+  function start_of_current_week(){
+    return strtotime('last sunday');
+  }
 	
-	function start_of_current_week(){
-		return strtotime('last sunday');
-	}
-	
-	function end_of_current_week(){
-		return strtotime('next sunday');	
-	}
+  function end_of_current_week(){
+    return strtotime('next sunday');	
+  }
 	
   function percent_of_month_from_start($date) {
         $day_of_month = date('j', strtotime($date));
