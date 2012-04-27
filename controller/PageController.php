@@ -88,7 +88,7 @@ class PageController{
   protected function redirectTo( $o = array()){
     $r = getRenderer();
 
-    if(isset($o['url']) && $o['url'] ) {
+    if(!empty($o['url'])) {
       $this->redirect_url = $o['url'];
       return;
     }
