@@ -15,7 +15,10 @@ function supportcontractShow($d){
       '.$r->view( 'supportcontractInfo', $d->contract).'
     </div>
   ';
-    
+
+  $total_hours_this_month = '<h3>Total Hours This Month: '.$d->total_hours_this_month.'</h3>';
+  $billable_hours_this_month = '<h3>Billable Hours This Month: '.$d->billable_hours_this_month.'</h3>';
+
   $d->hours ? $hours_table = $r->view('supporthourTable', $d->hours)
             : $hours_table = '
                 <div class="empty-table-message">
@@ -28,6 +31,8 @@ function supportcontractShow($d){
     'controls' => $contract_finder,
     'body'  =>  $contract_info
                 .$hidden_forms
+                .$total_hours_this_month
+                .$billable_hours_this_month
                 .$hours_table
     );
 }

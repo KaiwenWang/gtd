@@ -85,17 +85,20 @@ class PageController{
     bail('php redirect is stupid.');
   }
   
+  protected function redirectBack( $o = array()){
+    if(empty($_SERVER['HTTP_REFERER'])) bail('Tried to redirect back to previous page, but there was\'t one.');
+    $this->redirect_url = $_SERVER['HTTP_REFERER']; 
+  }
+
   protected function redirectTo( $o = array()){
     $r = getRenderer();
 
-    if(isset($o['url']) && $o['url'] ) {
-        $this->redirect_url = $o['url'];
-        return;
+    if(!empty($o['url'])) {
+      $this->redirect_url = $o['url'];
+      return;
     }
 
-    $o['controller']	? $controller = $o['controller']
-                      : bail('redirectTo requires param["controller"] to be set');
-
+    if( !$o['controller'])  bail('redirectTo requires param["controller"] to be set');
     if( !$o['action'])  bail('redirectTo requires param["action"] to be set');
 
     $this->redirect_url = Router::url( $o);
@@ -174,22 +177,24 @@ class PageController{
     $this->filter_sequences_for = array();
     $filter_sequences = array('before_filters','after_filters','around_filters');
     foreach( $filter_sequences as $filter_sequence_name){
-    	foreach( $this->$filter_sequence_name as $filter => $action_set){
+      foreach( $this->$filter_sequence_name as $filter => $action_set){
       	foreach( $action_set as $action ){
       		$this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
-      	}
-     	}
-   	}
+        }
+      }
+    }
   }
   
   private function loadFilterCollection(){
-		require_once('controller/filters/'.$this->filter_collection_class.'.php');
-    	$this->filter_collection = new $this->filter_collection_class( $this);
-    }
-    private function template_path_for( $action){
-        return '';
-    }
-    private function getViewNameFor( $controller, $action){
-    	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
-    }
+    require_once('controller/filters/'.$this->filter_collection_class.'.php');
+    $this->filter_collection = new $this->filter_collection_class( $this);
+  }
+
+  private function template_path_for( $action){
+    return '';
+  }
+
+  private function getViewNameFor( $controller, $action){
+    return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
+  }
 }

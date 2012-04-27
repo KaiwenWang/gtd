@@ -1,82 +1,83 @@
 <?php
 class SupportContract extends ActiveRecord {
 
-	var $datatable = "support_contract";
-	var $name_field = "domain_name";
+  var $datatable = "support_contract";
+  var $name_field = "domain_name";
 
-    protected static $schema;
-    protected static $schema_json = "{	
-			'fields'   : {	
-							'company_id'  	:  'Company',
-							'replacement_contract_id' : 'SupportContract',
-							'previous_contract_id' : 'SupportContract',
-							'domain_name'  	:  'text',
-							'technology'  	:  'text',
-							'monthly_rate'  :  'float',
-							'support_hours' :  'float',
-							'hourly_rate'  	:  'float',
-							'pro_bono'  	:  'bool',
-							'contract_on_file' 		:  'bool',
-							'no_contract_on_file'  	:  'bool',							
-							'status'  		:  'text',
-							'not_monthly'  	:  'bool',
-							'start_date'  	:  'date',
-							'end_date'  	:  'date',
-							'notes'  		:  'textarea',
-							'contract_url'  :  'text',
-						},
-			'required' : {
-							
-						},
-			'values'   : {
-				'status' :	{'active':'Active', 
-							'cancelled':'Cancelled'}
-						}
-			}";
-    function __construct( $id = null){
-        parent::__construct( $id);
+  protected static $schema;
+  protected static $schema_json = "{	
+    'fields'   : {	
+      'company_id' :  'Company',
+      'replacement_contract_id' : 'SupportContract',
+      'previous_contract_id' : 'SupportContract',
+      'domain_name' :  'text',
+      'technology'  :  'text',
+      'monthly_rate' :  'float',
+      'support_hours' :  'float',
+      'hourly_rate'  :  'float',
+      'pro_bono'  :  'bool',
+      'contract_on_file' :  'bool',
+      'no_contract_on_file':  'bool',							
+      'status' 	:  'text',
+      'not_monthly':  'bool',
+      'start_date' :  'date',
+      'end_date'  :  'date',
+      'notes'  	:  'textarea',
+      'contract_url' :  'text',
+    },
+    'required' : {
+
+    },
+    'values'   : {
+      'status' : {'active':'Active', 
+      'cancelled':'Cancelled'}
     }
-    function getName(){
-        return $this->getCompanyName().': '.$this->getData('domain_name');
+  }";
+
+  function __construct( $id = null){
+    parent::__construct( $id);
+  }
+  function getName(){
+    return $this->getCompanyName().': '.$this->getData('domain_name');
+  }
+  function getShortName(){
+    return $this->getData('domain_name');
+  }
+  function getInvoices(){
+    if(!$this->invoices){
+      $finder = new Invoice();
+      $this->invoices = $finder->find(array("support_contract_id"=>$this->id));
     }
-    function getShortName(){
-        return $this->getData('domain_name');
+    return $this->invoices;	
+  }
+  function getHours( $criteria = array()){
+    $criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
+    $this->hours = Hour::getMany($criteria);
+    return $this->hours;
+  }
+  function getFirstHour() {
+    $criteria = array('support_contract_id'=>$this->id, 'sort'=>'date ASC');
+    return getOne('Hour',$criteria);
+  }
+  function getTotalHours($criteria = array()){
+    $hours = $this->getHours($criteria);
+    $total_hours = 0;
+    if( !$hours ) return $total_hours;
+    foreach ($hours as $hour){
+      $total_hours += $hour->getHours();
     }
-	function getInvoices(){
-		if(!$this->invoices){
-			$finder = new Invoice();
-			$this->invoices = $finder->find(array("support_contract_id"=>$this->id));
-		}
-		return $this->invoices;	
-	}
-    function getHours( $criteria = array()){
-		$criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
-		$this->hours = Hour::getMany($criteria);
-        return $this->hours;
+    return $total_hours;
+  }
+  function getBillableHours($criteria = array()){
+    $hours = $this->getHours($criteria);
+    $billable_hours = 0;
+    if( !$hours ) return $billable_hours;
+    foreach ($hours as $hour){
+      $billable_hours += $hour->getHours();
+      $billable_hours -= $hour->getDiscount();
     }
-	function getFirstHour() {
-		$criteria = array('support_contract_id'=>$this->id, 'sort'=>'date ASC');
-        return getOne('Hour',$criteria);
-	}
-    function getTotalHours(){
-        $hours = $this->getHours();
-        $total_hours = 0;
-        if( !$hours ) return $total_hours;
-        foreach ($hours as $hour){
-            $total_hours += $hour->getHours();
-        }
-        return $total_hours;
-    }
-    function getBillableHours($criteria = array()){
-        $hours = $this->getHours($criteria);
-        $billable_hours = 0;
-        if( !$hours ) return $billable_hours;
-        foreach ($hours as $hour){
-            $billable_hours += $hour->getHours();
-            $billable_hours -= $hour->getDiscount();
-        }
-        return $billable_hours;
-    }
+    return $billable_hours;
+  }
 	function getProductInstances(){
 		if(empty($this->product_instances)){
 			$finder = new ProductInstance();
