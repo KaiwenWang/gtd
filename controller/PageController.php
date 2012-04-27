@@ -177,22 +177,24 @@ class PageController{
     $this->filter_sequences_for = array();
     $filter_sequences = array('before_filters','after_filters','around_filters');
     foreach( $filter_sequences as $filter_sequence_name){
-    	foreach( $this->$filter_sequence_name as $filter => $action_set){
+      foreach( $this->$filter_sequence_name as $filter => $action_set){
       	foreach( $action_set as $action ){
       		$this->filter_sequences_for[$action][$filter_sequence_name][] = $filter;
-      	}
-     	}
-   	}
+        }
+      }
+    }
   }
   
   private function loadFilterCollection(){
-		require_once('controller/filters/'.$this->filter_collection_class.'.php');
-    	$this->filter_collection = new $this->filter_collection_class( $this);
-    }
-    private function template_path_for( $action){
-        return '';
-    }
-    private function getViewNameFor( $controller, $action){
-    	return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
-    }
+    require_once('controller/filters/'.$this->filter_collection_class.'.php');
+    $this->filter_collection = new $this->filter_collection_class( $this);
+  }
+
+  private function template_path_for( $action){
+    return '';
+  }
+
+  private function getViewNameFor( $controller, $action){
+    return strtolower( str_replace( "Controller", "", $controller)) . ucwords( camel_case($action) );
+  }
 }
