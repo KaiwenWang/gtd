@@ -50,10 +50,9 @@ function staffShow($d){
 
     return  array(  
       'title'=>$d->staff->getName().'land',
-      'controls'=>$r->view( 'jumpSelect', $d->staff),
       'body'=> $hidden_forms
-      .$hours_summary
-      .$highchart_graph
-      .$hour_table
+              .$hours_summary
+              .$highchart_graph
+              .$hour_table
     );
 }
