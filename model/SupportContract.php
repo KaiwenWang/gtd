@@ -59,8 +59,8 @@ class SupportContract extends ActiveRecord {
     $criteria = array('support_contract_id'=>$this->id, 'sort'=>'date ASC');
     return getOne('Hour',$criteria);
   }
-  function getTotalHours(){
-    $hours = $this->getHours();
+  function getTotalHours($criteria = array()){
+    $hours = $this->getHours($criteria);
     $total_hours = 0;
     if( !$hours ) return $total_hours;
     foreach ($hours as $hour){
