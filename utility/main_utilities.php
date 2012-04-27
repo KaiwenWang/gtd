@@ -29,6 +29,7 @@ function bail( $msg){
 	trigger_error( strip_tags($msg));
 	exit();
 }
+
 function backtrace(){
     $trace = debug_backtrace();
     $html = '';
@@ -48,19 +49,23 @@ function backtrace(){
     }
     return $html;
 }
+
 function &getRenderer(){
 	static $render = null;
 	if( $render === null) $render = new Render();
 	return $render;
 }
+
 function getDbcon(){
     return AMP::getDbcon();
 }
+
 function getOne( $class, $search_criteria = array()){
 	$finder = new $class();
 	$objects = $finder->find( $search_criteria);
 	if(is_array($objects)) return array_shift($objects);
 }
+
 function getMany( $class, $search_criteria = array()){
 	if(empty($search_criteria)) return getAll($class);
 	foreach($search_criteria as $key=>$value) if( empty($value)) unset( $search_criteria[$key]);
@@ -69,80 +74,86 @@ function getMany( $class, $search_criteria = array()){
 	if(!$objects) $objects = array();
 	return $objects;
 }
+
 function getAll( $class){
 	if( !class_exists($class)) bail("Class $class does not exist");
 	$finder = new $class;
 	$objects = $finder->find( array());
 	return $objects;
 }
+
 function array_dump($array){
-		$html = '';
-    	foreach( $array as $key => $value){
-    		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
-    	}
-    	if(!$html) $html = 'empty array<br/>';
-    	return $html;
+	$html = '';
+	foreach( $array as $key => $value){
+		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
+	}
+  if(!$html) $html = 'empty array<br/>';
+	return $html;
 }
 
 function camel_case( $value ) {
-    $start_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
-    $end_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
-    $camel_cased = str_replace( $start_set, $end_set, $value );
-    return $camel_cased;
+  $start_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
+  $end_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
+  $camel_cased = str_replace( $start_set, $end_set, $value );
+  return $camel_cased;
 }
 
-
 function class_case( $value ) {
-    $start_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
-    $end_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
-    $camel_cased = ucfirst(str_replace( $start_set, $end_set, $value ));
-    return $camel_cased;
+  $start_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
+  $end_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
+  $camel_cased = ucfirst(str_replace( $start_set, $end_set, $value ));
+  return $camel_cased;
 }
 
 
 function snake_case( $value ) {
-    $start_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
-    $end_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
-    $underscored = str_replace( $start_set, $end_set, $value );
-    if( substr($underscored, 0, 1) == '_' ) {
-        $underscored = substr($underscored,1 );
-    }
-    return $underscored;
+  $start_set = split( ',', "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" );
+  $end_set = split( ',', "_a,_b,_c,_d,_e,_f,_g,_h,_i,_j,_k,_l,_m,_n,_o,_p,_q,_r,_s,_t,_u,_v,_w,_x,_y,_z" );
+  $underscored = str_replace( $start_set, $end_set, $value );
+  if( substr($underscored, 0, 1) == '_' ) {
+      $underscored = substr($underscored,1 );
+  }
+  return $underscored;
 }
 
 function pluralize( $word ) {
-    $term_end = substr( $word, -1 );
-    // ending in Z
-    if ("z" == $term_end ){
-        $term_end = substr( $word, -2 );
-        if ("zz" == $term_end ) return $word . 'es';
-        return $word . 'zes';
-    }
-    // ending in Y
-    if ("y" == $term_end ) return substr( $word, 0, strlen( $word )-1 ). "ies" ;
-    // ending in Default 
-    if ($term_end != "s" ) return $word ."s";
-    else return $word .'es';
-    return $word;
+  $term_end = substr( $word, -1 );
+  // ending in Z
+  if ("z" == $term_end ){
+      $term_end = substr( $word, -2 );
+      if ("zz" == $term_end ) return $word . 'es';
+      return $word . 'zes';
+  }
+  // ending in Y
+  if ("y" == $term_end ) return substr( $word, 0, strlen( $word )-1 ). "ies" ;
+  // ending in Default 
+  if ($term_end != "s" ) return $word ."s";
+  else return $word .'es';
+  return $word;
 }
 
 class Util {
 	function date_format($string = false){
 		return self::date_format_from_time( strtotime( $string ));
 	}
+	
 	function date_format_from_time($time = false){
 		if( !$time ) $time = time();
 		return date('Y-m-d',$time);
 	}
+	
 	function month_format($date){
 		return date('Y-m',strtotime($date));
 	}
+	
 	function current_date(){
 		return self::date_format_from_time( time());
 	}
+	
 	function pretty_date($date){
 		return date('m/d/Y',strtotime($date));
 	}
+	
   function is_a_date($date) {
     $null_dates = array(
         'mysql' => '0000-00-00',
@@ -168,19 +179,21 @@ class Util {
     $start_year = date('Y', $start_date);
     $last_day_of_month = date('t', $start_date);
     $time = mktime( 0, 0, 0, $start_month, $last_day_of_month, $start_year );
-	return $time;
+	 return $time;
   }
+  
   function month_range($start_date,$end_date){
-	$first_month =  Util::start_of_month($start_date);
-	$last_month = Util::end_of_month($end_date);
-	$time = $first_month;
-	$active_months = array();
-	while($time < $last_month){
-      $active_months[] = date("Y-m", $time);
-      $time = strtotime("+1 month", $time);
-	}
-	return $active_months;
-  } 
+  	$first_month =  Util::start_of_month($start_date);
+  	$last_month = Util::end_of_month($end_date);
+  	$time = $first_month;
+  	$active_months = array();
+  	while($time < $last_month){
+        $active_months[] = date("Y-m", $time);
+        $time = strtotime("+1 month", $time);
+  	}
+  	return $active_months;
+  }
+  
 	function start_of_current_month(){
     $start_date = time();
     $start_month = date('m', $start_date);
@@ -195,13 +208,16 @@ class Util {
         $end_of_month = strtotime("-1 day", $one_month_later);
         return $end_of_month; 
 	}
+	
 	function start_of_current_week(){
 		return strtotime('last sunday');
 	}
+	
 	function end_of_current_week(){
 		return strtotime('next sunday');	
 	}
-    function percent_of_month_from_start($date) {
+	
+  function percent_of_month_from_start($date) {
         $day_of_month = date('j', strtotime($date));
 
 		if( $day_of_month < 10 ){
@@ -211,9 +227,9 @@ class Util {
 		} else {
 			return 1;
 		}		
-    }
+  }
 
-    function percent_of_month_from_end($date) {
+  function percent_of_month_from_end($date) {
         $day_of_month = date('j', strtotime($date));
 
 		if( $day_of_month > 20 ){
@@ -223,20 +239,22 @@ class Util {
 		} else {
 			return 1;
 		}		
-    }
-    function dump($value) {
+  }
+  
+  function dump($value) {
         print("<pre>");
         print_r($value);
         print("</pre>");
-    }
+  }
 
-    function days_in_month($date) {
+  function days_in_month($date) {
         $timestamp = strtotime($date);
         $one_month_later = strtotime("+1 month", $timestamp);
         $start_of_month = Util::start_of_month(date('Y-m-d', $one_month_later));
         $end_of_month = strtotime("-1 day", $start_of_month);
         return date('d', $end_of_month);
-    }
+  }
+  
 	function include_directory($path){
 		$d = dir( rtrim($path,'/') ); 
 		while (false!== ($filename = $d->read())) { 
@@ -250,6 +268,7 @@ class Util {
 		} 
 		$d->close(); 
 	}
+	
 	function log($msg){
 		trigger_error( "GTD LOGGER:: " . strip_tags($msg) . "     <br/>\n" );
 	}
