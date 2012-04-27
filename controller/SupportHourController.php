@@ -1,7 +1,7 @@
 <?php
 class SupportHourController extends PageController {
-	public $template = 'gtd_main_template';
- 	var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
+  public $template = 'gtd_main_template';
+  var $before_filters = array( 'get_posted_records' => array('create','update','destroy') );
 	
   function index( $params ){
     $d = $this->data;
