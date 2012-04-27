@@ -16,24 +16,39 @@ class SupportContractController extends PageController {
 										'date' => date('Y-m-d')
 										));
 	}
-    function show( $params ) {
-        $params['id']	? $this->data->contract = new SupportContract( $params['id'] )
+    
+  function show( $params ) {
+    $params['id']	? $this->data->contract = new SupportContract( $params['id'] )
 						: Bail('required parameter $params["id"] missing.');
 		
-		$this->data->new_hour = new Hour();
-		$this->data->new_hour->set(array( 
-										'staff_id' => Session::getUserId(),
-										'date' => date('Y-m-d'),
-									  	'support_contract_id' => $params['id'] )
-										);
-		$this->data->new_charge = new Charge();
-		$this->data->new_charge->set(array( 
-										'date' => date('Y-m-d'),
-									  	'company_id' => $this->data->contract->get( 'company_id' ) )
-										);
-        $this->data->hours = getMany('Hour', array_merge(
-                    array('support_contract_id'=>$params['id'], 'sort' => 'date DESC'), $this->search_params('hour_search')));
-	}
+    $this->data->new_hour = new Hour();
+    $this->data->new_hour->set(array( 
+      'staff_id' => Session::getUserId(),
+      'date' => date('Y-m-d'),
+      'support_contract_id' => $params['id'] )
+    );
+    $this->data->new_charge = new Charge();
+    $this->data->new_charge->set(array( 
+      'date' => date('Y-m-d'),
+      'company_id' => $this->data->contract->get( 'company_id' ) )
+    );
+    $this->data->hours = $this->data->contract->getHours(array_merge( 
+      array('sort' => 'date DESC'), 
+      $this->search_params('hour_search'))
+    );
+    $this->data->total_hours_this_month = $this->data->contract->getTotalHours(array(
+      'date_range' => array(
+        'start_date' => Util::start_date_of_current_month(),
+        'end_date' => Util::end_date_of_current_month()
+      )
+    ));
+    $this->data->billable_hours_this_month = $this->data->contract->getBillableHours(array(
+      'date_range' => array(
+        'start_date' => Util::start_date_of_current_month(),
+        'end_date' => Util::end_date_of_current_month()
+      )
+    ));
+  }
 	function renew( $params ){
 		$d = $this->data;
         $params['id']	? $d->old_contract = new SupportContract( $params['id'] )
