@@ -16,7 +16,7 @@ class CompanyController extends PageController {
   } 
 
   function show($params){
-    if(empty($params['id']) bail('no company selected');
+    if(empty($params['id'])) bail('no company selected');
 
     $this->data->company = new Company( $params['id']);
     $user_id = Session::getUserId();
