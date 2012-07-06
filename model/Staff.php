@@ -12,8 +12,9 @@ class Staff extends User {
 				'email'  		  :  'text',
 				'team'  		  :  'text',
 				'username'  	:  'text',
-				'password'  	:  'text'
-				'permalink'  	:  'text'
+				'password'  	:  'text',
+				'permalink'  	:  'text',
+        'active'      :  'boolean'
 			},
 			'required' : {
 							
@@ -79,5 +80,9 @@ class Staff extends User {
 
   function getPermalink(){
     return $this->get('permalink'); 
+  }
+
+  function getActive(){
+    return $this->get('active');
   }
 }
