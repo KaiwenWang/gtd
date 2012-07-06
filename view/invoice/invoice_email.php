@@ -17,6 +17,9 @@ function invoiceEmail($d, $o = array() ) {
     $summary = '
 			<div id="banner">
 			<img src="http://radicaldesigns.org/img/original/rd-invoice-header.gif"><br />
+      <div style="margin: 0 0 10px 0; padding: 10px;border-radius: 4px 4px 4px 4px; background-color: #F2DEDE; border-color: #EED3D7; color: #B94A48;">
+      Radical Designs has moved! Please note our new address: 1201 Martin Luther King Jr. Way, Suite 200, Oakland, CA 94612
+      </div>
 			<b>Invoice Date</b> ' .  $invoice_date . '<br />
 			<b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
 			</div>
@@ -32,22 +35,24 @@ function invoiceEmail($d, $o = array() ) {
 	}
 
 	if ($d->invoice->getData('details')){
-	  $summary .= '<div id="details"><strong>Details</strong>: '.nl2br($d->invoice->getData('details')).'</div>';
+	  $summary .= '<div id="details"><strong>Details</strong>:<br /> '.nl2br($d->invoice->getData('details')).'</div>';
 	}  
 	
 	$pay_online = 'https://payments.rdsecure.org/payments';
 
 	$summary .= '
     <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
-		<!-- <div>View charges and detailed history online at <a href=""> http://???</a></div> -->
 		<hr>
 		<h4>Payment Methods</h4>';
 		if ($d->invoice->getAmountDue() < 1000) {
 		  $summary .= 'Radical Designs accepts credit/debit cards online for payments under $1000. <strong><a href="'.$pay_online.'">Pay your balance online</a></strong><br /><br />';
 	  }
-	  $summary .= '<strong>Send checks to: </strong>Radical Designs<br />
-				1370 Mission St, 4th Floor<br />
-				San Francisco, CA 94103<br />
+	  $summary .= '<strong>Send checks to: </strong>
+        <br />Radical Designs<br />
+        1201 Martin Luther King Jr. Way, Suite 200<br/>
+        Oakland, CA<br/>
+        94612<br/>
+        <br />
 				Make checks payable to "Radical Designs". <br /><br />
 				For questions about your contract or bill please email <a href="mailto:billing@radicaldesigns.org">billing@radicaldesigns.org</a><br>
 				For questions about support please email <a href="mailto:help@radicaldesigns.org">help@radicaldesigns.org</a><br>
