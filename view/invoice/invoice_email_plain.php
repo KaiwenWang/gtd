@@ -15,7 +15,7 @@ function invoiceEmailPlain($d, $o = array() ) {
     $client = $d->company->getName();  
 
     $summary = "\n\nRadical Designs Invoice\n Invoice Date " .  $invoice_date ."\n Invoice Number #" .  $d->invoice->getData("id") ."\n Your New Radical Designs Invoice: ".$client."\n\n ";
-
+    $summary .= '**Radical Designs has moved! Please note our new address: 1201 Martin Luther King Jr. Way Suite 200, Oakland, CA 94612**';
 	if ($d->invoice->getData('type') == 'dated'){
 		$summary .= "Invoice for Period ". $invoice_period ."\n\n Starting Balance on " . $d->invoice->getStartDate() . ":\n $ " . number_format( $d->invoice->getPreviousBalance(), 2)." New Charges in Period:\n  $ " . number_format( $d->invoice->getNewCosts(), 2 ) ."\n\n Less Payments in Period:\n $ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) ."\n";
 	}
@@ -29,7 +29,7 @@ function invoiceEmailPlain($d, $o = array() ) {
 	if ($d->invoice->getAmountDue() < 1000) { 
 		$summary .= "Radical Designs accepts online payments at https://payments.rdsecure.org/payments for amounts less than $1000.\n\n";
 	}
-	$summary .= "Send checks to:\n Radical Designs\n 1370 Mission St, 4th Floor\n San Francisco, CA 94103. \n Make your check payable to Radical Designs. \n For questions about your contract or bill please email billing@radicaldesigns.org\n For questions about support please email help@radicaldesigns.org\n Or you can call us at 415-738-0456"; 
+	$summary .= "Send checks to:\n Radical Designs\n 1201 Martin Luther King Jr. Way, Suite 200 \n Oakland, CA\n 94612\n \n Make your check payable to Radical Designs. \n For questions about your contract or bill please email billing@radicaldesigns.org\n For questions about support please email help@radicaldesigns.org\n Or you can call us at 415-738-0456"; 
 
 	$summary .= $r->view( 'companyLineItemsPlain', array(
 								'company'=>$d->company,
