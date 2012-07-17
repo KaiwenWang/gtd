@@ -52,7 +52,7 @@ class Company extends ActiveRecord {
 		return $this->support_contracts;
 	}
 	function getInvoices(){
-        $this->invoices = getMany( 'Invoice', array('company_id' => $this->id));
+        $this->invoices = getMany( 'Invoice', array('company_id' => $this->id, "sort"=>"id DESC"));
 		return $this->invoices;
 	}
   function getNotes(){
