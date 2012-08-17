@@ -59,10 +59,6 @@ class Company extends ActiveRecord {
         $this->notes = getMany( 'Note', array('company_id' => $this->id));
 		return $this->notes;
 	}
-  	function getPaperwork(){
-        $this->paperwork = getMany( 'Paperwork', array('company_id' => $this->id));
-		return $this->paperwork;
-	}
 	function getPayments($override_criteria=array()){
         $criteria = array_merge(array("company_id"=>$this->id), $override_criteria);
 		$this->payments = getMany('Payment', $criteria);
