@@ -163,8 +163,8 @@ RdGraph.prototype.parse_data = function(){
       hours = this.dates[date].hours * 1;
       discount = this.dates[date].discount * 1;
     }
-    if(max_value < hours)
-      max_value = hours;
+    if(max_value < Math.max(hours, discount))
+      max_value = Math.max(hours, discount);
       cumulative_dates[this.dates[date].date] = {'hours': hours, 'discount': discount};
   }
   var addend;
