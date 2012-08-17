@@ -149,6 +149,11 @@ class Render{
       unset($search_criteria['select_none']);
     }
 
+    if(isset($search_criteria['active'])){
+      $tokens['active'] = $search_criteria['active'];
+      unset($search_criteria['active']);  
+    }
+
     if( isset($search_criteria['title']) ){
       $tokens['title'] = $search_criteria['title'];
       unset($search_criteria['title']);

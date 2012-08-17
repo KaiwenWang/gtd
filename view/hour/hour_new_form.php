@@ -17,7 +17,7 @@ function hourNewForm( $h, $o = array()){
 					'Estimate' 		=> $estimate_field,
 					'Description' 	=> $fs->description,
 					'Staff' 		=> $fs->staff_id,
-      		'Pair' 		=> $fs->field('pair_id',array('select_none'=>'Not Paired')),
+      		'Pair' 		=> $fs->field('pair_id',array('select_none'=>'Not Paired', 'active' => 'true')),
 					'Hours' 		=> $fs->hours,        
 					'Discount' 		=> $fs->discount,
 					'Date Completed'=> $fs->date
