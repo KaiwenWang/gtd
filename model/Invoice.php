@@ -7,20 +7,21 @@ class Invoice extends ActiveRecord {
     protected static $schema;
     protected static $schema_json = "{	
 			'fields'   : {	
-                            'company_id'    :  'Company',
-                            'batch_id'    	:  'InvoiceBatch',
-							'type'  		:  'text',
-							'start_date'  	:  'date',
-							'end_date'  	:  'date',
-							'pdf'  			:  'text',
-							'sent_date'  	:  'date',
-							'status'  		:  'text',
-							'previous_balance'	:  'float',
-							'new_costs'  		:  'float',
-							'amount_due'	:  'float',
-							'new_payments' :  'float',
-							'details'      : 'textarea',
-							'date'         : 'date'
+                            'company_id'			: 'Company',
+                            'batch_id'    			: 'InvoiceBatch',
+							'type'  				: 'text',
+							'start_date'  			: 'date',
+							'end_date'  			: 'date',
+							'pdf'  					: 'text',
+							'sent_date'  			: 'date',
+							'status'  				: 'text',
+							'previous_balance'		: 'float',
+							'new_costs'  			: 'float',
+							'amount_due'			: 'float',
+							'new_payments' 			: 'float',
+							'details'      			: 'textarea',
+							'additional_recipients' : 'textarea',
+							'date'         			: 'date'
 						},
 			'required' : {
 							
@@ -99,6 +100,13 @@ class Invoice extends ActiveRecord {
 	function getCompanyName(){
 		return $this->getCompany()->getName();
 	}
+	function getAdditionalRecipients(){
+		if ($additional_recipients = $this->get('additional_recipients')) {
+			return ', ' . $this->get('additional_recipients');
+		} else {
+			return null;
+		}
+	}
 	function execute(){
 		if( !$this->isValid() ) bail( $this->errors );
 		if (!$this->get('amount_due')) {	
@@ -173,14 +181,14 @@ class Invoice extends ActiveRecord {
 
 		$d = new PHP5_Accessor();
 
-    $d->invoice = $this;
+    	$d->invoice = $this;
 		$d->company = $this->getCompany();
 		
 		$r = getRenderer();
 		$htmlcontent = $r->view('invoiceEmail', $d);
 		$plaincontent = $r->view('invoiceEmailPlain', $d);
 
-		$email_address = $this->getBillingEmailAddress();
+		$email_address = $this->getBillingEmailAddress() . $this->getAdditionalRecipients();
 		if ($this->getType() == 'dated') {
 			$subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
 		} else {

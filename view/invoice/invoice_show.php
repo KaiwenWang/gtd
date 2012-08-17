@@ -19,6 +19,7 @@ function invoiceShow($d, $o = array() ) {
 
     $client = $d->company->getName();  
 	$billing_contact_emails = $d->company->getBillingEmailAddress();
+	$additional_recipients = $d->invoice->getAdditionalRecipients();
     $send_button = UI::button( array(   'controller'=>'Invoice',
                                         'action'=>'email',
                                         'id'=>$d->invoice->getData('id')
@@ -40,7 +41,8 @@ function invoiceShow($d, $o = array() ) {
     $summary = '
 		<div id="banner">'.$r->view('basicList', $banner).'</div>
 		<h2 id="invoice-client">'.$client.'</h2>
-		<div id="billing-contact">Billing Contact Email: '.$billing_contact_emails.'</div>
+		<div id="billing-contact">Billing Contact Email: '.$billing_contact_emails.$additional_recipients.'<br>
+		</div>
 		<div id="billing-send-invoice">'.$send_button.'</div>
 		<div id="invoice-summary">';
 	

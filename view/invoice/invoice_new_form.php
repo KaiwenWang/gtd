@@ -6,9 +6,10 @@ function invoiceNewForm( $invoice, $o = array() ) {
     $fs = $form->getFieldSetFor( $invoice );
 
     $list_items = array(
-    	'Start Date'    => $fs->start_date,
-        'End Date' 	    => $fs->end_date,
-        'Company'       => $fs->company_id
+    	'Start Date'    		=> $fs->start_date,
+        'End Date' 	    		=> $fs->end_date,
+        'Company'       		=> $fs->company_id,
+        'Additional Recipients' => $fs->additional_recipients
     );	
     
     $form->content = $r->view( 'basicFormContents', 
