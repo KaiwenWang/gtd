@@ -13,21 +13,21 @@ class Company extends ActiveRecord {
     protected static $schema;
     protected static $schema_json = "{	
     			'fields'   : {	
-								'name' 		:  'text',
-								'notes'  	:  'textarea',
-								'street'  	:  'text',
-								'street_2'  :  'text',
-								'city'  	:  'text',
-								'state'  	:  'text',
-								'zip'  		:  'int',
-								'country'	:  'text',
-								'preamp_id' :  'int',
-								'status'  	:  'text',
-								'bay_area'  :  'bool',
-								'date_started' : 'date',
-								'date_ended':  'date',
-								'org_type':'text',
-								'fax' : 'text'
+								'name'	 		: 'text',
+								'notes' 	 	: 'textarea',
+								'street'  		: 'text',
+								'street_2'	  	: 'text',
+								'city'  		: 'text',
+								'state'		  	: 'text',
+								'zip'  			: 'int',
+								'country'		: 'text',
+								'preamp_id' 	: 'int',
+								'status'  		: 'text',
+								'bay_area'  	: 'bool',
+								'date_started' 	: 'date',
+								'date_ended'	: 'date',
+								'org_type'		: 'text',
+								'fax' 			: 'text'								
     						},
     			'required' :{ 
     							'name','date_started',
@@ -55,9 +55,13 @@ class Company extends ActiveRecord {
         $this->invoices = getMany( 'Invoice', array('company_id' => $this->id, "sort"=>"id DESC"));
 		return $this->invoices;
 	}
-  function getNotes(){
+  	function getNotes(){
         $this->notes = getMany( 'Note', array('company_id' => $this->id));
 		return $this->notes;
+	}
+  	function getPaperwork(){
+        $this->paperwork = getMany( 'Paperwork', array('company_id' => $this->id));
+		return $this->paperwork;
 	}
 	function getPayments($override_criteria=array()){
         $criteria = array_merge(array("company_id"=>$this->id), $override_criteria);
