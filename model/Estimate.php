@@ -8,7 +8,7 @@ class Estimate extends ActiveRecord {
     protected static $schema_json = "{	
 			'fields'   : {	
 							'project_id'	:  'Project',
-							'name'  	:  'text',
+							'name'		  	:  'text',
 							'description'  	:  'textarea',
 							'high_hours'  	:  'float',
 							'due_date'  	:  'date',

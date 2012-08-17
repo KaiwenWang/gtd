@@ -94,7 +94,7 @@ class Project extends ActiveRecord {
 	function getEstimates(){
 		if(empty($this->estimates)){
 			$finder = new Estimate();
-			$this->estimates = $finder->find(array("project_id"=>$this->id));
+			$this->estimates = $finder->find(array("project_id"=>$this->id,"sort"=>'id ASC'));
 		}
 		return $this->estimates;	
 	}
