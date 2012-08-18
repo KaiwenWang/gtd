@@ -2,8 +2,6 @@
 <html>
 <head>
   <title>Ape Planet &raquo; [[title]]</title>
-  <link rel="Stylesheet" href="client/css/bootstrap.css" type="text/css" />
-  <link rel="Stylesheet" href="client/css/bootstrap-responsive.css" type="text/css" />
   <link rel="Stylesheet" href="client/css/main_styles.css" type="text/css" />
   <link rel="Stylesheet" href="client/css/jquery-ui.css" type="text/css" />
   <link rel="Stylesheet" href="client/css/tablesorter-themes/blue/style.css" type="text/css" />
@@ -61,7 +59,6 @@
 
     <div id ="side">
       [[client_quicksearch]]
-  <br/>
       <div class="flyout">
         <h4 class="sidebar-button">Find</h4>
         <ul class="flyout-menu">
@@ -112,7 +109,6 @@
         <div id="footer"></div>
   </div>
 <br><br>
-
 </body>
 </html>
 

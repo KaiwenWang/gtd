@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>GTD, with Bootstrap, from Twitter</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      
+      legend{
+        margin-bottom:0;
+      }
+      
+      #bookmark-list a:hover{text-decoration: none;}
+      
+      .btn-primary{width: 80px;}
+    </style>
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+<body>
+<div id="side">
+      <form method="get" action="index.php" class="standard-form">
+<input type="hidden" name="controller" value="Company">
+<input type="hidden" name="action" value="show">
+<input type="hidden" value="id" name="auto_submit[0]"><select id="client_quicksearch" name="id"><option value="">Jump to Client</option><option value="215">1sky</option><option value="261">350</option><option value="285">About-Face</option><option value="256">Adversity 2 Advocacy</option><option value="238">AFL-CIO</option><option value="259">A Home Within</option><option value="51">AIDS Legal Referral Panel (ALRP)</option><option value="262">Alex Pader for City Council</option><option value="58">Alternet</option><option value="157">Amazon Watch</option><option value="155">Americans for Safe Access</option><option value="247">Amy Made</option><option value="150">Angel Wings Patient Outreach</option><option value="120">Animal Legal Defense Fund</option><option value="145">Antonia Juhasz</option><option value="172">Arts for LA</option><option value="123">Aspiration</option><option value="54">Barrick</option><option value="59">Bay Area Academy</option><option value="17">Berkeley Community Fund</option><option value="5">Be The Change Inc</option></select><div class="submit-container" style="display: none; "><input type="submit" class="submit_btn" value="submit"></div>
+</form>
+
+   <div class="btn-group">
+	  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+	    Find
+	    <span class="caret"></span>
+	  </a>    
+	  <ul class="dropdown-menu">
+	    <li><a class="menu-item" href="index.php?controller=Hour">Hours</a></li>
+	    <li><a class="menu-item" href="index.php?controller=Company">Clients</a></li>
+	    <li><a class="menu-item" href="index.php?controller=Project">Projects</a></li>
+	    <li><a class="menu-item" href="index.php?controller=SupportContract">Support Contracts</a></li>
+	    <li><a class="menu-item" href="index.php?controller=Staff">Staff</a></li>
+	    <li><a class="menu-item" href="index.php?controller=ClientUser">Client Users</a></li>
+	  </ul>
+  </div>
+  <br/>
+  <div class="btn-group">
+	  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+	    Create
+	    <span class="caret"></span>
+	  </a>
+	  <ul class="dropdown-menu">
+	      <li><a class="menu-item" href="index.php?controller=Note&amp;action=new_form">New Note</a></li>
+	      <li><a class="menu-item" href="index.php?controller=Company&amp;action=new_form">New Client</a></li>
+	      <li><a class="menu-item" href="index.php?controller=Project&amp;action=new_form">New Project</a></li>
+	      <li><a class="menu-item" href="index.php?controller=SupportContract&amp;action=new_form">New Support Contract</a></li>
+	      <li><a class="menu-item" href="index.php?controller=Hour">Log Hours</a></li>
+	    </ul>   
+  </div>
+   <div class="btn-group">
+	  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+	    Billing
+	    <span class="caret"></span>
+	  </a>
+	  <ul class="dropdown-menu">
+		  <li><a class="menu-item" href="index.php?controller=Payment">Payments</a></li>
+		  <li><a class="menu-item" href="index.php?controller=Charge">Charges</a></li>
+		  <li><a class="menu-item" href="index.php?controller=Invoice">Invoices</a></li>
+		  <li><a class="menu-item" href="index.php?controller=Company&amp;action=kneecaps">Kneecaps</a></li>
+	  </ul>
+  </div>
+  
+      <br>
+      <fieldset id="bookmarks"><legend>Bookmarks</legend><ul id="bookmark-list">
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=4" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="http://pro.gtd.radicaldesigns.org/index.php?controller=Staff&amp;action=show&amp;id=3">Suziland </a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=69" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?action=show&amp;id=244&amp;controller=SupportContract">Forest Ethics</a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=80" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?action=show&amp;id=91&amp;controller=Project">A Home Within</a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=95" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?controller=SupportContract&amp;action=show&amp;id=214">RAN Contract</a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=114" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?controller=Company&amp;action=show&amp;auto_submit%5B0%5D=id&amp;id=113">RD</a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=115" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?action=show&amp;id=81&amp;controller=Project">FSSBA</a>
+        <div class="clear"></div>
+      </li>
+      <li>
+        <div class="destroy-bookmark-container">
+          <a href="index.php?controller=Bookmark&amp;action=destroy&amp;id=123" class="button ui-state-default ui-corner-all"><span class="ui-icon ui-icon-trash"></span></a> 
+        </div>
+        <a href="https://pro.gtd.radicaldesigns.org/index.php?action=show&amp;id=103&amp;controller=Project">Verified Voting Project</a>
+        <div class="clear"></div>
+      </li></ul></fieldset>
+    </div>
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+  </body>
+</html>
