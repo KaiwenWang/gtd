@@ -48,6 +48,8 @@ function projectInfo( $p, $o = array()){
 			</div>
 			';
 	}
+  $percent = intval($p->getBillableHours()/  $p->getHighEstimate()*100) ;
+  $pclass = $percent > 80 ? 'overbudget' : '';
 	$html .='
 			<div class="detail-project-hours">
 		    	<span class="float-left">Low Estimate: '.$p->getLowEstimate().'</span>			
@@ -55,9 +57,19 @@ function projectInfo( $p, $o = array()){
 		    	<span class="float-left">High Estimate: '.$p->getHighEstimate().'</span>		    	
 		    	<span class="float-left">Hourly Rate: '.$p->get('hourly_rate').'</span>
 		    	<span class="float-left">Total Hours Worked: '.$p->getTotalHours().'</span>
-		    	<span class="float-left">Total Billable Hours: '.$p->getBillableHours().'</span>
+		    	<span class="float-left">Total Billable Hours : '.$p->getBillableHours().'</span>
 		    	<span class="float-left">Server: '.$p->get('server').'</span>
 		    	<div class="clear-left"></div>
+          <div class="bar">
+            <div class="filling '.$pclass.'" style="width:5%">
+              '.$percent.'%
+            </div>
+          </div>
+	<script type="text/javascript">
+	$(function(){
+	  $(".filling").animate({"width":"'.$percent.'%"}, 1000);		
+	});
+	</script>
 			</div>
     ';
     return $html;
