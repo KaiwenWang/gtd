@@ -407,6 +407,10 @@ margin-left:5px;
 float:left;
 width:300px;
 }
+.billing-alert {
+  color:red;
+  font-weight: bold;
+}
 /* FORMS */
 h3.basic-form-header{
 background: none;

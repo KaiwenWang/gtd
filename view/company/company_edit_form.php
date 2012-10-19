@@ -17,6 +17,7 @@ function companyEditForm( $c, $o = array()){
 		'Country'	=> $fs->country,
 		'Start Date' => $fs->date_started,
 		'Close Date' => $fs->date_ended,
+    'Billing Status' => $fs->billing_status,
 		'Notes'		=> $fs->notes
 	);	
     

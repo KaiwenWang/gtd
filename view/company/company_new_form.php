@@ -16,6 +16,7 @@ function companyNewForm( $c, $o = array()){
 		'Zip'		=> $fs->zip,
 		'Country'	=> $fs->country,
 		'Start Date' => $fs->date_started,
+    'Billing Status' => $fs->billing_status,
 		'Notes'		=> $fs->notes
 	);	
     

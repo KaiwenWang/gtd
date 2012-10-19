@@ -21,7 +21,7 @@ function companyTable( $companies, $o = array()){
 	
     $table = array();
 
-    $table['headers'] = array('Client','Primary Contact','Status','Last Payment','Balance');
+    $table['headers'] = array('Client','Primary Contact','Status','Last Payment','Billing Status','Balance');
 
     $table['rows'] =  array();
 
@@ -41,6 +41,7 @@ function companyTable( $companies, $o = array()){
 								$contact_link,
 								$c->get('status'), 
 								$c->getLastPaymentDate(), 
+                $c->get('billing_status'),
 								$c->calculateBalance(array('end_date'=>Util::date_format_from_time())) 
 								);
     }

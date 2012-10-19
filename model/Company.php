@@ -26,6 +26,7 @@ class Company extends ActiveRecord {
 								'bay_area'  	: 'bool',
 								'date_started' 	: 'date',
 								'date_ended'	: 'date',
+                'billing_status' : 'text',
 								'org_type'		: 'text',
 								'fax' 			: 'text'								
     						},
@@ -36,6 +37,7 @@ class Company extends ActiveRecord {
 				'values' : {
 							'status' : {'setup':'Setup','active':'Active','rEvent':'rEvent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Uncontrolled Server'},
 							'org_type' : {'501c3':'501c3','other':'other'},
+              'billing_status' : {'up-to-date':'Up To Date','overdue':'Overdue','collections':'Collections'},
 							'country' : {'usa':'USA','canada':'Canada','international':'International'}
 							}
     			}";
