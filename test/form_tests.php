@@ -1,12 +1,15 @@
 <?php
 class testForm extends UnitTestCase{
 	function testCreateFieldForExistingModel(){
-		$hour = new Hour(20974);
+		$hour = new Hour();
+		$hour->set(array('description'=>'Test','support_contract_id'=>1,'date'=>'2010-02-20','hours'=>'2.5'));
+		$hour->save();
+    $hour_id = $hour->get('id');
 		$form = new Form( array( 'controller'=>'simpleTest', 'action'=>'test'));
 		$f = $form->getFieldSetFor($hour);
 		$field_html = $f->hours;
-		
-		$this->assertEqual('<input type="text" value="2.5" id = "ActiveRecord[Hour][20974][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][20974][hours]" />',$field_html);
+		$this->assertEqual('<input type="text" value="2.5" id = "ActiveRecord[Hour]['.$hour_id.'][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour]['.$hour_id.'][hours]" />',$field_html);
+    $hour->delete();
 
 	}
 	function testCreateFieldForNewModel(){
@@ -35,7 +38,10 @@ class testForm extends UnitTestCase{
 		
 	}
 	function testCreateFormForOneObject(){
-		$hour = new Hour(20974);
+		$hour = new Hour();
+		$hour->set(array('description'=>'SimpleTest Hour Description 2','support_contract_id'=>1,'date'=>'2010-02-20','hours'=>'2.5', 'discount'=>'1'));
+		$hour->save();
+    $hour_id = $hour->get('id');
 
 		$form = new Form( array( 'controller'=>'Hour', 'action'=>'update', 'method'=>'post'));
 
@@ -46,14 +52,14 @@ class testForm extends UnitTestCase{
 		
 		$form->content = $html;
 		$form_html = $form->html;
-		
 		$correct_html = '<form method="post" action="index.php" class = "standard-form" >
 <input type="hidden" name="controller" value="Hour"/>
 <input type="hidden" name="action" value="update"/>
-<input type="text" value="SimpleTest Hour Description 2" id = "ActiveRecord[Hour][20974][description]" class = "description-field Hour-field text-field" name = "ActiveRecord[Hour][20974][description]" /><input type="text" value="2.5" id = "ActiveRecord[Hour][20974][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour][20974][hours]" /><input type="text" value="1" id = "ActiveRecord[Hour][20974][discount]" class = "discount-field Hour-field float-field" name = "ActiveRecord[Hour][20974][discount]" /><div class="submit-container"><input type="submit" class="submit_btn" value="submit"/></div>
+<input type="text" value="SimpleTest Hour Description 2" id = "ActiveRecord[Hour]['.$hour_id.'][description]" class = "description-field Hour-field text-field" name = "ActiveRecord[Hour]['.$hour_id.'][description]" /><input type="text" value="2.5" id = "ActiveRecord[Hour]['.$hour_id.'][hours]" class = "hours-field Hour-field float-field" name = "ActiveRecord[Hour]['.$hour_id.'][hours]" /><input type="text" value="1" id = "ActiveRecord[Hour]['.$hour_id.'][discount]" class = "discount-field Hour-field float-field" name = "ActiveRecord[Hour]['.$hour_id.'][discount]" /><div class="submit-container"><input type="submit" class="submit_btn" value="submit"/></div>
 </form>
 ';
 		$this->assertEqual($correct_html, $form_html);
+    $hour->delete();
 	}
 }
 ?>
