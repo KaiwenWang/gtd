@@ -22,7 +22,7 @@ class Payment extends ActiveRecord {
 							
 						},
 			'values'   : {
-				'payment_type':{'check':'Check','paypal':'Paypal','direct':'Direct Deposit','cash':'Cash','credit':'Credit'}
+				'payment_type':{'check':'Check','paypal':'Paypal','direct':'Direct Deposit','cash':'Cash','credit':'Credit','write_off':'Write Off'}
 						},
 			}";
 
