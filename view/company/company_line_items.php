@@ -13,7 +13,7 @@ function companyLineItems($d){
     if(!empty($support_line_items[$active_month])){
       foreach($support_line_items[$active_month] as $support_line_item){
         $monthly_history .= '
-          <tr><td>Monthly Support: '.$support_line_item['name'].'</td>
+          <tr><td>Monthly Hosting: '.$support_line_item['name'].'</td>
             <td></td>
             <td align="right"><strong>&#36;'.number_format($support_line_item['hosting'],2).'</strong><td></tr>
             <tr><td>Support Hours: '.$support_line_item['name'].'</td>

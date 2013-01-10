@@ -9,7 +9,7 @@ function companyLineItemsPlain($d){
 		$monthly_history .= "$active_month \n";
 		if(!isset($charge_line_items[$active_month])) $charge_line_items[$active_month] = 0;
 		foreach($support_line_items[$active_month] as $support_line_item){
-  		$monthly_history .= "Monthly Support: ".$support_line_item["name"]." - ";
+  		$monthly_history .= "Monthly Hosting: ".$support_line_item["name"]." - ";
   		$monthly_history .= number_format($support_line_item["hosting"],2)."\n";
   		$monthly_history .= "Support Hours: ".$support_line_item["name"]." (";
   		$monthly_history .= $support_line_item["support_hours"];
