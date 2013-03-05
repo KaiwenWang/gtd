@@ -180,6 +180,7 @@ class Hour extends ActiveRecord {
 		if( $this->is_project_hour()){
 			return $this->getProject()->getCompany();
 		} else {
+			//bail(print_r($this, 1));
 			return $this->getSupportContract()->getCompany();
 		}
 	}
