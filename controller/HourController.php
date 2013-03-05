@@ -97,7 +97,8 @@ class HourController extends PageController {
 	}
 
   function create( $params){
-    if(!$params['estimate_id'] && !$params['support_contract_id']) bail('required parameter "estimate_id" is missing');
+#    if(!$params['estimate_id'] && !$params['support_contract_id']) bail('required parameter "estimate_id" is missing');
+
 		$h = $this->new_hours[0];
     $h->updateOrCreateWithPair();
                 

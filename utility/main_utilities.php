@@ -20,7 +20,7 @@ function bail( $msg){
 				';
 	}
 	$html .= '
-				<h2 style="margin-bottom:2px;">ERROR MESSAGE</h2>'.$msg.'<br>
+				<h2 style="margin-bottom:2px;">ERROR MESSAGE</h2><pre>'.$msg.'</pre><br>
 				<h2 style="margin-bottom:6px;">BACKTRACE</h2>
 				'.backtrace().'
 				';
