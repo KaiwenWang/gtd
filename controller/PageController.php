@@ -28,9 +28,10 @@ class PageController{
   } 
 
   function execute( $action, $params = array()){
-		unset($params['action'],$params['controller']);
+    unset($params['action'],$params['controller']);
     $this->params = $params;
     $this->current_action = $action;
+    
     if( isset($params['partial']) && $params['partial']) $this->render_partial = true;
     	
     $this->executeActionChain();
@@ -38,13 +39,14 @@ class PageController{
 		if( $this->isResponseEnabled( ) && !$this->response){
 		  $this->response = $this->renderResponse();
 		}
-    if( $this->response) return $this->response;
+ 
+   if( $this->response) return $this->response;
     if( $this->isResponseEnabled( ) ) bail( 'This action was valid, but did not render any html, and was not set to redirect to another action. Use $this->disableResponse( ) if this is the desired behavior');
   }
   
 	function params( $key ){
     if( isset( $this->params[$key]) && $this->params[$key]) {
-      return $this->params[$key];
+     	return $this->params[$key];
     }
     return false;
   }

@@ -36,7 +36,7 @@ class Record extends Data {
         if (isset($item_id) && $item_id) $this->readData( $item_id );
     }
     function read( $item_id ) {
-        return $this->readData( $item_id );
+	return $this->readData( $item_id );
     }
 	function cloneRecord(){
 		$obj = clone $this;
@@ -207,7 +207,7 @@ class Record extends Data {
     }
 //	legacy get function
 	function getData($fieldname = null){
-		return $this->get($fieldname);
+		return $this->escape($this->get($fieldname));
 	}
 //	legacy function name
     function getName() {
@@ -400,5 +400,4 @@ class Record extends Data {
 
         return $search->updateData( $action, $scope );
     }
-
 }

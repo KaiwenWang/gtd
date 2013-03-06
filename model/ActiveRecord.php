@@ -17,7 +17,7 @@ class ActiveRecord  extends Record {
 	}
 	// get raw value from db
 	function getData($field = null){
-		return parent::get($field);
+		return $this->escape(parent::get($field));
 	}
 	function set($field){
 		return parent::set($field);
@@ -146,4 +146,16 @@ class ActiveRecord  extends Record {
 	function destroyAssociatedRecords(){
 		// overwrite in subclass
 	}
+
+    function escape($string) {
+	$from_array = array(
+		0 => '$'
+	);
+
+	$to_array = array(
+		0 => '&#36;'
+	);
+	return str_replace($from_array, $to_array, $string);
+    }
+
 }
