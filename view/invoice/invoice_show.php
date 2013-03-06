@@ -45,9 +45,8 @@ function invoiceShow($d, $o = array() ) {
 		</div>
 		<div id="billing-send-invoice">'.$send_button.'</div>
 		<div id="invoice-summary">';
-	
 	if ($d->invoice->getData('details')){
-		$summary .= '<div id="details"><strong>Details</strong>: '.nl2br($d->invoice->getData('details')).'</div>';
+		$summary .= '<div id="details"><strong>Details</strong>: ' . nl2br(str_replace('$', '&#36;', $d->invoice->getData('details'))) . '</div>';
 	}
 		
 	$summary .=		
