@@ -125,7 +125,7 @@ class RecordCollection extends Data {
     }
 
     function insertData( $values ){
-        $source = &new Record( $this->dbcon );
+        $source = new Record( $this->dbcon );
         $source->setSource( $this->datatable );
         $source->set( $values );
         $sql = $source->debug_insertSQL( );
@@ -265,7 +265,7 @@ class RecordCollection extends Data {
 
     function &getSearch() {
         if ( !isset( $this->_search )) {
-            $this->_search = & new $this->_search_class( $this );
+            $this->_search = new $this->_search_class( $this );
         }
         return $this->_search;
     }

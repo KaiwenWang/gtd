@@ -2,7 +2,6 @@ html{
 background-color: #fcfbf4; /* Old browsers */
 }
 body{
-//font-family: Verdana;
 margin:0;
 background: -moz-linear-gradient(top,  #efefef 1%, #ffffff 97%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#efefef), color-stop(97%,#ffffff)); /* Chrome,Safari4+ */
@@ -11,8 +10,6 @@ background: -o-linear-gradient(top,  #efefef 1%,#ffffff 97%); /* Opera 11.10+ */
 background: -ms-linear-gradient(top,  #efefef 1%,#ffffff 97%); /* IE10+ */
 background: linear-gradient(top,  #efefef 1%,#ffffff 97%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-//padding-top: 60px;
-//padding-bottom: 40px;
 }
 table{
 background: #ffffff;
