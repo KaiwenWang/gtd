@@ -1,5 +1,4 @@
 <?php
-
 function bookmarkTable( $bookmarks, $o = array()){
   if( !$bookmarks) return;
   $r =& getRenderer();
@@ -23,3 +22,5 @@ function bookmarkTable( $bookmarks, $o = array()){
   $html .= '</ul></fieldset>';
   return $html;
 }
+
+?>

@@ -1,8 +1,8 @@
 <?php
-function hourTable( $hours, $o = array() ){
+function hourTable( $hours = array(), $o = array() ){
 	$r = getRenderer();
 
-	$table['headers'] = array(
+        $table['headers'] = array(
 		'Date',
 		'Client',
 		'Description',

@@ -2,7 +2,7 @@
 class Link {
 
 	function __construct( $params, $o = array()){
-		$this->text = $params['text'];
+            $this->text = $params['text'];
 		unset($params['text']);
 		if(!empty( $params['url'] )){
 			$this->url = $params['url'];

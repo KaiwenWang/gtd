@@ -42,7 +42,15 @@ class Bookmark extends ActiveRecord {
   function getAlias(){
     return $this->get('description');
   }
-  
+
+  function getUrl() {
+    return $this->get('url');
+  }
+
+  function setUrl($url){
+    $this->set(array('url' => $url));
+  }
+
   function namespaceAlias($alias){
     if(!$alias){
       bail('you must specify an alias');
