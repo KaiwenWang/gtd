@@ -45,7 +45,7 @@ RdGraph.prototype.update_display = function(){
 RdGraph.prototype.create_control = function(){
   var parent_class = this;
   var span_range_1m = document.createElement("span");
-  span_range_1m.className = "range_1m";
+  span_range_1m.className = "range_1m btn";
   $(span_range_1m).click(function(){
     parent_class.range = 1;
     parent_class.navigation = -1;
@@ -53,7 +53,7 @@ RdGraph.prototype.create_control = function(){
     parent_class.update_display();
   });
   var span_range_3m = document.createElement("span");
-  span_range_3m.className = "range_3m";
+  span_range_3m.className = "range_3m btn";
   $(span_range_3m).click(function(){
     parent_class.range = 3;
     parent_class.navigation = -1;
@@ -61,7 +61,7 @@ RdGraph.prototype.create_control = function(){
     parent_class.update_display();
   });
   var span_range_6m = document.createElement("span");
-  span_range_6m.className = "range_6m";
+  span_range_6m.className = "range_6m btn";
   $(span_range_6m).click(function(){
     parent_class.range = 6;
     parent_class.navigation = -1;
@@ -69,7 +69,7 @@ RdGraph.prototype.create_control = function(){
     parent_class.update_display();
   });
   var span_range_1y = document.createElement("span");
-  span_range_1y.className = "range_1y";
+  span_range_1y.className = "range_1y btn";
   $(span_range_1y).click(function(){
     parent_class.range = 12;
     parent_class.navigation = -1;
@@ -90,23 +90,23 @@ RdGraph.prototype.create_navigation = function(){
   var parent_class = this;
   $(this.navigation_elem).html("");
   var span_navigate_back = document.createElement("span");
-  span_navigate_back.className = "navigate_back";
+  span_navigate_back.className = "navigate_back btn";
   $(span_navigate_back).click(function(){
     parent_class.navigation = parent_class.navigation - 1;
     parent_class.create_navigation();
     parent_class.update_display();
   });
-  span_navigate_back.appendChild(document.createTextNode("back"));
+  span_navigate_back.appendChild(document.createTextNode("< Back"));
   this.navigation_elem.appendChild(span_navigate_back);
   if(parent_class.navigation != -1){
     var span_navigate_forward = document.createElement("span");
-    span_navigate_forward.className = "navigate_forward";
+    span_navigate_forward.className = "navigate_forward btn";
     $(span_navigate_forward).click(function(){
       parent_class.navigation = parent_class.navigation + 1;
       parent_class.create_navigation();
       parent_class.update_display();
     });
-    span_navigate_forward.appendChild(document.createTextNode("forward"));
+    span_navigate_forward.appendChild(document.createTextNode("Forward >"));
     this.navigation_elem.appendChild(span_navigate_forward);
   }
   if(parent_class.navigation < -2){
@@ -247,8 +247,12 @@ RdGraph.prototype.create_display = function(){
         renderTo: parent_class.element.id,
         defaultSeriesType: 'area'
       },
+      credits: {
+        enabled: false
+      },
       title: {
-        text: 'Hours logged vs. time'
+        //text: 'Hours logged vs. time'
+        text: null
       },
       xAxis: {
         labels: {

@@ -11,7 +11,7 @@ function supportcontractShow($d){
                   );
 
   $contract_info = '
-    <div class="detail-list float-left"> 
+    <div class="bs-docs-example float-left" id="ContractInfo"> 
       '.$r->view( 'supportcontractInfo', $d->contract).'
     </div>
   ';

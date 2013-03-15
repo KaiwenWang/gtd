@@ -4,7 +4,7 @@ function paymentShow( $d ) {
 
     $title = $d->company->getName();
 
-	$company_info = '	<div class="detail-list float-left"> 
+	$company_info = '	<div class="bs-docs-example float-left" id="CompanyInfo"> 
 	 						'.$r->view( 'companyInfo', $d->company).'
 						</div>';
 

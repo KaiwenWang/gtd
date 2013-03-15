@@ -1,352 +1,327 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
+<!-- saved from url=(0077)http://mottie.github.com/tablesorter/docs/example-widget-bootstrap-theme.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>jQuery plugin: Tablesorter 2.0 - jQuery UITheme Widget (Bootstrap)</title>
 
-<html>
-<head>
-<title>tablesorter 2.0-dev demo, multi column sorting</title>
-	
-	<style type="text/css">@import "assets/css/default.css";</style>
-	
-	<script type="text/javascript" src="../jquery-latest.js"></script>
-	<script type="text/javascript" src="../jquery.tablesorter.min.js"></script>
-	<script type="text/javascript">
-	
-	$(function() {
-		$("table").tablesorter()
-		$("a.append").click(appendData);
-		
-		
+	<!-- jQuery -->
+	<script src="../../jquery-1.9.1.js"></script>
+
+	<!-- Demo stuff -->
+	<link rel="stylesheet" href="../../../../css/tablesorter-themes/bootstrap/jq.css">
+	<link rel="stylesheet" href="../../../../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../../../css/tablesorter-themes/bootstrap/prettify.css">
+	<script src="../prettify.js"></script>
+	<script src="../docs.js"></script>
+
+	<!-- Tablesorter: required for bootstrap -->
+	<link rel="stylesheet" href="../../../../css/tablesorter-themes/bootstrap/theme.bootstrap.css">
+	<script src="../jquery.tablesorter.js"></script>
+	<script src="../jquery.tablesorter.widgets.js"></script>
+
+	<script id="js">$(function() {
+
+	$.extend($.tablesorter.themes.bootstrap, {
+		// these classes are added to the table. To see other table classes available,
+		// look here: http://twitter.github.com/bootstrap/base-css.html#tables
+		table      : 'table table-bordered',
+		header     : 'bootstrap-header', // give the header a gradient background
+		footerRow  : '',
+		footerCells: '',
+		icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+		sortNone   : '',
+		sortAsc    : 'icon-chevron-up',
+		sortDesc   : 'icon-chevron-down',
+		active     : '', // applied when column is sorted
+		hover      : '', // use custom css here - bootstrap class may not override it
+		filterRow  : '', // filter row class
+		even       : '', // odd row zebra striping
+		odd        : ''  // even row zebra striping
 	});
-	
-	var lastStudent = 23;
-	var limit = 500;
-	
-	function appendData() {
-		
-		var tdTagStart = '<td>';
-		var tdTagEnd = '</td>';
-		var sex = ['male','female'];
-		var major = ['Mathematics','Languages'];
-		
-		
-		for(var i = 0; i < limit; i++) { 
-			var rnd = i % 2;
-			var row = '<tr>';	
-			row += tdTagStart + 'student' + (lastStudent++) + tdTagEnd;
-			row += tdTagStart + major[rnd] + tdTagEnd;
-			row += tdTagStart + sex[rnd] + tdTagEnd;
-			
-			row += tdTagStart +  randomNumber() + tdTagEnd;
-			row += tdTagStart +  randomNumber() + tdTagEnd;
-			row += tdTagStart +  randomNumber() + tdTagEnd;
-			row += tdTagStart +  randomNumber() + tdTagEnd;
-			
-			row += '</tr>';
-			
-			$("table/tbody:first").append(row);
-			
-		};
-		
-		
-		$("table").update();
-		return false;
-	}
-	
-	function randomNumber() {
-		return Math.floor(Math.random()*101)
-	}
-	
-	</script>	
+
+	// call the tablesorter plugin and apply the uitheme widget
+	$("table").tablesorter({
+		theme : "bootstrap", // this will 
+
+		widthFixed: true,
+
+		headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+
+		// widget code contained in the jquery.tablesorter.widgets.js file
+		// use the zebra stripe widget if you plan on hiding any rows (filter widget)
+		widgets : [ "uitheme", "zebra" ],
+
+		widgetOptions : {
+			// using the default zebra striping class name, so it actually isn't included in the theme variable above
+			// this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden
+			zebra : ["even", "odd"],
+
+			// reset filters button
+			filter_reset : ".reset",
+
+			// set the uitheme widget to use the bootstrap theme class names
+			// uitheme : "bootstrap"
+
+		}
+	})
+
+});</script>
+
+	<script>
+	$(function(){
+
+		// toggle zebra widget
+		$('button.zebra').click(function(){
+			var t = $(this).hasClass('btn-success');
+//			if (t) {
+				// removing classes applied by the zebra widget
+				// you shouldn't ever need to use this code, it is only for this demo
+//				$('table').find('tr').removeClass('odd even');
+//			}
+			$('table')
+				.toggleClass('table-striped')[0]
+				.config.widgets = (t) ? ["uitheme"] : ["uitheme", "zebra"];
+			$(this)
+				.toggleClass('btn-danger btn-success')
+				.find('i')
+				.toggleClass('icon-ok icon-remove').end()
+				.find('span')
+				.text(t ? 'disabled' : 'enabled');
+			$('table').trigger('refreshWidgets', [false]);
+		});
+	});
+	</script>
+
 </head>
+<body class=" hasGoogleVoiceExt">
 
-<body>
-<h1>tablesorter 2.0-dev demo, multi column sorting</h1>
-<p>
-To select more then one column to sort by, hold down your shift key and press the "headers".
-Pressing a all ready sorted column while holding down shift will reverse the order.
-</p>
-<p>
-Releasing the shift key and pressing a column will result in a one column sort.
-</p>
+<div id="banner">
+	<h1>table<em>sorter</em></h1>
+	<h2>jQuery UITheme Widget (Bootstrap)</h2>
+	<h3>Flexible client-side table sorting</h3>
+	<a href="http://mottie.github.com/tablesorter/docs/index.html">Back to documentation</a>
+</div>
 
-<p>Not big enough? <a href="#" class="append">Add 500 random rows of data </a> (can be clicked many times, more then a 1000 rows can be slow)</p>
+<div id="main">
 
-<table id="large" cellspacing="0">
-	
+	<p class="tip">
+		<span class="label label-info">NOTE!</span>
+		</p><ul>
+			<li>This widget can be applied to the original plugin. The code is in the "jquery.tablesorter.widgets.js" file. But you'll need to add the <code>&lt;i&gt;</code> into the header manually.</li>
+			<li><span class="label label-success">New!</span> v2.7!
+				<ul>
+					<li>You will need to modify the <code>headerTemplate</code> option to include the bootstrap icon! See the example in the code.</li>
+					<li>Setting <code>theme</code> option to <code>"Bootstrap"</code> will now override/ignore the <code>uitheme</code> value in the <code>widgetOptions</code>.</li>
+				</ul>
+			</li>
+			<li><span class="label label-success">New!</span> In tablesorter v2.4, the <code>uitheme</code> option has changed to indicate the theme instead of an array of icons to use:
+				<ul>
+					<li>All theme class names are now contained within <code>$.tablesorter.themes</code> with the Bootstrap theme saved to <code>$.tablesorter.themes.bootstrap</code>.</li>
+					<li>The themes variable allows you to modify the class names for the table, header, sort icons, active state, hover state, filter inputs and zebra striping. See the code below on how to extend these variables.</li>
+					<li>Set the <del><code>uitheme</code> widget</del> <code>theme</code> option (changed in v2.7) to <code>"bootstrap"</code> to set the widget to use the Bootstrap theme. See the <a href="http://mottie.github.com/tablesorter/docs/example-widget-ui-theme.html">jQuery UI demo</a> for another example.</li>
+				</ul>
+			</li>
+			<li>This demo shows how to get around an issue with the filter widget:
+				<ul>
+					<li>The <span class="label label-success">zebra widget button</span> below was added to show that when bootstrap's "table-striped" class is applied, the css defined zebra striping will not apply correctly because table rows are hidden but still accounted for by the css <code>nth-child()</code> selector.</li>
+					<li>To better understand this issue, disable the zebra widget (using the toggle button). Now <button class="filter btn btn-small btn-primary" data-column="5" data-filter="&gt;80"><i class="icon-white icon-filter"></i> Filter "&gt;80"</button> in the "Calculus" column.</li>
+					<li>Try other filter searches with the zebra widget disabled, like <button class="filter btn btn-small btn-primary" data-column="2" data-filter="male"><i class="icon-white icon-filter"></i> Filter "male"</button> in the "Sex" column.</li>
+					<li>To solve this issue, just enable the zebra widget and the "even" and "odd" row class names <del>will</del> should over-ride the <code>nth-child()</code> styling.<br><span class="label label-warning">NOTE!</span> This doesn't seem to work in the latest Bootstrap version, so you'll have to remove the "table-striped" class completely from the table.</li>
+					<li>The only down side is that for custom bootstrap themes, you'll need to edit the "theme.bootstrap.css" file for bootstrap.</li>
+				</ul>
+			</li>
+			<li>This demo uses HTML5 data attributes and therefore needs jQuery 1.4+.</li>
+		</ul>
+	<p></p>
+
+	<h1>Demo</h1>
+	<!-- use the filter_reset : '.reset' option or include data-filter="" using the filter button demo code to reset the filters -->
+	<div class="bootstrap_buttons">
+		Reset filter : <button class="reset btn btn-primary" data-column="0" data-filter=""><i class="icon-white icon-refresh"></i> Reset filters</button>
+		<br>
+		Zebra widget : <button class="zebra btn btn-success"><i class="icon-white icon-ok"></i> <span>enabled</span></button>
+	</div>
+	<br>
+
+	<div id="demo"><table class="tablesorter table table-bordered hasFilters tablesorter-bootstrap"><colgroup><col style="width: 12.4%;"><col style="width: 12.9%;"><col style="width: 10.1%;"><col style="width: 14.2%;"><col style="width: 16.5%;"><col style="width: 15.6%;"><col style="width: 16.9%;"></colgroup>
 	<thead>
-		 <tr>
-              <th colspan="2">One and Two</th>
-              <th rowspan="2">Three</th>
-				<th rowspan="2">Three</th>
-				<th rowspan="2">Three</th>
-              <th rowspan="2">Three</th>
-				<th rowspan="2">Three</th>
-           </tr>
-		<tr>
-			<th>Name</th>
-			<th>Major</th>
-			
-		</tr>
-	</thead>
+		<tr class="tablesorter-headerRow">
+			<th data-column="0" class="tablesorter-header bootstrap-header"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Name</div></div></th>
+			<th data-column="1" class="tablesorter-header bootstrap-header"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Major</div></div></th>
+			<th class="filter-select filter-exact  tablesorter-header bootstrap-header" data-placeholder="Pick a gender" data-column="2"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Sex</div></div></th>
+			<th data-column="3" class="tablesorter-header bootstrap-header"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">English</div></div></th>
+			<th data-column="4" class="tablesorter-header bootstrap-header tablesorter-headerAsc"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Japanese</div></div></th>
+			<th data-column="5" class="tablesorter-header bootstrap-header"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Calculus</div></div></th>
+			<th data-column="6" class="tablesorter-header bootstrap-header"><div class="tablesorter-wrapper" style="position:relative;height:100%;width:100%"><div class="tablesorter-header-inner">Geometry</div></div></th></tr>
 	<tfoot>
 		<tr>
-			<th>Name</th>
-
-			<th>Major</th>
-			<th>Sex</th>
-			<th>English</th>
-			<th>Japanese</th>
-			<th>Calculus</th>
-			<th>Geometry</th>
-
+			<th data-column="0">Name</th>
+			<th data-column="1">Major</th>
+			<th data-column="2">Sex</th>
+			<th data-column="3" class="">English</th>
+			<th data-column="4" class="tablesorter-headerAsc">Japanese</th>
+			<th data-column="5">Calculus</th>
+			<th data-column="6">Geometry</th></tr>
+		<tr>
+			<th colspan="7" class="pager form-horizontal tablesorter-pager" data-column="0" style="">
+				<button class="btn first disabled"><i class="icon-step-backward"></i></button>
+				<button class="btn prev disabled"><i class="icon-arrow-left"></i></button>
+				<span class="pagedisplay">1 - 10 / 50 (50)</span> <!-- this can be any element, including an input -->
+				<button class="btn next"><i class="icon-arrow-right"></i></button>
+				<button class="btn last"><i class="icon-step-forward"></i></button>
+				<select class="pagesize input-mini" title="Select page size">
+					<option selected="selected" value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+				</select>
+				<select class="pagenum input-mini" title="Select page number"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
+			</th>
 		</tr>
 	</tfoot>
 	<tbody>
-		<tr>
-			<td>Student01</td>
-			<td>Languages</td>
-			<td>male</td>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	<tr class="odd" style=""><td>Student44</td><td>Languages</td><td>female</td><td>82</td><td>2</td><td>59</td><td>73</td></tr><tr class="even" style=""><td>Student37</td><td>Mathematics</td><td>male</td><td>60</td><td>3</td><td>61</td><td>84</td></tr><tr class="odd" style=""><td>Student46</td><td>Languages</td><td>female</td><td>4</td><td>8</td><td>12</td><td>10</td></tr><tr class="even" style=""><td>Student47</td><td>Mathematics</td><td>male</td><td>89</td><td>10</td><td>6</td><td>11</td></tr><tr class="odd" style=""><td>Student28</td><td>Languages</td><td>female</td><td>44</td><td>25</td><td>43</td><td>1</td></tr><tr class="even" style=""><td>Student31</td><td>Mathematics</td><td>male</td><td>90</td><td>27</td><td>17</td><td>50</td></tr><tr class="odd" style=""><td>Student26</td><td>Languages</td><td>female</td><td>37</td><td>29</td><td>56</td><td>59</td></tr><tr class="even" style=""><td>Student33</td><td>Mathematics</td><td>male</td><td>4</td><td>31</td><td>37</td><td>15</td></tr><tr class="odd" style=""><td>Student48</td><td>Languages</td><td>female</td><td>90</td><td>32</td><td>21</td><td>18</td></tr><tr class="even" style=""><td>Student41</td><td>Mathematics</td><td>male</td><td>43</td><td>34</td><td>28</td><td>78</td></tr><tr class="odd" style="display: none;"><td>Student15</td><td>Languages</td><td>male</td><td>95</td><td>35</td><td>100</td><td>90</td></tr><tr class="odd" style="display: none;"><td>Student30</td><td>Languages</td><td>female</td><td>19</td><td>35</td><td>23</td><td>10</td></tr><tr class="even" style="display: none;"><td>Student50</td><td>Languages</td><td>female</td><td>56</td><td>37</td><td>67</td><td>54</td></tr><tr class="even" style="display: none;"><td>Student38</td><td>Languages</td><td>female</td><td>63</td><td>39</td><td>0</td><td>11</td></tr><tr class="even" style="display: none;"><td>Student14</td><td>Languages</td><td>female</td><td>50</td><td>45</td><td>55</td><td>90</td></tr><tr class="odd" style="display: none;"><td>Student20</td><td>Mathematics</td><td>male</td><td>40</td><td>45</td><td>40</td><td>80</td></tr><tr class="odd" style="display: none;"><td>Student21</td><td>Languages</td><td>male</td><td>50</td><td>45</td><td>100</td><td>100</td></tr><tr class="odd" style="display: none;"><td>Student39</td><td>Mathematics</td><td>male</td><td>50</td><td>46</td><td>32</td><td>38</td></tr><tr class="odd" style="display: none;"><td>Student29</td><td>Mathematics</td><td>male</td><td>77</td><td>47</td><td>22</td><td>38</td></tr><tr class="odd" style="display: none;"><td>Student18</td><td>Mathematics</td><td>male</td><td>30</td><td>49</td><td>55</td><td>75</td></tr><tr class="even" style="display: none;"><td>Student49</td><td>Mathematics</td><td>male</td><td>42</td><td>49</td><td>49</td><td>72</td></tr><tr class="odd" style="display: none;"><td>Student09</td><td>Mathematics</td><td>male</td><td>80</td><td>50</td><td>65</td><td>75</td></tr><tr class="even" style="display: none;"><td>Student16</td><td>Languages</td><td>female</td><td>100</td><td>50</td><td>30</td><td>70</td></tr><tr class="even" style="display: none;"><td>Student04</td><td>Languages</td><td>male</td><td>60</td><td>55</td><td>100</td><td>100</td></tr><tr class="even" style="display: none;"><td>Student36</td><td>Languages</td><td>female</td><td>70</td><td>61</td><td>70</td><td>94</td></tr><tr class="odd" style="display: none;"><td>Student07</td><td>Mathematics</td><td>male</td><td>85</td><td>68</td><td>90</td><td>90</td></tr><tr class="odd" style="display: none;"><td>Student01</td><td>Languages</td><td>male</td><td>80</td><td>70</td><td>75</td><td>80</td></tr><tr class="odd" style="display: none;"><td>Student45</td><td>Mathematics</td><td>male</td><td>91</td><td>73</td><td>37</td><td>39</td></tr><tr class="even" style="display: none;"><td>Student12</td><td>Mathematics</td><td>female</td><td>100</td><td>75</td><td>70</td><td>85</td></tr><tr class="even" style="display: none;"><td>Student32</td><td>Languages</td><td>female</td><td>60</td><td>75</td><td>33</td><td>38</td></tr><tr class="even" style="display: none;"><td>Student40</td><td>Languages</td><td>female</td><td>51</td><td>75</td><td>25</td><td>3</td></tr><tr class="odd" style="display: none;"><td>Student23</td><td>Mathematics</td><td>male</td><td>82</td><td>77</td><td>0</td><td>79</td></tr><tr class="odd" style="display: none;"><td>Student05</td><td>Languages</td><td>female</td><td>68</td><td>80</td><td>95</td><td>80</td></tr><tr class="odd" style="display: none;"><td>Student13</td><td>Languages</td><td>female</td><td>100</td><td>80</td><td>100</td><td>90</td></tr><tr class="odd" style="display: none;"><td>Student35</td><td>Mathematics</td><td>male</td><td>5</td><td>81</td><td>51</td><td>95</td></tr><tr class="odd" style="display: none;"><td>Student27</td><td>Mathematics</td><td>male</td><td>86</td><td>82</td><td>69</td><td>23</td></tr><tr class="odd" style="display: none;"><td>Student11</td><td>Languages</td><td>male</td><td>86</td><td>85</td><td>100</td><td>100</td></tr><tr class="even" style="display: none;"><td>Student02</td><td>Mathematics</td><td>male</td><td>90</td><td>88</td><td>100</td><td>90</td></tr><tr class="even" style="display: none;"><td>Student42</td><td>Languages</td><td>female</td><td>11</td><td>89</td><td>60</td><td>95</td></tr><tr class="even" style="display: none;"><td>Student08</td><td>Languages</td><td>male</td><td>100</td><td>90</td><td>90</td><td>85</td></tr><tr class="odd" style="display: none;"><td>Student19</td><td>Languages</td><td>male</td><td>68</td><td>90</td><td>88</td><td>70</td></tr><tr class="even" style="display: none;"><td>Student24</td><td>Languages</td><td>female</td><td>100</td><td>91</td><td>13</td><td>82</td></tr><tr class="odd" style="display: none;"><td>Student43</td><td>Mathematics</td><td>male</td><td>48</td><td>92</td><td>18</td><td>88</td></tr><tr class="odd" style="display: none;"><td>Student03</td><td>Languages</td><td>female</td><td>85</td><td>95</td><td>80</td><td>85</td></tr><tr class="even" style="display: none;"><td>Student25</td><td>Mathematics</td><td>male</td><td>22</td><td>96</td><td>82</td><td>53</td></tr><tr class="even" style="display: none;"><td>Student34</td><td>Languages</td><td>female</td><td>77</td><td>97</td><td>81</td><td>44</td></tr><tr class="even" style="display: none;"><td>Student06</td><td>Mathematics</td><td>male</td><td>100</td><td>99</td><td>100</td><td>90</td></tr><tr class="even" style="display: none;"><td>Student22</td><td>Mathematics</td><td>male</td><td>100</td><td>99</td><td>100</td><td>90</td></tr><tr class="even" style="display: none;"><td>Student10</td><td>Languages</td><td>male</td><td>85</td><td>100</td><td>100</td><td>90</td></tr><tr class="odd" style="display: none;"><td>Student17</td><td>Languages</td><td>female</td><td>80</td><td>100</td><td>55</td><td>65</td></tr></tbody>
+</table></div>
 
-			<td>80</td>
-			<td>70</td>
-			<td>75</td>
-			<td>80</td>
-		</tr>
-		<tr>
-			<td>Student02</td>
+	<h2>Page Header</h2>
+	<div>
+		<pre class="prettyprint lang-html"><span class="com">&lt;!-- Bootstrap stylesheet --&gt;</span><span class="pln">
+</span><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"stylesheet"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/css/bootstrap.min.css"</span><span class="tag">&gt;</span><span class="pln">
 
-			<td>Mathematics</td>
-			<td>male</td>
-			<td>90</td>
-			<td>88</td>
-			<td>100</td>
-			<td>90</td>
+</span><span class="com">&lt;!-- bootstrap widget theme --&gt;</span><span class="pln">
+</span><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"stylesheet"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/tablesorter/css/theme.bootstrap.css"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- tablesorter plugin --&gt;</span><span class="pln">
+</span><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"../js/jquery.tablesorter.js"</span><span class="tag">&gt;&lt;/script&gt;</span><span class="pln">
+</span><span class="com">&lt;!-- tablesorter widget file - loaded after the plugin --&gt;</span><span class="pln">
+</span><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"../js/jquery.tablesorter.widgets.js"</span><span class="tag">&gt;&lt;/script&gt;</span></pre>
+	</div>
 
-		</tr>
-		<tr>
-			<td>Student03</td>
-			<td>Languages</td>
-			<td>female</td>
-			<td>85</td>
-			<td>95</td>
+	<h2>Javascript</h2>
+	<div id="javascript">
+		<pre class="prettyprint lang-javascript"><span class="pln">$</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
 
-			<td>80</td>
-			<td>85</td>
-		</tr>
-		<tr>
-			<td>Student04</td>
-			<td>Languages</td>
-			<td>male</td>
+  $</span><span class="pun">.</span><span class="pln">extend</span><span class="pun">(</span><span class="pln">$</span><span class="pun">.</span><span class="pln">tablesorter</span><span class="pun">.</span><span class="pln">themes</span><span class="pun">.</span><span class="pln">bootstrap</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="com">// these classes are added to the table. To see other table classes available,</span><span class="pln">
+    </span><span class="com">// look here: http://twitter.github.com/bootstrap/base-css.html#tables</span><span class="pln">
+    table      </span><span class="pun">:</span><span class="pln"> </span><span class="str">'table table-bordered'</span><span class="pun">,</span><span class="pln">
+    header     </span><span class="pun">:</span><span class="pln"> </span><span class="str">'bootstrap-header'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// give the header a gradient background</span><span class="pln">
+    footerRow  </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln">
+    footerCells</span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln">
+    icons      </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="com">// add "icon-white" to make them white; this icon class is added to the &lt;i&gt; in the header</span><span class="pln">
+    sortNone   </span><span class="pun">:</span><span class="pln"> </span><span class="str">'bootstrap-icon-unsorted'</span><span class="pun">,</span><span class="pln">
+    sortAsc    </span><span class="pun">:</span><span class="pln"> </span><span class="str">'icon-chevron-up'</span><span class="pun">,</span><span class="pln">
+    sortDesc   </span><span class="pun">:</span><span class="pln"> </span><span class="str">'icon-chevron-down'</span><span class="pun">,</span><span class="pln">
+    active     </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="com">// applied when column is sorted</span><span class="pln">
+    hover      </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="com">// use custom css here - bootstrap class may not override it</span><span class="pln">
+    filterRow  </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="com">// filter row class</span><span class="pln">
+    even       </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pun">,</span><span class="pln"> </span><span class="com">// odd row zebra striping</span><span class="pln">
+    odd        </span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span><span class="pln">  </span><span class="com">// even row zebra striping</span><span class="pln">
+  </span><span class="pun">});</span><span class="pln">
 
-			<td>60</td>
-			<td>55</td>
-			<td>100</td>
-			<td>100</td>
-		</tr>
-		<tr>
-			<td>Student05</td>
+  </span><span class="com">// call the tablesorter plugin and apply the uitheme widget</span><span class="pln">
+  $</span><span class="pun">(</span><span class="str">"table"</span><span class="pun">).</span><span class="pln">tablesorter</span><span class="pun">({</span><span class="pln">
+    theme </span><span class="pun">:</span><span class="pln"> </span><span class="str">"bootstrap"</span><span class="pun">,</span><span class="pln"> </span><span class="com">// this will </span><span class="pln">
 
-			<td>Languages</td>
-			<td>female</td>
-			<td>68</td>
-			<td>80</td>
-			<td>95</td>
-			<td>80</td>
+    widthFixed</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span><span class="pln">
 
-		</tr>
-		<tr>
-			<td>Student06</td>
-			<td>Mathematics</td>
-			<td>male</td>
-			<td>100</td>
-			<td>99</td>
+    headerTemplate </span><span class="pun">:</span><span class="pln"> </span><span class="str">'{content} {icon}'</span><span class="pun">,</span><span class="pln"> </span><span class="com">// new in v2.7. Needed to add the bootstrap icon!</span><span class="pln">
 
-			<td>100</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student07</td>
-			<td>Mathematics</td>
-			<td>male</td>
+    </span><span class="com">// widget code contained in the jquery.tablesorter.widgets.js file</span><span class="pln">
+    </span><span class="com">// use the zebra stripe widget if you plan on hiding any rows (filter widget)</span><span class="pln">
+    widgets </span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="pln"> </span><span class="str">"uitheme"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"filter"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"zebra"</span><span class="pln"> </span><span class="pun">],</span><span class="pln">
 
-			<td>85</td>
-			<td>68</td>
-			<td>90</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student08</td>
+    widgetOptions </span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+      </span><span class="com">// using the default zebra striping class name, so it actually isn't included in the theme variable above</span><span class="pln">
+      </span><span class="com">// this is ONLY needed for bootstrap theming if you are using the filter widget, because rows are hidden</span><span class="pln">
+      zebra </span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">"even"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"odd"</span><span class="pun">],</span><span class="pln">
 
-			<td>Languages</td>
-			<td>male</td>
-			<td>100</td>
-			<td>90</td>
-			<td>90</td>
-			<td>85</td>
+      </span><span class="com">// reset filters button</span><span class="pln">
+      filter_reset </span><span class="pun">:</span><span class="pln"> </span><span class="str">".reset"</span><span class="pun">,</span><span class="pln">
 
-		</tr>
-		<tr>
-			<td>Student09</td>
-			<td>Mathematics</td>
-			<td>male</td>
-			<td>80</td>
-			<td>50</td>
+      </span><span class="com">// set the uitheme widget to use the bootstrap theme class names</span><span class="pln">
+      </span><span class="com">// uitheme : "bootstrap"</span><span class="pln">
 
-			<td>65</td>
-			<td>75</td>
-		</tr>
-		<tr>
-			<td>Student10</td>
-			<td>Languages</td>
-			<td>male</td>
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">})</span><span class="pln">
+  </span><span class="pun">.</span><span class="pln">tablesorterPager</span><span class="pun">({</span><span class="pln">
 
-			<td>85</td>
-			<td>100</td>
-			<td>100</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student11</td>
+    </span><span class="com">// target the pager markup - see the HTML block below</span><span class="pln">
+    container</span><span class="pun">:</span><span class="pln"> $</span><span class="pun">(</span><span class="str">".pager"</span><span class="pun">),</span><span class="pln">
 
-			<td>Languages</td>
-			<td>male</td>
-			<td>86</td>
-			<td>85</td>
-			<td>100</td>
-			<td>100</td>
+    </span><span class="com">// target the pager page select dropdown - choose a page</span><span class="pln">
+    cssGoto  </span><span class="pun">:</span><span class="pln"> </span><span class="str">".pagenum"</span><span class="pun">,</span><span class="pln">
 
-		</tr>
-		<tr>
-			<td>Student12</td>
-			<td>Mathematics</td>
-			<td>female</td>
-			<td>100</td>
-			<td>75</td>
+    </span><span class="com">// remove rows from the table to speed up the sort of large tables.</span><span class="pln">
+    </span><span class="com">// setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.</span><span class="pln">
+    removeRows</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">,</span><span class="pln">
 
-			<td>70</td>
-			<td>85</td>
-		</tr>
-		<tr>
-			<td>Student13</td>
-			<td>Languages</td>
-			<td>female</td>
+    </span><span class="com">// output string - default is '{page}/{totalPages}';</span><span class="pln">
+    </span><span class="com">// possible variables: {page}, {totalPages}, {filteredPages}, {startRow}, {endRow}, {filteredRows} and {totalRows}</span><span class="pln">
+    output</span><span class="pun">:</span><span class="pln"> </span><span class="str">'{startRow} - {endRow} / {filteredRows} ({totalRows})'</span><span class="pln">
 
-			<td>100</td>
-			<td>80</td>
-			<td>100</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student14</td>
+  </span><span class="pun">});</span><span class="pln">
 
-			<td>Languages</td>
-			<td>female</td>
-			<td>50</td>
-			<td>45</td>
-			<td>55</td>
-			<td>90</td>
+</span><span class="pun">});</span></pre>
+	</div>
 
-		</tr>
-		<tr>
-			<td>Student15</td>
-			<td>Languages</td>
-			<td>male</td>
-			<td>95</td>
-			<td>35</td>
+<div class="next-up">
+	<hr>
+	Next up: <a href="http://mottie.github.com/tablesorter/docs/example-widget-resizable.html">Resizable Columns widget ››</a>
+</div>
 
-			<td>100</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student16</td>
-			<td>Languages</td>
-			<td>female</td>
+</div>
 
-			<td>100</td>
-			<td>50</td>
-			<td>30</td>
-			<td>70</td>
-		</tr>
-		<tr>
-			<td>Student17</td>
 
-			<td>Languages</td>
-			<td>female</td>
-			<td>80</td>
-			<td>100</td>
-			<td>55</td>
-			<td>65</td>
 
-		</tr>
-		<tr>
-			<td>Student18</td>
-			<td>Mathematics</td>
-			<td>male</td>
-			<td>30</td>
-			<td>49</td>
 
-			<td>55</td>
-			<td>75</td>
-		</tr>
-		<tr>
-			<td>Student19</td>
-			<td>Languages</td>
-			<td>male</td>
-
-			<td>68</td>
-			<td>90</td>
-			<td>88</td>
-			<td>70</td>
-		</tr>
-		<tr>
-			<td>Student20</td>
-
-			<td>Mathematics</td>
-			<td>male</td>
-			<td>40</td>
-			<td>45</td>
-			<td>40</td>
-			<td>80</td>
-
-		</tr>
-		<tr>
-			<td>Student21</td>
-			<td>Languages</td>
-			<td>male</td>
-			<td>50</td>
-			<td>45</td>
-
-			<td>100</td>
-			<td>100</td>
-		</tr>
-		<tr>
-			<td>Student22</td>
-			<td>Mathematics</td>
-			<td>male</td>
-
-			<td>100</td>
-			<td>99</td>
-			<td>100</td>
-			<td>90</td>
-		</tr>
-		<tr>
-			<td>Student23</td>
-
-			<td>Languages</td>
-			<td>female</td>
-			<td>85</td>
-			<td>80</td>
-			<td>80</td>
-			<td>80</td>
-
-		</tr>
-	</tbody>
-</table>
-	<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-_uacct = "UA-2189649-1";
-urchinTracker();
-</script>
-	</body>
-</html>
+</body></html>

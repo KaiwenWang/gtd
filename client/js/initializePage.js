@@ -168,7 +168,7 @@ $.fn.enable_MultiSelect = function(){
 $.fn.enable_AutoSubmit = function(){
   $(this).each( function(){
     var auto_submit_input_name = '[name*='+$(this).val()+']';
-
+    
     var form = $( this ).parent('form');
 
     $('.submit-container',form).hide();
@@ -213,7 +213,10 @@ $.fn.enable_Ajax = function(){
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         hideLoaderGraphic();
-        log('ajax request failed');
+        console.log('AJAX request failed');
+        console.log('Request: ' + XMLHttpRequest);
+        console.log('Text: ' + textStatus);
+        console.log('Error: ' + errorThrown);
       }
     });
   }
