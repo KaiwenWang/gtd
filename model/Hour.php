@@ -148,7 +148,9 @@ function getType(){
 }
 
 function getSupportContract(){
-  if( !$this->get('support_contract_id')) return;
+  if( !$this->get('support_contract_id')) { 
+    die('Invalid Hour');
+  }
   if( !isset($this->support_contract)){
     $this->support_contract = new SupportContract( $this->get('support_contract_id'));
   }
@@ -179,10 +181,10 @@ function getStaffName(){
 function getCompany(){
   if( $this->is_project_hour()){
     return $this->getProject()->getCompany();
-  } else {
-    //bail(print_r($this, 1));
-    die('<pre>'.$this->getSupportContract().'</pre>');
+  } elseif ($this->is_support_contract_hour()) {
     return $this->getSupportContract()->getCompany();
+  } else {
+    print('<pre>Hour #' . $this->id . ' has neither an estimate nor support contract number. Please rectify.</pre>'); 
   }
 }
 
@@ -194,6 +196,10 @@ function is_valid( ) {}
 
 function is_project_hour(){
   if($this->get('estimate_id')) return true;
+}
+
+function is_support_contract_hour(){
+  if($this->get('support_contract_id')) return true;
 }
 
 function to_spokes(){

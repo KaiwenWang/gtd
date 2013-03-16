@@ -39,7 +39,7 @@ function basicTable( $table, $o = array()){
 
   // CREATE TABLE START
   $html .= '
-    <center><table class="tablesorter table table-striped table-condensed" cellspacing="0" cellpadding="0">
+    <center><table class="tablesorter table table-bordered table-striped table-condensed" cellspacing="0" cellpadding="0">
     <thead>
     <tr>
     ';
