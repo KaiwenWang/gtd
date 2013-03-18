@@ -23,40 +23,10 @@
   <!-- Load and Run GTD -->
   <script type="text/javascript" src="client/js/utilities.js"></script>
   <script type="text/javascript" src="client/js/lib/rd_graph.js"></script>
-  <script type="text/javascript" src="client/js/initializePage.js"></script>
   <script src="client/js/lib/tablesorter/jquery.tablesorter.js"></script>
   <script src="client/js/lib/tablesorter/jquery.tablesorter.widgets.js"></script>
+  <script type="text/javascript" src="client/js/initializePage.js" id="js"></script>
   <link rel="shortcut icon" href="/favicon.ico">
-	<script id="js">$(function() {
-
-	$.extend($.tablesorter.themes.bootstrap, {
-		table      : 'table',
-		header     : 'bootstrap-header', // give the header a gradient background
-		footerRow  : '',
-		footerCells: '',
-		icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
-		sortNone   : '',
-		sortAsc    : 'icon-chevron-up',
-		sortDesc   : 'icon-chevron-down',
-		active     : '', // applied when column is sorted
-		hover      : '', // use custom css here - bootstrap class may not override it
-		filterRow  : '', // filter row class
-		even       : '', // odd row zebra striping
-		odd        : ''  // even row zebra striping
-	});
-
-	$("table").tablesorter({
-		theme : "bootstrap", // this will 
-		widthFixed: true,
-		headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
-		widgets : [ "uitheme", "zebra" ],
-		widgetOptions : {
-			zebra : ["even", "odd"],
-			filter_reset : ".reset",
-		}
-	})
-});
-</script>
 
 	<script>
 	$(function(){
