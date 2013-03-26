@@ -1070,7 +1070,7 @@ form.bs-docs-example {
 #Hours.bs-docs-example:after {
   content: "Hours";
 }
-#rd-graph.bs-docs-example:after {
+#Graph.bs-docs-example:after {
   content: "Hours Logged Over Time";
 }
 #Summary.bs-docs-example:after {

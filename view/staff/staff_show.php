@@ -44,7 +44,7 @@ function staffShow($d){
     array('ajax_target_id'=>'hour-search-1')
   );
 
-  $highchart_graph = "<div class='bs-docs-example' id='rd-graph'>
+  $highchart_graph = "<div class='bs-docs-example' id='Graph'>
     <div id='rd-graph' class='rd-graph' data-staff='".$d->graph['staff']."' data-call='overview'></div>
     <div id='rd-graph_navigate'></div>
     <div id='rd-graph_control'></div>
