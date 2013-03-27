@@ -30,7 +30,7 @@ class Button extends PHP5_Accessor{
 			return $r->link( $this->controller,
 						 $this->params,
 						 $this->icon,
-						 array('class'=>'button ui-state-default ui-corner-all')
+						 array('class'=>'btn ui-state-default ui-corner-all')
 						 );
 	}
 	function getIcon(){

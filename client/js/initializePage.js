@@ -2,13 +2,13 @@ var item;
 $('document').ready(function(){
   $('#app-container').initialize_Gtd();
   $('.rd-graph').enable_Graphs();
-  
+
   //hide/toggle hours
   $('#company-show #hour-table .basic-table').hide();
   $('#company-show #hour-table h3').click(function(){
     $('#company-show #hour-table .basic-table').toggle();
   });
-  
+
   //hide/toggle notes
   $('#company-show #note-table .basic-table').hide();
   $('#company-show #note-table h3').click(function(){
@@ -38,7 +38,7 @@ $.fn.enable_SidebarMenu = function(){
   $('.sidebar-button',this).click(function(){
     var menu = $(this).next('.flyout-menu');
     var bg = $('#screen-cover');
-    
+
     $('.flyout-menu').hide();
     menu.show();
     bg.show();
@@ -99,20 +99,47 @@ $.fn.enable_DateField= function(){
 }
 
 $.fn.enable_TableSort = function (){
-  $(this).tablesorter({widgets: ['zebra']});
+    $.extend($.tablesorter.themes.bootstrap, {
+      table      : 'table',
+      header     : 'bootstrap-header', // give the header a gradient background
+      footerRow  : '',
+      footerCells: '',
+      icons      : '', // add "icon-white" to make them white; this icon class is added to the <i> in the header
+      sortNone   : '',
+      sortAsc    : 'icon-chevron-up',
+      sortDesc   : 'icon-chevron-down',
+      active     : '', // applied when column is sorted
+      hover      : '', // use custom css here - bootstrap class may not override it
+      filterRow  : '', // filter row class
+      even       : '', // odd row zebra striping
+      odd        : ''  // even row zebra striping
+    });
+
+    $(".tablesorter").tablesorter({
+      theme : "bootstrap", // this will 
+      widthFixed: true,
+      headerTemplate : '{content} {icon}', // new in v2.7. Needed to add the bootstrap icon!
+      widgets : [ "uitheme", "zebra" ],
+      widgetOptions : {
+        zebra : ["even", "odd"],
+        filter_reset : ".reset",
+      }
+    });
+
+  ///$(this).tablesorter({widgets: ['zebra']});
   return this;
 }
 
 $.fn.enable_QuickSearch = function (){
   $(this).each( function() {
     rows = $(this)
-      .children('.basic-table')
-      .children('tbody')
-      .children('tr');
+    .children('.basic-table')
+    .children('tbody')
+    .children('tr');
     selector =   $(this)
-      .children('.quicksearch')
-      .children('form')
-      .children('.qs-input');
+    .children('.quicksearch')
+    .children('form')
+    .children('.qs-input');
     selector.quicksearch(rows);
   });
   return this;
@@ -132,11 +159,11 @@ $.fn.enable_MultipleButtons= function (){
     $(this).click( function(){
       item = $('[data-id=' + $(this).attr('data-id') + ']', '.multiple-buttons-targets');
       if (item.css('display')=='none'){
-        item.siblings().hide();
-        item.show();
+        item.siblings().slideFadeOut(180, 'easeInCubic').delay(240);
+        item.slideFadeIn(180, 'easeOutCubic');
         setTimeout( function(){
-            $(':input:visible:first', item).focus();
-          }, 100);
+          $(':input:visible:first', item).focus();
+        }, 100);
       }else{
         item.hide();
       }
@@ -150,10 +177,9 @@ $.fn.enable_Hideable = function (){
   $(this).each( function(){
     $(this).click( function(){
       item = $(this).siblings('.hideable-item');
+      $('.hideable-item').slideFadeOut(180,'easeInCubic').delay(240);
       if ( item.css('display') == 'none' ){
         item.slideFadeIn(180,'easeOutCubic');
-      } else {
-        item.slideFadeOut(180,'easeInCubic');
       }
     })
   });
@@ -189,7 +215,7 @@ $.fn.enable_Ajax = function(){
   $(this).each( function( index, value){
     var selector = this;
     var ajax_target_id = '#'+$(this).val();
- 
+
     initializeSubmitButtons( selector, ajax_target_id);
   });
 
@@ -208,12 +234,15 @@ $.fn.enable_Ajax = function(){
       data: serializeFormData(),
       success: function(JSONtext){
         loadView( ajax_target_id, JSONtext);
-//        initializeSubmitButtons();
+        //        initializeSubmitButtons();
         $( ajax_target_id ).initialize_Gtd();
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
         hideLoaderGraphic();
-        log('ajax request failed');
+        console.log('AJAX request failed');
+        console.log('Request: ' + XMLHttpRequest);
+        console.log('Text: ' + textStatus);
+        console.log('Error: ' + errorThrown);
       }
     });
   }
@@ -243,9 +272,9 @@ $.fn.enable_Ajax = function(){
   }
   function showLoaderGraphic() {
     $('.loader').html('<div style="margin: 25% 44%">'+
-      '<div style="text-align:center; width:50px"><img src="/img/ajax-loader.gif" /></div>'+
-      '<div style="color:#993333; text-align:center; width:50px; font-weight:bold">Loading</div>'+
-      '</div>');
+                      '<div style="text-align:center; width:50px"><img src="/img/ajax-loader.gif" /></div>'+
+                      '<div style="color:#993333; text-align:center; width:50px; font-weight:bold">Loading</div>'+
+                      '</div>');
   }
   function hideLoaderGraphic() {
     $(' .loader').html('');

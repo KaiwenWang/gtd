@@ -253,7 +253,7 @@ class Record extends Data {
             if ( !isset( $criteria )) return $this->_collection;
             $collection = &$this->_collection;
         } else {
-            $collection = &new RecordCollection( $this->dbcon );
+            $collection = new RecordCollection( $this->dbcon );
             $collection->setSource( $this->datatable );
         }
         if ( isset( $criteria )) {

@@ -1,5 +1,4 @@
 <?php
-
 function bookmarkTable( $bookmarks, $o = array()){
   if( !$bookmarks) return;
   $r =& getRenderer();
@@ -13,7 +12,7 @@ function bookmarkTable( $bookmarks, $o = array()){
             'action'=>'destroy',
             'id'=>$b->id,
             'text'=>'<span class="ui-icon ui-icon-trash"></span>'),
-             array('class'=>'button ui-state-default ui-corner-all'))
+             array('class'=>'btn ui-state-default ui-corner-all'))
           ." 
         </div>
         <a href='" .$b->getSource()."'>".$b->getDescription()."</a>
@@ -23,3 +22,5 @@ function bookmarkTable( $bookmarks, $o = array()){
   $html .= '</ul></fieldset>';
   return $html;
 }
+
+?>
