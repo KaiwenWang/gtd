@@ -111,7 +111,7 @@ RdGraph.prototype.create_navigation = function(){
   }
   if(parent_class.navigation < -2){
     var span_navigate_last = document.createElement("span");
-    span_navigate_last.className = "navigate_last";
+    span_navigate_last.className = "navigate_last btn";
     $(span_navigate_last).click(function(){
       parent_class.navigation = -1;
       parent_class.create_navigation();

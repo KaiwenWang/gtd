@@ -66,7 +66,7 @@ function invoiceTable( $invoices, $o = array( )) {
 	}
 	$total_invoices = $r->view('basicMessage', 'Total Invoices: $ '.number_format( $total_invoices, 2));
 
-    $bulk_email_btn = '<input type="submit" value="send bulk email" style="display:inline" /> ';
+    $bulk_email_btn = '<input type="submit" value="Send Bulk Email" class="btn" style="display:inline; margin-left: 10px;" /> ';
 	$select_all_box = '<input class="check-all" name="check-all" type="checkbox"/> Select All '.$bulk_email_btn.'<br />';
     $table = $r->view( 'basicTable', $table, array('title'=>'Invoices','search'=>$select_all_box . $search_form));
 	$form = new Form(array('controller'=>'Invoice','action'=>'batch_email', 'disable_submit_btn'=>true));
