@@ -18,17 +18,19 @@ class BookmarkController extends PageController {
   function create($params){
     $b = $this->new_bookmarks[0];
     $b->save();
-    $this->redirectTo( array('url'=>$b->getSource()) );
+    $this->redirectBack();
+    //$this->redirectTo( array('url'=>$b->getSource()) );
   }
 
   function destroy( $params){
     if(empty($params['id'])) bail('required param["id"] not set.');
     $bookmark = new bookmark($params['id']);
     $bookmark->destroy();
-    $this->redirectTo(array(
-      'controller'=>'Staff',
+    $this->redirectBack();
+    /*$this->redirectTo(array(
+      'controller'=>'staff',
       'action'=>'show',
       'id' => $bookmark->get('staff_id')
-    ));
+  ));*/
   }
 }
