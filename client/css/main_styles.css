@@ -712,6 +712,7 @@ margin-bottom: 0px;
 }
 #bookmark-link {
 float: right;
+margin: 9px 0px;
 }
 #bookmark-link img{
 height:40px;
@@ -722,11 +723,10 @@ text-decoration: none;
 #bookmark-form-box{
 background: url('/client/img/bookmark_form_bg.png') 0 0 no-repeat;
 position: absolute;
-right: 24px;
-top: 58px;
-width: 410px;
-height: 90px;
-border-radius: 8px;
+right: 30px;
+top: 55px;
+width: 326px;
+height: 43px;
 padding-top:40px;
 z-index: 20;
 }
@@ -735,16 +735,21 @@ color: #ddd;
 width: 100px;
 }
 
+#bookmark-form-box .btn {
+margin-top: -10px;
+position: relative;
+}
+
 #bookmark-form-box input.description-field{
 width: auto;
 }
 #bookmark-form{
-margin-left: 20px;
+margin: 5px 0 0 30px;
 }
 #bookmark-close{
-left: 13px;
+left: 15px;
 position: absolute;
-top: 32px;
+top: 40px;
 }
 
 #bookmark-list{
