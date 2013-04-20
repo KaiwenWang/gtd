@@ -1,5 +1,6 @@
+
 <?php
-function invoiceIndex($d, $o = array() ) {
+function invoiceBatchIndex($d, $o = array() ) {
     $r = getRenderer();
 
     $hidden_forms = $r->view('jsMultipleButtons',
