@@ -198,6 +198,7 @@ $.fn.enable_AutoSubmit = function(){
     var form = $( this ).parent('form');
 
     $('.submit-container',form).hide();
+    $('select#hour_search_staff_id').css('float','left').next().css('margin', '0px 10px').css('float','left').show();
     $(auto_submit_input_name,form).change(function(){
       $(form).submit();
     });

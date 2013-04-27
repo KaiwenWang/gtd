@@ -13,7 +13,7 @@ function hourSearch( $hours, $o = array()){
     'controller'=>'Hour',
     'action'=>'search',
     'ajax_target_id'=>'hour_table',
-    'auto_submit'=>array('company','hour_search\\[start_date\\]','hour_search\\[end_date\\]','staff' )
+    'auto_submit'=>array('company', 'staff')//'hour_search[start_date]','hour_search[end_date]')
   ),
   $o
 ));
@@ -31,14 +31,14 @@ function hourSearch( $hours, $o = array()){
 
 <div class="search-input">
 <label for="hour_search_start">Start Date</label>
-'.$r->input( 'date', array(  'name'=>'hour_search\\[start_date\\]',
+'.$r->input( 'date', array(  'name'=>'hour_search[start_date]',
   'value'=>$start_date,
   'id'=>'hour_search_start'
 )).'
 </div>
 <div class="search-input">
 <label for="hour_search_end">End Date</label>
-'.$r->input( 'date', array(  'name'=>'hour_search\\[end_date\\]',
+'.$r->input( 'date', array(  'name'=>'hour_search[end_date]',
   'value'=>$end_date,
   'id'=>'hour_search_end'
 )).'
