@@ -1,6 +1,6 @@
 <?php
 /**
-@package view
+  @package view
  */
 /**
         companyTable
@@ -25,12 +25,12 @@ function basicTable( $table, $o = array()){
         /*
 // QUICKSEARCH
         $html .= '
-                                <div class="quicksearch">
-                                        <form>
-                                                <input type="text" class="qs-input" name="qs-input" />
-                                        </form>
-                                </div>
-                                ';
+		<div class="quicksearch">
+			<form>
+				<input type="text" class="qs-input" name="qs-input" />
+			</form>
+		</div>
+	';
          */
 
   // SEARCH
@@ -49,7 +49,7 @@ function basicTable( $table, $o = array()){
                 <option value="20">20 per page</option>
                 <option value="50">50 per page</option>
                 <option value="100">100 per page</option>
-                <option value="all">>LIMIT</option>
+                <option value="9999999999">All</option>
             </select>
         </form>
         </div>';

@@ -125,7 +125,6 @@ $.fn.enable_TableSort = function (){
         filter_reset : ".reset",
       }
     }).tablesorterPager({container: $("#pager"), size: 20});
-    $("#pager").removeAttr('style');
 
   ///$(this).tablesorter({widgets: ['zebra']});
   return this;

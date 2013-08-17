@@ -829,6 +829,8 @@ clear: both;
 #pager {
     margin: 0px;
     text-align: center;
+    position: relative !important;
+    top: auto !important;
 }
 input.pagedisplay {
     width: auto;
