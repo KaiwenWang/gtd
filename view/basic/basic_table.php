@@ -49,7 +49,7 @@ function basicTable( $table, $o = array()){
                 <option value="20">20 per page</option>
                 <option value="50">50 per page</option>
                 <option value="100">100 per page</option>
-                <option value="">>LIMIT</option>
+                <option value="all">>LIMIT</option>
             </select>
         </form>
         </div>';
