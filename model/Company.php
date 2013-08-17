@@ -35,7 +35,7 @@ class Company extends ActiveRecord {
         'org_type','status'
 },
 'values' : {
-    'status' : {'setup':'Setup','active':'Active','rEvent':'rEvent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Uncontrolled Server'},
+    'status' : {'setup':'Setup','active':'Active','rEvent':'rEvent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Uncontrolled Server','follow-up':'Follow Up'},
         'org_type' : {'501c3':'501c3', 'union':'Union', 'political':'Political Campaign/Party', 'private':'Private Firm', 'pac527':'PAC/527', 'other':'other'},
         'billing_status' : {'up-to-date':'Up To Date','overdue':'Overdue','collections':'Collections'},
         'country' : {'usa':'USA','canada':'Canada','international':'International'}

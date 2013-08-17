@@ -40,11 +40,11 @@ function basicTable( $table, $o = array()){
   $html .= '
     <div id="pager" class="tablesorter-pager">
         <form>
-            <input type="button" value="&laquo;" class="first"/>
-            <input type="button" value="&lt;" class="prev"/>
+            <input type="button" value="&laquo;" class="first btn"/>
+            <input type="button" value="&lt;" class="prev btn"/>
             <input type="text" class="pagedisplay"/>
-            <input type="button" value="&gt;" class="next"/>
-            <input type="button" value="&raquo;" class="last"/>
+            <input type="button" value="&gt;" class="next btn"/>
+            <input type="button" value="&raquo;" class="last btn"/>
             <select class="pagesize">
                 <option value="20">20 per page</option>
                 <option value="50">50 per page</option>
