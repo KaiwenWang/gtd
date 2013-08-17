@@ -36,6 +36,24 @@ function basicTable( $table, $o = array()){
   // SEARCH
   if( isset( $o['search'] ) && $o['search']) $html .= '<div class="basic-table-search">'.$o['search'].'</div>';
 
+  //if( isset( $o['pager'] ) && $o['pager']) {
+  $html .= '
+    <div id="pager" class="tablesorter-pager">
+        <form>
+            <input type="button" value="&laquo;" class="first"/>
+            <input type="button" value="&lt;" class="prev"/>
+            <input type="text" class="pagedisplay"/>
+            <input type="button" value="&gt;" class="next"/>
+            <input type="button" value="&raquo;" class="last"/>
+            <select class="pagesize">
+                <option value="20">20 per page</option>
+                <option value="50">50 per page</option>
+                <option value="100">100 per page</option>
+                <option value="">>LIMIT</option>
+            </select>
+        </form>
+        </div>';
+ // }
 
   // CREATE TABLE START
   $html .= '

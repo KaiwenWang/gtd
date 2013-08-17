@@ -40,7 +40,7 @@ function staffShow($d){
     <div class="clear-both"></div></div>';
 
   $hour_table = $r->view('hourSearch',
-    $r->staff_hours,
+    $d->staff_hours,
     array('ajax_target_id'=>'hour-search-1')
   );
 

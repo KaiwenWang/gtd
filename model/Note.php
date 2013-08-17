@@ -8,12 +8,13 @@ class Note extends ActiveRecord {
     protected static $schema_json = "{	
         'fields'   : {	
             'company_id'	:  'Company',
-                'name'  		:  'text',
-                'description'  	:  'textarea',
-                'staff_id'  	:  'Staff',
-                'date'  		:  'date'
+            'name'  		:  'text',
+            'description'  	:  'textarea',
+            'staff_id'  	:  'Staff',
+            'date'  		:  'date'
         },
-        'required' : { 'staff_id,
+        'required' : { 
+            'staff_id,
             'name',
             'date'
         }

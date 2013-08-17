@@ -36,25 +36,25 @@ class Record extends Data {
         if (isset($item_id) && $item_id) $this->readData( $item_id );
     }
     function read( $item_id ) {
-	return $this->readData( $item_id );
+        return $this->readData( $item_id );
     }
-	function cloneRecord(){
-		$obj = clone $this;
+    function cloneRecord(){
+        $obj = clone $this;
         $obj->_itemdata_keys[ $this->id_field ] = null;
         $obj->id = null; 
-		return $obj;
-	}
+        return $obj;
+    }
     function setSource( $sourcename ) {
         parent::setSource( $sourcename );
-		$this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
-	  	if(!is_array($this->_itemdata_keys)) bail('This model has no collumns in the database. Check to see if you ran the latest migrations, and make sure you set the correct datatable name on the model');
+        $this->_itemdata_keys = $this->_getColumnNames( $this->datatable );
+        if(!is_array($this->_itemdata_keys)) bail('This model has no collumns in the database. Check to see if you ran the latest migrations, and make sure you set the correct datatable name on the model');
         $this->_allowed_keys = $this->_itemdata_keys;
     }
 
-	function _addAllowedKey( $key_name ) {
-		if (array_search( $key_name, $this->_allowed_keys )!==FALSE) return true;
-		$this->_allowed_keys[] = $key_name;
-	}
+    function _addAllowedKey( $key_name ) {
+        if (array_search( $key_name, $this->_allowed_keys )!==FALSE) return true;
+        $this->_allowed_keys[] = $key_name;
+    }
 
     function getAllowedKeys( ) {
         return $this->_allowed_keys;
@@ -91,8 +91,8 @@ class Record extends Data {
     }
 
     function set_data_from_db($data) {
-      $this->itemdata = $data;
-      $this->id = $data[ $this->id_field ];
+        $this->itemdata = $data;
+        $this->id = $data[ $this->id_field ];
     }
 
     function hasData() {
@@ -113,7 +113,7 @@ class Record extends Data {
         if ( ( $itemdata = $this->dbcon->Execute( $sql )) && $this->dbcon->Affected_Rows( )) {
             return true;
         }
-        
+
         trigger_error ( AMP_TEXT_DELETE . ' ' . sprintf( AMP_TEXT_ERROR_DATABASE_SAVE_FAILED, get_class( $this ), $this->dbcon->ErrorMsg() . ' // ' . $sql  ));
         return false ;
     }
@@ -136,19 +136,19 @@ class Record extends Data {
         if ( !$this->deleteData( $this->id )) return false;
 
         return true;
-        
+
     }
 
     function _assembleSqlByID( $id ) {
-         return $this->_makeSelect().
-                $this->_makeSource().
-                " WHERE ".$this->id_field." = ". $this->dbcon->qstr( $id );
+        return $this->_makeSelect().
+            $this->_makeSource().
+            " WHERE ".$this->id_field." = ". $this->dbcon->qstr( $id );
     }
 
     function save() {
         $item_data = $this->get( );
         $save_fields = AMP::array_filter_by_keys($this->_itemdata_keys, $item_data );
-		if ( !is_array( $this->id_field ) && !isset( $save_fields[ $this->id_field ] )) {
+        if ( !is_array( $this->id_field ) && !isset( $save_fields[ $this->id_field ] )) {
             $save_fields[ $this->id_field ] = "";
         }
 
@@ -158,7 +158,7 @@ class Record extends Data {
             $this->set( array( $this->id_field => $this->dbcon->Insert_ID() ));
             $this->id = $this->get( $this->id_field );
         }
-        
+
         if ($result) {
             $this->clearItemCache( $this->id );
             return true;
@@ -188,28 +188,28 @@ class Record extends Data {
     }
 
     function setData( $data ) {
-      $this->set( $data );
+        $this->set( $data );
     }
-    
+
     function set( $fields){
-		if(!$this->itemdata) $this->itemdata= array();
+        if(!$this->itemdata) $this->itemdata= array();
         $this->itemdata = array_merge( $this->itemdata, AMP::array_filter_by_keys( $this->_allowed_keys, $fields));
-		#        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
+        #        if (method_exists( $this, '_adjustSetData' ) ) $this->_adjustSetData( $data );
         if (isset($data[$this->id_field]) && $data[$this->id_field]) $this->id = $data[$this->id_field];
     }
 
     function get( $fieldname = null ) {
         if (!isset($fieldname)) return $this->itemdata;
-		if (isset($this->itemdata[$fieldname])){
-			return $this->itemdata[$fieldname];
-		}
+        if (isset($this->itemdata[$fieldname])){
+            return $this->itemdata[$fieldname];
+        }
         return false;
     }
-//	legacy get function
-	function getData($fieldname = null){
-		return $this->escape($this->get($fieldname));
-	}
-//	legacy function name
+    //	legacy get function
+    function getData($fieldname = null){
+        return $this->escape($this->get($fieldname));
+    }
+    //	legacy function name
     function getName() {
         if (!isset($this->name_field)) return;
         return $this->get( $this->name_field );
@@ -221,10 +221,10 @@ class Record extends Data {
             $this->itemdata[$newname] = $data[$newname];
             $this->itemdata[$oldname] = $data[$newname];
         }
-		$this->_addAllowedKey($newname);
+        $this->_addAllowedKey($newname);
     }
 
-   /**
+    /**
      * Search methods
      * 
      * @param mixed $criteria 
@@ -237,7 +237,7 @@ class Record extends Data {
 
         $collection = $this->getCollection( $this->makeCriteria( $criteria ));
         $collection->setSortAndLimit( $criteria );
-       
+
         if ( !$collection->readData( )) return false;
 
         $objects = $collection->instantiateItems( $collection->getArray( ), $class_name );
@@ -246,7 +246,7 @@ class Record extends Data {
 
         return $objects;
     }
-     
+
 
     function getCollection( $criteria = null ){
         if ( isset( $this->_collection ) && $this->_collection ) {
@@ -263,7 +263,7 @@ class Record extends Data {
             $collection->addCriteria( $crit_phrase );
         }
         if ( !$this->_allow_db_cache ) $collection->clearCache( );
-        
+
         $this->_collection = &$collection;
         return $this->_collection;
 
@@ -299,7 +299,7 @@ class Record extends Data {
         //sort descending
         if ( strtolower(  $this->_sort_direction ) == 'desc') {
             return strnatcasecmp( $file2->$sort_method( ) , 
-                                    $file1->$sort_method( ) ); 
+                $file1->$sort_method( ) ); 
         }
 
         //sort ascending
@@ -360,7 +360,7 @@ class Record extends Data {
     function _makeCriteriaEquals( $key, $value ) {
         return $key . ' = ' . $this->dbcon->qstr( $value );
     }
-    
+
     function makeCriteriaId( $value ) {
         if ( !$value ) return 'TRUE';
         if ( !is_array( $value )) return $this->_makeCriteriaEquals( 'id', $value );

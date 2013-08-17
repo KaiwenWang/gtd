@@ -826,3 +826,20 @@ clear: both;
 .table.tablesorter a.btn.ui-state-default.ui-corner-all {
   margin: 5px 7px;
 }
+#pager {
+    margin: 0px;
+    text-align: center;
+}
+input.pagedisplay {
+    width: auto;
+    padding: 0px;
+    margin: 0px;
+    text-align: center;
+    border: 0px;
+    background: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+select.pagesize {
+    margin: 10px;
+}
