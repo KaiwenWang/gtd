@@ -9,3 +9,6 @@ define( 'SUPPORT_CONTRACT_STATUS_CANCELLED', 'cancelled');
 
 // Invocing
 define('BILLING_EMAIL_ADDRESS','billing@radicaldesigns.org');
+
+// Defaults
+define('ENTRIES_PER_PAGE', 20);

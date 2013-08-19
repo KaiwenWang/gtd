@@ -124,9 +124,9 @@ $.fn.enable_TableSort = function (){
         zebra : ["even", "odd"],
         filter_reset : ".reset",
       }
+      //STILL NEEDS TO BE CHANGED MANUALLY TO MATCH boot/constraints.php
     }).tablesorterPager({container: $("#pager"), size: 20});
 
-  ///$(this).tablesorter({widgets: ['zebra']});
   return this;
 }
 
