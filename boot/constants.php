@@ -12,3 +12,6 @@ define('BILLING_EMAIL_ADDRESS','billing@radicaldesigns.org');
 
 // Defaults
 define('ENTRIES_PER_PAGE', 20);
+
+//Setting default timezone
+date_default_timezone_set('America/Los_Angeles');
