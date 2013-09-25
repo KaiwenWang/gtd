@@ -22,5 +22,5 @@ function supporthourEditForm( $h, $o = array()){
         array( 'title'=>'Edit Hour', 'display'=>'inline')
     );	
 
-    return '<div id="edit-hours-for-support>' . $form->html . '</div>';
+    return '<div id="edit-hours-for-support">' . $form->html . '</div>';
 }

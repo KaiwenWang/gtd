@@ -11,7 +11,7 @@
 
  */
 function basicTable( $table, $o = array()){
-  
+
   $r =& getRenderer();
   if( empty($o['class']) ) $o['class'] = ' clear-left';
 
@@ -25,34 +25,34 @@ function basicTable( $table, $o = array()){
         /*
 // QUICKSEARCH
         $html .= '
-		<div class="quicksearch">
-			<form>
-				<input type="text" class="qs-input" name="qs-input" />
-			</form>
-		</div>
-	';
+                <div class="quicksearch">
+                        <form>
+                                <input type="text" class="qs-input" name="qs-input" />
+                        </form>
+                </div>
+        ';
          */
 
   // SEARCH
   if( isset( $o['search'] ) && $o['search']) $html .= '<div class="basic-table-search">'.$o['search'].'</div>';
 
   if( isset( $o['pager'] ) && $o['pager']) {
-  $html .= '
-    <div id="pager" class="tablesorter-pager">
-        <form>
-            <input type="button" value="&laquo;" class="first btn"/>
-            <input type="button" value="&lt;" class="prev btn"/>
-            <input type="text" class="pagedisplay"/>
-            <input type="button" value="&gt;" class="next btn"/>
-            <input type="button" value="&raquo;" class="last btn"/>
-            <select class="pagesize">
-                <option value="' . ceil(ENTRIES_PER_PAGE) . '">' . ceil(ENTRIES_PER_PAGE) . ' per page</option>
-                <option value="' . ceil(ENTRIES_PER_PAGE * 2.5) . '">' . ceil(ENTRIES_PER_PAGE * 2.5) . ' per page</option>
-                <option value="' . ceil(ENTRIES_PER_PAGE * 4) . '">' . ceil(ENTRIES_PER_PAGE * 4) . ' per page</option>
-                <option value="9999999999">All</option>
-            </select>
-        </form>
-        </div>';
+    $html .= '
+      <div id="pager" class="tablesorter-pager">
+      <form>
+      <input type="button" value="&laquo;" class="first btn"/>
+      <input type="button" value="&lt;" class="prev btn"/>
+      <input type="text" class="pagedisplay"/>
+      <input type="button" value="&gt;" class="next btn"/>
+      <input type="button" value="&raquo;" class="last btn"/>
+      <select class="pagesize">
+      <option value="' . ceil(ENTRIES_PER_PAGE) . '">' . ceil(ENTRIES_PER_PAGE) . ' per page</option>
+      <option value="' . ceil(ENTRIES_PER_PAGE * 2.5) . '">' . ceil(ENTRIES_PER_PAGE * 2.5) . ' per page</option>
+      <option value="' . ceil(ENTRIES_PER_PAGE * 4) . '">' . ceil(ENTRIES_PER_PAGE * 4) . ' per page</option>
+      <option value="9999999999">All</option>
+      </select>
+      </form>
+      </div>';
   }
 
   // CREATE TABLE START
@@ -100,4 +100,5 @@ function basicTable( $table, $o = array()){
     </div>";
 
 }
+
 ?>

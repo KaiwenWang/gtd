@@ -4,7 +4,6 @@ function hourShow($d){
 
   $title = $d->project->getName().': '.$d->estimate->getName();
 
-
   $editable_project_info= $r->view(	'jsSwappable',
     'Estimate Info',
     array(

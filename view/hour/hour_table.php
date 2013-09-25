@@ -19,7 +19,7 @@ function hourTable( $hours,$o = array() ){
   $billable_hours = 0;
 
   $hours_to_skip = array();
-  
+
   foreach($hours as &$h){
 
     if(!empty($hours_to_skip[$h->id])){
@@ -73,16 +73,16 @@ function hourTable( $hours,$o = array() ){
   if(!isset($o['pager']) && (count($table['rows']) > ENTRIES_PER_PAGE)) {
     $o['pager'] = true;
   }
-  
+
   $hours_table = $r->view( 'basicTable', $table, $o); 
 
   $totals = '
     <div class="bs-docs-example" id="Hours">
-      <div class="hours-month">
-        Total Project Hours: <span class="unbillable">' . $total_hours . '</span>
-      </div>
-      <div class="hours-week">
-        Billable Project Hours: <span class="billable">' . $billable_hours . '</span>
+    <div class="hours-month">
+    Total Project Hours: <span class="unbillable">' . $total_hours . '</span>
+    </div>
+    <div class="hours-week">
+    Billable Project Hours: <span class="billable">' . $billable_hours . '</span>
     </div>
     <div class="clear-both"></div></div>
     ';
