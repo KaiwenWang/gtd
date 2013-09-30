@@ -16,7 +16,7 @@ function bandwidthTable( $data, $options = array( )) {
       							$e->getData('gigs_over')
       							);
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Bandwidth Overages'));
+    $html = $r->view( 'basicTable', $table, array('title'=>'Bandwidth Overages', 'pager' => true));
     return $html;
 }
 ?>

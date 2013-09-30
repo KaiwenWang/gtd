@@ -36,7 +36,7 @@ function contactTable( $contacts, $o = array()){
 							  $contact->getContactType(),$edit_button, $delete_button
       						  );
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Contacts'));
+    $html = $r->view( 'basicTable', $table, array('title'=>'Contacts', 'pager' => true));
     return $html;
   
 }

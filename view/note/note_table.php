@@ -35,7 +35,7 @@ function noteTable( $notes, $o = array()){
 								    $edit_button, $delete_button
       						);
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Notes  <a class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-s"></span></a>','id'=>'note-table'));
+    $html = $r->view( 'basicTable', $table, array('title'=>'Notes  <a class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-s"></span></a>','id'=>'note-table', 'pager' => true));
     return $html;
 }
 ?>

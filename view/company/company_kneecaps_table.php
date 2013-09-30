@@ -40,6 +40,6 @@ function companyKneecapsTable( $companies, $o = array()){
 								);
     }
 
-    return $r->view( 'basicTable', $table, array('title'=>'Search Clients','search'=>$search_form));
+    return $r->view( 'basicTable', $table, array('title'=>'Search Clients','search'=>$search_form, 'pager' => true));
   
 }

@@ -11,7 +11,7 @@ function staffTable( $staffers, $o = array()){
       							);
     }
     
-    $html = $r->view( 'basicTable', $out, array('title'=>'Staff'), $o);
+    $html = $r->view( 'basicTable', $out, array('title'=>'Staff', 'pager' => true), $o);
     return $html;
 }
 ?>

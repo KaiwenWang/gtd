@@ -20,7 +20,7 @@ function paymentTable( $payments, $o = array()){
 								);
     }
 
-    $payment_table = $r->view('basicTable', $table, array_merge(array( 'title' => 'Payments'), $o));
+    $payment_table = $r->view('basicTable', $table, array_merge(array( 'title' => 'Payments', 'pager' => true), $o));
 
     $total_payments = $r->view('basicMessage', 'Total payments: $ '.number_format( $total_payments, 2));
 

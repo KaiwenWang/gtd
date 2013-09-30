@@ -21,6 +21,6 @@ function historyTable( $items, $o = array()){
 								);
     }
 
-    return $r->view( 'basicTable', $table, array('title'=>'Client History'));
+    return $r->view( 'basicTable', $table, array('title'=>'Client History', 'pager' => true));
   
 }

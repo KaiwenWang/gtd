@@ -36,7 +36,7 @@ function basicTable( $table, $o = array()){
   // SEARCH
   if( isset( $o['search'] ) && $o['search']) $html .= '<div class="basic-table-search">'.$o['search'].'</div>';
 
-  if( isset( $o['pager'] ) && $o['pager']) {
+  if(isset( $o['pager'] ) && $o['pager'] && (count($table['rows']) > ENTRIES_PER_PAGE)) {
     $html .= '
       <div id="pager" class="tablesorter-pager">
       <form>

@@ -34,5 +34,5 @@ function clientuserTable( $clientusers, $o=array()){
 							);
 	}
 
-	return $r->view('basicTable',$table, array('title'=>'Search Client Users'));
+	return $r->view('basicTable',$table, array('title'=>'Search Client Users', 'pager' => true));
 }

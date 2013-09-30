@@ -25,7 +25,7 @@ function projectTable( $projects, $o = array()){
       $p->getBillableHours()
     );
   }
-  $html = $r->view( 'basicTable', $table, array('title'=>'Projects'));
+  $html = $r->view( 'basicTable', $table, array('title'=>'Projects', 'pager' => true));
   return $html;
 }
 ?>

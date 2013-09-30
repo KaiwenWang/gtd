@@ -34,7 +34,7 @@ function chargeTable( $charges, $o = array()){
 								$delete_button	);
     }
 
-    $charges_table = $r->view('basicTable',$table, array_merge(array('title'=>'Charges','id'=>'charges-table'), $o));
+    $charges_table = $r->view('basicTable',$table, array_merge(array('title'=>'Charges','id'=>'charges-table', 'pager' => true), $o));
     $total = $r->view('basicMessage','Total charges: $ ' . number_format( $total_charges, 2));
 
     return 	$total

@@ -25,7 +25,7 @@ function estimateTable( $estimates, $o = array()){
       							$e->getData('completed') ? 'Yes' : 'No'
       							);
     }
-    $html = $r->view( 'basicTable', $table, array('title'=>'Estimates'));
+    $html = $r->view( 'basicTable', $table, array('title'=>'Estimates', 'pager' => true));
     return $html;
 }
 ?>

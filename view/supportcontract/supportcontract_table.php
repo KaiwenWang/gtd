@@ -27,7 +27,7 @@ function supportcontractTable( $contracts, $o = array()){
     							);
 	}
 
-    $html = $r->view('basicTable',$out, array('title'=>'Support Contracts'));
+    $html = $r->view('basicTable',$out, array('title'=>'Support Contracts', 'pager' => true));
     return $html;
 }
 ?>
