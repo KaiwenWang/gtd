@@ -62,3 +62,4 @@ array('name'=>'staff_id',
     '.$hours_table.'
     </div>';
 }
+?>

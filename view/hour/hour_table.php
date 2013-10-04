@@ -70,8 +70,9 @@ function hourTable( $hours,$o = array() ){
 
   $o['title'] = 'Hours';// . ' <a class="btn ui-state-default ui-corner-all"><span class="ui-icon ui-icon-triangle-1-s"></span></a>';
   $o['id'] = 'hour-table';
+  $o['pager'] = true;
 
-  $hours_table = $r->view( 'basicTable', $table, array('pager' => true)); 
+  $hours_table = $r->view( 'basicTable', $table, $o); 
 
   $totals = '
     <div class="bs-docs-example" id="Hours">
