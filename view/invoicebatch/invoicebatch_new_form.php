@@ -14,7 +14,7 @@ function invoicebatchNewForm( $batch, $o = array() ) {
     
     $form->content = $r->view( 'basicFormContents', 
     							$list_items, 
-    							array( 'title'=>'New Invoice Batch')
+    							array( 'title'=>'New Statement Batch')
     						  );
 		  
     

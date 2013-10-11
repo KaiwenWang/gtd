@@ -17,18 +17,15 @@ function invoiceEmail($d, $o = array() ) {
     $summary = '
         <div id="banner">
         <img src="http://radicaldesigns.org/img/original/rd-invoice-header.gif"><br />
-        <div style="margin: 0 0 10px 0; padding: 10px;border-radius: 4px 4px 4px 4px; background-color: #F2DEDE; border-color: #EED3D7; color: #B94A48;">
-        Radical Designs has moved! Please note our new address: 1201 Martin Luther King Jr. Way, Suite 200, Oakland, CA 94612
+        <b>Statement Date</b> ' .  $invoice_date . '<br />
+        <b>Statement Number #' .  $d->invoice->getData('id') .'</b>
         </div>
-        <b>Invoice Date</b> ' .  $invoice_date . '<br />
-        <b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
-        </div>
-        <h2 id="invoice-client">Your New Radical Designs Invoice: '.$client.'</h2>
+        <h2 id="invoice-client">Your New Radical Designs Statement: '.$client.'</h2>
         <div id="invoice-summary">';
 
     if ($d->invoice->getData('type') == 'dated'){
         $summary .= '
-            <b>Invoice for Period '. $invoice_period .'</b><br /><br /> 
+            <b>Statement for Period '. $invoice_period .'</b><br /><br /> 
             <b>Starting Balance on ' . $d->invoice->getStartDate() . ':</b><br /> $ ' . number_format( $d->invoice->getPreviousBalance(), 2).'<br /><br /> 
             <b>New Charges in Period:</b><br />  $ ' . number_format( $d->invoice->getNewCosts(), 2 ) .'<br /><br />
             <b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />';
@@ -83,7 +80,7 @@ function invoiceEmail($d, $o = array() ) {
 
     return array( 
         'template' => 'invoice',
-        'title' => 'Show Invoice', 
+        'title' => 'Show Statement', 
         'body' =>   $summary
     );
 }

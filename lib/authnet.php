@@ -284,7 +284,7 @@ class AuthorizeNet_Donation {
                                                break;
 
                                        case 8:
-                                               $html.= "Invoice Number (x_invoice_num): ";
+                                               $html.= "Statement Number (x_invoice_num): ";
                                                $html.= $pstr_trimmed;
                                                $html.= "<br>";
                                                break;

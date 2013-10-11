@@ -63,7 +63,7 @@ class Project extends ActiveRecord {
 								'stalled':'Stalled',
 								'cancelled':'Cancelled',
 								'frozen':'Frozen in Carbonite'},
-					'billing_status' : {'no_invoice_sent':'No Invoice Sent',
+					'billing_status' : {'no_invoice_sent':'No Statement Sent',
 										'sent_deposit':'Sent Depost',
 										'paid_deposit':'Paid Deposit',
 										'sent_final':'Sent Final',
