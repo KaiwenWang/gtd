@@ -7,6 +7,11 @@ class StaffController extends PageController {
         $this->data->staff = getAll( 'Staff');
   }
 
+  function edit($params) {
+      if(!isset($params['id'])) bail("must haz id to show you that!");
+      $this->data->staff = new Staff($params['id']);
+  }
+
   function update($params){
     $staff = $this->updated_staffs[0];
     if( !empty($params['new_password'])){

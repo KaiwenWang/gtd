@@ -8,31 +8,31 @@ class Invoice extends ActiveRecord {
     protected static $schema_json = "{	
         'fields'   : {	
             'company_id'			: 'Company',
-                'batch_id'    			: 'InvoiceBatch',
-                'type'  				: 'text',
-                'start_date'  			: 'date',
-                'end_date'  			: 'date',
-                'pdf'  					: 'text',
-                'sent_date'  			: 'date',
-                'status'  				: 'text',
-                'previous_balance'		: 'float',
-                'new_costs'  			: 'float',
-                'amount_due'			: 'float',
-                'new_payments' 			: 'float',
-                'details'      			: 'textarea',
-                'additional_recipients' : 'textarea',
-                'date'         			: 'date',
-                'payment_status'                : 'text'
-},
-'required' : {
+            'batch_id'    			: 'InvoiceBatch',
+            'type' 				: 'text',
+            'start_date'  			: 'date',
+            'end_date'        		        : 'date',
+            'pdf'  				: 'text',
+            'sent_date'  			: 'date',
+            'status'  			        : 'text',
+            'previous_balance'		        : 'float',
+            'new_costs'  			: 'float',
+            'amount_due'			: 'float',
+            'new_payments' 			: 'float',
+            'details'      			: 'textarea',
+            'additional_recipients'             : 'textarea',
+            'date'         			: 'date',
+            'payment_status'                    : 'text'
+        },
+        'required' : {
 
-},
-    'values' : {
-        'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'},
-        'type' : {'stand_alone':'Stand Alone','dated':'Date Range'},
-        'payment_status' : {'outstanding':'Outstanding','paid':'Paid','cancelled':'Cancelled',NULL:'N/A'}
-}
-}";	
+        },
+        'values' : {
+            'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'},
+            'type' : {'stand_alone':'Stand Alone','dated':'Date Range'},
+            'payment_status' : {'outstanding':'Outstanding','paid':'Paid','cancelled':'Cancelled',NULL:'N/A'}
+      }
+    }";	
 
 function __construct( $id = null){
     parent::__construct( $id);
@@ -230,5 +230,5 @@ function sendEmail() {
 
     $this->save();
 
-}
+  }
 }

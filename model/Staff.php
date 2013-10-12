@@ -7,20 +7,21 @@ class Staff extends User {
     protected static $schema;
     protected static $schema_json = "{	
         'fields'   : {	
-            'first_name'	:  'text',
-                'last_name'  	:  'text',
-                'email'  		  :  'text',
-                'team'  		  :  'text',
-                'username'  	:  'text',
-                'password'  	:  'text',
-                'permalink'  	:  'text',
-                'active'      :  'boolean'
+            'first_name'        :  'text',
+            'last_name'  	:  'text',
+            'email'  	        :  'text',
+            'team'  	        :  'text',
+            'username'  	:  'text',
+            'password'  	:  'text',
+            'permalink'  	:  'text',
+            'active'            :  'bool',
+            'avatar'            :  'text'
         },
         'required' : {
-
         },
-            'values'{
-                'team' : {'production':'Production','development':'Development','administration':'Administration'}
+        'values' : {
+          'team' : {'administration':'Administration', 'development':'Development', 'production':'Production'},
+          'avatar' : {null:'Select an avatar','mario':'Mario','luigi':'Luigi','peach':'Peach','toad':'Toad','yoshi':'Yoshi','dk':'D.K.','wario':'Wario','bowser':'Bowser'}
         }
     }";
 
@@ -85,4 +86,4 @@ class Staff extends User {
     function getActive(){
         return $this->get('active');
     }
-    }
+  }

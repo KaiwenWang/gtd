@@ -1,5 +1,5 @@
 <?php
-abstract class User extends ActiveRecord{
+abstract class User extends ActiveRecord {
 
     function __construct( $id = null){
         parent::__construct( $id);
