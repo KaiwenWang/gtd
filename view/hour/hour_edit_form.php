@@ -23,6 +23,7 @@ function hourEditForm( $h, $o){
     $list_items, 
     array('title' => 'Edit Hour: '.$h->getName(),
     'display' => 'inline')
+  );
 		  
   return $form->html;
 }
