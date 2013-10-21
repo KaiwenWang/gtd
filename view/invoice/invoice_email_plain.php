@@ -15,7 +15,6 @@ function invoiceEmailPlain($d, $o = array() ) {
     $client = $d->company->getName();  
 
     $summary = "\n\nRadical Designs Statement\n Statement Date " .  $invoice_date ."\n Statement Number #" .  $d->invoice->getData("id") ."\n Your New Radical Designs Statement: ".$client."\n\n ";
-    $summary .= '**Radical Designs has moved! Please note our new address: 1201 Martin Luther King Jr. Way Suite 200, Oakland, CA 94612**';
     if ($d->invoice->getData('type') == 'dated'){
         $summary .= "Statement for Period ". $invoice_period ."\n\n Starting Balance on " . $d->invoice->getStartDate() . ":\n $ " . number_format( $d->invoice->getPreviousBalance(), 2)." New Charges in Period:\n  $ " . number_format( $d->invoice->getNewCosts(), 2 ) ."\n\n Less Payments in Period:\n $ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) ."\n";
     }
