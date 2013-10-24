@@ -26,39 +26,55 @@ class StaffController extends PageController {
   }
 
   function show( $params = array()){
-    if( !$params['id']) bail('can has Staff id? kthx');
+    if(!isset($params['id']) || !$params['id']) {
+      $staff_members = getAll( 'Staff');
+      foreach($staff_members as $staff) {
+        if(!$staff->get('active') || (($staff->get('team') != 'Production') && ($staff->get('team') != 'Development')))  {
+          continue;
+        }
+        if(!isset($this->data->billable_hours_this_week)) {
+          $this->data->staff = array();
+          $this->data->billable_hours_this_week = array();
+        }
+        $hours_criteria = array('current_week'=>true);
+        $this->data->staff[$staff->get('id')] = $staff->getName();
+        $this->data->billable_hours_this_week[$staff->get('id')] = $staff->getBillableHoursTotal($hours_criteria);
+        
+      }
+      
+    } else {
 
-    $this->data->active_projects = getMany('Project',array('active'=>true));
+      $this->data->active_projects = getMany('Project',array('active'=>true));
 
-    $staff = new Staff($params['id']);
-    $this->data->staff = $staff; 
-    $this->data->staff_hours = $staff->getHours(); 
+      $staff = new Staff($params['id']);
+      $this->data->staff = $staff; 
+      $this->data->staff_hours = $staff->getHours(); 
 
-    $hours_criteria = array('current_month'=>true);
-    $this->data->hours_this_month = $staff->getHoursTotal($hours_criteria);
-    $this->data->billable_hours_this_month = $staff->getBillableHoursTotal($hours_criteria);
+      $hours_criteria = array('current_month'=>true);
+      $this->data->hours_this_month = $staff->getHoursTotal($hours_criteria);
+      $this->data->billable_hours_this_month = $staff->getBillableHoursTotal($hours_criteria);
 
-    $hours_criteria = array('current_week'=>true);
-    $this->data->hours_this_week = $staff->getHoursTotal($hours_criteria);
-    $this->data->billable_hours_this_week = $staff->getBillableHoursTotal($hours_criteria);
+      $hours_criteria = array('current_week'=>true);
+      $this->data->hours_this_week = $staff->getHoursTotal($hours_criteria);
+      $this->data->billable_hours_this_week = $staff->getBillableHoursTotal($hours_criteria);
 
-    $this->data->new_project = new Project();
-    $this->data->new_project->set(array(
-                'staff_id'=>Session::getUserId()
-                )
-              );
+      $this->data->new_project = new Project();
+      $this->data->new_project->set(array(
+                  'staff_id'=>Session::getUserId()
+                  )
+                );
 
-    $this->data->new_support_hour = new Hour();
-    $this->data->new_support_hour->set(array(
-                'staff_id'=>Session::getUserId(),
-                'date'=>date('Y-m-d')
-                )
-              );
-    $this->data->graph = Array(
-      'staff' => $staff->id,
-      'call' => 'overview'
-      );
-
+      $this->data->new_support_hour = new Hour();
+      $this->data->new_support_hour->set(array(
+                  'staff_id'=>Session::getUserId(),
+                  'date'=>date('Y-m-d')
+                  )
+                );
+      $this->data->graph = Array(
+        'staff' => $staff->id,
+        'call' => 'overview'
+        );
     }
+  }
     
 }
