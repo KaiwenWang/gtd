@@ -30,11 +30,13 @@ function invoiceShow($d, $o = array() ) {
             'Previous Balance'  => "$ " . number_format( $d->invoice->getPreviousBalance(), 2), 
             'New Payments in Period'      => "$ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ),
             'New Charges in Period'       => "$ " . number_format( $d->invoice->getNewCosts(), 2 ),
-            'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2)
+            'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2),
+            'Net 30 Terms' => ' '
         );
     } else {
         $items = array(
-            'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2)
+          'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2),
+          'Net 30 Terms' => ' '
         );
     } 
 

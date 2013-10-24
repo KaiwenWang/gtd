@@ -39,6 +39,7 @@ function invoiceEmail($d, $o = array() ) {
 
     $summary .= '
         <h3>Current Total Due: $ ' . number_format( $d->invoice->getAmountDue(), 2) . '</h3>
+        <em>Net 30 Terms</em><br>
         <hr>
         <h4>Payment Methods</h4>';
     if ($d->invoice->getAmountDue() < 1000) {

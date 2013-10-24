@@ -23,7 +23,7 @@ function invoiceEmailPlain($d, $o = array() ) {
         $summary .= "Details: ".$d->invoice->getData("details")."\n";
     }  
 
-    $summary .= " Current Total Due: $ " . number_format( $d->invoice->getAmountDue(), 2) . "\n\nPayment Information:\n\n"; 
+    $summary .= " Current Total Due: $ " . number_format( $d->invoice->getAmountDue(), 2) . "\n\nNet 30 Terms\n\nPayment Information:\n\n"; 
 
     if ($d->invoice->getAmountDue() < 1000) { 
         $summary .= "Radical Designs accepts online payments at https://payments.rdsecure.org/payments for amounts less than $1000.\n\n";
