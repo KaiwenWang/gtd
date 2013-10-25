@@ -5,34 +5,33 @@ class SupportContract extends ActiveRecord {
   var $name_field = "domain_name";
 
   protected static $schema;
-  protected static $schema_json = "{	
-    'fields'   : {	
-      'company_id' :  'Company',
-        'replacement_contract_id' : 'SupportContract',
-        'previous_contract_id' : 'SupportContract',
-        'domain_name' :  'text',
-        'technology'  :  'text',
-        'monthly_rate' :  'float',
-        'support_hours' :  'float',
-        'hourly_rate'  :  'float',
-        'pro_bono'  :  'bool',
-        'contract_on_file' :  'bool',
-        'no_contract_on_file':  'bool',							
-        'status' 	:  'text',
-        'not_monthly':  'bool',
-        'start_date' :  'date',
-        'end_date'  :  'date',
-        'notes'  	:  'textarea',
-        'contract_url' :  'text',
+  protected static $schema_json = '{  
+    "fields"   : {  
+      "company_id" :  "Company",
+        "replacement_contract_id" : "SupportContract",
+        "previous_contract_id" : "SupportContract",
+        "domain_name" :  "text",
+        "technology"  :  "text",
+        "monthly_rate" :  "float",
+        "support_hours" :  "float",
+        "hourly_rate"  :  "float",
+        "pro_bono"  :  "bool",
+        "contract_on_file" :  "bool",
+        "no_contract_on_file":  "bool",              
+        "status"   :  "text",
+        "not_monthly":  "bool",
+        "start_date" :  "date",
+        "end_date"  :  "date",
+        "notes"    :  "textarea",
+        "contract_url" :  "text",
     },
-        'required' : {
-
-    },
-        'values'   : {
-        'status' : {'active':'Active', 
-          'cancelled':'Cancelled'}
+        "required" : [
+    ],
+        "values"   : {
+        "status" : {"active":"Active", 
+          "cancelled":"Cancelled"}
     }
-  }";
+  }';
 
   function __construct( $id = null){
     parent::__construct( $id);
@@ -51,7 +50,7 @@ class SupportContract extends ActiveRecord {
       $finder = new Invoice();
       $this->invoices = $finder->find(array("support_contract_id"=>$this->id));
     }
-    return $this->invoices;	
+    return $this->invoices;  
   }
 
   function getHours( $criteria = array()){
@@ -91,7 +90,7 @@ class SupportContract extends ActiveRecord {
       $finder = new ProductInstance();
       $this->product_instances = $finder->find(array("support_contract_id"=>$this->id));
     }
-    return $this->product_instances;	
+    return $this->product_instances;  
   }
 
   function getBandwidth(){
@@ -106,7 +105,7 @@ class SupportContract extends ActiveRecord {
     if(empty($this->company)){
       $this->company = new Company( $this->getData('company_id'));
     }
-    return $this->company;	
+    return $this->company;  
   }
 
   function getCompanyName(){
@@ -247,7 +246,7 @@ class SupportContract extends ActiveRecord {
     if( $overage < 0) $overage = 0;
 
     return $overage * $this->getHourlyRate();
-  }	
+  }  
 
   function calculateMonthlyBaseRate($month = null, $legacy_month = true) {
     if(!$month) bail('calculateMonthlyBaseRate called without a valid month'); 

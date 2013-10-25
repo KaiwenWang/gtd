@@ -5,34 +5,33 @@ class Invoice extends ActiveRecord {
     var $name_field = "id";
 
     protected static $schema;
-    protected static $schema_json = "{	
-        'fields'   : {	
-            'company_id'			: 'Company',
-            'batch_id'    			: 'InvoiceBatch',
-            'type' 				: 'text',
-            'start_date'  			: 'date',
-            'end_date'        		        : 'date',
-            'pdf'  				: 'text',
-            'sent_date'  			: 'date',
-            'status'  			        : 'text',
-            'previous_balance'		        : 'float',
-            'new_costs'  			: 'float',
-            'amount_due'			: 'float',
-            'new_payments' 			: 'float',
-            'details'      			: 'textarea',
-            'additional_recipients'             : 'textarea',
-            'date'         			: 'date',
-            'payment_status'                    : 'text'
+    protected static $schema_json = '{  
+        "fields"   : {  
+            "company_id"      : "Company",
+            "batch_id"          : "InvoiceBatch",
+            "type"         : "text",
+            "start_date"        : "date",
+            "end_date"                    : "date",
+            "pdf"          : "text",
+            "sent_date"        : "date",
+            "status"                : "text",
+            "previous_balance"            : "float",
+            "new_costs"        : "float",
+            "amount_due"      : "float",
+            "new_payments"       : "float",
+            "details"            : "textarea",
+            "additional_recipients"             : "textarea",
+            "date"               : "date",
+            "payment_status"                    : "text"
         },
-        'required' : {
-
-        },
-        'values' : {
-            'status' : {'not_sent':'Pending','sent':'Sent','failed':'Failed to Send'},
-            'type' : {'stand_alone':'Stand Alone','dated':'Date Range'},
-            'payment_status' : {'outstanding':'Outstanding','paid':'Paid','cancelled':'Cancelled',NULL:'N/A'}
+        "required" : [
+        ],
+        "values" : {
+            "status" : {"not_sent":"Pending","sent":"Sent","failed":"Failed to Send"},
+            "type" : {"stand_alone":"Stand Alone","dated":"Date Range"},
+            "payment_status" : {"outstanding":"Outstanding","paid":"Paid","cancelled":"Cancelled",NULL:"N/A"}
       }
-    }";	
+    }';  
 
 function __construct( $id = null){
     parent::__construct( $id);
@@ -64,7 +63,7 @@ function isValid(){
         }
         if( !$this->getData('end_date')){
             $this->errors[] =  'end_date must be set';
-        }		
+        }    
     }
 
     if ( $valid && parent::isValid()) return true;
@@ -85,7 +84,7 @@ function getInvoiceItems(){
         $finder = new InvoiceItem();
         $this->invoice_items= $finder->find(array("invoice_id"=>$this->id));
     }
-    return $this->invoice_items;	
+    return $this->invoice_items;  
 }
 function getNewPaymentsTotal() {
     return $this->get('new_payments');
@@ -95,13 +94,13 @@ function getNewCosts() {
 }
 function getAmountDue(){
     return $this->get('amount_due');
-}	
+}  
 function getPreviousBalance() {
     return $this->get('previous_balance');
 }
 function getCompany(){
     if(empty($this->company)) $this->company = new Company( $this->getData('company_id') );
-    return $this->company;	
+    return $this->company;  
 }
 function getBatch(){
     if( $batch_id = $this->get('batch_id')) return new InvoiceBatch($batch_id);
@@ -121,15 +120,15 @@ function setNewAsOutstanding(){
 }
 function execute(){
     if( !$this->isValid() ) bail( $this->errors );
-    if (!$this->get('amount_due')) {	
-        $this->setFromCompany( 	$this->getCompany(), 
+    if (!$this->get('amount_due')) {  
+        $this->setFromCompany(   $this->getCompany(), 
         array(
             'start_date' => $this->get('start_date'),
-            'end_date' 	 =>	$this->get('end_date')
+            'end_date'    =>  $this->get('end_date')
         )
     );
     } else {
-        $this->setFromAmountDue( 	$this->getCompany(), 
+        $this->setFromAmountDue(   $this->getCompany(), 
         $this->get('amount_due')
     );
 

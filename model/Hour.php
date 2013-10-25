@@ -5,27 +5,27 @@ class Hour extends ActiveRecord {
   var $name_field = "description";
 
   protected static $schema;
-  protected static $schema_json = "{	
-    'fields'   : {	
-      'estimate_id'  : 'Estimate',
-        'support_contract_id' : 'SupportContract',
-        'staff_id'     : 'Staff',
-        'pair_id'     : 'Staff',
-        'pair_name'     : 'text',			
-        'pair_hour_id'     : 'Hour',
-        'description'  : 'text',
-        'date' 			: 'date',
-        'hours' 		: 'float',
-        'discount'  : 'float',
-        'basecamp_id'  : 'int'
+  protected static $schema_json = '{  
+    "fields"   : {  
+      "estimate_id"  : "Estimate",
+        "support_contract_id" : "SupportContract",
+        "staff_id"     : "Staff",
+        "pair_id"     : "Staff",
+        "pair_name"     : "text",      
+        "pair_hour_id"     : "Hour",
+        "description"  : "text",
+        "date"       : "date",
+        "hours"     : "float",
+        "discount"  : "float",
+        "basecamp_id"  : "int"
     },
-    'required' : {
-      'staff_id',
-        [ 'estimate_id' , 'support_contract_id' ]
-        'description',
-        'date'
-    }
-  }";
+    "required" : [
+      "staff_id",
+      ["estimate_id" , "support_contract_id"],
+      "description",
+      "date"
+    ]
+  }';
 
 function __construct( $id = null){
   parent::__construct( $id);
@@ -81,7 +81,7 @@ function discountIfInternalProject(){
   }
 }
 function save(){
-  $this->discountIfInternalProject();	
+  $this->discountIfInternalProject();  
   parent::save();
 }
 function getName(){
@@ -125,7 +125,7 @@ function getCost( $hourly_rate ) {
 }
 
 function getBillableHours(){
-  return $this->getHours() - $this->getDiscount();		
+  return $this->getHours() - $this->getDiscount();    
 }
 
 function getStaff(){
@@ -250,7 +250,7 @@ function makeCriteriaProject($values) {
     if(!empty($project_estimates)){
       $estimates = array_merge($estimates, $project_estimates);
     }
-  }	
+  }  
   return $this->makeCriteriaEstimate( 
     array_map( function( $item ) { return $item->id; }, $estimates)
   ); 

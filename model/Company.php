@@ -11,42 +11,42 @@ class Company extends ActiveRecord {
     );
 
     protected static $schema;
-    protected static $schema_json = "{	
-      'fields'   : {	
-        'name'	 		: 'text',
-        'notes' 	 	: 'textarea',
-        'street'  		: 'text',
-        'street_2'	  	: 'text',
-        'city'  		: 'text',
-        'state'		  	: 'text',
-        'zip'  			: 'int',
-        'country'		: 'text',
-        'preamp_id' 	        : 'int',
-        'status'  		: 'text',
-        'bay_area'  	        : 'bool',
-        'date_started' 	        : 'date',
-        'date_ended'	        : 'date',
-        'billing_status'        : 'text',
-        'org_type'		: 'text',
-        'fax' 			: 'text'								
+    protected static $schema_json = '{  
+      "fields"   : {  
+        "name"       : "text",
+        "notes"      : "textarea",
+        "street"      : "text",
+        "street_2"      : "text",
+        "city"      : "text",
+        "state"        : "text",
+        "zip"        : "int",
+        "country"    : "text",
+        "preamp_id"           : "int",
+        "status"      : "text",
+        "bay_area"            : "bool",
+        "date_started"           : "date",
+        "date_ended"          : "date",
+        "billing_status"        : "text",
+        "org_type"    : "text",
+        "fax"       : "text"                
       },
-      'required' :{ 
-          'name','date_started',
-              'org_type','status'
-      },
-      'values' : {
-          'status' : {'setup':'Setup','active':'Active','rEvent':'rEvent','closed':'Closed','free':'Low-Bagger','short':'Shortpants','off':'Uncontrolled Server','follow-up':'Follow Up'},
-              'org_type' : {'501c3':'501c3', 'union':'Union', 'political':'Political Campaign/Party', 'private':'Private Firm', 'pac527':'PAC/527', 'other':'other'},
-              'billing_status' : {'up-to-date':'Up To Date','overdue':'Overdue','collections':'Collections'},
-              'country' : {'usa':'USA','canada':'Canada','international':'International'}
+      "required" :[ 
+          "name","date_started",
+              "org_type","status"
+      ],
+      "values" : {
+          "status" : {"setup":"Setup","active":"Active","rEvent":"rEvent","closed":"Closed","free":"Low-Bagger","short":"Shortpants","off":"Uncontrolled Server","follow-up":"Follow Up"},
+              "org_type" : {"501c3":"501c3", "union":"Union", "political":"Political Campaign/Party", "private":"Private Firm", "pac527":"PAC/527", "other":"other"},
+              "billing_status" : {"up-to-date":"Up To Date","overdue":"Overdue","collections":"Collections"},
+              "country" : {"usa":"USA","canada":"Canada","international":"International"}
     }
-  }";
+  }';
 
   function getProjects(){
       if(empty($this->projects)){
           $this->projects= Project::getMany(array("company_id"=>$this->id));
       }
-      return $this->projects;	
+      return $this->projects;  
   }
   function getSupportContracts($criteria = array()){
       $criteria = array_merge(array("company_id"=>$this->id), $criteria);
@@ -64,19 +64,19 @@ class Company extends ActiveRecord {
   function getPayments($override_criteria=array()){
       $criteria = array_merge(array("company_id"=>$this->id), $override_criteria);
       $this->payments = getMany('Payment', $criteria);
-      return $this->payments;	
+      return $this->payments;  
   }
   function getContacts(){
       if(empty($this->contacts)){
           $this->contacts= getMany('Contact', array("company_id"=>$this->id));
       }
-      return $this->contacts;	
+      return $this->contacts;  
   }
   function getBillingContacts(){
       if(empty($this->billing_contacts)){
           $this->billing_contacts= Contact::getMany(array("company_id"=>$this->id,"is_billing_contact"=>1));
       }
-      return $this->billing_contacts;	
+      return $this->billing_contacts;  
   }
   function getPrimaryContactName(){
       $primarycontacts = $this->getPrimaryContact(); 
@@ -117,7 +117,7 @@ class Company extends ActiveRecord {
   function getCharges($criteria = array()){
       $criteria = array_merge(array("company_id"=>$this->id),$criteria);
       $this->charges = Charge::getMany($criteria );
-      return $this->charges;	
+      return $this->charges;  
   }
 
   function getChargesByMonth($criteria = array()){
@@ -147,7 +147,7 @@ class Company extends ActiveRecord {
       foreach($projects as $project){
           $hours = $project->getHours();
           if(!$hours) continue;
-          $this->project_hours = array_merge(	$this->project_hours, $hours);
+          $this->project_hours = array_merge(  $this->project_hours, $hours);
       }
       return $this->project_hours;
   }
@@ -155,9 +155,9 @@ class Company extends ActiveRecord {
       $contracts = $this->getSupportContracts();
       $this->support_hours = array();
       foreach($contracts as $contract){
-          $hours	= $contract->getHours($criteria);
+          $hours  = $contract->getHours($criteria);
           if(!$hours) continue;
-          $this->support_hours = array_merge(	$this->support_hours,$hours);
+          $this->support_hours = array_merge(  $this->support_hours,$hours);
       }
       return $this->support_hours;
   }
@@ -174,7 +174,7 @@ class Company extends ActiveRecord {
           $h = $support_contract->getFirstHour();
           if(is_a($h, 'Hour')) { $first_hours[] = $h; }
       }
-      if(!$first_hours) return;	
+      if(!$first_hours) return;  
       usort($first_hours, array("Hour", "compareByDate"));
       return $first_hours[0];
   }
@@ -213,7 +213,7 @@ class Company extends ActiveRecord {
       $payment = Payment::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
       if($payment){
           return $payment->getDate(); 
-      }	
+      }  
   }
   function calculateChargesTotal($date_range = array()){
 
@@ -328,7 +328,7 @@ class Company extends ActiveRecord {
           $projects = $this->getProjects();
           foreach($projects as $project) {
               //if(!in_array($active_month,$project->getActiveMonths())){
-              //	continue;
+              //  continue;
               //};
               $hourly_rate = $project->getHourlyRate();
               // get all the hours
@@ -380,7 +380,7 @@ class Company extends ActiveRecord {
       $total = 0;
       foreach($projects as $project){
           $total += $project->calculateTotal($date_range);
-      }	
+      }  
 
       return $total;
   }
@@ -400,10 +400,10 @@ class Company extends ActiveRecord {
   }
 
   function getPreviousBalance(){
-      //	if(empty($this->previous_balance)){
-      return	$this->previous_balance = CompanyPreviousBalance::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
-      //	}
-      //	return $this->previous_balance;
+      //  if(empty($this->previous_balance)){
+      return  $this->previous_balance = CompanyPreviousBalance::getOne(array('company_id'=>$this->id, 'sort'=>'date DESC'));
+      //  }
+      //  return $this->previous_balance;
   }
 
   function getPreviousBalanceDate(){
@@ -424,8 +424,8 @@ class Company extends ActiveRecord {
       $current_balance = $this->calculateCosts($date_range) - $this->calculatePaymentsTotal($date_range);
       $previous_balance = $this->getPreviousBalance();
 
-      ### tests fail because of this! margot	
-      if(empty($previous_balance)) return $current_balance;	
+      ### tests fail because of this! margot  
+      if(empty($previous_balance)) return $current_balance;  
       $total_balance = ($current_balance + $previous_balance->getAmount());
       return $total_balance;
   }

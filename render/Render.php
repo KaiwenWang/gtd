@@ -38,7 +38,14 @@ class Render{
         return $this->json->encode( $data);
     }
     function jsonDecode( $data){
-        return $this->json->decode( $data);
+        //return $this->json->decode( $data);
+        //die('<pre>' . print_r($this->json->decode($data), true) . '</pre><pre>' . print_r(json_decode($data, true), true) . '</pre>');
+        $decoded_json = json_decode($data, true);
+        if(isset($decoded_json)) {
+          return $decoded_json;
+        } else {
+          bail(json_last_error_msg()); 
+        }
     }    
     function css($stylesheet){
         $html = '<link rel="Stylesheet" href="css/'.$stylesheet.'" type="text/css" />';

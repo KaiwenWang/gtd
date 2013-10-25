@@ -8,7 +8,7 @@ class ActiveRecord  extends Record {
   var $name_field;
 
   protected static $schema;
-  protected static $schema_json;	
+  protected static $schema_json;  
 
   function get($field = null){
     $s = $this::_getSchema(get_class($this));
@@ -68,7 +68,7 @@ class ActiveRecord  extends Record {
       $history = array_merge( $history, $history_objects);
     }
 
-    usort( $history, array($this,'compareHistoryDates'));			
+    usort( $history, array($this,'compareHistoryDates'));      
 
     return $history;
   }

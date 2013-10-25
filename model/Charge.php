@@ -5,23 +5,22 @@ class Charge extends  ActiveRecord {
   var $name_field = "name";
   
   protected static $schema;
-  protected static $schema_json = "{	
-    'fields'   : {	
-      'company_id'	:  'Company',
-        'name'  		:  'text',
-        'amount'  		:  'float',
-        'type'			:  'text',
-        'description'  	:  'textarea',
-        'date'  		:  'date',
-        'invoice_id'  	:  'Invoice'
+  protected static $schema_json = '{  
+    "fields"   : {  
+      "company_id"  :  "Company",
+        "name"      :  "text",
+        "amount"      :  "float",
+        "type"      :  "text",
+        "description"    :  "textarea",
+        "date"      :  "date",
+        "invoice_id"    :  "Invoice"
     },
-    'required' : {
-
-    },
-    'values'   : {
-      'type' : {'bandwidth':'Bandwidth Overage','domain':'Domain Registration','slicehost':'Slicehost','amazon':'Amazon S3','other':'Other'},
+    "required" : [
+    ],
+    "values"   : {
+      "type" : {"bandwidth":"Bandwidth Overage","domain":"Domain Registration","slicehost":"Slicehost","amazon":"Amazon S3","other":"Other"},
     }
-  }";
+  }';
 
   function getCompany(  ) {
     $company = new Company( $this->get( 'company_id' ));
@@ -43,10 +42,10 @@ class Charge extends  ActiveRecord {
     return $this->sort( $item_set, 'date', 'desc');
   }
   function getHistoryName() {
-    return $this->getType();	
+    return $this->getType();  
   }
   function getHistoryDate() {
-    return $this->getDate();	
+    return $this->getDate();  
   } 
   function getHistoryDescription() {
     $desc = $this->getName();

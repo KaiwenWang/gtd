@@ -5,20 +5,20 @@ class Note extends ActiveRecord {
     var $name_field = "name";
 
     protected static $schema;
-    protected static $schema_json = "{	
-        'fields'   : {	
-            'company_id'	:  'Company',
-            'name'  		:  'text',
-            'description'  	:  'textarea',
-            'staff_id'  	:  'Staff',
-            'date'  		:  'date'
+    protected static $schema_json = '{  
+        "fields"   : {  
+            "company_id"  :  "Company",
+            "name"      :  "text",
+            "description"    :  "textarea",
+            "staff_id"    :  "Staff",
+            "date"      :  "date"
         },
-        'required' : { 
-            'staff_id,
-            'name',
-            'date'
-        }
-    }";
+        "required" : [ 
+            "staff_id",
+            "name",
+            "date"
+        ]
+    }';
 
     function __construct( $id = null){
         parent::__construct( $id);
@@ -30,7 +30,7 @@ class Note extends ActiveRecord {
         if(empty($this->company)){
             $this->company = new Company( $this->getData('company_id'));
         }
-        return $this->company;	
+        return $this->company;  
     }
     function getDate(){
         return $this->get('date');
