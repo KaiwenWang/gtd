@@ -2,7 +2,6 @@
 require_once('utility.php');
 
 class Record extends Data {
-
     var $dbcon;
 
     var $itemdata = array( );

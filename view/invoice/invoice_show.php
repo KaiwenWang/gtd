@@ -57,9 +57,9 @@ function invoiceShow($d, $o = array() ) {
 
     $history = $r->view( 'companyLineItems', array(
         'company'=>$d->company,
-        'months'=>Util::month_range(
-            $d->invoice->getStartDate(),
-            $d->invoice->getEndDate()
+        'dates'=>array(
+            'start_date' => $d->invoice->getStartDate(),
+            'end_date' => $d->invoice->getEndDate()
         )));
 
     return array( 

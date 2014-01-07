@@ -12,34 +12,60 @@ class Company extends ActiveRecord {
 
     protected static $schema;
     protected static $schema_json = '{  
-      "fields"   : {  
-        "name"       : "text",
-        "notes"      : "textarea",
-        "street"      : "text",
-        "street_2"      : "text",
-        "city"      : "text",
-        "state"        : "text",
-        "zip"        : "int",
-        "country"    : "text",
-        "preamp_id"           : "int",
-        "status"      : "text",
-        "bay_area"            : "bool",
-        "date_started"           : "date",
-        "date_ended"          : "date",
-        "billing_status"        : "text",
-        "org_type"    : "text",
-        "fax"       : "text"                
+      "fields": {
+          "name": "text",
+          "notes": "textarea",
+          "street": "text",
+          "street_2": "text",
+          "city": "text",
+          "state": "text",
+          "zip": "int",
+          "country": "text",
+          "preamp_id": "int",
+          "status": "text",
+          "bay_area": "bool",
+          "date_started": "date",
+          "date_ended": "date",
+          "billing_status": "text",
+          "org_type": "text",
+          "fax": "text"
       },
-      "required" :[ 
-          "name","date_started",
-              "org_type","status"
+      "required": [
+          "name",
+          "date_started",
+          "org_type",
+          "status"
       ],
-      "values" : {
-          "status" : {"setup":"Setup","active":"Active","rEvent":"rEvent","closed":"Closed","free":"Low-Bagger","short":"Shortpants","off":"Uncontrolled Server","follow-up":"Follow Up"},
-              "org_type" : {"501c3":"501c3", "union":"Union", "political":"Political Campaign/Party", "private":"Private Firm", "pac527":"PAC/527", "other":"other"},
-              "billing_status" : {"up-to-date":"Up To Date","overdue":"Overdue","collections":"Collections"},
-              "country" : {"usa":"USA","canada":"Canada","international":"International"}
-    }
+      "values": {
+          "status": {
+              "setup": "Setup",
+              "active": "Active",
+              "rEvent": "rEvent",
+              "closed": "Closed",
+              "free": "Low-Bagger",
+              "short": "Shortpants",
+              "off": "Uncontrolled Server",
+              "follow-up": "Follow Up"
+          },
+          "org_type": {
+              "501c3": "501c3",
+              "union": "Union",
+              "political": "Political Campaign/Party",
+              "private": "Private Firm",
+              "pac527": "PAC/527",
+              "other": "other"
+          },
+          "billing_status": {
+              "up-to-date": "Up To Date",
+              "overdue": "Overdue",
+              "collections": "Collections"
+          },
+          "country": {
+              "usa": "USA",
+              "canada": "Canada",
+              "international": "International"
+          }
+      }
   }';
 
   function getProjects(){
@@ -278,10 +304,11 @@ class Company extends ActiveRecord {
       return $total;
   }
   // returns array('Contract Name'=>array('hosting'=>50,'billable_hours'=>1.5))
-  function calculateSupportLineItems($active_months){
+  function calculateSupportLineItems($start_date, $end_date){
       $data = array();
       $support_contracts = $this->getSupportContracts();
       if(!$support_contracts) return;
+      $active_months = Util::month_range($start_date, $end_date);
 
       foreach($active_months as $active_month) {
           $data[$active_month] = array();
@@ -296,11 +323,19 @@ class Company extends ActiveRecord {
               $monthly_rate = $support_contract->calculateMonthlyBaseRate($active_month);
               $hourly_rate = $support_contract->get('hourly_rate');
 
+              $start_at = $active_month.'-01';
+              $end_at = $active_month.'-'.date("t", strtotime($active_month)); // last day of the month
+              if(strtotime($start_date) > strtotime($start_at)) {
+                $start_at = $start_date;
+              }
+              if(strtotime($end_date) < strtotime($end_at)) {
+                $end_at = $end_date;
+              }
               // get all the hours
               $number_of_hours = $support_contract->getBillableHours( array( 
                   'date_range' => array(
-                      'start_date' => $active_month.'-01', // first day of the month
-                      'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                      'start_date' => $start_at,
+                      'end_date' => $end_at
                   )
               ));
               $item = array();
@@ -314,11 +349,12 @@ class Company extends ActiveRecord {
       }
       return $data;
   }
-  function calculateProjectLineItems($active_months){
+  function calculateProjectLineItems($start_date, $end_date){
       $data = array();
 
       $projects = $this->getProjects();
       if(!$projects) return;
+      $active_months = Util::month_range($start_date, $end_date);
 
       foreach($active_months as $active_month) {
           $data[$active_month] = array();
@@ -331,18 +367,26 @@ class Company extends ActiveRecord {
               //  continue;
               //};
               $hourly_rate = $project->getHourlyRate();
+              $start_at = $active_month.'-01';
+              $end_at = $active_month.'-'.date("t", strtotime($active_month)); // last day of the month
+              if(strtotime($start_date) > strtotime($start_at)) {
+                $start_at = $start_date;
+              }
+              if(strtotime($end_date) < strtotime($end_at)) {
+                $end_at = $end_date;
+              }
               // get all the hours
               $number_of_hours = $project->getBillableHours( array( 
-                  'start_date' => $active_month.'-01', // first day of the month
-                  'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                  'start_date' => $start_at, // first day of the billing month
+                  'end_date' => $end_at // last day of the billing month
               ));
               $item = array();
               $item['name'] = $project->getName();
               $item['project_hours'] = $number_of_hours;
               $item['project_hours_rate'] = $hourly_rate;
               $item['project_total'] = $project->calculateTotal( array( 
-                  'start_date' => $active_month.'-01', // first day of the month
-                  'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                  'start_date' => $start_at, // first day of the billing month
+                  'end_date' => $end_at // last day of the billing month
               ));
               $data[$active_month][] = $item;
           }
@@ -350,9 +394,10 @@ class Company extends ActiveRecord {
       }
       return $data;
   }
-  function calculateChargeLineItems($active_months){
+  function calculateChargeLineItems($start_date, $end_date){
       $data = array();
       $charges_by_month = $this->getChargesByMonth();
+      $active_months = Util::month_range($start_date, $end_date);
       foreach($active_months as $active_month) {
           if(empty($charges_by_month[$active_month])){
               continue;

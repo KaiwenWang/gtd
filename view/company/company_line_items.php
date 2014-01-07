@@ -1,12 +1,14 @@
 <?php
 function companyLineItems($d){
 
-  $support_line_items = $d['company']->calculateSupportLineItems($d['months']);
-  $charge_line_items = $d['company']->calculateChargeLineItems($d['months']);
-  $project_line_items = $d['company']->calculateProjectLineItems($d['months']);
+  $support_line_items = $d['company']->calculateSupportLineItems($d['dates']['start_date'], $d['dates']['end_date']);
+  $charge_line_items = $d['company']->calculateChargeLineItems($d['dates']['start_date'], $d['dates']['end_date']);
+  $project_line_items = $d['company']->calculateProjectLineItems($d['dates']['start_date'], $d['dates']['end_date']);
   //bail('<pre>'.print_r($project_line_items, true).'</pre>');
   $monthly_history = '';
-  foreach($d['months'] as $active_month){
+  
+  $active_months = Util::month_range($d['dates']['start_date'], $d['dates']['end_date']);
+  foreach($active_months as $active_month){
     $monthly_history .= '<h3>'.$active_month.'</h3>';
     $monthly_history .= '<table cellpadding="3" cellspacing="0" width="80%" style="margin: 5px 0; font-size: 11px; border: 1px solid grey; ">';
     if(!isset($charge_line_items[$active_month])) $charge_line_items[$active_month] = 0;

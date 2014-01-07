@@ -1,9 +1,9 @@
 <?php
 function companyLineItemsPlain($d){
 
-	$support_line_items = $d['company']->calculateSupportLineItems($d['months']);
-	$charge_line_items = $d['company']->calculateChargeLineItems($d['months']);
-	$project_line_items = $d['company']->calculateProjectLineItems($d['months']);
+	$support_line_items = $d['company']->calculateSupportLineItems($d['dates']['start_date'], $d['dates']['end_date']);
+	$charge_line_items = $d['company']->calculateChargeLineItems($d['dates']['start_date'], $d['dates']['end_date']);
+	$project_line_items = $d['company']->calculateProjectLineItems($d['dates']['start_date'], $d['dates']['end_date']);
 	$monthly_history = "\n\nCharge Details: \n\n";
 	foreach($d['months'] as $active_month){
 		$monthly_history .= "$active_month \n";

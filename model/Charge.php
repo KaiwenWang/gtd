@@ -6,19 +6,24 @@ class Charge extends  ActiveRecord {
   
   protected static $schema;
   protected static $schema_json = '{  
-    "fields"   : {  
-      "company_id"  :  "Company",
-        "name"      :  "text",
-        "amount"      :  "float",
-        "type"      :  "text",
-        "description"    :  "textarea",
-        "date"      :  "date",
-        "invoice_id"    :  "Invoice"
+    "fields": {
+        "company_id": "Company",
+        "name": "text",
+        "amount": "float",
+        "type": "text",
+        "description": "textarea",
+        "date": "date",
+        "invoice_id": "Invoice"
     },
-    "required" : [
-    ],
-    "values"   : {
-      "type" : {"bandwidth":"Bandwidth Overage","domain":"Domain Registration","slicehost":"Slicehost","amazon":"Amazon S3","other":"Other"},
+    "required": [],
+    "values": {
+        "type": {
+            "bandwidth": "Bandwidth Overage",
+            "domain": "Domain Registration",
+            "slicehost": "Slicehost",
+            "amazon": "Amazon S3",
+            "other": "Other"
+        }
     }
   }';
 

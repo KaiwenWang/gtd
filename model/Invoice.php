@@ -6,50 +6,61 @@ class Invoice extends ActiveRecord {
 
     protected static $schema;
     protected static $schema_json = '{  
-        "fields"   : {  
-            "company_id"      : "Company",
-            "batch_id"          : "InvoiceBatch",
-            "type"         : "text",
-            "start_date"        : "date",
-            "end_date"                    : "date",
-            "pdf"          : "text",
-            "sent_date"        : "date",
-            "status"                : "text",
-            "previous_balance"            : "float",
-            "new_costs"        : "float",
-            "amount_due"      : "float",
-            "new_payments"       : "float",
-            "details"            : "textarea",
-            "additional_recipients"             : "textarea",
-            "date"               : "date",
-            "payment_status"                    : "text"
-        },
-        "required" : [
-        ],
-        "values" : {
-            "status" : {"not_sent":"Pending","sent":"Sent","failed":"Failed to Send"},
-            "type" : {"stand_alone":"Stand Alone","dated":"Date Range"},
-            "payment_status" : {"outstanding":"Outstanding","paid":"Paid","cancelled":"Cancelled",NULL:"N/A"}
+      "fields": {
+          "company_id": "Company",
+          "batch_id": "InvoiceBatch",
+          "type": "text",
+          "start_date": "date",
+          "end_date": "date",
+          "pdf": "text",
+          "sent_date": "date",
+          "status": "text",
+          "previous_balance": "float",
+          "new_costs": "float",
+          "amount_due": "float",
+          "new_payments": "float",
+          "details": "textarea",
+          "additional_recipients": "textarea",
+          "date": "date",
+          "payment_status": "text"
+      },
+      "required": [],
+      "values": {
+          "status": {
+              "not_sent": "Pending",
+              "sent": "Sent",
+              "failed": "Failed to Send"
+          },
+          "type": {
+              "stand_alone": "Stand Alone",
+              "dated": "Date Range"
+          },
+          "payment_status": {
+              "outstanding": "Outstanding",
+              "paid": "Paid",
+              "cancelled": "Cancelled",
+              "": "N/A"
+          }
       }
     }';  
 
-function __construct( $id = null){
+  function __construct( $id = null){
     parent::__construct( $id);
-}
-function getName(){
+  }
+  function getName(){
     return $this->getCompanyName().' '.$this->getStartDate().' '.$this->getEndDate();
-}
-function getStatus(){
+  }
+  function getStatus(){
     $status = $this->getData('payment_status');
     if($status == null) {
         return 'N/A';
     }
     return ucwords($status);
-}
-function getType(){
+  }
+  function getType(){
     return $this->getData('type');
-}
-function isValid(){
+  }
+  function isValid(){
     $valid = true;
 
     if( !$this->getData('company_id')){
@@ -67,58 +78,56 @@ function isValid(){
     }
 
     if ( $valid && parent::isValid()) return true;
-}
-function getStartDate(){
+  }
+  function getStartDate(){
     return  date('M jS, Y', strtotime($this->get('start_date')));
-}
-function getEndDate(){
+  }
+  function getEndDate(){
     return date('M jS, Y', strtotime($this->get('end_date')));
-}
-
-function getDate(){
+  }
+  function getDate(){
     return date('M jS, Y', strtotime($this->get('date')));
-}
-
-function getInvoiceItems(){
+  }
+  function getInvoiceItems(){
     if(!$this->invoice_items){
         $finder = new InvoiceItem();
         $this->invoice_items= $finder->find(array("invoice_id"=>$this->id));
     }
     return $this->invoice_items;  
-}
-function getNewPaymentsTotal() {
+  }
+  function getNewPaymentsTotal() {
     return $this->get('new_payments');
-}
-function getNewCosts() {
+  }
+  function getNewCosts() {
     return $this->get('new_costs');
-}
-function getAmountDue(){
+  }
+  function getAmountDue(){
     return $this->get('amount_due');
-}  
-function getPreviousBalance() {
+  }  
+  function getPreviousBalance() {
     return $this->get('previous_balance');
-}
-function getCompany(){
+  }
+  function getCompany(){
     if(empty($this->company)) $this->company = new Company( $this->getData('company_id') );
     return $this->company;  
-}
-function getBatch(){
+  }
+  function getBatch(){
     if( $batch_id = $this->get('batch_id')) return new InvoiceBatch($batch_id);
-}
-function getCompanyName(){
+  }
+  function getCompanyName(){
     return $this->getCompany()->getName();
-}
-function getAdditionalRecipients(){
+  }
+  function getAdditionalRecipients(){
     if ($additional_recipients = $this->get('additional_recipients')) {
         return ', ' . $this->get('additional_recipients');
     } else {
         return null;
     }
-}
-function setNewAsOutstanding(){
+  }
+  function setNewAsOutstanding(){
     $this->set(array('payment_status'=>'outstanding'));
-}
-function execute(){
+  }
+  function execute(){
     if( !$this->isValid() ) bail( $this->errors );
     if (!$this->get('amount_due')) {  
         $this->setFromCompany(   $this->getCompany(), 
@@ -133,8 +142,8 @@ function execute(){
     );
 
     }
-}
-function setFromAmountDue( $company, $amount_due){
+  }
+  function setFromAmountDue( $company, $amount_due){
     if(!is_a( $company, 'Company')) bail('setFromAmountDue requires first param to be a Company object');
 
     $this->company = $company;
@@ -144,8 +153,8 @@ function setFromAmountDue( $company, $amount_due){
         'type'=>'stand_alone',
         'amount_due'=>$amount_due
     ));
-}
-function setFromCompany( $company, $date_range){
+  }
+  function setFromCompany( $company, $date_range){
     if(!is_a( $company, 'Company')) bail('setFromCompany requires first param to be a Company object');
 
     $this->company = $company;
@@ -167,14 +176,13 @@ function setFromCompany( $company, $date_range){
         'new_costs'=>$new_costs,
         'new_payments'=>$new_payments,
         'amount_due'=>$amount_due
-    )
-);
-}
-function getBillingEmailAddress(){
+      )
+    );
+  }
+  function getBillingEmailAddress(){
     return $this->getCompany()->getBillingEmailAddress();
-}
-
-static function createFromCompany( $company, $batch){
+  }
+  static function createFromCompany( $company, $batch){
     $i = new Invoice();
     $date_range = array(
         'start_date'=>$batch->getStartDate(),
@@ -185,8 +193,8 @@ static function createFromCompany( $company, $batch){
     $i->setNewAsOutstanding();
     $i->save();
     return $i;
-} 
-function sendEmail() {
+  } 
+  function sendEmail() {
     if(!isset($this->id)) bail("must haz id to do that!");
     //trigger_error('Statement #'.$this->id.' preparing to send email');
 

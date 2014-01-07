@@ -6,18 +6,17 @@ class Bookmark extends ActiveRecord {
     
   protected static $schema;
   protected static $schema_json = '{  
-    "fields"   : {  
-      "staff_id":  "Staff",
-      "source"    :  "text",
-      "alias"    :  "text",
-      "description"    :  "text"
+    "fields": {
+        "staff_id": "Staff",
+        "source": "text",
+        "alias": "text",
+        "description": "text"
     },
-    "required" : [ 
-      "staff_id",
-      "source"
+    "required": [
+        "staff_id",
+        "source"
     ]
   }';
-
   
   function __construct( $id = null){
       parent::__construct( $id);
