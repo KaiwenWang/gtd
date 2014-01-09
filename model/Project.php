@@ -64,7 +64,7 @@ class Project extends ActiveRecord {
             "frozen": "Frozen in Carbonite"
         },
         "billing_status": {
-            "no_invoice_sent": "No Statement Sent",
+            "no_invoice_sent": "No Invoice Sent",
             "sent_deposit": "Sent Depost",
             "paid_deposit": "Paid Deposit",
             "sent_final": "Sent Final",

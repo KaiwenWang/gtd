@@ -196,7 +196,7 @@ class Invoice extends ActiveRecord {
   } 
   function sendEmail() {
     if(!isset($this->id)) bail("must haz id to do that!");
-    //trigger_error('Statement #'.$this->id.' preparing to send email');
+    //trigger_error('Invoice #'.$this->id.' preparing to send email');
 
     $d = new PHP5_Accessor();
 
@@ -209,9 +209,9 @@ class Invoice extends ActiveRecord {
 
     $email_address = $this->getBillingEmailAddress() . $this->getAdditionalRecipients();
     if ($this->getType() == 'dated') {
-        $subject = 'Radical Designs Statement ' . Util::pretty_date($this->get('end_date')); 
+        $subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
     } else {
-        $subject = 'Radical Designs Statement ' . Util::pretty_date($this->get('date')); 
+        $subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('date')); 
     }
     $boundary = "nextPart";
     $headers = 'From: ' . BILLING_EMAIL_ADDRESS."\n";

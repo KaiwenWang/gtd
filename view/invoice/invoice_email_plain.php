@@ -14,9 +14,9 @@ function invoiceEmailPlain($d, $o = array() ) {
 
     $client = $d->company->getName();  
 
-    $summary = "\n\nRadical Designs Statement\n Statement Date " .  $invoice_date ."\n Statement Number #" .  $d->invoice->getData("id") ."\n Your New Radical Designs Statement: ".$client."\n\n ";
+    $summary = "\n\nRadical Designs Invoice\n Invoice Date " .  $invoice_date ."\n Invoice Number #" .  $d->invoice->getData("id") ."\n Your New Radical Designs Invoice: ".$client."\n\n ";
     if ($d->invoice->getData('type') == 'dated'){
-        $summary .= "Statement for Period ". $invoice_period ."\n\n Starting Balance on " . $d->invoice->getStartDate() . ":\n $ " . number_format( $d->invoice->getPreviousBalance(), 2)." New Charges in Period:\n  $ " . number_format( $d->invoice->getNewCosts(), 2 ) ."\n\n Less Payments in Period:\n $ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) ."\n";
+        $summary .= "Invoice for Period ". $invoice_period ."\n\n Starting Balance on " . $d->invoice->getStartDate() . ":\n $ " . number_format( $d->invoice->getPreviousBalance(), 2)." New Charges in Period:\n  $ " . number_format( $d->invoice->getNewCosts(), 2 ) ."\n\n Less Payments in Period:\n $ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) ."\n";
     }
 
     if ($d->invoice->getData('details')){
@@ -52,7 +52,7 @@ function invoiceEmailPlain($d, $o = array() ) {
  */
     return array( 
         'template' => 'invoice',
-        'title' => 'Show Statement', 
+        'title' => 'Show Invoice', 
         'body' =>   $summary
     );
 }

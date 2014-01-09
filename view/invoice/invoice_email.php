@@ -17,15 +17,15 @@ function invoiceEmail($d, $o = array() ) {
     $summary = '
         <div id="banner">
         <img src="http://radicaldesigns.org/img/original/rd-invoice-header.gif"><br />
-        <b>Statement Date</b> ' .  $invoice_date . '<br />
-        <b>Statement Number #' .  $d->invoice->getData('id') .'</b>
+        <b>Invoice Date</b> ' .  $invoice_date . '<br />
+        <b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
         </div>
-        <h2 id="invoice-client">Your New Radical Designs Statement: '.$client.'</h2>
+        <h2 id="invoice-client">Your New Radical Designs Invoice: '.$client.'</h2>
         <div id="invoice-summary">';
 
     if ($d->invoice->getData('type') == 'dated'){
         $summary .= '
-            <b>Statement for Period '. $invoice_period .'</b><br /><br /> 
+            <b>Invoice for Period '. $invoice_period .'</b><br /><br /> 
             <b>Starting Balance on ' . $d->invoice->getStartDate() . ':</b><br /> $ ' . number_format( $d->invoice->getPreviousBalance(), 2).'<br /><br /> 
             <b>New Charges in Period:</b><br />  $ ' . number_format( $d->invoice->getNewCosts(), 2 ) .'<br /><br />
             <b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />';
@@ -81,7 +81,7 @@ function invoiceEmail($d, $o = array() ) {
 
     return array( 
         'template' => 'invoice',
-        'title' => 'Show Statement', 
+        'title' => 'Show Invoice', 
         'body' =>   $summary
     );
 }
