@@ -13,8 +13,8 @@ function invoiceShow($d, $o = array() ) {
         . $d->invoice->getEndDate();
 
     $banner = array(
-        'Invoice Date'      => $invoice_date, 
-        'Invoice Number'      => "#" . $d->invoice->getData('id')
+        'Statement Date'      => $invoice_date, 
+        'Statement Number'      => "#" . $d->invoice->getData('id')
     );
 
     $client = $d->company->getName();  
@@ -57,14 +57,14 @@ function invoiceShow($d, $o = array() ) {
 
     $history = $r->view( 'companyLineItems', array(
         'company'=>$d->company,
-        'dates'=>array(
-            'start_date' => $d->invoice->getStartDate(),
-            'end_date' => $d->invoice->getEndDate()
+        'months'=>Util::month_range(
+            $d->invoice->getStartDate(),
+            $d->invoice->getEndDate()
         )));
 
     return array( 
         'template' => 'invoice',
-        'title' => 'Show Invoice', 
+        'title' => 'Show Statement', 
         'body' =>   $summary,
         'history'=>	$history
     );

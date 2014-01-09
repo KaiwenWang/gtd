@@ -15,7 +15,7 @@ function invoiceStandEditForm( $invoice, $o = array() ) {
 
     $form->content = $r->view( 'basicFormContents', 
         $list_items, 
-        array( 'title'=>'Edit Stand-Alone Invoice')
+        array( 'title'=>'Edit Stand-Alone Statement')
     );
 
 

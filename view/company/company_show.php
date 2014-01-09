@@ -20,7 +20,7 @@ function companyShow($d){
                       'Add Charge'         => $r->view( 'chargeNewForm', $d->new_charge),
                       'Add Payment'        => $r->view( 'paymentNewForm', $d->new_payment),
                       'Add Note'           => $r->view('noteNewForm',$d->new_note),
-                      'Create Standard Invoice' => $r->view( 'invoiceNewForm', $d->new_invoice)
+                      'Create Standard Statement' => $r->view( 'invoiceNewForm', $d->new_invoice)
                     )
                   );
           

@@ -4,9 +4,9 @@ function invoiceIndex($d, $o = array() ) {
 
     $hidden_forms = $r->view('jsMultipleButtons',
         array(	
-            'Create Single Invoice' => $r->view('invoiceNewForm',$d->new_invoice),
-            'Create Quarterly Invoices' => $r->view('invoicebatchNewForm',$d->new_batch),
-            'Create Stand-Alone Invoice' => $r->view('invoiceStandNewForm',$d->new_stand_invoice)
+            'Create Single Statement' => $r->view('invoiceNewForm',$d->new_invoice),
+            'Create Quarterly Statements' => $r->view('invoicebatchNewForm',$d->new_batch),
+            'Create Stand-Alone Statement' => $r->view('invoiceStandNewForm',$d->new_stand_invoice)
         )
     );
 
@@ -16,7 +16,7 @@ function invoiceIndex($d, $o = array() ) {
     );
 
     return array( 
-        'title' => 'Show Invoices', 
+        'title' => 'Show Statements', 
         'body' =>  	$hidden_forms
         .$invoice_table
     );

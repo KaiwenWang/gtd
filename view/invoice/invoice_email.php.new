@@ -65,6 +65,20 @@ function invoiceEmail($d, $o = array() ) {
         )));
     $summary .= '</div>';
 
+    //temporary message for new status
+        /* $summary .= '<hr><h4>*Important Special Message*</h4>Radical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In order to bring the company in-line with our values Radical Designs recently reorganized as a worker cooperative. 
+                <br /><br />
+                As a practical matter this will have no impact on your services with us but it will mean some minor adjustments to our billing and tax information. 
+                <br /><br />
+                <strong>For your tax records we will be issuing a new W-9 with our new FEIN for the last quarter of 2010. The first three quarters will be under the old W-9/ FEIN number. </strong>
+                <br /><br />
+                        In addition to re-organizing as a worker coop we are are excited to integrate credit card billing as an option for your payments. If your balance is less than $1000, simply follow the link above by your balance to in order to pay by card. 
+                <br /><br />
+                        Best regards,
+                <br /><br />
+                Radical Designs Cooperative	';
+         */
+
     return array( 
         'template' => 'invoice',
         'title' => 'Show Invoice', 

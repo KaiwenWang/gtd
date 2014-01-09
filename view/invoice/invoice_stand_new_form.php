@@ -14,7 +14,7 @@ function invoiceStandNewForm( $invoice, $o = array() ) {
 
     $form->content = $r->view( 'basicFormContents', 
         $list_items, 
-        array( 'title'=>'New Stand-Alone Invoice')
+        array( 'title'=>'New Stand-Alone Statement')
     );
 
 

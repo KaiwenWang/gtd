@@ -68,7 +68,6 @@ class Company extends ActiveRecord {
       }
   }';
 
-
   function getProjects(){
       if(empty($this->projects)){
           $this->projects= Project::getMany(array("company_id"=>$this->id));
@@ -305,10 +304,11 @@ class Company extends ActiveRecord {
       return $total;
   }
   // returns array('Contract Name'=>array('hosting'=>50,'billable_hours'=>1.5))
-  function calculateSupportLineItems($active_months){
+  function calculateSupportLineItems($start_date, $end_date){
       $data = array();
       $support_contracts = $this->getSupportContracts();
       if(!$support_contracts) return;
+      $active_months = Util::month_range($start_date, $end_date);
 
       foreach($active_months as $active_month) {
           $data[$active_month] = array();
@@ -323,11 +323,19 @@ class Company extends ActiveRecord {
               $monthly_rate = $support_contract->calculateMonthlyBaseRate($active_month);
               $hourly_rate = $support_contract->get('hourly_rate');
 
+              $start_at = $active_month.'-01';
+              $end_at = $active_month.'-'.date("t", strtotime($active_month)); // last day of the month
+              if(strtotime($start_date) > strtotime($start_at)) {
+                $start_at = $start_date;
+              }
+              if(strtotime($end_date) < strtotime($end_at)) {
+                $end_at = $end_date;
+              }
               // get all the hours
               $number_of_hours = $support_contract->getBillableHours( array( 
                   'date_range' => array(
-                      'start_date' => $active_month.'-01', // first day of the month
-                      'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                      'start_date' => $start_at,
+                      'end_date' => $end_at
                   )
               ));
               $item = array();
@@ -341,11 +349,12 @@ class Company extends ActiveRecord {
       }
       return $data;
   }
-  function calculateProjectLineItems($active_months){
+  function calculateProjectLineItems($start_date, $end_date){
       $data = array();
 
       $projects = $this->getProjects();
       if(!$projects) return;
+      $active_months = Util::month_range($start_date, $end_date);
 
       foreach($active_months as $active_month) {
           $data[$active_month] = array();
@@ -358,18 +367,26 @@ class Company extends ActiveRecord {
               //  continue;
               //};
               $hourly_rate = $project->getHourlyRate();
+              $start_at = $active_month.'-01';
+              $end_at = $active_month.'-'.date("t", strtotime($active_month)); // last day of the month
+              if(strtotime($start_date) > strtotime($start_at)) {
+                $start_at = $start_date;
+              }
+              if(strtotime($end_date) < strtotime($end_at)) {
+                $end_at = $end_date;
+              }
               // get all the hours
               $number_of_hours = $project->getBillableHours( array( 
-                  'start_date' => $active_month.'-01', // first day of the month
-                  'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                  'start_date' => $start_at, // first day of the billing month
+                  'end_date' => $end_at // last day of the billing month
               ));
               $item = array();
               $item['name'] = $project->getName();
               $item['project_hours'] = $number_of_hours;
               $item['project_hours_rate'] = $hourly_rate;
               $item['project_total'] = $project->calculateTotal( array( 
-                  'start_date' => $active_month.'-01', // first day of the month
-                  'end_date' => $active_month.'-'.date("t", strtotime($active_month)) // last day of the month
+                  'start_date' => $start_at, // first day of the billing month
+                  'end_date' => $end_at // last day of the billing month
               ));
               $data[$active_month][] = $item;
           }
@@ -377,9 +394,10 @@ class Company extends ActiveRecord {
       }
       return $data;
   }
-  function calculateChargeLineItems($active_months){
+  function calculateChargeLineItems($start_date, $end_date){
       $data = array();
       $charges_by_month = $this->getChargesByMonth();
+      $active_months = Util::month_range($start_date, $end_date);
       foreach($active_months as $active_month) {
           if(empty($charges_by_month[$active_month])){
               continue;
