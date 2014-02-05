@@ -5,62 +5,62 @@ class Invoice extends ActiveRecord {
     var $name_field = "id";
 
     protected static $schema;
-    protected static $schema_json = '{  
+    protected static $schema_json = '{
       "fields": {
-          "company_id": "Company",
-          "batch_id": "InvoiceBatch",
-          "type": "text",
-          "start_date": "date",
-          "end_date": "date",
-          "pdf": "text",
-          "sent_date": "date",
-          "status": "text",
-          "previous_balance": "float",
-          "new_costs": "float",
-          "amount_due": "float",
-          "new_payments": "float",
-          "details": "textarea",
-          "additional_recipients": "textarea",
-          "date": "date",
-          "payment_status": "text"
+        "company_id": "Company",
+        "batch_id": "InvoiceBatch",
+        "type": "text",
+        "start_date": "date",
+        "end_date": "date",
+        "pdf": "text",
+        "sent_date": "date",
+        "status": "text",
+        "previous_balance": "float",
+        "new_costs": "float",
+        "amount_due": "float",
+        "new_payments": "float",
+        "details": "textarea",
+        "additional_recipients": "textarea",
+        "date": "date",
+        "payment_status": "text"
       },
       "required": [],
       "values": {
-          "status": {
-              "not_sent": "Pending",
-              "sent": "Sent",
-              "failed": "Failed to Send"
-          },
-          "type": {
-              "stand_alone": "Stand Alone",
-              "dated": "Date Range"
-          },
-          "payment_status": {
-              "outstanding": "Outstanding",
-              "paid": "Paid",
-              "cancelled": "Cancelled",
-              "": "N/A"
-          }
+        "status": {
+            "not_sent": "Pending",
+            "sent": "Sent",
+            "failed": "Failed to Send"
+        },
+        "type": {
+            "stand_alone": "Stand Alone",
+            "dated": "Date Range"
+        },
+        "payment_status": {
+            "outstanding": "Outstanding",
+            "paid": "Paid",
+            "cancelled": "Cancelled",
+            "null": "N/A"
+        }
       }
     }';  
 
-  function __construct( $id = null){
+function __construct( $id = null){
     parent::__construct( $id);
-  }
-  function getName(){
+}
+function getName(){
     return $this->getCompanyName().' '.$this->getStartDate().' '.$this->getEndDate();
-  }
-  function getStatus(){
+}
+function getStatus(){
     $status = $this->getData('payment_status');
     if($status == null) {
         return 'N/A';
     }
     return ucwords($status);
-  }
-  function getType(){
+}
+function getType(){
     return $this->getData('type');
-  }
-  function isValid(){
+}
+function isValid(){
     $valid = true;
 
     if( !$this->getData('company_id')){
@@ -78,56 +78,58 @@ class Invoice extends ActiveRecord {
     }
 
     if ( $valid && parent::isValid()) return true;
-  }
-  function getStartDate(){
+}
+function getStartDate(){
     return  date('M jS, Y', strtotime($this->get('start_date')));
-  }
-  function getEndDate(){
+}
+function getEndDate(){
     return date('M jS, Y', strtotime($this->get('end_date')));
-  }
-  function getDate(){
+}
+
+function getDate(){
     return date('M jS, Y', strtotime($this->get('date')));
-  }
-  function getInvoiceItems(){
+}
+
+function getInvoiceItems(){
     if(!$this->invoice_items){
         $finder = new InvoiceItem();
         $this->invoice_items= $finder->find(array("invoice_id"=>$this->id));
     }
     return $this->invoice_items;  
-  }
-  function getNewPaymentsTotal() {
+}
+function getNewPaymentsTotal() {
     return $this->get('new_payments');
-  }
-  function getNewCosts() {
+}
+function getNewCosts() {
     return $this->get('new_costs');
-  }
-  function getAmountDue(){
+}
+function getAmountDue(){
     return $this->get('amount_due');
-  }  
-  function getPreviousBalance() {
+}  
+function getPreviousBalance() {
     return $this->get('previous_balance');
-  }
-  function getCompany(){
+}
+function getCompany(){
     if(empty($this->company)) $this->company = new Company( $this->getData('company_id') );
     return $this->company;  
-  }
-  function getBatch(){
+}
+function getBatch(){
     if( $batch_id = $this->get('batch_id')) return new InvoiceBatch($batch_id);
-  }
-  function getCompanyName(){
+}
+function getCompanyName(){
     return $this->getCompany()->getName();
-  }
-  function getAdditionalRecipients(){
+}
+function getAdditionalRecipients(){
     if ($additional_recipients = $this->get('additional_recipients')) {
         return ', ' . $this->get('additional_recipients');
     } else {
         return null;
     }
-  }
-  function setNewAsOutstanding(){
+}
+function setNewAsOutstanding(){
     $this->set(array('payment_status'=>'outstanding'));
-  }
-  function execute(){
+}
+function execute(){
     if( !$this->isValid() ) bail( $this->errors );
     if (!$this->get('amount_due')) {  
         $this->setFromCompany(   $this->getCompany(), 
@@ -142,8 +144,8 @@ class Invoice extends ActiveRecord {
     );
 
     }
-  }
-  function setFromAmountDue( $company, $amount_due){
+}
+function setFromAmountDue( $company, $amount_due){
     if(!is_a( $company, 'Company')) bail('setFromAmountDue requires first param to be a Company object');
 
     $this->company = $company;
@@ -153,8 +155,8 @@ class Invoice extends ActiveRecord {
         'type'=>'stand_alone',
         'amount_due'=>$amount_due
     ));
-  }
-  function setFromCompany( $company, $date_range){
+}
+function setFromCompany( $company, $date_range){
     if(!is_a( $company, 'Company')) bail('setFromCompany requires first param to be a Company object');
 
     $this->company = $company;
@@ -162,6 +164,7 @@ class Invoice extends ActiveRecord {
     $previous_balance_date = array( 'end_date'=>$date_range['start_date'] );
     $amount_due_date = array( 'end_date'=>$date_range['end_date'] );
 
+    die($previous_balance_date);
     $previous_balance = $this->company->calculateBalance( $previous_balance_date);
     $new_costs = $this->company->calculateCosts($date_range);
     $new_payments = $this->company->calculatePaymentsTotal($date_range);
@@ -176,13 +179,14 @@ class Invoice extends ActiveRecord {
         'new_costs'=>$new_costs,
         'new_payments'=>$new_payments,
         'amount_due'=>$amount_due
-      )
-    );
-  }
-  function getBillingEmailAddress(){
+    )
+);
+}
+function getBillingEmailAddress(){
     return $this->getCompany()->getBillingEmailAddress();
-  }
-  static function createFromCompany( $company, $batch){
+}
+
+static function createFromCompany( $company, $batch){
     $i = new Invoice();
     $date_range = array(
         'start_date'=>$batch->getStartDate(),
@@ -193,10 +197,10 @@ class Invoice extends ActiveRecord {
     $i->setNewAsOutstanding();
     $i->save();
     return $i;
-  } 
-  function sendEmail() {
+} 
+function sendEmail() {
     if(!isset($this->id)) bail("must haz id to do that!");
-    //trigger_error('Invoice #'.$this->id.' preparing to send email');
+    //trigger_error('Statement #'.$this->id.' preparing to send email');
 
     $d = new PHP5_Accessor();
 
@@ -209,9 +213,9 @@ class Invoice extends ActiveRecord {
 
     $email_address = $this->getBillingEmailAddress() . $this->getAdditionalRecipients();
     if ($this->getType() == 'dated') {
-        $subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('end_date')); 
+        $subject = 'Radical Designs Statement ' . Util::pretty_date($this->get('end_date')); 
     } else {
-        $subject = 'Radical Designs Invoice ' . Util::pretty_date($this->get('date')); 
+        $subject = 'Radical Designs Statement ' . Util::pretty_date($this->get('date')); 
     }
     $boundary = "nextPart";
     $headers = 'From: ' . BILLING_EMAIL_ADDRESS."\n";

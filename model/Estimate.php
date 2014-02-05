@@ -4,25 +4,26 @@ class Estimate extends ActiveRecord {
   var $datatable = "estimate";
   var $name_field = "name";
 
-  protected static $schema;
-  protected static $schema_json = '{  
-    "fields": {
-        "project_id": "Project",
-        "name": "text",
-        "description": "textarea",
-        "high_hours": "float",
-        "due_date": "date",
-        "completed": "bool",
-        "notes": "textarea",
-        "low_hours": "float",
-        "basecamp_id": "int"
-    },
-    "required": []
-  }';
+    protected static $schema;
+    protected static $schema_json = '{  
+      "fields"   : {  
+              "project_id"  :  "Project",
+              "name"        :  "text",
+              "description"    :  "textarea",
+              "high_hours"    :  "float",
+              "due_date"    :  "date",
+              "completed"    :  "bool",
+              "notes"      :  "textarea",
+              "low_hours"    :  "float",
+              "basecamp_id"    :  "int"
+            },
+      "required" : [
+      ]
+    }';
 
-  function __construct( $id = null){
-      parent::__construct( $id);
-  }
+    function __construct( $id = null){
+        parent::__construct( $id);
+    }
   function getHours( $search_criteria = array() ){
     $criteria = array_merge( array('estimate_id'=>$this->id),
                   $search_criteria,

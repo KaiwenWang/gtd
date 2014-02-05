@@ -6,15 +6,15 @@ class Bandwidth extends ActiveRecord {
 
   protected static $schema;
   protected static $schema_json = '{  
-    "fields": {
-        "support_contract_id": "SupportContract",
-        "gigs_over": "float",
-        "date": "date"
+    "fields"   : {  
+      "support_contract_id"  :  "SupportContract",
+        "gigs_over"  :  "float",
+        "date"    :  "date"
     },
-    "required": []
+    "required" : [
+    ]
   }';
-
-  function __construct(  $id = null){
-    parent::__construct( $id);
-  }
+function __construct(  $id = null){
+  parent::__construct( $id);
+}
 }

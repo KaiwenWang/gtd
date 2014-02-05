@@ -17,15 +17,15 @@ function invoiceEmail($d, $o = array() ) {
     $summary = '
         <div id="banner">
         <img src="http://radicaldesigns.org/img/original/rd-invoice-header.gif"><br />
-        <b>Invoice Date</b> ' .  $invoice_date . '<br />
-        <b>Invoice Number #' .  $d->invoice->getData('id') .'</b>
+        <b>Statement Date</b> ' .  $invoice_date . '<br />
+        <b>Statement Number #' .  $d->invoice->getData('id') .'</b>
         </div>
-        <h2 id="invoice-client">Your New Radical Designs Invoice: '.$client.'</h2>
+        <h2 id="invoice-client">Your New Radical Designs Statement: '.$client.'</h2>
         <div id="invoice-summary">';
 
     if ($d->invoice->getData('type') == 'dated'){
         $summary .= '
-            <b>Invoice for Period '. $invoice_period .'</b><br /><br /> 
+            <b>Statement for Period '. $invoice_period .'</b><br /><br /> 
             <b>Starting Balance on ' . $d->invoice->getStartDate() . ':</b><br /> $ ' . number_format( $d->invoice->getPreviousBalance(), 2).'<br /><br /> 
             <b>New Charges in Period:</b><br />  $ ' . number_format( $d->invoice->getNewCosts(), 2 ) .'<br /><br />
             <b>Less Payments in Period:</b><br />  $ ' . number_format( $d->invoice->getNewPaymentsTotal(), 2 ) .'<br />';
@@ -65,9 +65,23 @@ function invoiceEmail($d, $o = array() ) {
         )));
     $summary .= '</div>';
 
+    //temporary message for new status
+        /* $summary .= '<hr><h4>*Important Special Message*</h4>Radical Designs is very excited to announce a important transition in our company. As you may know Radical Designs was originally organized as a limited liability corporation but has always acted in a democratic and cooperative fashion. In order to bring the company in-line with our values Radical Designs recently reorganized as a worker cooperative. 
+                <br /><br />
+                As a practical matter this will have no impact on your services with us but it will mean some minor adjustments to our billing and tax information. 
+                <br /><br />
+                <strong>For your tax records we will be issuing a new W-9 with our new FEIN for the last quarter of 2010. The first three quarters will be under the old W-9/ FEIN number. </strong>
+                <br /><br />
+                        In addition to re-organizing as a worker coop we are are excited to integrate credit card billing as an option for your payments. If your balance is less than $1000, simply follow the link above by your balance to in order to pay by card. 
+                <br /><br />
+                        Best regards,
+                <br /><br />
+                Radical Designs Cooperative	';
+         */
+
     return array( 
         'template' => 'invoice',
-        'title' => 'Show Invoice', 
+        'title' => 'Show Statement', 
         'body' =>   $summary
     );
 }

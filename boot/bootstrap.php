@@ -13,4 +13,3 @@ Util::include_directory('model');
 Util::include_directory('render');
 Util::include_directory('router');
 require_once('controller/PageController.php');
-date_default_timezone_set('America/Los_Angeles');
