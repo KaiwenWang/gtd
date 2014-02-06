@@ -33,10 +33,17 @@ $.fn.initialize_Gtd = function(){
   $('#timer-widget-box #timer-time').create_Timer();
   $('#timer-widget-box #timer-submit').finish_Timer();
   $('#timer-widget-box #timer-pause').start_Timer();
+  $('.hours-field').roundToQuarter();
   $('.flyout').enable_SidebarMenu();
   return this;
 }
 
+
+$.fn.roundToQuarter = function() {
+  $(this).change(function() {
+    $(this).val(Math.ceil(parseFloat($(this).val()) * 4) / 4);
+  });
+}
 
 $.fn.enable_SidebarMenu = function(){
   $('.sidebar-button',this).click(function(){
