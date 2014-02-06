@@ -5,25 +5,31 @@ class Payment extends ActiveRecord {
   var $name_field = "amount";
 
     protected static $schema;
-    protected static $schema_json = '{  
-      "fields"   : {  
-              "date"    :  "date",
-              "amount"    :  "float",
-              "payment_type" :  "text",
-              "preamp_id" :  "int",
-              "preamp_client_id"  :  "int",
-              "product"    :  "text",
-              "invoice_id":  "int",
-              "company_id":  "Company",
-              "notes"    :  "textarea",
-                            "check_number" : "text"
-            },
-      "required" : [
-      ],
-      "values"   : {
-        "payment_type":{"check":"Check","paypal":"Paypal","direct":"Direct Deposit","cash":"Cash","credit":"Credit","write_off":"Write Off"}
-            },
-      }';
+    protected static $schema_json = '{
+    "fields": {
+        "date": "date",
+        "amount": "float",
+        "payment_type": "text",
+        "preamp_id": "int",
+        "preamp_client_id": "int",
+        "product": "text",
+        "invoice_id": "int",
+        "company_id": "Company",
+        "notes": "textarea",
+        "check_number": "text"
+    },
+    "required": [],
+    "values": {
+        "payment_type": {
+            "check": "Check",
+            "paypal": "Paypal",
+            "direct": "Direct Deposit",
+            "cash": "Cash",
+            "credit": "Credit",
+            "write_off": "Write Off"
+        }
+    }
+    }';
 
     function getAmount(){
             return $this->get('amount');

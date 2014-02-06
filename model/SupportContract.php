@@ -5,31 +5,32 @@ class SupportContract extends ActiveRecord {
   var $name_field = "domain_name";
 
   protected static $schema;
-  protected static $schema_json = '{  
-    "fields"   : {  
-      "company_id" :  "Company",
-        "replacement_contract_id" : "SupportContract",
-        "previous_contract_id" : "SupportContract",
-        "domain_name" :  "text",
-        "technology"  :  "text",
-        "monthly_rate" :  "float",
-        "support_hours" :  "float",
-        "hourly_rate"  :  "float",
-        "pro_bono"  :  "bool",
-        "contract_on_file" :  "bool",
-        "no_contract_on_file":  "bool",              
-        "status"   :  "text",
-        "not_monthly":  "bool",
-        "start_date" :  "date",
-        "end_date"  :  "date",
-        "notes"    :  "textarea",
-        "contract_url" :  "text",
+  protected static $schema_json = '{
+    "fields": {
+        "company_id": "Company",
+        "replacement_contract_id": "SupportContract",
+        "previous_contract_id": "SupportContract",
+        "domain_name": "text",
+        "technology": "text",
+        "monthly_rate": "float",
+        "support_hours": "float",
+        "hourly_rate": "float",
+        "pro_bono": "bool",
+        "contract_on_file": "bool",
+        "no_contract_on_file": "bool",
+        "status": "text",
+        "not_monthly": "bool",
+        "start_date": "date",
+        "end_date": "date",
+        "notes": "textarea",
+        "contract_url": "text"
     },
-        "required" : [
-    ],
-        "values"   : {
-        "status" : {"active":"Active", 
-          "cancelled":"Cancelled"}
+    "required": [],
+    "values": {
+        "status": {
+            "active": "Active",
+            "cancelled": "Cancelled"
+        }
     }
   }';
 

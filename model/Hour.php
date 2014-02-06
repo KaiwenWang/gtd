@@ -5,25 +5,28 @@ class Hour extends ActiveRecord {
   var $name_field = "description";
 
   protected static $schema;
-  protected static $schema_json = '{  
-    "fields"   : {  
-      "estimate_id"  : "Estimate",
-        "support_contract_id" : "SupportContract",
-        "staff_id"     : "Staff",
-        "pair_id"     : "Staff",
-        "pair_name"     : "text",      
-        "pair_hour_id"     : "Hour",
-        "description"  : "text",
-        "date"       : "date",
-        "hours"     : "float",
-        "discount"  : "float",
-        "basecamp_id"  : "int"
+  protected static $schema_json = '{
+    "fields": {
+        "estimate_id": "Estimate",
+        "support_contract_id": "SupportContract",
+        "staff_id": "Staff",
+        "pair_id": "Staff",
+        "pair_name": "text",
+        "pair_hour_id": "Hour",
+        "description": "text",
+        "date": "date",
+        "hours": "float",
+        "discount": "float",
+        "basecamp_id": "int"
     },
-    "required" : [
-      "staff_id",
-      ["estimate_id" , "support_contract_id"],
-      "description",
-      "date"
+    "required": [
+        "staff_id",
+        [
+            "estimate_id",
+            "support_contract_id"
+        ],
+        "description",
+        "date"
     ]
   }';
 

@@ -5,24 +5,37 @@ class Staff extends User {
     var $name_field = "first_name";
 
     protected static $schema;
-    protected static $schema_json = '{  
-        "fields"   : {  
-            "first_name"        :  "text",
-            "last_name"    :  "text",
-            "email"            :  "text",
-            "team"            :  "text",
-            "username"    :  "text",
-            "password"    :  "text",
-            "permalink"    :  "text",
-            "active"            :  "bool",
-            "avatar"            :  "text"
-        },
-        "required" : [
-        ],
-        "values" : {
-          "team" : {"administration":"Administration", "development":"Development", "production":"Production"},
-          "avatar" : {"":"Select an avatar","mario":"Mario","luigi":"Luigi","peach":"Peach","toad":"Toad","yoshi":"Yoshi","dk":"D.K.","wario":"Wario","bowser":"Bowser"}
-        }
+    protected static $schema_json = '{
+      "fields": {
+          "first_name": "text",
+          "last_name": "text",
+          "email": "text",
+          "team": "text",
+          "username": "text",
+          "password": "text",
+          "permalink": "text",
+          "active": "bool",
+          "avatar": "text"
+      },
+      "required": [],
+      "values": {
+          "team": {
+              "administration": "Administration",
+              "development": "Development",
+              "production": "Production"
+          },
+          "avatar": {
+              "": "Select an avatar",
+              "mario": "Mario",
+              "luigi": "Luigi",
+              "peach": "Peach",
+              "toad": "Toad",
+              "yoshi": "Yoshi",
+              "dk": "D.K.",
+              "wario": "Wario",
+              "bowser": "Bowser"
+          }
+      }
     }';
 
     function __construct( $id = null){

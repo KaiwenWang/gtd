@@ -9,74 +9,78 @@ class Project extends ActiveRecord {
                 );
 
   protected static $schema;
-    protected static $schema_json = '{  
-      "fields"   : {  
-              "name"      :  "text",
-              "amp_url"      :  "text",
-              "design_date"    :  "date",
-              "desinger"    :  "text",
-              "launch_date"    :  "date",
-              "discovery_date":  "date",
-              "crm_notes"    :  "textarea",
-              "udm_notes"    :  "textarea",
-              "content_notes" :  "textarea",
-              "custom_notes"  :  "textarea",
-              "training_notes":  "textarea",
-              "email_notes"    :  "textarea",
-              "domain_notes"  :  "textarea",
-              "contract_notes":  "textarea",
-              "other_notes"    :  "textarea",
-              "status"    :  "text",
-              "deposit"      :  "float",
-              "contract_url"  :  "text",
-              "deposit_date"  :  "date",
-              "other_contacts":  "textarea",
-              "basecamp_id"    :  "int",
-              "final_payment" :  "float",
-              "final_payment_date"  :  "date",
-              "cost"      :  "float",
-              "priority"    :  "text",
-              "real_launch_date"    :  "date",
-              "real_design_date"     :  "date",
-              "hour_cap"    :  "float",
-              "staff_id"    :  "Staff",
-              "company_id"    :  "Company",
-              "hourly_rate"    :  "float",
-              "hours_high"    :  "float",
-              "billing_status":  "text",
-              "main_payment"  :  "float",
-              "main_payment_date"    :  "date",
-              "billing_type"  :  "text",
-              "hours_low"    :  "float",
-              "server"        : "text",
-              "internal"    :  "bool"
-            },
-      "required" : [
-      ],
-      "values" : {
-          "status" : {"pre_design":"Pre-Design",
-                "in_design":"In Design",
-                "in_production":"In Production",
-                "post_launch_production":"Post Launch Production",
-                "done":"Done",
-                "stalled":"Stalled",
-                "cancelled":"Cancelled",
-                "frozen":"Frozen in Carbonite"},
-          "billing_status" : {"no_invoice_sent":"No Statement Sent",
-                    "sent_deposit":"Sent Depost",
-                    "paid_deposit":"Paid Deposit",
-                    "sent_final":"Sent Final",
-                    "paid_final":"Paid Final",
-                    "shakeable":"Shakeable",
-                    "withheld":"Some Withheld"},
-          "server" : {
-                "grace":"Grace",
-                "jacqui":"Jacqui",
-                "huang":"Huang",
-                "private_slice":"Private Slice",
-                "not_hosted":"Not Hosted"}
-            }
-      }';
+    protected static $schema_json = '{
+    "fields": {
+        "name": "text",
+        "amp_url": "text",
+        "design_date": "date",
+        "desinger": "text",
+        "launch_date": "date",
+        "discovery_date": "date",
+        "crm_notes": "textarea",
+        "udm_notes": "textarea",
+        "content_notes": "textarea",
+        "custom_notes": "textarea",
+        "training_notes": "textarea",
+        "email_notes": "textarea",
+        "domain_notes": "textarea",
+        "contract_notes": "textarea",
+        "other_notes": "textarea",
+        "status": "text",
+        "deposit": "float",
+        "contract_url": "text",
+        "deposit_date": "date",
+        "other_contacts": "textarea",
+        "basecamp_id": "int",
+        "final_payment": "float",
+        "final_payment_date": "date",
+        "cost": "float",
+        "priority": "text",
+        "real_launch_date": "date",
+        "real_design_date": "date",
+        "hour_cap": "float",
+        "staff_id": "Staff",
+        "company_id": "Company",
+        "hourly_rate": "float",
+        "hours_high": "float",
+        "billing_status": "text",
+        "main_payment": "float",
+        "main_payment_date": "date",
+        "billing_type": "text",
+        "hours_low": "float",
+        "server": "text",
+        "internal": "bool"
+    },
+    "required": [],
+    "values": {
+        "status": {
+            "pre_design": "Pre-Design",
+            "in_design": "In Design",
+            "in_production": "In Production",
+            "post_launch_production": "Post Launch Production",
+            "done": "Done",
+            "stalled": "Stalled",
+            "cancelled": "Cancelled",
+            "frozen": "Frozen in Carbonite"
+        },
+        "billing_status": {
+            "no_invoice_sent": "No Statement Sent",
+            "sent_deposit": "Sent Depost",
+            "paid_deposit": "Paid Deposit",
+            "sent_final": "Sent Final",
+            "paid_final": "Paid Final",
+            "shakeable": "Shakeable",
+            "withheld": "Some Withheld"
+        },
+        "server": {
+            "grace": "Grace",
+            "jacqui": "Jacqui",
+            "huang": "Huang",
+            "private_slice": "Private Slice",
+            "not_hosted": "Not Hosted"
+        }
+    }
+  }';
 
     function __construct( $id = null){
         parent::__construct( $id);

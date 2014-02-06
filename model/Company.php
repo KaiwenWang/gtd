@@ -11,36 +11,62 @@ class Company extends ActiveRecord {
     );
 
     protected static $schema;
-    protected static $schema_json = '{  
-      "fields"   : {  
-        "name"       : "text",
-        "notes"      : "textarea",
-        "street"      : "text",
-        "street_2"      : "text",
-        "city"      : "text",
-        "state"        : "text",
-        "zip"        : "int",
-        "country"    : "text",
-        "preamp_id"           : "int",
-        "status"      : "text",
-        "bay_area"            : "bool",
-        "date_started"           : "date",
-        "date_ended"          : "date",
-        "billing_status"        : "text",
-        "org_type"    : "text",
-        "fax"       : "text"                
-      },
-      "required" :[ 
-          "name","date_started",
-              "org_type","status"
-      ],
-      "values" : {
-          "status" : {"setup":"Setup","active":"Active","rEvent":"rEvent","closed":"Closed","free":"Low-Bagger","short":"Shortpants","off":"Uncontrolled Server","follow-up":"Follow Up"},
-              "org_type" : {"501c3":"501c3", "union":"Union", "political":"Political Campaign/Party", "private":"Private Firm", "pac527":"PAC/527", "other":"other"},
-              "billing_status" : {"up-to-date":"Up To Date","overdue":"Overdue","collections":"Collections"},
-              "country" : {"usa":"USA","canada":"Canada","international":"International"}
+    protected static $schema_json = '{
+    "fields": {
+        "name": "text",
+        "notes": "textarea",
+        "street": "text",
+        "street_2": "text",
+        "city": "text",
+        "state": "text",
+        "zip": "int",
+        "country": "text",
+        "preamp_id": "int",
+        "status": "text",
+        "bay_area": "bool",
+        "date_started": "date",
+        "date_ended": "date",
+        "billing_status": "text",
+        "org_type": "text",
+        "fax": "text"
+    },
+    "required": [
+        "name",
+        "date_started",
+        "org_type",
+        "status"
+    ],
+    "values": {
+        "status": {
+            "setup": "Setup",
+            "active": "Active",
+            "rEvent": "rEvent",
+            "closed": "Closed",
+            "free": "Low-Bagger",
+            "short": "Shortpants",
+            "off": "Uncontrolled Server",
+            "follow-up": "Follow Up"
+        },
+        "org_type": {
+            "501c3": "501c3",
+            "union": "Union",
+            "political": "Political Campaign/Party",
+            "private": "Private Firm",
+            "pac527": "PAC/527",
+            "other": "other"
+        },
+        "billing_status": {
+            "up-to-date": "Up To Date",
+            "overdue": "Overdue",
+            "collections": "Collections"
+        },
+        "country": {
+            "usa": "USA",
+            "canada": "Canada",
+            "international": "International"
+        }
     }
-  }';
+    }';
 
   function getProjects(){
       if(empty($this->projects)){
