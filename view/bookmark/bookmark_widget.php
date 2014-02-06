@@ -11,3 +11,4 @@ function bookmarkWidget(){
 
   return $html;
 }
+?>

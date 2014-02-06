@@ -12,7 +12,7 @@ function jsMultipleButtons( $items, $options){
                 /*$multiple_buttons.= '
                 <a data-id="'.$id.'" class="multiple-buttons-btn button">*/ 
     $multiple_buttons.= '
-      <a data-id="'.$id.'" class="multiple-buttons-btn btn"> 
+      <a data-id="'.$id.'" class="multiple-buttons-btn btn btn-'.$id.'"> 
       <span class="title">'.$header.'</span>
       </a>
       ';

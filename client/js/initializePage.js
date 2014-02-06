@@ -29,6 +29,10 @@ $.fn.initialize_Gtd = function(){
   $('input[name*=auto_submit]',this).enable_AutoSubmit();
   $('.check-all',this).enable_SelectAll();
   $('#bookmark-link').enable_Bookmark();
+  $('#timer-link').enable_Timer();
+  $('#timer-widget-box #timer-time').create_Timer();
+  $('#timer-widget-box #timer-submit').finish_Timer();
+  $('#timer-widget-box #timer-pause').start_Timer();
   $('.flyout').enable_SidebarMenu();
   return this;
 }
@@ -51,7 +55,7 @@ $.fn.enable_SidebarMenu = function(){
   });
 }
 
-$.fn.enable_Bookmark= function(){
+$.fn.enable_Bookmark = function(){
   $('#bookmark-close').click(function(){
     $('#bookmark-form-box').fadeOut(200);
   });
@@ -67,6 +71,84 @@ $.fn.enable_Bookmark= function(){
         $('#bookmark-form-box').fadeIn(200);
       }
     });    
+  });
+}
+
+$.fn.enable_Timer = function() {
+  $(this).click(function() {
+    $('#timer-widget-box').css('width', 'auto').css('margin', '15px 5px');
+    $('#timer-link').css('width', 0);
+  });
+}
+
+$.fn.start_Timer = function() {
+  $(this).click(function() {
+    if($(this).val() == 'Start') {
+      $('#timer-widget-box #timer-pause').val('Stop');
+      $('#timer-widget-box #timer-submit').attr('disabled', 'disabled');
+      $('#timer-widget-box #timer-time').attr('disabled', 'disabled');
+      if(($('#timer-widget-box #timer-time').val() == '') || ($('#timer-widget-box #timer-time').val() == '0')) {
+        totalSeconds = 0;
+      }
+      timeouts.push(window.setTimeout("clocktick()", 1000));
+    } else {
+      for (var i = 0; i < timeouts.length; i++) {
+        clearTimeout(timeouts[i]);
+      }
+      timeouts = [];
+      $('#timer-widget-box #timer-time').removeAttr('disabled');
+      $('#timer-widget-box #timer-pause').val('Start');
+      if(totalSeconds != 0) {
+        $('#timer-widget-box #timer-submit').removeAttr('disabled');
+      }
+    }
+  });
+}
+
+var timer;
+var totalSeconds = 0;
+var timeouts = [];
+
+$.fn.create_Timer = function() {
+  timer = $(this);
+  update_Timer();
+}
+
+function clocktick() {
+  totalSeconds += 1;
+  update_Timer();
+  timeouts.push(window.setTimeout("clocktick()", 1000));
+}
+
+function update_Timer() {
+  var seconds = totalSeconds;
+  var days = Math.floor(seconds / 86400);
+  seconds -= days * 86400;
+  var hours = Math.floor(seconds / 3600);
+  seconds -= hours * (3600);
+  var minutes = Math.floor(seconds / 60);
+  seconds -= minutes * (60);
+  var time_Str = ((days > 0) ? days + " days " : "") + leadingZero(hours) + ":" + leadingZero(minutes) + ":" + leadingZero(seconds)
+
+  $(timer).val(time_Str);
+}
+
+function leadingZero(time) {
+  return (time < 10) ? "0" + time : + time;
+}
+
+
+$.fn.finish_Timer = function() {
+  $(this).click(function() {
+    if(($('#log-hours-for-support').parent().css('display') == 'none') && ($('#log-hours-for-project').parent().css('display') == 'none')) {
+      $('.btn-1').addClass('btn-danger');
+      $('.btn-2').addClass('btn-danger');
+    }
+    seconds = totalSeconds;
+    var hours = Math.floor(seconds / 3600);
+    seconds -= hours * (3600);
+    var minutes = Math.ceil((seconds / 60) / 15);
+    $('.hours-field').val(hours + (minutes * .25));
   });
 }
 

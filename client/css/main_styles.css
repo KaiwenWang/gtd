@@ -57,7 +57,6 @@ tbody{
 h1 {
 color:#ffffff;
 display:block;
-margin:0 0 0 170px;
 padding:0 5px;
 font-size:22px;
 }
@@ -558,6 +557,10 @@ font-weight:bold;
 margin:4px 21px 0;
 color: #ffffff;
 }
+#login-widget .auth-widget-greeting, #login-widget .auth-widget-controls {
+margin-right: 10px;
+float: left;
+}
 #login-widget a{
 color: #ffffff;
 }
@@ -713,17 +716,30 @@ float: right;
 legend {
 margin-bottom: 0px;
 }
-#bookmark-link {
+#bookmark-link, #timer-link, #timer-widget-box {
 float: right;
 margin: 8px 0px;
+overflow: hidden;
 }
-#bookmark-link img{
-height:40px;
+#bookmark-link img, #timer-link img {
+height: 40px;
+}
+#timer-widget-box {
+height: 28px;
+}
+#timer-widget-box input[type="button"] {
+margin-top: -10px;
+position: relative;
+}
+#timer-widget-box input[type="text"] {
+width: 100px;
+margin-right: 0px;
+text-align: center;
 }
 #bookmark-list a:hover{
 text-decoration: none;
 }
-#bookmark-form-box{
+#bookmark-form-box, #timer-form-box {
 background: url('/client/img/bookmark_form_bg.png') 0 0 no-repeat;
 position: absolute;
 right: 30px;
