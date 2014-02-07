@@ -34,8 +34,12 @@ function staffShow($d){
       $(function(){
     ';
     arsort($d->billable_hours_this_week);
-    $place = 1;
+    $place = 0;
+    $previous_hours = -1;
     foreach($d->billable_hours_this_week as $id => $billable) {
+      if($previous_hours != $billable) {
+        $place++;
+      }
       $percent = ($d->billable_hours_this_week[$id] / 40) * 100;
       $pclass = $percent > 37.5 ? 'overbudget' : '';
       $hours .= '<div class="contestant">
@@ -52,8 +56,8 @@ function staffShow($d){
         <div class="clear"></div>
       </div>';
       $js .= '$(".filling-' . $id . '").animate({"width":"' . $percent . '%"}, 1000);
-      ';    
-      $place++;
+      '; 
+      $previous_hours = $billable;
     }
     $js .= '});
     </script>';
