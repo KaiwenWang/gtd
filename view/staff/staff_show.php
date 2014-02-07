@@ -1,27 +1,63 @@
 <?php
 function staffShow($d){
+  $r = getRenderer();
+
   if(is_array($d->billable_hours_this_week)) {
-    $hours = '<div class="hours-race">';
+    $start_date = isset($d->dates['start_date']) ? $d->dates['start_date'] : '';
+    $end_date   = isset($d->dates['end_date']) ? $d->dates['end_date'] : '';
+    $search_form = new Form(array(
+      'method' => 'get',
+      'controller' => 'Staff',
+      'action' => 'show'
+    ));
+
+    $search_form->content = '<div id="staff_show_dates">
+      <div class="search-input">
+      <label for="staff_show_start">Start Date</label>
+      '.$r->input( 'date', array(  'name'=>'start_date',
+        'value'=>$start_date,
+        'id'=>'staff_show_start'
+      )).'
+      </div>
+      <div class="search-input">
+      <label for="staff_show_end">End Date</label>
+      '.$r->input( 'date', array(  'name'=>'end_date',
+        'value'=>$end_date,
+        'id'=>'staff_show_end'
+      )).'
+      </div>
+      </div>';
+
+    $hours = $search_form->html;
+    $hours .= '<div class="hours-race">';
     $js = '<script type="text/javascript">
       $(function(){
     ';
+    arsort($d->billable_hours_this_week);
+    $place = 1;
     foreach($d->billable_hours_this_week as $id => $billable) {
       $percent = ($d->billable_hours_this_week[$id] / 40) * 100;
       $pclass = $percent > 37.5 ? 'overbudget' : '';
       $hours .= '<div class="contestant">
-        ' . $d->staff[$id] . '
-        <div class="bar">
-          <div class="filling-' . $id . ' ' . $pclass . '" style="width: 5%">
-            ' . $d->billable_hours_this_week[$id] . '
+        <div class="placement">#' . $place . '</div>
+        <div class="contestant-data">
+          <div class="name">' . $d->staff[$id] . '</div>' . 
+          '<div class="stats"><strong>Billable:</strong> ' . $d->billable_hours_this_week[$id] . ' | <strong>Total:</strong> ' . $d->total_hours_this_week[$id] . '</div>' . 
+          '<div class="bar">
+            <div class="filling-' . $id . ' ' . $pclass . '" style="width: 5%">
+              ' . $d->billable_hours_this_week[$id] . '
+            </div>
           </div>
         </div>
+        <div class="clear"></div>
       </div>';
       $js .= '$(".filling-' . $id . '").animate({"width":"' . $percent . '%"}, 1000);
       ';    
+      $place++;
     }
     $js .= '});
     </script>';
-    $hours.= '</div>';
+    $hours .= '</div>';
 
     return  array(  
       'title'=>'RadicalKart 64',
@@ -29,8 +65,6 @@ function staffShow($d){
         . $js
     );
   } else {
-    $r = getRenderer();
-
     $hidden_forms = $r->view( 'jsMultipleButtons' ,array(
 
       'Create New Project'  => $r->view(

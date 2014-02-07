@@ -84,20 +84,20 @@ class ActiveRecord  extends Record {
   }
   function defaultSearchCriteria( $field_name){}
 
-    function makeCriteriaDateRange( $data ) {
-      $field_name = isset($data['field_name']) ? $data['field_name'] : 'date';
-      if(isset($data['start_date']) && isset($data['end_date'])
-        && $data['start_date'] && $data['end_date'] ) {
-          return "$field_name >= " . $this->dbcon->qstr($data['start_date'])
-            . " AND $field_name <= " . $this->dbcon->qstr($data['end_date']);
-        } elseif(isset($data['start_date']) && $data['start_date'] ) {
-          return "$field_name >= " . $this->dbcon->qstr($data['start_date']);
+  function makeCriteriaDateRange( $data ) {
+    $field_name = isset($data['field_name']) ? $data['field_name'] : 'date';
+    if(isset($data['start_date']) && isset($data['end_date'])
+      && $data['start_date'] && $data['end_date'] ) {
+        return "$field_name >= " . $this->dbcon->qstr($data['start_date'])
+          . " AND $field_name <= " . $this->dbcon->qstr($data['end_date']);
+      } elseif(isset($data['start_date']) && $data['start_date'] ) {
+        return "$field_name >= " . $this->dbcon->qstr($data['start_date']);
 
-        } elseif(isset($data['end_date']) && $data['end_date'] ) {
-          return "$field_name <= " . $this->dbcon->qstr($data['end_date']);
-        }
-      return;
-    }
+      } elseif(isset($data['end_date']) && $data['end_date'] ) {
+        return "$field_name <= " . $this->dbcon->qstr($data['end_date']);
+      }
+    return;
+  }
 
   function makeCriteriaCurrentMonth($date_field){
     if( !$date_field || $date_field === true) $date_field = 'date';

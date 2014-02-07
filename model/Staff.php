@@ -68,7 +68,7 @@ class Staff extends User {
 
     function getHours( $criteria = array() ){
         $criteria = array_merge( $criteria, array('staff_id'=>$this->id, 'sort'=>'date desc'));
-        $this->hours = getMany( 'Hour', $criteria);
+        $this->hours = getMany('Hour', $criteria);
         return $this->hours;
     }
 

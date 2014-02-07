@@ -7,53 +7,53 @@
     @package utility
 */
 function bail( $msg){
-	if(is_array($msg)) $msg = array_dump($msg);
-	$html = '';
-	if (class_exists('Router')){
-		$router = Router::singleton();
-		$html .= '
-				<h1 style="margin-bottom:0;">'.$router->controller.'</h1>
-				<h3 style="margin:4px 0;">Action: '.$router->action.'</h3>
-				<h3 style="margin:4px 0;">Method: '.$router->method.'</h3>
-				<h3 style="margin:6px 0 2px 0;"><u>Params</u></h3></dt> 
-				'.array_dump($router->params()).'
-				';
-	}
-	$html .= '
-				<h2 style="margin-bottom:2px;">ERROR MESSAGE</h2><pre>'.$msg.'</pre><br>
-				<h2 style="margin-bottom:6px;">BACKTRACE</h2>
-				'.backtrace().'
-				';
+  if(is_array($msg)) $msg = array_dump($msg);
+  $html = '';
+  if (class_exists('Router')){
+    $router = Router::singleton();
+    $html .= '
+        <h1 style="margin-bottom:0;">'.$router->controller.'</h1>
+        <h3 style="margin:4px 0;">Action: '.$router->action.'</h3>
+        <h3 style="margin:4px 0;">Method: '.$router->method.'</h3>
+        <h3 style="margin:6px 0 2px 0;"><u>Params</u></h3></dt> 
+        '.array_dump($router->params()).'
+        ';
+  }
+  $html .= '
+        <h2 style="margin-bottom:2px;">ERROR MESSAGE</h2><pre>'.$msg.'</pre><br>
+        <h2 style="margin-bottom:6px;">BACKTRACE</h2>
+        '.backtrace().'
+        ';
 
-	echo $html;
-	trigger_error( strip_tags($msg));
-	exit();
+  echo $html;
+  trigger_error( strip_tags($msg));
+  exit();
 }
 
 function backtrace(){
-    $trace = debug_backtrace();
-    $html = '';
-    foreach( $trace as $t){
-    		$file = 'FILE: '.$t['file'];
-    		$line = 'LINE: '.$t['line'];
+  $trace = debug_backtrace();
+  $html = '';
+  foreach( $trace as $t){
+    $file = 'FILE: '.$t['file'];
+    $line = 'LINE: '.$t['line'];
 
-            isset($t['class'])	?  $function = $t['class'].'->'.$t['function']
-								:  $function = $t['function'];
-			$function = 'FUNCTION: '. $function;		
+  isset($t['class'])  ?  $function = $t['class'].'->'.$t['function']
+    :  $function = $t['function'];
+    $function = 'FUNCTION: '. $function;    
 
-            $html .= "
-            			$file <br>
-            			$line <br>
-            			$function <br><br>
-            		 ";			
-    }
-    return $html;
+    $html .= "
+      $file <br>
+      $line <br>
+      $function <br><br>
+      ";      
+  }
+  return $html;
 }
 
-function &getRenderer(){
-	static $render = null;
-	if( $render === null) $render = new Render();
-	return $render;
+function getRenderer(){
+  static $render = null;
+  if( $render === null) $render = new Render();
+  return $render;
 }
 
 function getDbcon(){
@@ -61,34 +61,34 @@ function getDbcon(){
 }
 
 function getOne( $class, $search_criteria = array()){
-	$finder = new $class();
-	$objects = $finder->find( $search_criteria);
-	if(is_array($objects)) return array_shift($objects);
+  $finder = new $class();
+  $objects = $finder->find( $search_criteria);
+  if(is_array($objects)) return array_shift($objects);
 }
 
 function getMany( $class, $search_criteria = array()){
-	if(empty($search_criteria)) return getAll($class);
-	foreach($search_criteria as $key=>$value) if( empty($value)) unset( $search_criteria[$key]);
-	$finder = new $class();
-	$objects = $finder->find( $search_criteria);
-	if(!$objects) $objects = array();
-	return $objects;
+  if(empty($search_criteria)) return getAll($class);
+  foreach($search_criteria as $key=>$value) if( empty($value)) unset( $search_criteria[$key]);
+  $finder = new $class();
+  $objects = $finder->find( $search_criteria);
+  if(!$objects) $objects = array();
+  return $objects;
 }
 
 function getAll( $class){
-	if( !class_exists($class)) bail("Class $class does not exist");
-	$finder = new $class;
-	$objects = $finder->find( array());
-	return $objects;
+  if( !class_exists($class)) bail("Class $class does not exist");
+  $finder = new $class;
+  $objects = $finder->find( array());
+  return $objects;
 }
 
 function array_dump($array){
-	$html = '';
-	foreach( $array as $key => $value){
-		$html .= '['.$key.'] => '.var_export($value, true).'<br/>';
-	}
+  $html = '';
+  foreach( $array as $key => $value){
+    $html .= '['.$key.'] => '.var_export($value, true).'<br/>';
+  }
   if(!$html) $html = 'empty array<br/>';
-	return $html;
+  return $html;
 }
 
 function camel_case( $value ) {
@@ -153,7 +153,7 @@ class Util {
   function pretty_date($date){
           return date('m/d/Y',strtotime($date));
   }
-	
+  
   function is_a_date($date) {
     $null_dates = array(
         'mysql' => '0000-00-00',
@@ -168,7 +168,7 @@ class Util {
     $start_year = date('Y', $start_date);
     $start_day = date('j', $start_date);
     $last_day_of_month = date('t', $start_date);
-  	if( $start_day >= 28 ) $start_month = $start_month + 1;
+    if( $start_day >= 28 ) $start_month = $start_month + 1;
   
     return mktime( 0, 0, 0, $start_month, 1, $start_year );
   }
@@ -179,19 +179,19 @@ class Util {
     $start_year = date('Y', $start_date);
     $last_day_of_month = date('t', $start_date);
     $time = mktime( 0, 0, 0, $start_month, $last_day_of_month, $start_year );
-	 return $time;
+   return $time;
   }
   
   function month_range($start_date,$end_date){
-  	$first_month =  Util::start_of_month($start_date);
-  	$last_month = Util::end_of_month($end_date);
-  	$time = $first_month;
-  	$active_months = array();
-  	while($time < $last_month){
+    $first_month =  Util::start_of_month($start_date);
+    $last_month = Util::end_of_month($end_date);
+    $time = $first_month;
+    $active_months = array();
+    while($time < $last_month){
         $active_months[] = date("Y-m", $time);
         $time = strtotime("+1 month", $time);
-  	}
-  	return $active_months;
+    }
+    return $active_months;
   }
   
   function start_of_current_month(){
@@ -201,7 +201,7 @@ class Util {
 
     return mktime( 0, 0, 0, $start_month, 1, $start_year );
   }
-	
+  
   function end_of_current_month(){
     $start_of_month = Util::start_of_current_month();
     $one_month_later = strtotime("+1 month", $start_of_month);
@@ -220,33 +220,33 @@ class Util {
   function start_of_current_week(){
     return strtotime('last sunday');
   }
-	
+  
   function end_of_current_week(){
-    return strtotime('next sunday');	
+    return strtotime('next sunday');  
   }
-	
+  
   function percent_of_month_from_start($date) {
         $day_of_month = date('j', strtotime($date));
 
-		if( $day_of_month < 10 ){
-			return 0;	
-		} elseif( $day_of_month < 20 ) {
-			return .5;
-		} else {
-			return 1;
-		}		
+    if( $day_of_month < 10 ){
+      return 0;  
+    } elseif( $day_of_month < 20 ) {
+      return .5;
+    } else {
+      return 1;
+    }    
   }
 
   function percent_of_month_from_end($date) {
         $day_of_month = date('j', strtotime($date));
 
-		if( $day_of_month > 20 ){
-			return 0;	
-		} elseif( $day_of_month > 10 ) {
-			return .5;
-		} else {
-			return 1;
-		}		
+    if( $day_of_month > 20 ){
+      return 0;  
+    } elseif( $day_of_month > 10 ) {
+      return .5;
+    } else {
+      return 1;
+    }    
   }
   
   function dump($value) {
@@ -263,25 +263,25 @@ class Util {
         return date('d', $end_of_month);
   }
   
-	function include_directory($path){
-		$d = dir( rtrim($path,'/') ); 
-		while (false!== ($filename = $d->read())) { 
-			$file_path = "$path/$filename";
-			if (substr($filename, -4) == '.php') {
-	  			require_once $file_path; 
- 			}
-			if (is_dir($file_path) &&  $filename != '.' && $filename != '..'){
-				self::include_directory($file_path);
-			}
-		} 
-		$d->close(); 
-	}
-	
-	function log($msg){
-		trigger_error( "GTD LOGGER:: " . strip_tags($msg) . "     <br/>\n" );
-	}
+  function include_directory($path){
+    $d = dir( rtrim($path,'/') ); 
+    while (false!== ($filename = $d->read())) { 
+      $file_path = "$path/$filename";
+      if (substr($filename, -4) == '.php') {
+          require_once $file_path; 
+       }
+      if (is_dir($file_path) &&  $filename != '.' && $filename != '..'){
+        self::include_directory($file_path);
+      }
+    } 
+    $d->close(); 
+  }
+  
+  function log($msg){
+    trigger_error( "GTD LOGGER:: " . strip_tags($msg) . "     <br/>\n" );
+  }
 
-	function isTestMode(){
-		if( defined('TEST_MODE')) return TEST_MODE;
-	}
+  function isTestMode(){
+    if( defined('TEST_MODE')) return TEST_MODE;
+  }
 }

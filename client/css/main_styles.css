@@ -511,6 +511,9 @@ display: inline;
 input[type="text"] {
 margin-right: 10px;
 }
+#staff_show_dates {
+display: block;
+}
 /* JS-SWAPPABLE */
 .js-swappable{
 width:	100%;
@@ -813,6 +816,7 @@ padding: 2px 8px 2px 4px;
 }
 .clear {
 clear: both;
+float: none;
 }
 .santa-quote{
   color:#ffffff;
@@ -863,4 +867,35 @@ input.pagedisplay {
 }
 select.pagesize {
     margin: 10px;
+}
+.contestant {
+  width: 100%;
+  border-bottom: 1px solid #000000;
+}
+.contestant:last-child {
+  border-bottom: none;
+}
+.contestant .placement {
+  width: 100px;
+  float: left;
+  font-size: 36px;
+  font-weight: bold;
+  font-family: serif;
+  margin: 30px 0px;
+}
+.contestant .contestant-data {
+  width: 500px;
+  float: left;
+  margin: 15px 0px 10px 0px;
+}
+.contestant .name {
+  font-style: italic;
+  font-size: larger;
+  float: left;
+  width: auto;
+  margin-bottom: 5px;
+}
+.contestant .stats  {
+  float: right;
+  margin-bottom: 5px;
 }
