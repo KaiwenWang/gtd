@@ -1,7 +1,8 @@
 <?php
+
 function staffEditForm($user) {
   $r = getRenderer();
-  $form = new Form(array('controller'=>'Staff','action'=>'update'));
+  $form = new Form(array('controller' => 'Staff', 'action' => 'update'));
   $fs = $form->getFieldSetFor($user);
   $fields = array(
     'Username' => $fs->username,
@@ -14,6 +15,8 @@ function staffEditForm($user) {
     'Avatar' => $fs->avatar,
     'Active' => $fs->active
   );
-  $form->content = $r->view('basicFormContents', $fields, array('title'=>'Edit Staff'));
+  $form->content = $r->view('basicFormContents', $fields, array('title' => 'Edit Staff'));
   return $form->html;
 }
+
+?>

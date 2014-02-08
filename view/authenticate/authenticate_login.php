@@ -1,10 +1,10 @@
 <?php
-function authenticateLogin($d){
+function authenticateLogin($d) {
 	$r = getRenderer();
 
-	$form = new Form( array('controller'=>'Authenticate', 
-							'action'=>'create_session',
-							'id'=>'login-form'
+	$form = new Form(array('controller' => 'Authenticate', 
+							'action' => 'create_session',
+							'id' => 'login-form'
 							)
 					);
 
@@ -18,8 +18,8 @@ function authenticateLogin($d){
 			</div>
 			';
 	
-	return array(	'title'=>'Staff Login',
-					'controls'=>'',
-					'body'=>$form->html
+	return array(	'title' => 'Staff Login',
+					'controls' => '',
+					'body' => $form->html
 				);
 }

@@ -1,10 +1,11 @@
 <?php
 
-function projectTable( $projects, $o = array()){
-  if( !$projects) return;
-  $r =& getRenderer();
+function projectTable($projects, $o = array()) {
+  if(!$projects) return;
+  $r = getRenderer();
   $table = array();
-  $table['headers'] = array(	'ID',
+  $table['headers'] = array(
+    'ID',
     'Project Name',
     'Status',
     'Project Manager',
@@ -14,18 +15,20 @@ function projectTable( $projects, $o = array()){
     'Hours'
   );
   $table['rows'] =  array();
-  foreach($projects as $p){
-    $table['rows'][] = array(	$p->id,
-      $r->link( 'Project', array('action'=>'show','id'=>$p->id), $p->getName()),
-      $p->get('status'),
-      $p->getStaffName(),
-      $p->get('launch_date'),
-      $p->get('billing_status'),
-      $p->get('cost'),
-      $p->getBillableHours()
-    );
+  foreach($projects as $p) {
+    $table['rows'][] = array(
+    $p->id,
+    $r->link('Project', array('action' => 'show', 'id' => $p->id), $p->getName()),
+    $p->get('status'),
+    $p->getStaffName(),
+    $p->get('launch_date'),
+    $p->get('billing_status'),
+    $p->get('cost'),
+    $p->getBillableHours()
+   );
   }
-  $html = $r->view( 'basicTable', $table, array('title'=>'Projects', 'pager' => true));
+  $html = $r->view('basicTable', $table, array('title' => 'Projects', 'pager' => true));
   return $html;
 }
+
 ?>

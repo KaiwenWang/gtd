@@ -1,31 +1,31 @@
 <?php
-function supportcontractRenewForm( $contract, $o = array() ){
-    $r =& getRenderer();
-    $form = new Form( array( 'controller'=>'SupportContract', 'action'=>'process_renewal'));
-    $fs = $form->getFieldSetFor($contract);
 
-    $list_items = array(
-    	'Company'				    => $fs->company_id,
-		'Previous Contract'			=> $fs->previous_contract_id,
-    	'Domain Name'				=> $fs->domain_name,
-    	'Tech'				        => $fs->technology,
-    	'Support Hours'				=> $fs->support_hours,
-    	'Hourly Rate'				=> $fs->hourly_rate,
-    	'Monthly Rate'				=> $fs->monthly_rate,
-    	'Pro Bono'				    => $fs->pro_bono,
-    	'Contract On File'			=> $fs->contract_on_file,
-    	'Status'				    => $fs->status,
-    	'Not Monthly'				=> $fs->not_monthly,
-    	'Notes'				        => $fs->notes,
-    	'Start Date'				=> $fs->start_date,
-    	'End Date'				    => $fs->end_date,
-    	'Contract Url'				=> $fs->contract_url
-    );
+function supportcontractRenewForm($contract, $o = array()) {
+  $r = getRenderer();
+  $form = new Form(array('controller' => 'SupportContract', 'action' => 'process_renewal'));
+  $fs = $form->getFieldSetFor($contract);
 
-    $form->content = $r->view( 'basicFormContents', 
-    							$list_items, 
-    							array( 'title'=>'Renew Contract')
-    						  );
+  $list_items = array(
+    'Company' => $fs->company_id,
+    'Previous Contract' => $fs->previous_contract_id,
+    'Domain Name' => $fs->domain_name,
+    'Tech' => $fs->technology,
+    'Support Hours' => $fs->support_hours,
+    'Hourly Rate' => $fs->hourly_rate,
+    'Monthly Rate' => $fs->monthly_rate,
+    'Pro Bono' => $fs->pro_bono,
+    'Contract On File' => $fs->contract_on_file,
+    'Status' => $fs->status,
+    'Not Monthly' => $fs->not_monthly,
+    'Notes' => $fs->notes,
+    'Start Date' => $fs->start_date,
+    'End Date' => $fs->end_date,
+    'Contract Url' => $fs->contract_url
+  );
 
-    return $form->html;
+  $form->content = $r->view('basicFormContents', $list_items, array('title' => 'Renew Contract'));
+
+  return $form->html;
 }
+
+?>

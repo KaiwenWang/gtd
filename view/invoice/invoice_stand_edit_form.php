@@ -1,23 +1,25 @@
 <?php
-function invoiceStandEditForm( $invoice, $o = array() ) {
-    $r = getRenderer();
 
-    $form = new Form( array( 'controller'=>'Invoice', 'action'=>'update'));
-    $fs = $form->getFieldSetFor( $invoice );
+function invoiceStandEditForm($invoice, $o = array()) {
+  $r = getRenderer();
 
-    $list_items = array(
-        'Amount'    => $fs->amount_due,
-        'Date'    => $fs->date,
-        'Company'       => $fs->company_id,
-        'Details'   => $fs->details,
-        'Status' => $fs->payment_status
-    );	
+  $form = new Form(array('controller' => 'Invoice', 'action' => 'update'));
+  $fs = $form->getFieldSetFor($invoice);
 
-    $form->content = $r->view( 'basicFormContents', 
-        $list_items, 
-        array( 'title'=>'Edit Stand-Alone Statement')
-    );
+  $list_items = array(
+    'Amount' => $fs->amount_due,
+    'Date' => $fs->date,
+    'Company' => $fs->company_id,
+    'Details' => $fs->details,
+    'Status' => $fs->payment_status
+  );  
 
+  $form->content = $r->view('basicFormContents', 
+    $list_items, 
+    array('title' => 'Edit Stand-Alone Statement')
+  );
 
-    return $form->html;
+  return $form->html;
 }
+
+?>

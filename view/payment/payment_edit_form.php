@@ -1,32 +1,35 @@
 <?php
-function paymentEditForm( $payment, $o = array() ){
-    $r = getRenderer();
 
-	$form_options = array(
-						'controller'=>'Payment',
-						'action'=> 'update'
-						);
+function paymentEditForm($payment, $o = array()) {
+  $r = getRenderer();
 
-	if ( isset($o['redirect']) ) $form_options['redirect'] = $o['redirect'];
+  $form_options = array(
+    'controller' => 'Payment',
+    'action' => 'update'
+  );
 
-    $form = new Form( $form_options );
+  if (isset($o['redirect'])) $form_options['redirect'] = $o['redirect'];
 
-    $fs = $form->getFieldSetFor( $payment );
+  $form = new Form($form_options);
 
-    $form_fields = array(
-    	'Company'	    => $fs->company_id,
-    	'Invoice ID'	=> $fs->invoice_id,
-    	'Amount'	    => $fs->amount,
-    	'Date'      	=> $fs->date,
-        'Payment Type'  => $fs->payment_type,
-        'Check No.'     => $fs->check_number,
-        'Notes'			=> $fs->notes
-    	);
+  $fs = $form->getFieldSetFor($payment);
 
-    $form->content = $r->view( 'basicFormContents', 
-    							$form_fields, 
-    							array( 'title'=>'Edit Payment')
-	    						);
+  $form_fields = array(
+    'Company' => $fs->company_id,
+    'Invoice ID' => $fs->invoice_id,
+    'Amount' => $fs->amount,
+    'Date' => $fs->date,
+    'Payment Type' => $fs->payment_type,
+    'Check No.' => $fs->check_number,
+    'Notes' => $fs->notes
+  );
 
-    return $form->html;
+  $form->content = $r->view('basicFormContents', 
+    $form_fields, 
+    array('title' => 'Edit Payment')
+  );
+
+  return $form->html;
 }
+
+?>

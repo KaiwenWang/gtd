@@ -1,22 +1,26 @@
 <?php
-function chargeNewForm( $charge, $o = array() ){
-    $r = getRenderer();
-    $form = new Form( array( 'controller'=>'Charge', 'action'=> 'create'));
-    $fs = $form->getFieldSetFor($charge);
 
-    $form_fields = array(
-    	'Name'	        => $fs->name,
-    	'Type'	        => $fs->type,
-    	'Description'	=> $fs->description,
-    	'Amount'	    => $fs->amount,
-    	'Date'      	=> $fs->date,
-    	'Company'	    => $fs->company_id
-    );
+function chargeNewForm($charge, $o = array()) {
+  $r = getRenderer();
+  $form = new Form(array('controller' => 'Charge', 'action' => 'create'));
+  $fs = $form->getFieldSetFor($charge);
 
-    $form->content = $r->view( 'basicFormContents', 
-    							$form_fields, 
-    							array( 'title'=>'New Charge')
-    						  );
+  $form_fields = array(
+    'Name' => $fs->name,
+    'Type' => $fs->type,
+    'Description' => $fs->description,
+    'Amount' => $fs->amount,
+    'Date' => $fs->date,
+    'Company' => $fs->company_id
+   );
 
-    return $form->html;
+  $form->content = $r->view('basicFormContents', 
+    $form_fields, 
+    array('title' => 'New Charge')
+  );
+
+  return $form->html;
 }
+
+
+?>

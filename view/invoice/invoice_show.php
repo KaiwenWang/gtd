@@ -1,71 +1,75 @@
 <?php
-function invoiceShow($d, $o = array() ) {
-    $r = getRenderer();
 
-    if ($d->invoice->getData('type') == 'dated'){
-        $invoice_date = $d->invoice->getEndDate();
-    } else {
-        $invoice_date = $d->invoice->getDate();
-    }
+function invoiceShow($d, $o = array()) {
+  $r = getRenderer();
 
-    $invoice_period = $d->invoice->getStartDate() 
-        . " through " 
-        . $d->invoice->getEndDate();
+  if ($d->invoice->getData('type') == 'dated') {
+    $invoice_date = $d->invoice->getEndDate();
+  } else {
+    $invoice_date = $d->invoice->getDate();
+  }
 
-    $banner = array(
-        'Statement Date'      => $invoice_date, 
-        'Statement Number'      => "#" . $d->invoice->getData('id')
-    );
+  $invoice_period = $d->invoice->getStartDate() 
+    . " through " 
+    . $d->invoice->getEndDate();
 
-    $client = $d->company->getName();  
-    $billing_contact_emails = $d->company->getBillingEmailAddress();
-    $additional_recipients = $d->invoice->getAdditionalRecipients();
-    $send_button = UI::button( array(   'controller'=>'Invoice',
-        'action'=>'email',
-        'id'=>$d->invoice->getData('id')
-    )); 
-    if ($d->invoice->getData('type') == 'dated'){	
-        $items = array(
-            'Items for Period'  => $invoice_period,
-            'Previous Balance'  => "$ " . number_format( $d->invoice->getPreviousBalance(), 2), 
-            'New Payments in Period'      => "$ " . number_format( $d->invoice->getNewPaymentsTotal(), 2 ),
-            'New Charges in Period'       => "$ " . number_format( $d->invoice->getNewCosts(), 2 ),
-            'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2),
-            'Net 30 Terms' => ' '
-        );
-    } else {
-        $items = array(
-          'Total Due'         => "$ " . number_format( $d->invoice->getAmountDue(), 2),
-          'Net 30 Terms' => ' '
-        );
-    } 
+  $banner = array(
+    'Statement Date' => $invoice_date, 
+    'Statement Number' => "#" . $d->invoice->getData('id')
+   );
 
-    $summary = '
-        <div id="banner">'.$r->view('basicList', $banner).'</div>
-        <h2 id="invoice-client">'.$client.'</h2>
-        <div id="billing-contact">Billing Contact Email: '.$billing_contact_emails.$additional_recipients.'<br>
-        </div>
-        <div id="billing-send-invoice">'.$send_button.'</div>
-        <div id="invoice-summary">';
-    if ($d->invoice->getData('details')){
-        $summary .= '<div id="details"><strong>Details</strong>: ' . nl2br($d->invoice->getData('details')) . '</div>';
-    }
+  $client = $d->company->getName();  
+  $billing_contact_emails = $d->company->getBillingEmailAddress();
+  $additional_recipients = $d->invoice->getAdditionalRecipients();
+  $send_button = UI::button(array(  'controller' => 'Invoice',
+    'action' => 'email',
+    'id' => $d->invoice->getData('id')
+   )); 
+  if ($d->invoice->getData('type') == 'dated') {  
+    $items = array(
+      'Items for Period' => $invoice_period,
+      'Previous Balance' => "$ " . number_format($d->invoice->getPreviousBalance(), 2), 
+      'New Payments in Period' => "$ " . number_format($d->invoice->getNewPaymentsTotal(), 2),
+      'New Charges in Period' => "$ " . number_format($d->invoice->getNewCosts(), 2),
+      'Total Due' => "$ " . number_format($d->invoice->getAmountDue(), 2),
+      'Net 30 Terms' => ' '
+     );
+  } else {
+    $items = array(
+      'Total Due' => "$ " . number_format($d->invoice->getAmountDue(), 2),
+      'Net 30 Terms' => ' '
+     );
+  } 
 
-    $summary .=		
-        $r->view('basicList', $items ).'
-        </div>';
+  $summary = '
+    <div id="banner">' . $r->view('basicList', $banner) . '</div>
+    <h2 id="invoice-client">' . $client . '</h2>
+    <div id="billing-contact">Billing Contact Email: ' . $billing_contact_emails . $additional_recipients . '<br>
+    </div>
+    <div id="billing-send-invoice">' . $send_button . '</div>
+    <div id="invoice-summary">';
+  if ($d->invoice->getData('details')) {
+    $summary .= '<div id="details"><strong>Details</strong>: ' . nl2br($d->invoice->getData('details')) . '</div>';
+  }
 
-    $history = $r->view( 'companyLineItems', array(
-        'company'=>$d->company,
-        'months'=>Util::month_range(
-            $d->invoice->getStartDate(),
-            $d->invoice->getEndDate()
-        )));
+  $summary .=  
+    $r->view('basicList', $items) . '
+    </div>';
 
-    return array( 
-        'template' => 'invoice',
-        'title' => 'Show Statement', 
-        'body' =>   $summary,
-        'history'=>	$history
-    );
+  $history = $r->view('companyLineItems', array(
+    'company' => $d->company,
+    'months' => Util::month_range(
+      $d->invoice->getStartDate(),
+      $d->invoice->getEndDate()
+    )
+  ));
+
+  return array(
+    'template' => 'invoice',
+    'title' => 'Show Statement', 
+    'body' =>   $summary,
+    'history' =>   $history
+  );
 }
+
+?>

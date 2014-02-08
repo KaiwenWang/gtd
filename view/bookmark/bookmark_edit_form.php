@@ -1,2 +1,5 @@
 <?php
-function bookmarkEditForm(){}
+
+function bookmarkEditForm() {}
+
+?>
