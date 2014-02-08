@@ -1,36 +1,38 @@
 <?php
 class ClientUser extends User{
 
-    var $datatable = "client_user";
-    var $name_field = "first_name";
-
-    protected static $schema;
-    protected static $schema_json = '{
+  var $datatable = 'client_user';
+  var $name_field = 'first_name';
+  protected static $schema;
+  protected static $schema_json = '{
     "fields": {
-        "first_name": "text",
-        "last_name": "text",
-        "company_id": "Company",
-        "email": "text",
-        "username": "text",
+        "first_name": "text", 
+        "last_name": "text", 
+        "company_id": "Company", 
+        "email": "text", 
+        "username": "text", 
         "password": "text"
-    },
-    "required": [],
+    }, 
+    "required": [], 
     "values": {}
-    }';
+  }';
 
-  function __construct( $id = null){
-    parent::__construct( $id);
+  function __construct($id = null) {
+    parent::__construct($id);
   }
 
-  function getUserType(){
+  function getUserType() {
     return 'client';
   }
 
-  function getCompany(){
+  function getCompany() {
     return new Company($this->get('company_id'));
   }
 
-  function getCompanyName(){
+  function getCompanyName() {
     return $this->getCompany()->getName();
   }
+
 }
+
+?>

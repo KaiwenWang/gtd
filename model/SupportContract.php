@@ -34,127 +34,125 @@ class SupportContract extends ActiveRecord {
     }
   }';
 
-  function __construct( $id = null){
-    parent::__construct( $id);
+  function __construct($id = null) {
+    parent::__construct($id);
   }
 
-  function getName(){
-    return $this->getCompanyName().': '.$this->getData('domain_name');
+  function getName() {
+    return $this->getCompanyName() . ': ' . $this->getData('domain_name');
   }
 
-  function getShortName(){
+  function getShortName() {
     return $this->getData('domain_name');
   }
 
-  function getInvoices(){
-    if(!$this->invoices){
+  function getInvoices() {
+    if(!$this->invoices) {
       $finder = new Invoice();
-      $this->invoices = $finder->find(array("support_contract_id"=>$this->id));
+      $this->invoices = $finder->find(array('support_contract_id' => $this->id));
     }
-    return $this->invoices;  
+    return $this->invoices;
   }
 
-  function getHours( $criteria = array()){
-    $criteria = array_merge( array('support_contract_id'=>$this->id), $criteria);
+  function getHours($criteria = array()) {
+    $criteria = array_merge(array('support_contract_id' => $this->id), $criteria);
     $this->hours = Hour::getMany($criteria);
     return $this->hours;
   }
 
   function getFirstHour() {
-    $criteria = array('support_contract_id'=>$this->id, 'sort'=>'date ASC');
-    return getOne('Hour',$criteria);
+    $criteria = array('support_contract_id' => $this->id, 'sort' => 'date ASC');
+    return getOne('Hour', $criteria);
   }
 
-  function getTotalHours($criteria = array()){
+  function getTotalHours($criteria = array()) {
     $hours = $this->getHours($criteria);
     $total_hours = 0;
-    if( !$hours ) return $total_hours;
-    foreach ($hours as $hour){
+    if(!$hours) return $total_hours;
+    foreach ($hours as $hour) {
         $total_hours += $hour->getHours();
     }
     return $total_hours;
   }
   
-  function getBillableHours($criteria = array()){
+  function getBillableHours($criteria = array()) {
     $hours = $this->getHours($criteria);
     $billable_hours = 0;
-    if( !$hours ) return $billable_hours;
-    foreach ($hours as $hour){
+    if(!$hours) return $billable_hours;
+    foreach ($hours as $hour) {
       $billable_hours += $hour->getHours();
       $billable_hours -= $hour->getDiscount();
     }
     return $billable_hours;
   }
 
-  function getProductInstances(){
-    if(empty($this->product_instances)){
+  function getProductInstances() {
+    if(empty($this->product_instances)) {
       $finder = new ProductInstance();
-      $this->product_instances = $finder->find(array("support_contract_id"=>$this->id));
+      $this->product_instances = $finder->find(array('support_contract_id' => $this->id));
     }
     return $this->product_instances;  
   }
 
-  function getBandwidth(){
-    if(empty($this->bandwidths)){
+  function getBandwidth() {
+    if(empty($this->bandwidths)) {
       $finder = new Bandwidth();
-      $this->bandwidths = $finder->find(array("support_contract_id"=>$this->id));
+      $this->bandwidths = $finder->find(array('support_contract_id' => $this->id));
     }
     return $this->bandwidths;
   }
 
-  function getCompany(){
-    if(empty($this->company)){
-      $this->company = new Company( $this->getData('company_id'));
+  function getCompany() {
+    if(empty($this->company)) {
+      $this->company = new Company($this->getData('company_id'));
     }
     return $this->company;  
   }
 
-  function getCompanyName(){
+  function getCompanyName() {
     $company = $this->getCompany();
     return $company->getName();
   }
 
-  function getStartDate(){
+  function getStartDate() {
     return $this->get('start_date');
   }
 
-  function getEndDate(){
+  function getEndDate() {
     return $this->get('end_date');
   }
 
-  function isValid(){
+  function isValid() {
     $valid = true;
 
     if(!Util::is_a_date($this->get('start_date'))) {
-      $this->errors[] = 'contract '.$this->id.' has no start date';
+      $this->errors[] = 'Contract ' . $this->id . ' has no start date.';
       $valid = false;
     }
 
-    if ( $valid && parent::isValid()) return true;
+    if($valid && parent::isValid()) return true;
   }
 
-  function calculateTotal( $date_range = array() ) {
+  function calculateTotal($date_range = array()) {
     if(!$this->isValid()) {
-      bail( $this->errors );
+      bail($this->errors);
     }
 
     if(!isset($date_range['start_date'])) $date_range['start_date'] = $this->get('start_date');
 
-    if( isset($date_range['end_date']) 
+    if(isset($date_range['end_date']) 
       && Util::is_a_date($this->get('end_date')) 
-      && ($date_range['end_date'] > $this->get('end_date')) ){
-
+      && ($date_range['end_date'] > $this->get('end_date'))) {
         $date_range['end_date'] = $this->get('end_date');
+    }
 
-      }
-
-    $hours = $this->getHours( array( 'date_range' => $date_range ));
+    $hours = $this->getHours(array('date_range' => $date_range));
 
     if(!$hours) $hours = array();
 
     //split up by month
     $billable_hours_by_month = array();
-    foreach( $hours as $hour){
+    foreach($hours as $hour) {
       $month = date('Ym', strtotime($hour->get('date')));
       if(!isset($billable_hours_by_month[$month])) $billable_hours_by_month[$month] = 0;
       $billable_hours_by_month[$month] += $hour->getBillableHours();
@@ -166,28 +164,28 @@ class SupportContract extends ActiveRecord {
     }
     $total_charges = 0;
     $active_months = $this->activeMonths($date_range);
-    foreach( $billable_hours_by_month as $month => $billable_hours) {
+    foreach($billable_hours_by_month as $month => $billable_hours) {
       if(in_array($month, $active_months)) {
-        $total_charges += $this->calculateMonthlyCharge( $billable_hours, $month);
+        $total_charges += $this->calculateMonthlyCharge($billable_hours, $month);
       }
     }
 
     return $total_charges; 
   }
 
-  function getActiveMonths(){
-    if(empty($this->active_months)){
-      $this->active_months = $this->activeMonths(array(),false);
+  function getActiveMonths() {
+    if(empty($this->active_months)) {
+      $this->active_months = $this->activeMonths(array(), false);
     }
-  return $this->active_months;
+    return $this->active_months;
   }
 
-  function activeMonths( $date_range = array(), $legacy_format = true ) {
+  function activeMonths($date_range = array(), $legacy_format = true) {
 
-    // if there is no requested start date,
+    // ifthere is no requested start date,
     // or the contract start date is later than the requested start date, 
     // use the contract start date instead.
-    if ( isset($date_range['start_date'])){
+    if(isset($date_range['start_date'])) {
       ($date_range['start_date'] > $this->get('start_date')) ? $start_date = $date_range['start_date'] 
         : $start_date = $this->get('start_date');
     } else {
@@ -198,19 +196,20 @@ class SupportContract extends ActiveRecord {
     // (this also makes start date a timestamp)
     $start_date = Util::start_of_month($start_date);
 
-    // if there is no requested end date,
+    // ifthere is no requested end date,
     // or the contract end date is earlier than the requested end date, 
     // use the contract end date instead.
-    if ( Util::is_a_date($this->get('end_date'))) $end_date = $this->get('end_date');
+    if(Util::is_a_date($this->get('end_date'))) $end_date = $this->get('end_date');
 
-    if ( isset($date_range['end_date']) && isset($end_date)){
-      ($date_range['end_date'] < $end_date) ? $end_date = $date_range['end_date'] 
+    if(isset($date_range['end_date']) && isset($end_date)) {
+      ($date_range['end_date'] < $end_date) 
+        ? $end_date = $date_range['end_date'] 
         : $end_date = $this->get('end_date');
-    } elseif( isset($date_range['end_date'])){
+    } elseif(isset($date_range['end_date'])) {
       $end_date = $date_range['end_date'];
     }
-    // if there was no requested end date OR contract end date, use the current date 
-    if( !isset($end_date) || !Util::is_a_date($end_date) ){
+    // ifthere was no requested end date OR contract end date, use the current date 
+    if(!isset($end_date) || !Util::is_a_date($end_date)) {
       $end_date = 'now';
     } 
 
@@ -219,7 +218,7 @@ class SupportContract extends ActiveRecord {
 
     // loop over the requested months and make an array of their unique "month-id's"
     $included_months = array();
-    for( $time = $start_date; $time < $end_date; $time = strtotime('+1 month', $time)){
+    for($time = $start_date; $time < $end_date; $time = strtotime('+1 month', $time)) {
       if($legacy_format) $included_months[] = date('Ym', $time);
       else $included_months[] = date('Y-m', $time);
     }
@@ -227,7 +226,7 @@ class SupportContract extends ActiveRecord {
     return $included_months;
   }
 
-  function getHourlyRate(){
+  function getHourlyRate() {
     return $this->get('hourly_rate');
   }
 
@@ -235,16 +234,16 @@ class SupportContract extends ActiveRecord {
     return $this->calculateMonthlyOverage($hours,$month,$legacy_month) + $this->calculateMonthlyBaseRate($month,$legacy_month);
   }
 
-  function calculateMonthlyOverage($hours, $month = null, $legacy_month=true){
+  function calculateMonthlyOverage($hours, $month = null, $legacy_month=true) {
     //yo ask ted!
     //compare support hours given > support hours / month
-          /*if( $hours <= $this->get('support_hours')) { 
+          /*if($hours <= $this->get('support_hours')) { 
               $amount = $this->calculateMonthlyBaseRate($month,$legacy_month);
               return $amount;
           }*/
 
     $overage = $hours - $this->get('support_hours');
-    if( $overage < 0) $overage = 0;
+    if($overage < 0) $overage = 0;
 
     return $overage * $this->getHourlyRate();
   }  
@@ -256,18 +255,18 @@ class SupportContract extends ActiveRecord {
     $start_date = $this->get('start_date');
     $start_month = Util::is_a_date($start_date) ? date('Ym', strtotime($start_date)) : false;
 
-    // Check to see if current month is the starting month of the contract
-    if ( $month == $start_month) {
-      $monthly_rate = $this->get('monthly_rate') * Util::percent_of_month_from_end( $start_date );
+    // Check to see ifcurrent month is the starting month of the contract
+    if($month == $start_month) {
+      $monthly_rate = $this->get('monthly_rate') * Util::percent_of_month_from_end($start_date);
       return $monthly_rate;
     } 
 
     $end_date = $this->get('end_date');
     $end_month = Util::is_a_date($end_date) ? date('Ym', strtotime($end_date)) : false;
 
-    // Check to see if current month is the ending month of the contract
-    if ( $month == $end_month) {
-      $monthly_rate =$this->get('monthly_rate') * Util::percent_of_month_from_start( $end_date );
+    // Check to see ifcurrent month is the ending month of the contract
+    if($month == $end_month) {
+      $monthly_rate =$this->get('monthly_rate') * Util::percent_of_month_from_start($end_date);
       return $monthly_rate;
     }
 
@@ -275,9 +274,9 @@ class SupportContract extends ActiveRecord {
     return $monthly_rate;
   }
 
-  function destroyAssociatedRecords(){
-    if($this->getHours()){
-      foreach( $this->getHours() as $hour){
+  function destroyAssociatedRecords() {
+    if($this->getHours()) {
+      foreach($this->getHours() as $hour) {
         $hour->destroyAssociatedRecords();
         $hour->delete();
       }
@@ -285,3 +284,5 @@ class SupportContract extends ActiveRecord {
   }
 
 }
+
+?>
