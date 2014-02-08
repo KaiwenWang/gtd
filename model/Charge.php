@@ -1,4 +1,5 @@
 <?php
+
 class Charge extends  ActiveRecord {
 
   var $datatable = 'charge';
@@ -30,35 +31,47 @@ class Charge extends  ActiveRecord {
     $company = new Company($this->get('company_id'));
     return $company;
   }
+
   function getType() {
     return $this->get('type');
   }
+
   function getDescription() {
     return $this->get('description');
   }
+
   function getDate() {
     return $this->get('date');
   }
+
   function getAmount() {
     return $this->get('amount');
   }
+
   function _sort_default(&$item_set) {
     return $this->sort($item_set, 'date', 'desc');
   }
+
   function getHistoryName() {
     return $this->getType();  
   }
+
   function getHistoryDate() {
     return $this->getDate();  
-  } 
+  }
+
   function getHistoryDescription() {
     $desc = $this->getName();
     if($this->getDescription()) {
-      $desc .= ': '.$this->getDescription();
+      $desc .= ': ' . $this->getDescription();
     }
     return $desc;
   }
+
   function getHistoryAmount() {
     return $this->getAmount();
   }
+
 }
+
+?>

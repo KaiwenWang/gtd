@@ -1,4 +1,5 @@
 <?php
+
 class InvoiceBatch extends ActiveRecord{
 
   var $datatable = 'invoice_batch';

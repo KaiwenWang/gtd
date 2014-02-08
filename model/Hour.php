@@ -1,4 +1,5 @@
 <?php
+
 class Hour extends ActiveRecord {
 
   var $datatable = 'hour';

@@ -1,4 +1,5 @@
 <?php
+
 class Estimate extends ActiveRecord {
 
   var $datatable = 'estimate';

@@ -1,4 +1,5 @@
 <?php
+
 class SupportContract extends ActiveRecord {
 
   var $datatable = "support_contract";

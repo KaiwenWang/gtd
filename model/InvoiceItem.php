@@ -1,4 +1,5 @@
 <?php
+
 class InvoiceItem extends ActiveRecord {
 
   var $datatable = 'invoice_item';

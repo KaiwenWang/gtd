@@ -1,15 +1,14 @@
 <?php
+
 class Company extends ActiveRecord {
 
   var $datatable = 'company';
   var $name_field = 'name';
-
   var $history_types = array(
       'Hours', 
       'Charges', 
       'Payments'
   );
-
   protected static $schema;
   protected static $schema_json = '{
     "fields": {

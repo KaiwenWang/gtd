@@ -6,7 +6,7 @@
 Extend ActiveRecord in the /model directory to create a new GTD model.
  */
 
-class ActiveRecord  extends Record {
+class ActiveRecord extends Record {
 
   var $name_field;
   protected static $schema;

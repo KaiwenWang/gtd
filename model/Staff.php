@@ -1,4 +1,5 @@
 <?php
+
 class Staff extends User {
 
   var $datatable = "staff";
@@ -89,7 +90,7 @@ class Staff extends User {
   }
 
   function getBillableHoursTotal($criteria = array(), $options = array()) {
-    return $this->getHoursTotal($criteria, array_merge($options,array('billable_only' => true)));
+    return $this->getHoursTotal($criteria, array_merge($options, array('billable_only' => true)));
   }
 
   function getPermalink() {

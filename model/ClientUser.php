@@ -1,4 +1,5 @@
 <?php
+
 class ClientUser extends User{
 
   var $datatable = 'client_user';

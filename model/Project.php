@@ -1,4 +1,5 @@
 <?php
+
 class Project extends ActiveRecord {
 
   var $datatable = 'project';

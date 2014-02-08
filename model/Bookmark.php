@@ -1,4 +1,5 @@
 <?php
+
 class Bookmark extends ActiveRecord {
 
   var $datatable = "bookmark";
