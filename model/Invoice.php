@@ -169,7 +169,6 @@ class Invoice extends ActiveRecord {
     $previous_balance_date = array('end_date' => $date_range['start_date']);
     $amount_due_date = array('end_date' => $date_range['end_date']);
 
-    die($previous_balance_date);
     $previous_balance = $this->company->calculateBalance($previous_balance_date);
     $new_costs = $this->company->calculateCosts($date_range);
     $new_payments = $this->company->calculatePaymentsTotal($date_range);
