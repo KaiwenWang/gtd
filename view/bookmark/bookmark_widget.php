@@ -1,5 +1,6 @@
 <?php
-function bookmarkWidget(){
+
+function bookmarkWidget() {
   $html = "
     <div id='bookmark-link'>
       <img src='/client/img/star.png'>
@@ -11,4 +12,5 @@ function bookmarkWidget(){
 
   return $html;
 }
+
 ?>

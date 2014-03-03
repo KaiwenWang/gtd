@@ -1,5 +1,6 @@
 <?php
-function staffIndex($d){
+
+function staffIndex($d) {
   $r = getRenderer();
 
   $html = $r->view('staffTable', $d->staff);
@@ -9,4 +10,5 @@ function staffIndex($d){
     'body' => $html
   );
 }
+
 ?>

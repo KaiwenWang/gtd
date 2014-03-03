@@ -1,19 +1,20 @@
 <?php
+
 function supporthourTable( $hours, $o = array()){
   $r =& getRenderer();
   if( !$hours ) return false;
 
   // Table
   $table = array();
-  $table['headers'] = array(	'ID',
-    'Description',
-    'Date Completed',
-    'Staff',
-    'Hours',
-    'Discount',
-    'Billable Hours',
-    'Edit',
-    'Delete'
+  $table['headers'] = array(  'ID',
+  'Description',
+  'Date Completed',
+  'Staff',
+  'Hours',
+  'Discount',
+  'Billable Hours',
+  'Edit',
+  'Delete'
   );
   $table['rows'] =  array();
 
@@ -21,21 +22,23 @@ function supporthourTable( $hours, $o = array()){
   $billable_hours = 0;
 
   foreach($hours as $h){
-    $total_hours += $h->getHours();
-    $billable_hours += $h->getBillableHours();
-    $table['rows'][] = array(	
-      UI::link( array( 'controller'=>'SupportHour', 'action'=>'show','id'=>$h->id, 'text'=>$h->id)),
-      UI::link( array( 'controller'=>'SupportHour', 'action'=>'show','id'=>$h->id, 'text'=>$h->getName())),
-      $h->getData('date'),
-      $h->getStaffName(),
-      $h->getHours(),
-      $h->getDiscount(),
-      $h->getBillableHours(),
-      UI::button( array( 'controller'=>'SupportHour', 'action'=>'show','id'=>$h->id)),
-      UI::button( array( 'controller'=>'SupportHour', 'action'=>'destroy','id'=>$h->id))
-    );
+  $total_hours += $h->getHours();
+  $billable_hours += $h->getBillableHours();
+  $table['rows'][] = array(  
+    UI::link( array( 'controller' => 'SupportHour', 'action' => 'show','id' => $h->id, 'text' => $h->id)),
+    UI::link( array( 'controller' => 'SupportHour', 'action' => 'show','id' => $h->id, 'text' => $h->getName())),
+    $h->getData('date'),
+    $h->getStaffName(),
+    $h->getHours(),
+    $h->getDiscount(),
+    $h->getBillableHours(),
+    UI::button( array( 'controller' => 'SupportHour', 'action' => 'show','id' => $h->id)),
+    UI::button( array( 'controller' => 'SupportHour', 'action' => 'destroy','id' => $h->id))
+  );
   }
   if ( !isset($o['title'])) $o['title'] = 'Hours';
-  $html = $r->view( 'basicTable', $table, array('title'=>'Support Hours', $o)) ;
+  $html = $r->view( 'basicTable', $table, array('title' => 'Support Hours', $o)) ;
   return $html;
 }
+
+?>

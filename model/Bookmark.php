@@ -1,4 +1,5 @@
 <?php
+
 class Bookmark extends ActiveRecord {
 
   var $datatable = "bookmark";
@@ -7,39 +8,42 @@ class Bookmark extends ActiveRecord {
   protected static $schema;
   protected static $schema_json = '{  
     "fields"   : {  
-      "staff_id":  "Staff",
-      "source"    :  "text",
-      "alias"    :  "text",
+      "staff_id":  "Staff", 
+      "source"    :  "text", 
+      "alias"    :  "text", 
       "description"    :  "text"
-    },
+    }, 
     "required" : [ 
-      "staff_id",
+      "staff_id", 
       "source"
     ]
   }';
 
   
-  function __construct( $id = null){
-      parent::__construct( $id);
+  function __construct($id = null) {
+    parent::__construct($id);
   }
-  function getName(){
+
+  function getName() {
     return $this->getData('id');
   }
-  function getStaff(){
-    if(empty($this->staff)){
-      $this->staff = new Staff( $this->get('staff_id'));
+
+  function getStaff() {
+    if(empty($this->staff)) {
+      $this->staff = new Staff($this->get('staff_id'));
     }
     return $this->staff;  
   }
-  function getDescription(){
+
+  function getDescription() {
     return $this->get('description');
   }
     
-  function getSource(){
+  function getSource() {
     return $this->get('source');
   }
 
-  function getAlias(){
+  function getAlias() {
     return $this->get('description');
   }
 
@@ -47,14 +51,17 @@ class Bookmark extends ActiveRecord {
     return $this->get('url');
   }
 
-  function setUrl($url){
+  function setUrl($url) {
     $this->set(array('url' => $url));
   }
 
-  function namespaceAlias($alias){
-    if(!$alias){
-      bail('you must specify an alias');
+  function namespaceAlias($alias) {
+    if(!$alias) {
+      bail('You must specify an alias.');
     }
     return '/' . $this->getStaff()->getPermalink() . '/' . $alias;
   }
+
 }
+
+?>

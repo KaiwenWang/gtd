@@ -1,22 +1,24 @@
 <?php
-function invoiceNewForm( $invoice, $o = array() ) {
-    $r = getRenderer();
 
-    $form = new Form( array( 'controller'=>'Invoice', 'action'=>'create'));
-    $fs = $form->getFieldSetFor( $invoice );
+function invoiceNewForm($invoice, $o = array()) {
+  $r = getRenderer();
 
-    $list_items = array(
-        'Start Date'    		=> $fs->start_date,
-        'End Date' 	    		=> $fs->end_date,
-        'Company'       		=> $fs->company_id,
-        'Additional Recipients'         => $fs->additional_recipients
-    );	
+  $form = new Form(array('controller' => 'Invoice', 'action' => 'create'));
+  $fs = $form->getFieldSetFor($invoice);
 
-    $form->content = $r->view( 'basicFormContents', 
-        $list_items, 
-        array( 'title'=>'New Standard Statement')
-    );
+  $list_items = array(
+    'Start Date' => $fs->start_date,
+    'End Date' => $fs->end_date,
+    'Company' => $fs->company_id,
+    'Additional Recipients' => $fs->additional_recipients
+  );  
 
+  $form->content = $r->view('basicFormContents', 
+    $list_items, 
+    array('title' => 'New Standard Statement')
+  );
 
-    return $form->html;
+  return $form->html;
 }
+
+?>
