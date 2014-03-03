@@ -7,6 +7,7 @@ function companyEditForm($c, $o = array()) {
 
   $list_items = array(
     'Name' => $fs->name,
+    'Alias' => $fs->alias,
     'Status' => $fs->status,
     'Type' => $fs->org_type,
     'Bay Area' => $fs->bay_area,

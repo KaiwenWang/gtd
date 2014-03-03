@@ -6,6 +6,7 @@ function applicationLayout(){
     'controller'=>'Company',
     'action'=>'show',
     'method'=>'get',
+    'title'=>'getName',
     'auto_submit'=>array('id')
   ));
 
