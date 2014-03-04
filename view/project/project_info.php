@@ -5,6 +5,10 @@ function projectInfo($p, $o = array()) {
   $p->get('launch_date') 
     ? $launch_date = date('m/d/Y', strtotime($p->get('launch_date')))
     : $launch_date = 'NOT SET';
+  
+  if($launch_date == '11/30/-0001') {
+    $launch_date = 'N/A';
+  }
          
   $html = '
     <div>

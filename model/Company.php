@@ -13,6 +13,7 @@ class Company extends ActiveRecord {
   protected static $schema_json = '{
     "fields": {
         "name": "text", 
+        "alias": "text",
         "notes": "textarea", 
         "street": "text", 
         "street_2": "text", 
@@ -527,6 +528,19 @@ class Company extends ActiveRecord {
     }
   }
 
+  function getName() {
+    $name = $this->get('name');
+    $alias = $this->get('alias');
+    if(isset($alias) && ($alias != '')) {
+      $name = $alias . ' - ' . $name;
+    }
+    return $name;
+  }
+
+  function getDisplayName() {
+    $name = $this->get('name');
+    return $name;
+  }
 }
 
 ?>

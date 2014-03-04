@@ -18,7 +18,7 @@ function invoiceShow($d, $o = array()) {
     'Statement Number' => "#" . $d->invoice->getData('id')
    );
 
-  $client = $d->company->getName();  
+  $client = $d->company->getDisplayName();  
   $billing_contact_emails = $d->company->getBillingEmailAddress();
   $additional_recipients = $d->invoice->getAdditionalRecipients();
   $send_button = UI::button(array(  'controller' => 'Invoice',
