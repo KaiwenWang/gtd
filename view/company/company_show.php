@@ -29,7 +29,7 @@ function companyShow($d) {
   $payment_table = $r->view('paymentTable', $d->company->getPayments());
   $invoice_table = $r->view('invoiceTable', $d->company->getInvoices());
   //$history_table = $r->view('historyTable', $d->company->getHistory());
-  $hour_table = $r->view('hourTable', $d->company->getHours()); 
+  //$hour_table = $r->view('hourTable', $d->company->getHours()); 
   $note_table = $r->view('noteTable', $d->company->getNotes()); //get notes
   $monthly_history = $r->view('companyLineItems', array(
     'company' => $d->company,
@@ -49,7 +49,6 @@ function companyShow($d) {
       . $charge_table
       . $payment_table
       . $invoice_table
-      . $hour_table
       . $monthly_history
     . '</div>'
   );  
