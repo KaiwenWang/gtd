@@ -342,6 +342,15 @@ padding: 0 15px 0 0 ;
 background:#aa4643 !important;
 color: #ffffff;
 }
+.bar .place-1 {
+background: #ffd700;
+}
+.bar .place-2 {
+background: #c0c0c0;
+}
+.bar .place-3 {
+background: #cd7f32;
+}
 .basic-cell{
 display:inline-block;
 margin-bottom:2px;

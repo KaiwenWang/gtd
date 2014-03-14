@@ -33,39 +33,35 @@ function staffShow($d) {
 
     $hours = $search_form->html;
     $hours .= '<div class="hours-race">';
-    $js = '<script type="text/javascript">
-      $(function() {
-    ';
     arsort($d->billable_hours_this_week);
     $place = 1;
+    $most_hours = 0.00000001;
+    if(max($d->billable_hours_this_week) > $most_hours) {
+      $most_hours = max($d->billable_hours_this_week);
+    }
     foreach($d->billable_hours_this_week as $id => $billable) {
-      $percent = ($d->billable_hours_this_week[$id] / 40) * 100;
-      $pclass = $percent > 37.5 ? 'overbudget' : '';
+      $percent = ($d->billable_hours_this_week[$id] / $most_hours) * 100;
       $hours .= '<div class="contestant">
       <div class="placement">#' . $place . '</div>
       <div class="contestant-data">
         <div class="name">' . $d->staff[$id] . '</div>' . 
         '<div class="stats"><strong>Billable:</strong> ' . $d->billable_hours_this_week[$id] . ' | <strong>Total:</strong> ' . $d->total_hours_this_week[$id] . '</div>' . 
         '<div class="bar">
-        <div class="filling-' . $id . ' ' . $pclass . '" style="width: 5%">
+        <div class="filling bar-' . $id . ' ' . $pclass . ' place-' . $place . '" style="width: 5%">
           ' . $d->billable_hours_this_week[$id] . '
         </div>
         </div>
+        <script>$(".bar-' . $id . '").animate({"width":"' . $percent . '%"}, 1000);</script>
       </div>
       <div class="clear"></div>
       </div>';
-      $js .= '$(".filling-' . $id . '").animate({"width":"' . $percent . '%"}, 1000);
-      ';    
       $place++;
     }
-    $js .= '});
-    </script>';
     $hours .= '</div>';
 
     return array( 
       'title' => 'Ratrace',
       'body' => $hours
-        . $js
     );
   } else {
     $hidden_forms = $r->view('jsMultipleButtons', array(
