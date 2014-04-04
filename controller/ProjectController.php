@@ -3,16 +3,19 @@
 class ProjectController extends PageController {
 
   public $template = 'gtd_main_template';
-  var $before_filters = array('get_posted_records' => array('create', 'update', 'destroy'));
+  var $before_filters = array('get_posted_records' => array('create', 'update', 'destroy'), 'get_search_criteria' => array('index'));
 
   function index($params) {
-    $d = $this->data;
+    $criteria = array();
+    if(!empty($this->search_for_projects)) $criteria = $this->search_for_projects;
+    $criteria['sort'] = array('sort' => 'status DESC, launch_date');
         
-    $d->projects = getMany('Project', array('sort' => 'status DESC, launch_date'));
-
-    $d->new_project = new Project();
-    $d->new_project->set(array('staff_id' => Session::getUserId()));
-  }
+    $this->data->projects = Project::getMany($criteria);
+    $this->data->new_project = new Project();
+    $this->data->new_project->set(array('staff_id' => Session::getUserId()));
+    $this->data->search_project = new Project();
+    $this->data->search_project->set($criteria); 
+  } 
 
   function show($params) {
     $params['id']

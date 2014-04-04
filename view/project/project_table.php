@@ -3,6 +3,21 @@
 function projectTable($projects, $o = array()) {
   if(!$projects) return;
   $r = getRenderer();
+
+  $search_form = '';
+  if(!empty($o['search_project']) && is_a($o['search_project'], 'Project')) {
+    $form = new Form(array(
+      'controller' => 'Project',
+      'action' => 'index',
+      'method' => 'get',
+      'auto_submit' => array('org_type', 'country', 'status'),
+    ));
+    $f = $form->getFieldSetFor($o['search_project']);
+    $form_content .= $f->field('status', array('title' => 'Status'));
+    $form->content = $form_content; 
+    $search_form = $form->html;
+  }
+  
   $table = array();
   $table['headers'] = array(
     'ID',
@@ -27,7 +42,7 @@ function projectTable($projects, $o = array()) {
     $p->getBillableHours()
    );
   }
-  $html = $r->view('basicTable', $table, array('title' => 'Projects', 'pager' => true));
+  $html = $r->view('basicTable', $table, array('title' => 'Projects', 'search' => $search_form, 'pager' => true));
   return $html;
 }
 
