@@ -14,8 +14,8 @@ function invoiceShow($d, $o = array()) {
     . $d->invoice->getEndDate();
 
   $banner = array(
-    'Statement Date' => $invoice_date, 
-    'Statement Number' => "#" . $d->invoice->getData('id')
+    'Invoice Date' => $invoice_date, 
+    'Invoice Number' => "#" . $d->invoice->getData('id')
    );
 
   $client = $d->company->getDisplayName();  
@@ -66,7 +66,7 @@ function invoiceShow($d, $o = array()) {
 
   return array(
     'template' => 'invoice',
-    'title' => 'Show Statement', 
+    'title' => 'Show Invoice', 
     'body' =>   $summary,
     'history' =>   $history
   );

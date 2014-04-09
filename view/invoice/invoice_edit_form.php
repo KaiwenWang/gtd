@@ -16,7 +16,7 @@ function invoiceEditForm($invoice, $o = array()) {
 
   $form->content = $r->view('basicFormContents', 
     $list_items, 
-    array('title' => 'Edit Standard Statement')
+    array('title' => 'Edit Standard Invoice')
   );
 
   return $form->html;

@@ -15,7 +15,7 @@ function invoiceNewForm($invoice, $o = array()) {
 
   $form->content = $r->view('basicFormContents', 
     $list_items, 
-    array('title' => 'New Standard Statement')
+    array('title' => 'New Standard Invoice')
   );
 
   return $form->html;
