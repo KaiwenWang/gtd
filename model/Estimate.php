@@ -15,9 +15,26 @@ class Estimate extends ActiveRecord {
         "completed"    :  "bool", 
         "notes"      :  "textarea", 
         "low_hours"    :  "float", 
-        "basecamp_id"    :  "int"
+        "basecamp_id"    :  "int",
+        "category" : "text"
       }, 
-    "required" : []
+      "required" : [
+        "category"
+      ],
+      "values": {
+        "category": {
+          "": "Uncategorizable",
+          "discovery": "Discovery",
+          "design": "Design",
+          "setup/development": "Setup/Development",
+          "setup": "Setup",
+          "development": "Development",
+          "server": "Server",
+          "data_migration": "Data Migration",
+          "training": "Training",
+          "project_management": "Project Management/Q&A/Testing/Launch"
+        }
+      }
   }';
 
   function __construct($id = null) {

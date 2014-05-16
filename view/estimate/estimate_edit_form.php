@@ -12,7 +12,8 @@ function estimateEditForm($e, $o = array()) {
     'High Estimate' => $fs->high_hours,
     'Due Date' => $fs->due_date,
     'Internal Details' => $fs->notes,
-    'Project' => $fs->project_id
+    'Project' => $fs->project_id,
+    'Category' => $fs->category
   );  
   
   $form->content = $r->view('basicFormContents', 

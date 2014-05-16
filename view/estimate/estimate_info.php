@@ -17,7 +17,8 @@ function estimateInfo($estimate, $o = array()) {
     'Total Hours'   => $estimate->getTotalHours(),
     'Billable Hours'   => $estimate->getBillableHours(),
     'Completed'     => $estimate->getData('completed') ? 'yes' : 'no',
-    'Notes'     => $estimate->getData('notes')
+    'Notes'     => $estimate->getData('notes'),
+    'Category' => $estimate->get('category')
    );
 
   return $r->view('basicList', $list_items);  

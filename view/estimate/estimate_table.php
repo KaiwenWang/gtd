@@ -12,7 +12,8 @@ function estimateTable($estimates, $o = array()) {
     'Total Hours',
     'Billable Hours',
     'Notes',
-    'Completed'
+    'Completed',
+    'Category'
   );
   $table['rows'] = array();
   foreach($estimates as $e) {
@@ -24,7 +25,8 @@ function estimateTable($estimates, $o = array()) {
       $e->getTotalHours(),
       $e->getBillableHours(),
       $e->getData('notes'),
-      $e->getData('completed') ? 'Yes' : 'No'
+      $e->getData('completed') ? 'Yes' : 'No',
+      $e->get('category')
     );
   }
   $html = $r->view('basicTable', $table, array('title' => 'Estimates', 'pager' => true));
