@@ -18,6 +18,6 @@ class Link {
 		return $this->url;
 	}
 	function execute(){
-    	return '<a href="'.$this->getUrl().'" '.Render::attr($this->options).'>'.$this->text.'</a>';
+    	return @'<a href="'.$this->getUrl().'" '.Render::attr($this->options).'>'.$this->text.'</a>';
     }
 }

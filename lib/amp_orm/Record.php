@@ -31,7 +31,7 @@ class Record extends Data {
     var $list_action;
 
     function __construct( $item_id = null ) {
-        $this->dbcon = AMP::getDb();
+        @$this->dbcon = AMP::getDb();
         $this->setSource( $this->datatable );
         if (isset($item_id) && $item_id) $this->readData( $item_id );
     }
@@ -78,7 +78,7 @@ class Record extends Data {
 
         $sql = $this->_assembleSQL();
 
-        AMP::debug_sql($sql, get_class($this));
+        @AMP::debug_sql($sql, get_class($this));
 
         if ( $itemdata = $this->dbcon->CacheGetRow( $sql )) {
             $this->set_data_from_db($itemdata);

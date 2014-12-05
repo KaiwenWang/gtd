@@ -113,7 +113,7 @@ class Data {
     }
 
     function _getColumnNames( $sourceDef ) {
-        return AMP::get_column_names( $sourceDef );
+        return @AMP::get_column_names( $sourceDef );
     }
 
     # sets a minimum id for the next database insert

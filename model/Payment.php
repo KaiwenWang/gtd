@@ -16,7 +16,8 @@ class Payment extends ActiveRecord {
       "invoice_id": "int", 
       "company_id": "Company", 
       "notes": "textarea", 
-      "check_number": "text"
+      "check_number": "text",
+      "purpose": "text"
     }, 
     "required": [], 
     "values": {
@@ -27,7 +28,12 @@ class Payment extends ActiveRecord {
             "cash": "Cash", 
             "credit": "Credit", 
             "write_off": "Write Off"
-        }
+        },
+        "purpose": {
+	    "project": "Project",
+	    "support": "Hosting & Support",
+	    "other": "Other"
+	}
     }
   }';
 

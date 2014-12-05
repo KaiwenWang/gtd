@@ -21,6 +21,7 @@ function paymentEditForm($payment, $o = array()) {
     'Date' => $fs->date,
     'Payment Type' => $fs->payment_type,
     'Check No.' => $fs->check_number,
+    'Purpose' => $fs->purpose,
     'Notes' => $fs->notes
   );
 

@@ -19,6 +19,7 @@ function paymentNewForm($payment, $o = array()) {
     'Date' => $fs->date,
     'Payment Type' => $fs->payment_type,
     'Check No.' => $fs->check_number,
+    'Purpose' => $fs->purpose,
     'Notes' => $fs->notes,
     'Don\'t Send Reciept' => '<input type="checkbox" value="1" name="noemail" id="noemail">' 
   );
