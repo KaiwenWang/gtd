@@ -234,6 +234,7 @@ class Company extends ActiveRecord {
       $active_months[] = date('Y-m', $ts);
       $ts = strtotime('+1 month', $ts);
     }
+    $active_months[] = date('Y-m', $ts);
 
     return $active_months;
   }
