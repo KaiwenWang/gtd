@@ -16,6 +16,7 @@ function paymentTable($payments, $o = array()) {
       UI::link(array('controller' => 'Company', 'action' => 'show', 'id' => $p->getCompany()->id, 'text' => $p->getCompanyName())), 
       '$ ' . number_format($p->getAmount(), 2),
       $p->getType(),
+      $p->getPurpose(),
       UI::button(array('controller' => 'Payment', 'action' => 'show', 'id' => $p->id)),
       UI::button(array('controller' => 'Payment', 'action' => 'destroy', 'id' => $p->id)),
     );

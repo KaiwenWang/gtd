@@ -45,6 +45,10 @@ class Payment extends ActiveRecord {
     return $this->get('payment_type');
   }
 
+  function getPurpose() {
+    return $this->get('purpose');
+  }
+
   function getCheckNumber() {
     return $this->get('check_number');
   }
