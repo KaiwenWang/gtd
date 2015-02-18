@@ -23,6 +23,7 @@ class Payment extends ActiveRecord {
     "values": {
         "payment_type": {
             "check": "Check", 
+            "stripe": "Stripe", 
             "paypal": "Paypal", 
             "direct": "Direct Deposit", 
             "cash": "Cash", 
